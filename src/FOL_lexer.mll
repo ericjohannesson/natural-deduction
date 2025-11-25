@@ -16,7 +16,7 @@ let canonical (s : string) : string =
 let unnegated (s : string) : string =
         match s with
         |"≠" | "\\neq" -> "="
-        | "∉" | "\\not \\in" | "\\notin" -> "∈"
+        | "∉" | "\\not\\in" | "\\not \\in" |"\\notin" -> "∈"
         |_ -> s
 }
 
@@ -27,7 +27,7 @@ let impl = "→" | "\\to" | "\\rightarrow" | "->"
 let conj = "∧" | "\\land" | "\\wedge" | "&"
 let disj = "∨" | "\\lor" | "\\vee"
 let eqv = "↔" | "\\leftrightarrow" | "<->"
-let neg = "¬" | "\\neg"
+let neg = "¬" | "\\neg" | "~"
 let plus = '+'
 let times = "×" | "*" | "\\times" | "\\cdot"
 let minus = '-'
@@ -39,7 +39,7 @@ let geq = "≥" | "\\geq"
 let prime = '\''
 let neq = "≠" | "\\neq"
 let el = "∈" | "\\in"
-let nel = "∉" | "\\not \\in" | "\\notin"
+let nel = "∉" | "\\not\\in" |"\\not \\in" | "\\notin"
 let subset = "⊂" | "\\subset"
 let subseteq = "⊆" | "\\subseteq"
 let eq = '='
