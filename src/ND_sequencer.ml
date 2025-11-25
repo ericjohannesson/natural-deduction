@@ -32,7 +32,7 @@ let transition (state : t_state) (symbol : t_symbol) (arity: int list) : (t_acti
         |State 3 -> (                                           (* find begining of row to the right *)
                 match symbol with
                 |Space -> Right, State 0, None, arity                   (* beginning of row has been found *)
-                |Letter _ -> Stay, State 0, None, arity         (* beginning of row has been found *)
+                |Letter _ -> Stay, State 0, None, arity                 (* beginning of row has been found *)
                 |Dash -> Stay, State 0, None, arity
                 |Out -> Right, State 3, None, arity                     (* continue *)
         )
@@ -53,8 +53,8 @@ let transition (state : t_state) (symbol : t_symbol) (arity: int list) : (t_acti
         |State 21 -> (                                          (* any premises on this roof? *)
                 match symbol with
                 |Space -> Left, State 50, Some (RSEP (List.hd arity)), (List.tl arity)          (* no premises *)
-                |Letter _ -> Stay, State 61, Some (RSEP (List.hd arity)), (List.tl arity)               (* rule begins *)
-                |Dash -> Up, State 22, None, arity              (* any premises? *)
+                |Letter _ -> Stay, State 61, Some (RSEP (List.hd arity)), (List.tl arity)       (* rule begins *)
+                |Dash -> Up, State 22, None, arity                                              (* any premises? *)
                 |Out -> Left, State 50, Some (RSEP (List.hd arity)), (List.tl arity)            (* no premises *)
         )
         |State 22 -> (                                  (* any premises? *)
@@ -80,7 +80,7 @@ let transition (state : t_state) (symbol : t_symbol) (arity: int list) : (t_acti
         )
         |State 301 -> (                                         (* formula continues? *)
                 match symbol with
-                |Space -> Down, State 31, None, arity                   (* more premises? *)
+                |Space -> Down, State 31, None, arity           (* more premises? *)
                 |Letter _ -> Stay, State 30, Some (FML_LETTER " "), arity
                 |Dash -> Stay, State 30, Some (FML_LETTER " "), arity   
                 |Out -> Left, State 34, None, arity             
@@ -89,22 +89,22 @@ let transition (state : t_state) (symbol : t_symbol) (arity: int list) : (t_acti
                 match symbol with
                 |Space -> Left, State 50, Some (RSEP (List.hd arity)), (List.tl arity)                  (* find end of floor to the left *)
                 |Letter _ -> Stay, State 62, Some (RSEP (List.hd arity)), (List.tl arity)               (* find beginning of rule to the left *)
-                |Dash -> Right, State 32, None, arity                   (* more premises? *)
-                |Out -> Left, State 35, None, arity                     (* is there a floor? *)
+                |Dash -> Right, State 32, None, arity                                                   (* more premises? *)
+                |Out -> Left, State 35, None, arity                                                     (* is there a floor? *)
         )
         |State 32 -> (                                          (* more premises ?*)
                 match symbol with
                 |Space -> Left, State 60, Some (RSEP (List.hd arity)), (List.tl arity)                  (* end of floor has been found *)
                 |Letter _ -> Stay, State 61, Some (RSEP (List.hd arity)), (List.tl arity)               (* rule begins *)
-                |Dash -> Up, State 33, None, arity                      (* more premises? *)
+                |Dash -> Up, State 33, None, arity                                                      (* more premises? *)
                 |Out -> Left, State 60, Some (RSEP (List.hd arity)), (List.tl arity)                    (* end of floor has been found *)
         )
         |State 33 -> (                                          (* more premises? *)
                 match symbol with
                 |Space -> Down, State 31, None, arity
-                |Letter _ -> Stay, State 0, Some HSEP, ((List.hd arity)+1)::(List.tl arity)             (* more premises! *)
+                |Letter _ -> Stay, State 0, Some HSEP, ((List.hd arity)+1)::(List.tl arity)    (* more premises! *)
                 |Dash -> raise (Error 33)
-                |Out -> Left, State 34, None, arity                     (* no more premises, go left to last letter*)
+                |Out -> Left, State 34, None, arity                                            (* no more premises, go left to last letter*)
         )
         |State 34 -> (
                 match symbol with
@@ -116,21 +116,21 @@ let transition (state : t_state) (symbol : t_symbol) (arity: int list) : (t_acti
         |State 35 -> (
                 match symbol with
                 |Space -> Left, State 36, None, arity
-                |Letter _ -> Stay, State 62, Some (RSEP (List.hd arity)), (List.tl arity)               (* rule ends *)
-                |Dash -> Stay, State 60, Some (RSEP (List.hd arity)), (List.tl arity)                   (* floor has no rule *)
-                |Out -> Left, State 36, None, arity                     (* no floor! *)
+                |Letter _ -> Stay, State 62, Some (RSEP (List.hd arity)), (List.tl arity)      (* rule ends *)
+                |Dash -> Stay, State 60, Some (RSEP (List.hd arity)), (List.tl arity)          (* floor has no rule *)
+                |Out -> Left, State 36, None, arity                                            (* no floor! *)
         )
         |State 36 -> (
                 match symbol with
                 |Space -> Left, State 50, None, arity
-                |Letter _ -> Stay, State 62, Some (RSEP (List.hd arity)), (List.tl arity)               (* rule ends *)
-                |Dash -> Stay, State 60, Some (RSEP (List.hd arity)), (List.tl arity)                   (* floor has no rule *)
-                |Out -> Stay, State 100, None, arity                    (* no floor! *)
+                |Letter _ -> Stay, State 62, Some (RSEP (List.hd arity)), (List.tl arity)      (* rule ends *)
+                |Dash -> Stay, State 60, Some (RSEP (List.hd arity)), (List.tl arity)          (* floor has no rule *)
+                |Out -> Stay, State 100, None, arity                                           (* no floor! *)
         )
         |State 40 -> (                                          (* on the last letter *)
                 match symbol with
                 |Space -> raise (Error 40)
-                |Letter _ -> Down, State 41, None, arity                (* is there a floor? *)
+                |Letter _ -> Down, State 41, None, arity        (* is there a floor? *)
                 |Dash -> Down, State 41, None, arity
                 |Out -> raise (Error 40)
         )
@@ -145,21 +145,21 @@ let transition (state : t_state) (symbol : t_symbol) (arity: int list) : (t_acti
                 match symbol with
                 |Space -> Left, State 60, None, arity
                 |Letter s -> Stay, State 61, None, arity
-                |Dash -> Right, State 42, None, arity                   (* continue *)
+                |Dash -> Right, State 42, None, arity           (* continue *)
                 |Out -> Left, State 60, None, arity
         )
         |State 50 -> (                                          (* find end of of floor to the left*)
                 match symbol with
-                |Space -> Left, State 50, None, arity                   (* contiunue *)
-                |Letter _ -> Stay, State 62, None, arity                (* rule ends *)
-                |Dash -> Stay, State 60, None, arity                    (* floor has no rule *)
-                |Out -> Stay, State 100, None, arity                    (* no floor! *)
+                |Space -> Left, State 50, None, arity           (* contiunue *)
+                |Letter _ -> Stay, State 62, None, arity        (* rule ends *)
+                |Dash -> Stay, State 60, None, arity            (* floor has no rule *)
+                |Out -> Stay, State 100, None, arity            (* no floor! *)
         )
         |State 60 -> (                                          (* end of floor-dashes have been found *)
                 match symbol with
                 |Space -> raise (Error 60)
                 |Letter _ -> raise (Error 60)
-                |Dash -> Right, State 61, None, arity                   (* is there a rule? *)
+                |Dash -> Right, State 61, None, arity           (* is there a rule? *)
                 |Out -> raise (Error 60)
         )
         |State 61 -> (                                          (* read rule *)
@@ -178,10 +178,10 @@ let transition (state : t_state) (symbol : t_symbol) (arity: int list) : (t_acti
         )
         |State 70 -> (                                          (* find end of row to the left *)
                 match symbol with
-                |Space -> Stay, State 80, None, arity                   (* end of row has been found, reading empty *)
-                |Letter _ -> Stay, State 90, None, arity                (* end of row has been found, reading the last letter of a word *)
+                |Space -> Stay, State 80, None, arity           (* end of row has been found, reading empty *)
+                |Letter _ -> Stay, State 90, None, arity        (* end of row has been found, reading the last letter of a word *)
                 |Dash -> raise (Error 70)
-                |Out -> Left, State 70, None, arity                     (* continue *)
+                |Out -> Left, State 70, None, arity             (* continue *)
         )
         |State 80 -> (                                          (* find word to the left *)
                 match symbol with
