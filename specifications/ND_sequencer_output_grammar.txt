@@ -1,0 +1,30 @@
+prf ::= atomic_prf | nullary_prf | unary_prf | binary_prf | trinary_prf
+
+atomic_prf ::= fml
+
+nullary_prf ::= rsep nullary_rule fml
+
+unary_prf ::= prf rsep unary_rule vsep fml
+
+binary_prf ::= prf hsep prf rsep binary_rule vsep fml
+
+trinary_prf ::= prf hsep prf hsep prf rsep trinary_rule vsep fml
+
+rsep ::= '#'
+
+hsep ::= ';'
+
+vsep ::= ':'
+
+nullary_rule ::= '0' rule_name
+
+unary_rule ::= '1' rule_name
+
+binary_rule ::= '2' rule_name
+
+trinary_rule ::= '3' rule_name
+
+rule_name ::= [! '#' ';' ':']*
+
+fml ::= [! '#' ';' ':']+
+

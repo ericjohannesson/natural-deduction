@@ -1,0 +1,27 @@
+prf ::= atomic_prf | nullary_prf | unary_prf | binary_prf | trinary_prf
+
+atomic_prf  ::= fml
+
+nullary_prf ::= ---rule
+                fml
+
+unary_prf   ::= prf
+                ---rule
+                fml
+
+binary_prf  ::= prf sps prf
+                -----------rule
+                    fml
+
+trinary_prf ::= prf sps prf sps prf
+                -------------------rule
+                        fml
+
+fml ::= word | word SPACE fml
+
+sps ::= SPACE SPACE | sps SPACE
+
+rule ::= [! '#' ';' ':' SPACE TAB LF CR]*
+
+word ::= [! '#' ';' ':' SPACE TAB LF CR]+
+
