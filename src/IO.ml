@@ -1,22 +1,22 @@
 let string_of_file (path:string):string =
-	let ic = open_in path in
-	let s = In_channel.input_all ic in
-	let _ = close_in ic in s
+        let ic = open_in path in
+        let s = In_channel.input_all ic in
+        let _ = close_in ic in s
 
 let string_of_stdin () : string =
-	In_channel.input_all stdin
+        In_channel.input_all stdin
 
 
 let print_to_file (s : string) (path : string) : unit =
-	let oc = open_out path in
-	let _ = output_string oc (s ^ "\n") in
-	let _ = flush oc in
-	let _ = close_out oc in ()
+        let oc = open_out path in
+        let _ = output_string oc (s ^ "\n") in
+        let _ = flush oc in
+        let _ = close_out oc in ()
 
 let print_to_stdout (s : string) : unit =
-	print_endline s
+        print_endline s
 
 let print_to_stderr (s:string):unit = 
-	Printf.eprintf "%s\n" s
+        Printf.eprintf "%s\n" s
 
 

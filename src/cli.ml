@@ -125,19 +125,19 @@ let len = Array.length arg_array
 
 let _ : unit = 
 try
-	let command : string = arg_array.(1) in
-	if command = "help" then IO.print_to_stdout manual else
-	let path : string = arg_array.(len - 1) in
-	let options : string list = List.rev (List.tl (List.rev (List.tl (List.tl arg_list)))) in
-	match command, path with
-	|"validate", "-" -> let _ = Main.validate_stdin options in ()
-	|"validate", path -> let _ = Main.validate_file options path in ()
-	|"show", "-" -> let _ = Main.sub_prf_of_stdin options in ()
-	|"show", path -> let _ = Main.sub_prf_of_file options path in ()
-	|"decompose", path -> Main.decompose_file options path
-	|"compose", path -> Main.compose_dir options path
-	|"edit", path -> Main.edit_file options path
-	|_ -> raise (Error "invalid argument(s)")
+        let command : string = arg_array.(1) in
+        if command = "help" then IO.print_to_stdout manual else
+        let path : string = arg_array.(len - 1) in
+        let options : string list = List.rev (List.tl (List.rev (List.tl (List.tl arg_list)))) in
+        match command, path with
+        |"validate", "-" -> let _ = Main.validate_stdin options in ()
+        |"validate", path -> let _ = Main.validate_file options path in ()
+        |"show", "-" -> let _ = Main.sub_prf_of_stdin options in ()
+        |"show", path -> let _ = Main.sub_prf_of_file options path in ()
+        |"decompose", path -> Main.decompose_file options path
+        |"compose", path -> Main.compose_dir options path
+        |"edit", path -> Main.edit_file options path
+        |_ -> raise (Error "invalid argument(s)")
 with 
 |Main.Error e
 |ND_main.Error e

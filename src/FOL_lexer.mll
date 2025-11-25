@@ -1,23 +1,23 @@
 {
-	open FOL_parser
-	exception Eof
+        open FOL_parser
+        exception Eof
 
 let canonical (s : string) : string =
-	match s with
-	|"\\forall" | "\\A" | "∀" -> "∀"
-	|"\\exists" | "\\E" | "∃" -> "∃"
-	|"\\neg" | "~" | "¬" -> "¬"
-	|"\\land" | "\\wedge" | "&" | "∧" -> "∧"
-	|"\\lor" | "\\vee" | "∨" -> "∨"
-	|"\\to" | "\\rightarrow" | "->" | "→" -> "→"
-	|"\\leftrightarrow" | "<->" | "↔" -> "↔"
-	|_ -> s
+        match s with
+        |"\\forall" | "\\A" | "∀" -> "∀"
+        |"\\exists" | "\\E" | "∃" -> "∃"
+        |"\\neg" | "~" | "¬" -> "¬"
+        |"\\land" | "\\wedge" | "&" | "∧" -> "∧"
+        |"\\lor" | "\\vee" | "∨" -> "∨"
+        |"\\to" | "\\rightarrow" | "->" | "→" -> "→"
+        |"\\leftrightarrow" | "<->" | "↔" -> "↔"
+        |_ -> s
 
 let unnegated (s : string) : string =
-	match s with
-	|"≠" | "\\neq" -> "="
-	| "∉" | "\\not \\in" | "\\notin" -> "∈"
-	|_ -> s
+        match s with
+        |"≠" | "\\neq" -> "="
+        | "∉" | "\\not \\in" | "\\notin" -> "∈"
+        |_ -> s
 }
 
 
@@ -59,18 +59,18 @@ let neg_infix_pred = neq | nel
 let postfix_func = prime
 
 rule token = parse
-	| comma			{ COMMA }
-	| lpar			{ LPAR }
-	| rpar			{ RPAR }
-	| var as e		{ VAR e }
-	| prefix_func as e	{ PREFIX_FUNC e }
-	| infix_func as e	{ INFIX_FUNC e }
-	| postfix_func as e	{ POSTFIX_FUNC (String.make 1 e) }
-	| prefix_pred as e	{ PREFIX_PRED e }
-	| infix_pred as e	{ INFIX_PRED e }
-	| neg_infix_pred as e	{ NEG_INFIX_PRED (unnegated e) }
-	| quant as e		{ QUANT (canonical e) }
-	| unop as e		{ UNOP (canonical e) }
-	| binop as e		{ BINOP (canonical e) }
-	| eof			{ EOF }
-	| _ 			{ token lexbuf }
+        | comma                 { COMMA }
+        | lpar                  { LPAR }
+        | rpar                  { RPAR }
+        | var as e              { VAR e }
+        | prefix_func as e      { PREFIX_FUNC e }
+        | infix_func as e       { INFIX_FUNC e }
+        | postfix_func as e     { POSTFIX_FUNC (String.make 1 e) }
+        | prefix_pred as e      { PREFIX_PRED e }
+        | infix_pred as e       { INFIX_PRED e }
+        | neg_infix_pred as e   { NEG_INFIX_PRED (unnegated e) }
+        | quant as e            { QUANT (canonical e) }
+        | unop as e             { UNOP (canonical e) }
+        | binop as e            { BINOP (canonical e) }
+        | eof                   { EOF }
+        | _                     { token lexbuf }

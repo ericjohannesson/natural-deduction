@@ -579,61 +579,61 @@ let fol2_in : string = "../examples/FOL2.txt"
 let fol3_in : string = "../examples/FOL3.txt"
 
 let nd_raw_test input output : unit =
-	match Main.prf_raw_of_file input = output with
-	|true -> ()
-	|false -> IO.print_to_stderr ("nd_raw_test FAILED on " ^ input)
+        match Main.prf_raw_of_file input = output with
+        |true -> ()
+        |false -> IO.print_to_stderr ("nd_raw_test FAILED on " ^ input)
 
 let nd_test input output : unit =
-	match Main.prf_of_file input = output with
-	|true -> ()
-	|false -> IO.print_to_stderr ("nd_test FAILED on " ^ input)
+        match Main.prf_of_file input = output with
+        |true -> ()
+        |false -> IO.print_to_stderr ("nd_test FAILED on " ^ input)
 
 
 let nd_fixpoint_test_raw input : unit =
-try	let out1 : ND_types.t_prf_raw = Main.prf_raw_of_file input in
-	let str : string = ND_main.nd_string_of_prf_raw out1 in
-	let out2 : ND_types.t_prf_raw = Main.prf_raw_of_string str in
-	match out1 = out2 with
-	|true -> ()
-	|false -> IO.print_to_stderr ("nd_fixpoint_test_raw FAILED on " ^ input)
+try     let out1 : ND_types.t_prf_raw = Main.prf_raw_of_file input in
+        let str : string = ND_main.nd_string_of_prf_raw out1 in
+        let out2 : ND_types.t_prf_raw = Main.prf_raw_of_string str in
+        match out1 = out2 with
+        |true -> ()
+        |false -> IO.print_to_stderr ("nd_fixpoint_test_raw FAILED on " ^ input)
 with ND_main.Error e -> IO.print_to_stderr (String.concat " " ["nd_fixpoint_test_raw FAILED on";input;e])
 
 
 let nd_fixpoint_test input : unit =
-try	let out1 : ND_types.t_prf = Main.prf_of_file input in
-	let str : string = Main.nd_string_of_prf out1 in
-	let out2 : ND_types.t_prf = Main.prf_of_string str in
-	match out1 = out2 with
-	|true -> ()
-	|false -> IO.print_to_stderr ("nd_fixpoint_test FAILED on " ^ input)
+try     let out1 : ND_types.t_prf = Main.prf_of_file input in
+        let str : string = Main.nd_string_of_prf out1 in
+        let out2 : ND_types.t_prf = Main.prf_of_string str in
+        match out1 = out2 with
+        |true -> ()
+        |false -> IO.print_to_stderr ("nd_fixpoint_test FAILED on " ^ input)
 with ND_main.Error e -> IO.print_to_stderr (String.concat " " ["nd_fixpoint_test FAILED on";input;e])
 
 
 let fol_fixpoint_test input : unit =
-try	let out1 : FOL_types.t_fml list = Main.fml_list_of_file input in
-	let strings : string list = List.map Main.string_of_fml out1 in
-	let out2 : FOL_types.t_fml list = List.map Main.fml_of_string strings in
-	match out1 = out2 with
-	|true -> ()
-	|false -> IO.print_to_stderr ("fol_fixpoint_test FAILED on " ^ input)
+try     let out1 : FOL_types.t_fml list = Main.fml_list_of_file input in
+        let strings : string list = List.map Main.string_of_fml out1 in
+        let out2 : FOL_types.t_fml list = List.map Main.fml_of_string strings in
+        match out1 = out2 with
+        |true -> ()
+        |false -> IO.print_to_stderr ("fol_fixpoint_test FAILED on " ^ input)
 with FOL_main.Error e -> IO.print_to_stderr (String.concat " " ["fol_fixpoint_test_raw FAILED on";input;e])
 
 
 let validity_test input output : unit =
-	match Main.validate_file [] input = output with 
-	|true -> ()
-	|false -> IO.print_to_stderr ("validity_test FAILED on " ^ input)
+        match Main.validate_file [] input = output with 
+        |true -> ()
+        |false -> IO.print_to_stderr ("validity_test FAILED on " ^ input)
 
 
 let comp_test input : unit =
-	let prf_in : t_prf = Main.prf_of_file input in
-	let temp_dir = Filename.temp_dir "" "" in
-	let _ : unit = Main.decompose_file [temp_dir;"-R"] input in
-	let prf_out : t_prf = Main.compose_prf_rec temp_dir in
-	let _ : int = Sys.command (String.concat " " ["rm -r";temp_dir]) in
-	match prf_in = prf_out with
-	|true -> ()
-	|false -> IO.print_to_stderr ("comp_test FAILED on " ^ input)
+        let prf_in : t_prf = Main.prf_of_file input in
+        let temp_dir = Filename.temp_dir "" "" in
+        let _ : unit = Main.decompose_file [temp_dir;"-R"] input in
+        let prf_out : t_prf = Main.compose_prf_rec temp_dir in
+        let _ : int = Sys.command (String.concat " " ["rm -r";temp_dir]) in
+        match prf_in = prf_out with
+        |true -> ()
+        |false -> IO.print_to_stderr ("comp_test FAILED on " ^ input)
 
 
 let _ : unit = nd_raw_test nd0_in nd0_out_raw

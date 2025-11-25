@@ -5,12 +5,12 @@ open ND_parser
 exception ERROR of string
 
 let rule_token (d: char) (name: string) : ND_parser.token =
-	match d with
-	|'0' -> NULLARY_RULE name
-	|'1' -> UNARY_RULE name
-	|'2' -> BINARY_RULE name
-	|'3' -> TRINARY_RULE name
-	|_ -> raise (ERROR "arity of rule greater than 3")
+        match d with
+        |'0' -> NULLARY_RULE name
+        |'1' -> UNARY_RULE name
+        |'2' -> BINARY_RULE name
+        |'3' -> TRINARY_RULE name
+        |_ -> raise (ERROR "arity of rule greater than 3")
 
 }
 
@@ -24,11 +24,11 @@ let rsep = '#'
 
 
 rule token = parse
-	|hsep					{ SEP }
-	|fml as s				{ FML s }
-	|rsep (digit as d) (rule_name as s)	{ rule_token d s }
-	|vsep					{ token lexbuf }
-	|eof					{ EOF }
-	|_					{ token lexbuf }
+        |hsep                                   { SEP }
+        |fml as s                               { FML s }
+        |rsep (digit as d) (rule_name as s)     { rule_token d s }
+        |vsep                                   { token lexbuf }
+        |eof                                    { EOF }
+        |_                                      { token lexbuf }
 
 
