@@ -233,7 +233,7 @@ output of `nd show --sub-left --sub-only examples/proof2.txt` to stdout:
 
 </details>
 
-#### Discharging assumptions
+#### Discharge dischargeable assumptions
 
 <details>
 <summary><b>input</b></summary>
@@ -321,7 +321,7 @@ output of `nd validate --discharge examples/proof3.txt` to stdout:
 ```
 </details>
 
-#### Undischarging assumptions
+#### Undischarge undischargeable assumptions
 
 <details>
 <summary><b>input</b></summary>
