@@ -321,7 +321,7 @@ output of `nd validate --discharge examples/proof3.txt` to stdout:
 ```
 </details>
 
-#### Undischarge undischargeable assumptions
+#### Undischarge non-dischargeable assumptions
 
 <details>
 <summary><b>input</b></summary>
