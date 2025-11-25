@@ -9,7 +9,7 @@ USAGE:
 
   nd <command>
 
-  Commands:
+  COMMANDS:
 
     validate [ <options> ] { <path-to-file> | - }
 
@@ -53,10 +53,14 @@ USAGE:
 
         Does it recursively for each sub-proof if '-R' is provided.
 
+    help
+
+        Prints this manual to stdout.
+
     Reads from stdin if '-' is provided instead of a path (and if it may be so
     provided).
 
-  Options:
+  OPTIONS:
 
     --discharge, -d
 
@@ -74,7 +78,7 @@ USAGE:
         be discharged, undischarged assumptions that may be discharged, and
         sub-proofs not satisfying the conditions of any inferential rule.
 
-  Directions:
+  DIRECTIONS:
 
     --sub-only, -o
 
