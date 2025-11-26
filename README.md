@@ -41,7 +41,8 @@ USAGE:
 
         Parses proof contained in file and creates a directory for each
         immediate sub-proof containing a file called 'proof.txt'. Also prints
-        main proof to 'proof.txt', and puts everything in path-to-directory.
+        main proof to to a file called 'proof.txt', and puts everything in
+        path-to-directory.
 
         Does it recursively for each sub-proof if '-R' is provided.
 
@@ -49,7 +50,7 @@ USAGE:
 
         Assumes that a proof has been decomposed in directory, and composes a
         proof from its immediate sub-proofs. Prints the result to stdout and
-        to the file 'proof.txt' located in directory.
+        to the file called 'proof.txt' located in directory.
 
         Does it recursively for each sub-proof if '-R' is provided.
 
