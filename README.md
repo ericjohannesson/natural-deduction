@@ -42,7 +42,7 @@ USAGE:
         Parses proof contained in file and creates a directory for each
         immediate sub-proof containing a file called 'proof.txt'. Also prints
         main proof to a file called 'proof.txt', and puts everything in
-        path-to-directory.
+        directory.
 
         Does it recursively for each sub-proof if '-R' is provided.
 
