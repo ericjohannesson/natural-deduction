@@ -292,26 +292,17 @@ ND_types.Binary_prf
   FOL_types.UnopApp (FOL_types.Unop "¬",
    FOL_types.PredApp (FOL_types.Pred "P", [])))
 
+
 let nd9_in : string = "../examples/ND9.txt"
-
 let nd10_in : string = "../examples/ND10.txt"
-
 let nd11_in : string = "../examples/ND11.txt"
-
 let nd12_in : string = "../examples/ND12.txt"
-
 let nd31_in : string = "../examples/ND31.txt"
-
 let nd32_in : string = "../examples/ND32.txt"
-
 let nd33_in : string = "../examples/ND33.txt"
-
 let nd20_in : string = "../examples/ND20.txt"
-
 let nd14_in : string = "../examples/ND14.txt"
-
 let nd15_in : string = "../examples/ND15.txt"
-
 let nd16_in : string = "../examples/ND16.txt"
 
 
@@ -570,12 +561,14 @@ let nd15_valid = Some
 
 let nd16_valid = None
 
+let nd17_in : string = "../examples/ND17.txt"
+let nd18_in : string = "../examples/ND18.txt"
+let nd21_in : string = "../examples/ND21.txt"
+
+
 let fol0_in : string = "../examples/FOL0.txt"
-
 let fol1_in : string = "../examples/FOL1.txt"
-
 let fol2_in : string = "../examples/FOL2.txt"
-
 let fol3_in : string = "../examples/FOL3.txt"
 
 let nd_raw_test input output : unit =
@@ -637,144 +630,87 @@ let comp_test input : unit =
 
 
 let _ : unit = nd_raw_test nd0_in nd0_out_raw
-
 let _ : unit = nd_raw_test nd1_in nd1_out_raw
-
 let _ : unit = nd_raw_test nd2_in nd2_out_raw
-
 let _ : unit = nd_raw_test nd3_in nd3_out_raw
-
 let _ : unit = nd_raw_test nd4_in nd4_out_raw
-
 let _ : unit = nd_raw_test nd5_in nd5_out_raw
-
 let _ : unit = nd_raw_test nd6_in nd6_out_raw
 
 let _ : unit = fol_fixpoint_test fol0_in
-
 let _ : unit = fol_fixpoint_test fol1_in
-
 let _ : unit = fol_fixpoint_test fol2_in
-
 let _ : unit = fol_fixpoint_test fol3_in
 
 let _ : unit = nd_test nd3_in nd3_out
-
 let _ : unit = nd_test nd4_in nd4_out
-
 let _ : unit = nd_test nd5_in nd5_out
-
 let _ : unit = nd_test nd6_in nd6_out
-
 let _ : unit = nd_test nd7_in nd7_out
-
 let _ : unit = nd_test nd8_in nd8_out
 
 
 let _ : unit = nd_fixpoint_test_raw nd0_in
-
 let _ : unit = nd_fixpoint_test_raw nd1_in
-
 let _ : unit = nd_fixpoint_test_raw nd2_in
-
 let _ : unit = nd_fixpoint_test_raw nd3_in
-
 let _ : unit = nd_fixpoint_test_raw nd4_in
-
 let _ : unit = nd_fixpoint_test_raw nd5_in
-
 let _ : unit = nd_fixpoint_test_raw nd6_in
-
 let _ : unit = nd_fixpoint_test_raw nd7_in
-
 let _ : unit = nd_fixpoint_test_raw nd8_in
-
 let _ : unit = nd_fixpoint_test_raw nd9_in
-
 let _ : unit = nd_fixpoint_test_raw nd10_in
-
 let _ : unit = nd_fixpoint_test_raw nd11_in
-
 let _ : unit = nd_fixpoint_test_raw nd12_in
-
 let _ : unit = nd_fixpoint_test_raw nd14_in
-
 let _ : unit = nd_fixpoint_test_raw nd15_in
 
 
 let _ : unit = nd_fixpoint_test nd3_in
-
 let _ : unit = nd_fixpoint_test nd4_in
-
 let _ : unit = nd_fixpoint_test nd5_in
-
 let _ : unit = nd_fixpoint_test nd6_in
-
 let _ : unit = nd_fixpoint_test nd7_in
-
 let _ : unit = nd_fixpoint_test nd8_in
-
 let _ : unit = nd_fixpoint_test nd9_in
-
 let _ : unit = nd_fixpoint_test nd10_in
-
 let _ : unit = nd_fixpoint_test nd11_in
-
 let _ : unit = nd_fixpoint_test nd12_in
-
 let _ : unit = nd_fixpoint_test nd20_in
-
 let _ : unit = nd_fixpoint_test nd14_in
-
 let _ : unit = nd_fixpoint_test nd15_in
-
-
-let _ : unit = validity_test nd4_in nd4_valid
-
-let _ : unit = validity_test nd5_in nd5_valid
-
-let _ : unit = validity_test nd7_in nd7_valid
-
-let _ : unit = validity_test nd8_in nd8_valid
-
-let _ : unit = validity_test nd9_in nd9_valid
-
-let _ : unit = validity_test nd10_in nd10_valid
-
-let _ : unit = validity_test nd11_in nd11_valid
-
-let _ : unit = validity_test nd12_in nd12_valid
-
-let _ : unit = validity_test nd31_in nd31_valid
-
-let _ : unit = validity_test nd32_in nd32_valid
-
-let _ : unit = validity_test nd33_in nd33_valid
+let _ : unit = nd_fixpoint_test nd15_in
+let _ : unit = nd_fixpoint_test nd16_in
+let _ : unit = nd_fixpoint_test nd17_in
+let _ : unit = nd_fixpoint_test nd18_in
+let _ : unit = nd_fixpoint_test nd20_in
+let _ : unit = nd_fixpoint_test nd21_in
 
 let _ : unit = validity_test nd3_in nd3_valid
-
+let _ : unit = validity_test nd4_in nd4_valid
+let _ : unit = validity_test nd5_in nd5_valid
 let _ : unit = validity_test nd6_in nd6_valid
-
-let _ : unit = validity_test nd20_in nd20_valid
-
+let _ : unit = validity_test nd7_in nd7_valid
+let _ : unit = validity_test nd8_in nd8_valid
+let _ : unit = validity_test nd9_in nd9_valid
+let _ : unit = validity_test nd10_in nd10_valid
+let _ : unit = validity_test nd11_in nd11_valid
+let _ : unit = validity_test nd12_in nd12_valid
 let _ : unit = validity_test nd14_in nd14_valid
-
 let _ : unit = validity_test nd15_in nd15_valid
-
 let _ : unit = validity_test nd16_in nd16_valid
+let _ : unit = validity_test nd31_in nd31_valid
+let _ : unit = validity_test nd32_in nd32_valid
+let _ : unit = validity_test nd33_in nd33_valid
+let _ : unit = validity_test nd20_in nd20_valid
 
 
 let _ : unit = comp_test nd3_in
-
 let _ : unit = comp_test nd4_in
-
 let _ : unit = comp_test nd5_in
-
 let _ : unit = comp_test nd6_in
-
 let _ : unit = comp_test nd7_in
-
 let _ : unit = comp_test nd8_in
-
 let _ : unit = comp_test nd9_in
 

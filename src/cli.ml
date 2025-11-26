@@ -130,8 +130,8 @@ try
         let path : string = arg_array.(len - 1) in
         let options : string list = List.rev (List.tl (List.rev (List.tl (List.tl arg_list)))) in
         match command, path with
-        |"validate", "-" -> let _ = Main.validate_stdin options in ()
-        |"validate", path -> let _ = Main.validate_file options path in ()
+        |"validate", "-" -> let _ = Main.validate_stdin ("--print-proof"::("--print-report"::options)) in ()
+        |"validate", path -> let _ = Main.validate_file ("--print-proof"::("--print-report"::options)) path in ()
         |"show", "-" -> let _ = Main.sub_prf_of_stdin options in ()
         |"show", path -> let _ = Main.sub_prf_of_file options path in ()
         |"decompose", path -> Main.decompose_file options path

@@ -597,6 +597,13 @@ let enumerate (lst : 'a list) : 'a list =
 
 let dischargeable (fml : t_fml) : int option = None
 
+let print_report (options : string list) : bool =
+	List.mem "--print-report" options
+
+let print_proof (options : string list) : bool =
+	List.mem "--print-proof" options
+
+
 let validate_prf (options : string list) (prf : t_prf) : t_prf option =
         match validate options 0 0 dischargeable [] prf with
         |Some valid_prf ->
@@ -606,14 +613,14 @@ let validate_prf (options : string list) (prf : t_prf) : t_prf option =
                 let conclusion_string : string = string_of_fml conclusion in
                 let proves_string : string = String.concat " ⊢ " [premises_string; conclusion_string] in
                 let proof_string : string = nd_string_of_prf valid_prf in
-                let report : string = String.concat "" [
+                let report_string : string = String.concat "" [
                         "\n"; "Proof is VALID:"; "\n\n";
                         proof_string;"\n\n";
                         "PROVES: "; proves_string; ".\n";
                 ] 
                 in
-                let _ : unit = IO.print_to_stderr report in
-                let _ : unit = IO.print_to_stdout proof_string in
+                let _ : unit = if print_report options then IO.print_to_stderr report_string else () in
+                let _ : unit = if print_proof options then IO.print_to_stdout proof_string else () in
                 Some valid_prf
         |None ->
                 let premises : t_fml list = enumerate (premises_of_prf [] prf) in
@@ -622,13 +629,13 @@ let validate_prf (options : string list) (prf : t_prf) : t_prf option =
                 let conclusion_string : string = string_of_fml conclusion in
                 let proves_string : string = String.concat " ⊢ " [premises_string; conclusion_string] in
                 let proof_string = nd_string_of_prf prf in
-                let report : string = String.concat "" [
+                let report_string : string = String.concat "" [
                         "\n"; "Proof is NOT valid:";"\n\n";
                         proof_string;"\n\n";
                         "Does NOT prove: "; proves_string; ".\n";
                 ]
                 in
-                let _ : unit = IO.print_to_stderr report in
+                let _ : unit = if print_report options then IO.print_to_stderr report_string else () in
                 None
 
 
