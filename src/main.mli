@@ -36,14 +36,14 @@ val decompose_prf : string -> ND_types.t_prf -> unit
 
 val decompose_prf_rec: string -> ND_types.t_prf -> unit
 
-val decompose_file : string list -> string -> unit
+val decompose_file : string list -> string -> string -> unit
 
 
 (** Composing *)
 
 val compose_prf_rec : string -> ND_types.t_prf
 
-val compose_dir : string list -> string -> unit
+val compose_dir : string list -> string -> ND_types.t_prf
 
 (** Editing *)
 

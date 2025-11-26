@@ -598,10 +598,10 @@ let enumerate (lst : 'a list) : 'a list =
 let dischargeable (fml : t_fml) : int option = None
 
 let print_report (options : string list) : bool =
-	List.mem "--print-report" options
+        List.mem "--print-report" options
 
 let print_proof (options : string list) : bool =
-	List.mem "--print-proof" options
+        List.mem "--print-proof" options
 
 
 let validate_prf (options : string list) (prf : t_prf) : t_prf option =
@@ -729,15 +729,10 @@ let file_name_of_path (path : string) : string =
         |hd::tl -> hd
         |[] -> ""
 
-let decompose_file (options : string list) (prf_path : string) : unit =
+let decompose_file (options : string list) (dir_path: string) (prf_path : string) : unit =
         let prf : t_prf = prf_of_file prf_path in
-        let path : string =
-                match options with
-                |[] -> dir_path_of_file_path prf_path
-                |hd::tl -> hd
-        in
-        if recursively options then decompose_prf_rec path prf else
-        decompose_prf path prf
+        if recursively options then decompose_prf_rec dir_path prf else
+        decompose_prf dir_path prf
 
 
 (** Composing *)
@@ -810,7 +805,7 @@ let rec compose_prf_rec (path : string) : t_prf =
                 in
                 Trinary_prf (new_prf1, new_prf2, new_prf3, rule, fml)
 
-let compose_dir (options : string list) (path : string) : unit =
+let compose_dir (options : string list) (path : string) : t_prf =
         let func : string -> t_prf =
                 match recursively options with
                 |true -> compose_prf_rec
@@ -819,7 +814,8 @@ let compose_dir (options : string list) (path : string) : unit =
         let prf : t_prf = func path in
         let prf_string = nd_string_of_prf prf in
         let _ : unit =IO.print_to_stdout prf_string in
-        IO.print_to_file prf_string (String.concat "" [path;"/proof.txt"])
+        let _ : unit = IO.print_to_file prf_string (String.concat "" [path;"/proof.txt"]) in
+        prf
 
 (** Editing *)
 

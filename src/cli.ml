@@ -29,7 +29,8 @@ USAGE:
     edit [ <directions> ] <path-to-file>
 
         Opens a formatted version of proof contained in file in nano, or
-        sub-proof thereof specified by directions. Writes any changes to file.
+        sub-proof thereof specified by directions. Writes any changes to file,
+        and prints the result to stdout.
 
     replace <path-to-file> [ <directions> ] <path-to-file>
 
@@ -37,12 +38,11 @@ USAGE:
         (or sub-proof thereof specified by directions) with proof contained
         in first file.
 
-    decompose [ <path-to-directory> ] [ -R ] <path-to-file>
+    decompose [ -R ] <path-to-directory> <path-to-file>
 
         Parses proof contained in file and creates a directory for each
         immediate sub-proof containing a file called 'proof.txt'. Also prints
-        main proof to 'proof.txt', and puts everything either in directory of
-        file (default), or in path-to-directory.
+        main proof to 'proof.txt', and puts everything in path-to-directory.
 
         Does it recursively for each sub-proof if '-R' is provided.
 
@@ -115,7 +115,7 @@ let usage : string=
   nd show [ <directions> ] { <path-to-file> | - }
   nd edit [ <directions> ] <path-to-file>
   nd replace <path-to-file> [ <directions> ] <path-to-file>
-  nd decompose [ <path-to-directory> ] [ -R ] <path-to-file>
+  nd decompose [ -R ] <path-to-directory> <path-to-file>
   nd compose [ -R ] <path-to-directory>
   nd help"
 
