@@ -394,7 +394,7 @@ PROVES: P, Q ⊢ (P ∧ Q).
 
 Clone this repository. In the root directory of the clone, follow either of the instructions below.
 
-### Alternative 1: with opam
+### Alternative 1 (opam)
 
 For installing the opam package manager, see https://opam.ocaml.org/
 
@@ -408,7 +408,7 @@ Build executable:
 make nd
 ```
 
-### Alternative 2: with nix
+### Alternative 2 (nix)
 
 For installing the nix package manager, see https://nixos.org/
 
