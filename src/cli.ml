@@ -134,8 +134,8 @@ try
         |"validate", path -> let _ = Main.validate_file ("--print-proof"::("--print-report"::options)) path in ()
         |"show", "-" -> let _ = Main.sub_prf_of_stdin options in ()
         |"show", path -> let _ = Main.sub_prf_of_file options path in ()
-        |"decompose", path -> Main.decompose_file options path
-        |"compose", path -> Main.compose_dir options path
+        |"decompose", path -> Main.decompose_file (List.tl (List.rev options)) (List.hd (List.rev options)) path
+        |"compose", path -> let _ = Main.compose_dir options path in ()
         |"edit", path -> Main.edit_file options path
         |_ -> raise (Error "invalid argument(s)")
 with 
