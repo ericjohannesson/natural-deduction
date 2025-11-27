@@ -47,7 +47,7 @@ let rec fml_of_string (print_tokens : bool) (s:string): t_fml =
                                 ]
                         ) 
                         in fml_of_string true s
-                |true -> raise (Error ("Last token does not match any transition- or reduction-rule of State " ^ (Int.to_string n) ^ "."))
+                |true -> raise (Error ("Last token does not match any Transitions or Reductions of State " ^ (Int.to_string n) ^ "."))
 
 
 let fml_list_of_file (print_tokens : bool) (path : string) : t_fml list =

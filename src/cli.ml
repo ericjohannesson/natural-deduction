@@ -1,25 +1,50 @@
 exception Error of string
 
-let manual : string=
+let usage : string=
+"USAGE:
+  nd validate [ <options> ] { <path-to-file> | - }
+  nd show [ <directions> ] { <path-to-file> | - }
+  nd show-raw [ <directions> ] { <path-to-file> | - }
+  nd edit [ <directions> ] <path-to-file>
+  nd edit-raw [ <directions> ] <path-to-file>
+  nd replace <path-to-file> [ <directions> ] <path-to-file>
+  nd replace-raw <path-to-file> [ <directions> ] <path-to-file>
+  nd decompose [ -R ] <path-to-directory> <path-to-file>
+  nd decompose-raw [ -R ] <path-to-directory> <path-to-file>
+  nd compose [ -R ] <path-to-directory>
+  nd compose-raw [ -R ] <path-to-directory>
+  nd help [ validate | show | edit | replace | decompose | compose |
+            options | directions ]"
+
+
+let header : string=
 "==============================================================================
 NATURAL DEDUCTION
 A basic proof assistant for natural deduction in classical first-order logic.
-==============================================================================
+=============================================================================="
 
-USAGE:
+let usage_commands : string =
+"USAGE:
 
   nd <command>
 
-  COMMANDS:
+  COMMANDS:"
 
-    validate [ <options> ] { <path-to-file> | - }
+let author_website : string =
+"Author:  Eric Johannesson, eric@ericjohannesson.com
+Website: https://github.com/ericjohannesson/natural-deduction"
+
+
+let help_validate : string =
+"    validate [ <options> ] { <path-to-file> | - }
 
         Prints an annotated and formatted version of proof contained in file
         to stdout, and a report to stderr, if proof is valid.
 
-        Otherwise prints a report to stderr.
+        Otherwise prints a report to stderr."
 
-    show [ <directions> ] { <path-to-file> | - }
+let help_show : string =
+"    show [ <directions> ] { <path-to-file> | - }
 
         Prints a formatted version of proof contained in file to stdout, or
         sub-proof thereof specified by directions.
@@ -28,9 +53,10 @@ USAGE:
 
     show-raw [ <directions> ] { <path-to-file> | - }
 
-        Same as show, except that formulas are not parsed.
+        Same as show, except that formulas are not parsed."
 
-    edit [ <directions> ] <path-to-file>
+let help_edit : string =
+"    edit [ <directions> ] <path-to-file>
 
         Opens a formatted version of proof contained in file in nano, or
         sub-proof thereof specified by directions. Writes any changes to file,
@@ -38,9 +64,10 @@ USAGE:
 
     edit-raw [ <directions> ] <path-to-file>
 
-        Same as edit, except that formulas are not parsed.
+        Same as edit, except that formulas are not parsed."
 
-    replace <path-to-file> [ <directions> ] <path-to-file>
+let help_replace : string =
+"    replace <path-to-file> [ <directions> ] <path-to-file>
 
         Prints to stdout result of replacing proof contained in second file
         (or sub-proof thereof specified by directions) with proof contained
@@ -48,9 +75,10 @@ USAGE:
 
     replace-raw <path-to-file> [ <directions> ] <path-to-file>
 
-        Same as replace, except that formulas are not parsed.
+        Same as replace, except that formulas are not parsed."
 
-    decompose [ -R ] <path-to-directory> <path-to-file>
+let help_decompose : string =
+"    decompose [ -R ] <path-to-directory> <path-to-file>
 
         Parses proof contained in file and creates a directory for each
         immediate sub-proof containing a file called 'proof.txt'. Also prints
@@ -61,9 +89,11 @@ USAGE:
 
     decompose-raw [ -R ] <path-to-directory> <path-to-file>
 
-        Same as decompose, except that formulas are not parsed.
+        Same as decompose, except that formulas are not parsed."
 
-    compose [ -R ] <path-to-directory>
+
+let help_compose : string =
+"    compose [ -R ] <path-to-directory>
 
         Assumes that a proof has been decomposed in directory, and composes a
         proof from its immediate sub-proofs. Prints the result to stdout and
@@ -73,16 +103,20 @@ USAGE:
 
     compose-raw [ -R ] <path-to-directory>
 
-        Same as compose, except that formulas are not parsed.
+        Same as compose, except that formulas are not parsed."
 
-    help
+let help_help : string =
+"    help [ validate | show | edit | replace | decompose | compose |
+            options | directions ]
 
-        Prints this manual to stdout.
+        Prints manual to stdout, or part thereof specified by keyword."
 
-    Reads from stdin if '-' is provided instead of a path (and if it may be so
-    provided).
+let help_stdin : string =
+"    Reads from stdin if '-' is provided instead of a path (and if it may be so
+    provided)."
 
-  OPTIONS:
+let help_options : string =
+"  OPTIONS:
 
     --discharge, -d
 
@@ -98,9 +132,10 @@ USAGE:
 
         Prints information to stderr about discharged assumptions that may not
         be discharged, undischarged assumptions that may be discharged, and
-        sub-proofs not satisfying the conditions of any inferential rule.
+        sub-proofs not satisfying the conditions of any inferential rule."
 
-  DIRECTIONS:
+let help_directions : string =
+"  DIRECTIONS:
 
     --sub-only, -o
 
@@ -125,36 +160,48 @@ USAGE:
 
     is equivalent to
 
-        nd show <directions> <path-to-file> | nd show <direction> -
+        nd show <directions> <path-to-file> | nd show <direction> -"
 
-Author:  Eric Johannesson, eric@ericjohannesson.com
-Website: https://github.com/ericjohannesson/natural-deduction"
+let manual : string =
+	String.concat "\n\n" [
+		header;
+		usage_commands;
+		help_validate;
+		help_show;
+		help_edit;
+		help_replace;
+		help_decompose;
+		help_compose;
+		help_help;
+		help_stdin;
+		help_options;
+		help_directions;
+		author_website;
+	]
 
-let usage : string=
-"USAGE:
-  nd validate [ <options> ] { <path-to-file> | - }
-  nd show [ <directions> ] { <path-to-file> | - }
-  nd show-raw [ <directions> ] { <path-to-file> | - }
-  nd edit [ <directions> ] <path-to-file>
-  nd edit-raw [ <directions> ] <path-to-file>
-  nd replace <path-to-file> [ <directions> ] <path-to-file>
-  nd replace-raw <path-to-file> [ <directions> ] <path-to-file>
-  nd decompose [ -R ] <path-to-directory> <path-to-file>
-  nd decompose-raw [ -R ] <path-to-directory> <path-to-file>
-  nd compose [ -R ] <path-to-directory>
-  nd compose-raw [ -R ] <path-to-directory>
-  nd help"
+let help (keyword : string) : string =
+	match keyword with
+	|"validate" -> help_validate
+	|"show" -> help_show
+	|"edit" -> help_edit
+	|"replace" -> help_replace
+	|"decompose" -> help_decompose
+	|"compose" -> help_compose
+	|"options" -> help_options
+	|"directions" -> help_directions
+	|"" -> manual
+	|_ -> raise (Error "invalid argument(s)")
 
 let arg_array : string array = Sys.argv
 let arg_list : string list = Array.to_list arg_array
-let len = Array.length arg_array
 
 let _ : unit = 
 try
-        let command : string = arg_array.(1) in
-        if command = "help" then IO.print_to_stdout manual else
-        let path : string = arg_array.(len - 1) in
-        let options : string list = List.rev (List.tl (List.rev (List.tl (List.tl arg_list)))) in
+	match arg_list with
+	|"nd"::("help" :: tl) -> IO.print_to_stdout (help (String.concat "" tl))
+	|"nd"::(command :: tl) -> (
+	        let options : string list = List.rev (List.tl (List.rev tl)) in
+	        let path : string = List.hd (List.rev tl) in
         match command, path with
         |"validate", "-" -> let _ = Main.validate_stdin ("--print-proof"::("--print-report"::options)) in ()
         |"validate", path -> let _ = Main.validate_file ("--print-proof"::("--print-report"::options)) path in ()
@@ -171,6 +218,8 @@ try
         |"replace", path -> Main.subst_in_file (List.hd options) (List.tl options) path
         |"replace-raw", path -> Main.subst_in_file_raw (List.hd options) (List.tl options) path
         |_ -> raise (Error "invalid argument(s)")
+	)
+	|_ -> IO.print_to_stderr usage
 with 
 |Main.Error e
 |ND_main.Error e

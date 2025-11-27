@@ -25,17 +25,29 @@ USAGE:
 
         Prints message to stderr if no sub-proof matches directions.
 
+    show-raw [ <directions> ] { <path-to-file> | - }
+
+        Same as show, except that formulas are not parsed.
+
     edit [ <directions> ] <path-to-file>
 
         Opens a formatted version of proof contained in file in nano, or
         sub-proof thereof specified by directions. Writes any changes to file,
         and prints the result to stdout.
 
+    edit-raw [ <directions> ] <path-to-file>
+
+        Same as edit, except that formulas are not parsed.
+
     replace <path-to-file> [ <directions> ] <path-to-file>
 
         Prints to stdout result of replacing proof contained in second file
         (or sub-proof thereof specified by directions) with proof contained
         in first file.
+
+    replace-raw <path-to-file> [ <directions> ] <path-to-file>
+
+        Same as replace, except that formulas are not parsed.
 
     decompose [ -R ] <path-to-directory> <path-to-file>
 
@@ -46,6 +58,10 @@ USAGE:
 
         Does it recursively for each sub-proof if '-R' is provided.
 
+    decompose-raw [ -R ] <path-to-directory> <path-to-file>
+
+        Same as decompose, except that formulas are not parsed.
+
     compose [ -R ] <path-to-directory>
 
         Assumes that a proof has been decomposed in directory, and composes a
@@ -54,9 +70,14 @@ USAGE:
 
         Does it recursively for each sub-proof if '-R' is provided.
 
-    help
+    compose-raw [ -R ] <path-to-directory>
 
-        Prints this manual to stdout.
+        Same as compose, except that formulas are not parsed.
+
+    help [ validate | show | edit | replace | decompose | compose |
+            options | directions ]
+
+        Prints manual to stdout, or part thereof specified by keyword.
 
     Reads from stdin if '-' is provided instead of a path (and if it may be so
     provided).
