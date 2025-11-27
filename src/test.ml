@@ -629,6 +629,17 @@ let comp_test input : unit =
         |false -> IO.print_to_stderr ("comp_test FAILED on " ^ input)
 
 
+let comp_test_raw input : unit =
+        let prf_in : t_prf_raw = Main.prf_raw_of_file input in
+        let temp_dir = Filename.temp_dir "" "" in
+        let _ : unit = Main.decompose_file_raw ["-R"] temp_dir input in
+        let prf_out : t_prf_raw = Main.compose_prf_raw_rec temp_dir in
+        let _ : int = Sys.command (String.concat " " ["rm -r";temp_dir]) in
+        match prf_in = prf_out with
+        |true -> ()
+        |false -> IO.print_to_stderr ("comp_test_raw FAILED on " ^ input)
+
+
 let _ : unit = nd_raw_test nd0_in nd0_out_raw
 let _ : unit = nd_raw_test nd1_in nd1_out_raw
 let _ : unit = nd_raw_test nd2_in nd2_out_raw
@@ -705,6 +716,15 @@ let _ : unit = validity_test nd32_in nd32_valid
 let _ : unit = validity_test nd33_in nd33_valid
 let _ : unit = validity_test nd20_in nd20_valid
 
+let _ : unit = comp_test_raw nd0_in
+let _ : unit = comp_test_raw nd1_in
+let _ : unit = comp_test_raw nd3_in
+let _ : unit = comp_test_raw nd4_in
+let _ : unit = comp_test_raw nd5_in
+let _ : unit = comp_test_raw nd6_in
+let _ : unit = comp_test_raw nd7_in
+let _ : unit = comp_test_raw nd8_in
+let _ : unit = comp_test_raw nd9_in
 
 let _ : unit = comp_test nd3_in
 let _ : unit = comp_test nd4_in

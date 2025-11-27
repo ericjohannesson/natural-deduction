@@ -32,18 +32,17 @@ val validate_stdin : string list -> ND_types.t_prf option
 
 (** Decomposing *)
 
-val decompose_prf : string -> ND_types.t_prf -> unit
-
-val decompose_prf_rec: string -> ND_types.t_prf -> unit
-
 val decompose_file : string list -> string -> string -> unit
+val decompose_file_raw : string list -> string -> string -> unit
 
 
 (** Composing *)
 
 val compose_prf_rec : string -> ND_types.t_prf
+val compose_prf_raw_rec : string -> ND_types.t_prf_raw
 
 val compose_dir : string list -> string -> ND_types.t_prf
+val compose_dir_raw : string list -> string -> ND_types.t_prf_raw
 
 (** Editing *)
 
@@ -52,9 +51,13 @@ val sub_prf_of_file : (string list) -> string -> ND_types.t_prf
 [sub_prf_of_file directions path]
 raises error if no sub-proof of proof contained in [path] matches [directions].
 *)
+val sub_prf_raw_of_file : (string list) -> string -> ND_types.t_prf_raw
 
 val sub_prf_of_stdin : (string list) -> ND_types.t_prf
+val sub_prf_raw_of_stdin : (string list) -> ND_types.t_prf_raw
 
 val subst_in_file : string -> string list -> string -> unit
+val subst_in_file_raw : string -> string list -> string -> unit
 
 val edit_file : string list -> string -> unit
+val edit_file_raw : string list -> string -> unit

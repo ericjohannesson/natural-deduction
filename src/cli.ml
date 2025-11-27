@@ -26,17 +26,29 @@ USAGE:
 
         Prints message to stderr if no sub-proof matches directions.
 
+    show-raw [ <directions> ] { <path-to-file> | - }
+
+        Same as show, except that formulas are not parsed.
+
     edit [ <directions> ] <path-to-file>
 
         Opens a formatted version of proof contained in file in nano, or
         sub-proof thereof specified by directions. Writes any changes to file,
         and prints the result to stdout.
 
+    edit-raw [ <directions> ] <path-to-file>
+
+        Same as edit, except that formulas are not parsed.
+
     replace <path-to-file> [ <directions> ] <path-to-file>
 
         Prints to stdout result of replacing proof contained in second file
         (or sub-proof thereof specified by directions) with proof contained
         in first file.
+
+    replace-raw <path-to-file> [ <directions> ] <path-to-file>
+
+        Same as replace, except that formulas are not parsed.
 
     decompose [ -R ] <path-to-directory> <path-to-file>
 
@@ -47,6 +59,10 @@ USAGE:
 
         Does it recursively for each sub-proof if '-R' is provided.
 
+    decompose-raw [ -R ] <path-to-directory> <path-to-file>
+
+        Same as decompose, except that formulas are not parsed.
+
     compose [ -R ] <path-to-directory>
 
         Assumes that a proof has been decomposed in directory, and composes a
@@ -54,6 +70,10 @@ USAGE:
         to the file called 'proof.txt' located in directory.
 
         Does it recursively for each sub-proof if '-R' is provided.
+
+    compose-raw [ -R ] <path-to-directory>
+
+        Same as compose, except that formulas are not parsed.
 
     help
 
@@ -114,10 +134,15 @@ let usage : string=
 "USAGE:
   nd validate [ <options> ] { <path-to-file> | - }
   nd show [ <directions> ] { <path-to-file> | - }
+  nd show-raw [ <directions> ] { <path-to-file> | - }
   nd edit [ <directions> ] <path-to-file>
+  nd edit-raw [ <directions> ] <path-to-file>
   nd replace <path-to-file> [ <directions> ] <path-to-file>
+  nd replace-raw <path-to-file> [ <directions> ] <path-to-file>
   nd decompose [ -R ] <path-to-directory> <path-to-file>
+  nd decompose-raw [ -R ] <path-to-directory> <path-to-file>
   nd compose [ -R ] <path-to-directory>
+  nd compose-raw [ -R ] <path-to-directory>
   nd help"
 
 let arg_array : string array = Sys.argv
@@ -135,9 +160,14 @@ try
         |"validate", path -> let _ = Main.validate_file ("--print-proof"::("--print-report"::options)) path in ()
         |"show", "-" -> let _ = Main.sub_prf_of_stdin options in ()
         |"show", path -> let _ = Main.sub_prf_of_file options path in ()
+        |"show-raw", "-" -> let _ = Main.sub_prf_raw_of_stdin options in ()
+        |"show-raw", path -> let _ = Main.sub_prf_raw_of_file options path in ()
         |"decompose", path -> Main.decompose_file (List.tl (List.rev options)) (List.hd (List.rev options)) path
         |"compose", path -> let _ = Main.compose_dir options path in ()
         |"edit", path -> Main.edit_file options path
+        |"edit-raw", path -> Main.edit_file_raw options path
+        |"replace", path -> Main.subst_in_file (List.hd options) (List.tl options) path
+        |"replace-raw", path -> Main.subst_in_file_raw (List.hd options) (List.tl options) path
         |_ -> raise (Error "invalid argument(s)")
 with 
 |Main.Error e
