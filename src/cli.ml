@@ -163,7 +163,9 @@ try
         |"show-raw", "-" -> let _ = Main.sub_prf_raw_of_stdin options in ()
         |"show-raw", path -> let _ = Main.sub_prf_raw_of_file options path in ()
         |"decompose", path -> Main.decompose_file (List.tl (List.rev options)) (List.hd (List.rev options)) path
+        |"decompose-raw", path -> Main.decompose_file_raw (List.tl (List.rev options)) (List.hd (List.rev options)) path
         |"compose", path -> let _ = Main.compose_dir options path in ()
+        |"compose-raw", path -> let _ = Main.compose_dir_raw options path in ()
         |"edit", path -> Main.edit_file options path
         |"edit-raw", path -> Main.edit_file_raw options path
         |"replace", path -> Main.subst_in_file (List.hd options) (List.tl options) path
