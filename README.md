@@ -412,7 +412,7 @@ PROVES: P, Q ⊢ (P ∧ Q).
 ```
 </details>
 
-## Installation
+## Build instructions
 
 Clone this repository. In the root directory of the clone, follow either of the instructions below.
 
