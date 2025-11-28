@@ -91,7 +91,7 @@ USAGE:
 
     --undischarge, -u
 
-        Checks a version of the proof where all undischargeable assumptions
+        Checks a version of the proof where all non-dischargeable assumptions
         are undischarged.
 
     --verbose, -v
