@@ -18,13 +18,13 @@ nd: src/*
 	ocamllex ND_lexer.mll
 	menhir --infer --explain --dump --dump-resolved --exn-carries-state ND_parser.mly
 	ocamlc -c FOL_types.cmo ND_types.cmo ND_parser.mli
-	ocamlfind ocamlopt -o nd -linkpkg -package uuseg IO.ml FOL_types.ml FOL_parser.ml FOL_lexer.ml FOL_parser_automaton.ml FOL_main.ml UTF8_decoder.ml ND_sequencer.ml ND_parser.ml ND_lexer.ml ND_main.ml main.mli main.ml cli.ml
+	ocamlfind ocamlopt -o nd -linkpkg -package uuseg IO.ml FOL_types.ml FOL_parser.ml FOL_lexer.ml FOL_parser_automaton.ml FOL_main.mli FOL_main.ml UTF8_decoder.mli UTF8_decoder.ml ND_sequencer.mli ND_sequencer.ml ND_parser.ml ND_lexer.ml ND_main.mli ND_main.ml main.mli main.ml cli.ml
 	mv nd ..
 	cd -
 
 test: nd
 	cd compilation_for_nd
-	ocamlfind ocamlopt -o test.exe -linkpkg -package uuseg IO.ml FOL_types.ml FOL_parser.ml FOL_lexer.ml FOL_parser_automaton.ml FOL_main.ml UTF8_decoder.ml ND_sequencer.ml ND_parser.ml ND_lexer.ml ND_main.ml main.mli main.ml test.ml
+	ocamlfind ocamlopt -o test.exe -linkpkg -package uuseg IO.ml FOL_types.ml FOL_parser.ml FOL_lexer.ml FOL_parser_automaton.ml FOL_main.ml UTF8_decoder.mli UTF8_decoder.ml ND_sequencer.mli ND_sequencer.ml ND_parser.ml ND_lexer.ml ND_main.mli ND_main.ml main.mli main.ml test.ml
 	./test.exe
 	cd -
 
@@ -52,7 +52,7 @@ compilation_for_utop: src/*
 	ocamllex ND_lexer.mll
 	menhir --infer --explain --dump --dump-resolved --exn-carries-state ND_parser.mly
 	ocamlc -c FOL_types.cmo ND_types.cmo ND_parser.mli
-	ocamlfind ocamlc -a -o ND_lib.cma -linkpkg -package uuseg IO.ml FOL_types.ml FOL_parser.ml FOL_lexer.ml FOL_parser_automaton.ml FOL_main.ml UTF8_decoder.ml ND_sequencer.ml ND_parser.ml ND_lexer.ml ND_main.ml main.mli main.ml
+	ocamlfind ocamlc -a -o ND_lib.cma -linkpkg -package uuseg IO.ml FOL_types.ml FOL_parser.ml FOL_lexer.ml FOL_parser_automaton.ml FOL_main.mli FOL_main.ml UTF8_decoder.mli UTF8_decoder.ml ND_sequencer.mli ND_sequencer.ml ND_parser.ml ND_lexer.ml ND_main.mli ND_main.ml main.mli main.ml
 	cd -
 
 

@@ -17,7 +17,7 @@ let transition (state : t_state) (symbol : t_symbol) (arity: int list) : (t_acti
         )
         |State 1 -> (
                 match symbol with
-                |Space -> Down, State 2, None, arity                    (* find begining of row to the left *)
+                |Space -> Down, State 2, None, arity            (* find begining of row to the left *)
                 |Letter _ -> raise (Error 1)
                 |Dash -> raise (Error 1)
                 |Out -> raise (Error 1)
@@ -27,7 +27,7 @@ let transition (state : t_state) (symbol : t_symbol) (arity: int list) : (t_acti
                 |Space -> Left, State 2, None, arity
                 |Letter _ -> Left, State 2, None, arity
                 |Dash -> Left, State 2, None, arity
-                |Out -> Right, State 0, None, arity                     (* begining of row has been found *)
+                |Out -> Right, State 0, None, arity             (* begining of row has been found *)
         )
         |State 3 -> (                                           (* find begining of row to the right *)
                 match symbol with
@@ -80,7 +80,7 @@ let transition (state : t_state) (symbol : t_symbol) (arity: int list) : (t_acti
         )
         |State 301 -> (                                         (* formula continues? *)
                 match symbol with
-                |Space -> Down, State 31, None, arity           (* more premises? *)
+                |Space -> Down, State 31, None, arity                   (* more premises? *)
                 |Letter _ -> Stay, State 30, Some (FML_LETTER " "), arity
                 |Dash -> Stay, State 30, Some (FML_LETTER " "), arity   
                 |Out -> Left, State 34, None, arity             

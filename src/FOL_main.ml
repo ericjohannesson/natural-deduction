@@ -1,8 +1,9 @@
-exception Error of string
 open FOL_types
 
+exception Error of string
 
-(** Parsing *)
+
+(** Parse *)
 
 let string_of_token (t:FOL_parser.token) : string =
         match t with
@@ -62,7 +63,7 @@ let fml_list_of_file (print_tokens : bool) (path : string) : t_fml list =
                 |Error e -> let _ : unit = IO.print_to_stderr e in acc
         in List.rev (aux [])
 
-(** Printing *)
+(** Print *)
 
 let rec string_of_fml (fml : t_fml) : string =
         match fml with

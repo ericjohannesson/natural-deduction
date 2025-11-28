@@ -3,7 +3,7 @@ open FOL_types
 
 exception Error of string
 
-(** Parsing *)
+(** Parse *)
 
 let string_of_token (t:ND_parser.token):string =
         match t with
@@ -55,7 +55,7 @@ let prf_raw_of_stdin (trace : bool) (print_tokens : bool) : t_prf_raw =
         prf_raw_of_string trace print_tokens (IO.string_of_stdin ())
 
 
-(** Printing *)
+(** Print *)
 
 
 let string_of_fml_raw (fml_raw : t_fml_raw) : string =
