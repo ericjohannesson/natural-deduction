@@ -163,66 +163,66 @@ let help_directions : string =
         nd show <directions> <path-to-file> | nd show <direction> -"
 
 let manual : string =
-	String.concat "\n\n" [
-		header;
-		usage_commands;
-		help_validate;
-		help_show;
-		help_edit;
-		help_replace;
-		help_decompose;
-		help_compose;
-		help_help;
-		help_stdin;
-		help_options;
-		help_directions;
-		author_website;
-	]
+        String.concat "\n\n" [
+                header;
+                usage_commands;
+                help_validate;
+                help_show;
+                help_edit;
+                help_replace;
+                help_decompose;
+                help_compose;
+                help_help;
+                help_stdin;
+                help_options;
+                help_directions;
+                author_website;
+        ]
 
 let help (keyword : string) : string =
-	match keyword with
-	|"validate" -> help_validate
-	|"show" -> help_show
-	|"edit" -> help_edit
-	|"replace" -> help_replace
-	|"decompose" -> help_decompose
-	|"compose" -> help_compose
-	|"options" -> help_options
-	|"directions" -> help_directions
-	|"" -> manual
-	|_ -> raise (Error "invalid argument(s)")
+        match keyword with
+        |"validate" -> help_validate
+        |"show" -> help_show
+        |"edit" -> help_edit
+        |"replace" -> help_replace
+        |"decompose" -> help_decompose
+        |"compose" -> help_compose
+        |"options" -> help_options
+        |"directions" -> help_directions
+        |"" -> manual
+        |_ -> raise (Error "invalid argument(s)")
 
 let arg_array : string array = Sys.argv
 let arg_list : string list = Array.to_list arg_array
 
 let _ : unit = 
-try
-	match arg_list with
-	|"nd"::("help" :: tl) -> IO.print_to_stdout (help (String.concat "" tl))
-	|"nd"::(command :: tl) -> (
-	        let options : string list = List.rev (List.tl (List.rev tl)) in
-	        let path : string = List.hd (List.rev tl) in
-        match command, path with
-        |"validate", "-" -> let _ = Main.validate_stdin ("--print-proof"::("--print-report"::options)) in ()
-        |"validate", path -> let _ = Main.validate_file ("--print-proof"::("--print-report"::options)) path in ()
-        |"show", "-" -> let _ = Main.sub_prf_of_stdin options in ()
-        |"show", path -> let _ = Main.sub_prf_of_file options path in ()
-        |"show-raw", "-" -> let _ = Main.sub_prf_raw_of_stdin options in ()
-        |"show-raw", path -> let _ = Main.sub_prf_raw_of_file options path in ()
-        |"decompose", path -> Main.decompose_file (List.tl (List.rev options)) (List.hd (List.rev options)) path
-        |"decompose-raw", path -> Main.decompose_file_raw (List.tl (List.rev options)) (List.hd (List.rev options)) path
-        |"compose", path -> let _ = Main.compose_dir options path in ()
-        |"compose-raw", path -> let _ = Main.compose_dir_raw options path in ()
-        |"edit", path -> Main.edit_file options path
-        |"edit-raw", path -> Main.edit_file_raw options path
-        |"replace", path -> Main.subst_in_file (List.hd options) (List.tl options) path
-        |"replace-raw", path -> Main.subst_in_file_raw (List.hd options) (List.tl options) path
-        |_ -> raise (Error "invalid argument(s)")
-	)
-	|_ -> IO.print_to_stderr usage
-with 
-|Main.Error e
-|ND_main.Error e
-|FOL_main.Error e -> IO.print_to_stderr e
-|Error e -> IO.print_to_stderr (String.concat "\n" [e;usage])
-|_ -> IO.print_to_stderr usage
+        try
+        match arg_list with
+        |"nd"::("help" :: tl) -> IO.print_to_stdout (help (String.concat "" tl))
+        |"nd"::(command :: tl) -> (
+                let options : string list = List.rev (List.tl (List.rev tl)) in
+                let path : string = List.hd (List.rev tl) in
+                match command, path with
+                |"validate", "-" -> let _ = Main.validate_stdin ("--print-proof"::("--print-report"::options)) in ()
+                |"validate", path -> let _ = Main.validate_file ("--print-proof"::("--print-report"::options)) path in ()
+                |"show", "-" -> let _ = Main.sub_prf_of_stdin options in ()
+                |"show", path -> let _ = Main.sub_prf_of_file options path in ()
+                |"show-raw", "-" -> let _ = Main.sub_prf_raw_of_stdin options in ()
+                |"show-raw", path -> let _ = Main.sub_prf_raw_of_file options path in ()
+                |"decompose", path -> Main.decompose_file (List.tl (List.rev options)) (List.hd (List.rev options)) path
+                |"decompose-raw", path -> Main.decompose_file_raw (List.tl (List.rev options)) (List.hd (List.rev options)) path
+                |"compose", path -> let _ = Main.compose_dir options path in ()
+                |"compose-raw", path -> let _ = Main.compose_dir_raw options path in ()
+                |"edit", path -> Main.edit_file options path
+                |"edit-raw", path -> Main.edit_file_raw options path
+                |"replace", path -> Main.subst_in_file (List.hd options) (List.tl options) path
+                |"replace-raw", path -> Main.subst_in_file_raw (List.hd options) (List.tl options) path
+                |_ -> raise (Error "invalid argument(s)")
+        )
+        |_ -> IO.print_to_stderr usage
+        with
+        |Main.Error e
+        |ND_main.Error e
+        |FOL_main.Error e -> IO.print_to_stderr e
+        |Error e -> IO.print_to_stderr (String.concat "\n" [e;usage])
+        |_ -> IO.print_to_stderr usage
