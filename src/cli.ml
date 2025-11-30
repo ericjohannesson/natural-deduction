@@ -17,14 +17,12 @@ let usage : string=
             options | directions ]"
 
 
-let header : string=
+let headers : string=
 "==============================================================================
 NATURAL DEDUCTION
 A basic proof assistant for natural deduction in classical first-order logic.
-=============================================================================="
-
-let usage_commands : string =
-"USAGE:
+==============================================================================
+USAGE:
 
   nd <command>
 
@@ -164,8 +162,7 @@ let help_directions : string =
 
 let manual : string =
         String.concat "\n\n" [
-                header;
-                usage_commands;
+                headers;
                 help_validate;
                 help_show;
                 help_edit;
