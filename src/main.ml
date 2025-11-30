@@ -149,6 +149,7 @@ and subst_equiv_term_lists (term1 : t_term) (term2 : t_term) (term_list1 : t_ter
 
 
 let rec subst_equiv (term1 : t_term) (term2 : t_term) (fml1 : t_fml) (fml2 : t_fml) : bool =
+        is_closed_term term1 && is_closed_term term2 &&
         match fml1, fml2 with
         | PredApp (pred1, term_list1), PredApp (pred2, term_list2) ->
                 pred1 = pred2 && (subst_equiv_term_lists term1 term2 term_list1 term_list2)
@@ -292,7 +293,8 @@ let rec validate (options: string list) (rule_count : int) (attempt : int) (disc
                         |fml1, QuantApp (Quant "∀", var, sub_fml), 3 -> (
                                 match is_instance_of_with fml1 sub_fml var with
                                 |Some (FuncApp (Func c,[])) -> (
-                                        match List.exists (occurs_in (FuncApp (Func c,[]))) (premises_of_prf [] prf1) with
+                                        let const : t_term = (FuncApp (Func c,[])) in
+                                        match List.exists (occurs_in const) (premises_of_prf [] prf1) with
                                         |false -> (
                                                 match validate options rule_count 0 dischargeable (prf::acc) prf1 with
                                                 |Some valid_prf1 -> Some (Unary_prf (valid_prf1, Unary_rule "∀I", fml))
