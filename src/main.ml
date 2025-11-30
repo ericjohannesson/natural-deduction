@@ -69,12 +69,12 @@ let rec prf_raw_of_prf (prf : t_prf) : t_prf_raw =
         | Trinary_prf (prf1, prf2, prf3, trinary_rule, fml) ->
                 Trinary_prf_raw (prf_raw_of_prf prf1, prf_raw_of_prf prf2, prf_raw_of_prf prf3, trinary_rule, fml_raw_of_fml fml)
 
-let nd_string_of_prf_raw (prf : t_prf_raw) : string =
-        ND_main.nd_string_of_prf_raw prf
+let string_of_prf_raw (prf : t_prf_raw) : string =
+        ND_main.string_of_prf_raw prf
 
 
-let nd_string_of_prf (prf : t_prf) : string =
-        nd_string_of_prf_raw (prf_raw_of_prf prf)
+let string_of_prf (prf : t_prf) : string =
+        string_of_prf_raw (prf_raw_of_prf prf)
 
 
 (** Validate *)
@@ -206,7 +206,7 @@ let rec validate (options: string list) (rule_count : int) (attempt : int) (disc
                                         "\nGOOD NEWS: Undischarged assumption ";
                                         "\'"; string_of_fml fml; "\'";
                                         " may be discharged on the following branch:\n\n";
-                                        String.concat "\n\nwhich is part of\n\n" (List.map nd_string_of_prf (prf::acc));"\n";
+                                        String.concat "\n\nwhich is part of\n\n" (List.map string_of_prf (prf::acc));"\n";
                                         ]
                                         ) else ()
                                 in
@@ -238,7 +238,7 @@ let rec validate (options: string list) (rule_count : int) (attempt : int) (disc
                                         "\nBAD NEWS: Discharged assumption ";
                                         "\'"; string_of_fml fml; "\'";
                                         " may not be discharged on the following branch:\n\n";
-                                        String.concat "\n\nwhich is part of\n\n" (List.map nd_string_of_prf (prf::acc));"\n";
+                                        String.concat "\n\nwhich is part of\n\n" (List.map string_of_prf (prf::acc));"\n";
                                         ]
                                         ) else ()
                                 in
@@ -337,7 +337,7 @@ let rec validate (options: string list) (rule_count : int) (attempt : int) (disc
                                         IO.print_to_stderr (
                                         String.concat "" [
                                         "\nBAD NEWS: The following branch does not satisfy the conditions of any unary rule:\n\n";
-                                        String.concat "\n\nwhich is part of\n\n" (List.map nd_string_of_prf (prf::acc));"\n";
+                                        String.concat "\n\nwhich is part of\n\n" (List.map string_of_prf (prf::acc));"\n";
                                         ]
                                         ) else ()
                                 in None
@@ -522,7 +522,7 @@ let rec validate (options: string list) (rule_count : int) (attempt : int) (disc
                                         IO.print_to_stderr (
                                         String.concat "" [
                                         "\nBAD NEWS: The following branch does not satisfy the conditions of any binary rule:\n\n";
-                                        String.concat "\n\nwhich is part of\n\n" (List.map nd_string_of_prf (prf::acc));"\n";
+                                        String.concat "\n\nwhich is part of\n\n" (List.map string_of_prf (prf::acc));"\n";
                                         ]
                                         ) else ()
                                 in None
@@ -584,7 +584,7 @@ let rec validate (options: string list) (rule_count : int) (attempt : int) (disc
                                 IO.print_to_stderr (
                                 String.concat "" [
                                 "\nBAD NEWS: The following branch does not satisfy the conditions of any trinary rule:\n\n";
-                                String.concat "\n\nwhich is part of\n\n" (List.map nd_string_of_prf (prf::acc));"\n";
+                                String.concat "\n\nwhich is part of\n\n" (List.map string_of_prf (prf::acc));"\n";
                                 ]
                                 ) else ()
                         in None
@@ -619,7 +619,7 @@ let validate_prf (options : string list) (prf : t_prf) : t_prf option =
                 let premises_string : string = String.concat ", " (List.map string_of_fml premises) in
                 let conclusion_string : string = string_of_fml conclusion in
                 let proves_string : string = String.concat " ⊢ " [premises_string; conclusion_string] in
-                let proof_string : string = nd_string_of_prf valid_prf in
+                let proof_string : string = string_of_prf valid_prf in
                 let report_string : string = String.concat "" [
                         "\n"; "Proof is VALID:"; "\n\n";
                         proof_string;"\n\n";
@@ -635,7 +635,7 @@ let validate_prf (options : string list) (prf : t_prf) : t_prf option =
                 let premises_string : string = String.concat ", " (List.map string_of_fml premises) in
                 let conclusion_string : string = string_of_fml conclusion in
                 let proves_string : string = String.concat " ⊢ " [premises_string; conclusion_string] in
-                let proof_string = nd_string_of_prf prf in
+                let proof_string = string_of_prf prf in
                 let report_string : string = String.concat "" [
                         "\n"; "Proof is NOT valid:";"\n\n";
                         proof_string;"\n\n";
@@ -662,39 +662,39 @@ let decompose_prf (path : string) (prf : t_prf) : unit =
         let _ : int = Sys.command make_dir in
         match prf with
         |Atomic_prf _ 
-        |Nullary_prf _ -> IO.print_to_file (nd_string_of_prf prf) (String.concat "" [path;"/";"proof.txt"])
+        |Nullary_prf _ -> IO.print_to_file (string_of_prf prf) (String.concat "" [path;"/";"proof.txt"])
         |Unary_prf (prf1, _, fml) ->
-                let _ : unit = IO.print_to_file (nd_string_of_prf prf) (String.concat "" [path;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf prf) (String.concat "" [path;"/proof.txt"]) in
                 let path1 = String.concat "" [path;"/sub-only"] in
                 let make_dir1 = String.concat " " ["mkdir -p";path1] in
                 let _ : int = Sys.command make_dir1 in
-                let _ : unit = IO.print_to_file (nd_string_of_prf prf1) (String.concat "" [path1;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf prf1) (String.concat "" [path1;"/proof.txt"]) in
                 ()
         |Binary_prf (prf1, prf2, _, fml) ->
-                let _ : unit = IO.print_to_file (nd_string_of_prf prf) (String.concat "" [path;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf prf) (String.concat "" [path;"/proof.txt"]) in
                 let path1 = String.concat "" [path;"/sub-left"] in
                 let make_dir1 = String.concat " " ["mkdir -p";path1] in
                 let _ : int = Sys.command make_dir1 in
-                let _ : unit = IO.print_to_file (nd_string_of_prf prf1) (String.concat "" [path1;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf prf1) (String.concat "" [path1;"/proof.txt"]) in
                 let path2 = String.concat "" [path;"/sub-right"] in
                 let make_dir2 = String.concat " " ["mkdir -p";path2] in
                 let _ : int = Sys.command make_dir2 in
-                let _ : unit = IO.print_to_file (nd_string_of_prf prf2) (String.concat "" [path2;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf prf2) (String.concat "" [path2;"/proof.txt"]) in
                 ()
         |Trinary_prf (prf1, prf2, prf3, _, fml) ->
-                let _ : unit = IO.print_to_file (nd_string_of_prf prf) (String.concat "" [path;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf prf) (String.concat "" [path;"/proof.txt"]) in
                 let path1 = String.concat "" [path;"sub-left"] in
                 let make_dir1 = String.concat " " ["mkdir -p";path1] in
                 let _ : int = Sys.command make_dir1 in
-                let _ : unit = IO.print_to_file (nd_string_of_prf prf1) (String.concat "" [path1;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf prf1) (String.concat "" [path1;"/proof.txt"]) in
                 let path2 = String.concat "" [path;"sub-center"] in
                 let make_dir2 = String.concat " " ["mkdir -p";path2] in
                 let _ : int = Sys.command make_dir2 in
-                let _ : unit = IO.print_to_file (nd_string_of_prf prf2) (String.concat "" [path2;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf prf2) (String.concat "" [path2;"/proof.txt"]) in
                 let path3 = String.concat "" [path;"/sub-right"] in
                 let make_dir3 = String.concat " " ["mkdir -p";path3] in
                 let _ : int = Sys.command make_dir3 in
-                let _ : unit = IO.print_to_file (nd_string_of_prf prf3) (String.concat "" [path3;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf prf3) (String.concat "" [path3;"/proof.txt"]) in
                 ()
 
 
@@ -703,19 +703,19 @@ let rec decompose_prf_rec (path : string) (prf : t_prf) : unit =
         let _ : int = Sys.command make_dir in
         match prf with
         |Atomic_prf _ 
-        |Nullary_prf _ -> IO.print_to_file (nd_string_of_prf prf) (String.concat "" [path;"/proof.txt"])
+        |Nullary_prf _ -> IO.print_to_file (string_of_prf prf) (String.concat "" [path;"/proof.txt"])
         |Unary_prf (prf1, _, fml) ->
-                let _ : unit = IO.print_to_file (nd_string_of_prf prf) (String.concat "" [path;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf prf) (String.concat "" [path;"/proof.txt"]) in
                 let path1 = String.concat "" [path;"/sub-only"] in
                 let _ : unit = decompose_prf_rec path1 prf1 in ()
         |Binary_prf (prf1, prf2, _, fml) ->
-                let _ : unit = IO.print_to_file (nd_string_of_prf prf) (String.concat "" [path;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf prf) (String.concat "" [path;"/proof.txt"]) in
                 let path1 = String.concat "" [path;"/sub-left"] in
                 let _ : unit = decompose_prf_rec path1 prf1 in
                 let path2 = String.concat "" [path;"/sub-right"] in
                 let _ : unit = decompose_prf_rec path2 prf2 in ()
         |Trinary_prf (prf1, prf2, prf3, _, fml) ->
-                let _ : unit = IO.print_to_file (nd_string_of_prf prf) (String.concat "" [path;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf prf) (String.concat "" [path;"/proof.txt"]) in
                 let path1 = String.concat "" [path;"/sub-left"] in
                 let _ : unit = decompose_prf_rec path1 prf1 in
                 let path2 = String.concat "" [path;"/sub-center"] in
@@ -749,39 +749,39 @@ let decompose_prf_raw (path : string) (prf : t_prf_raw) : unit =
         let _ : int = Sys.command make_dir in
         match prf with
         |Atomic_prf_raw _ 
-        |Nullary_prf_raw _ -> IO.print_to_file (nd_string_of_prf_raw prf) (String.concat "" [path;"/";"proof.txt"])
+        |Nullary_prf_raw _ -> IO.print_to_file (string_of_prf_raw prf) (String.concat "" [path;"/";"proof.txt"])
         |Unary_prf_raw (prf1, _, fml) ->
-                let _ : unit = IO.print_to_file (nd_string_of_prf_raw prf) (String.concat "" [path;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf_raw prf) (String.concat "" [path;"/proof.txt"]) in
                 let path1 = String.concat "" [path;"/sub-only"] in
                 let make_dir1 = String.concat " " ["mkdir -p";path1] in
                 let _ : int = Sys.command make_dir1 in
-                let _ : unit = IO.print_to_file (nd_string_of_prf_raw prf1) (String.concat "" [path1;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf_raw prf1) (String.concat "" [path1;"/proof.txt"]) in
                 ()
         |Binary_prf_raw (prf1, prf2, _, fml) ->
-                let _ : unit = IO.print_to_file (nd_string_of_prf_raw prf) (String.concat "" [path;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf_raw prf) (String.concat "" [path;"/proof.txt"]) in
                 let path1 = String.concat "" [path;"/sub-left"] in
                 let make_dir1 = String.concat " " ["mkdir -p";path1] in
                 let _ : int = Sys.command make_dir1 in
-                let _ : unit = IO.print_to_file (nd_string_of_prf_raw prf1) (String.concat "" [path1;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf_raw prf1) (String.concat "" [path1;"/proof.txt"]) in
                 let path2 = String.concat "" [path;"/sub-right"] in
                 let make_dir2 = String.concat " " ["mkdir -p";path2] in
                 let _ : int = Sys.command make_dir2 in
-                let _ : unit = IO.print_to_file (nd_string_of_prf_raw prf2) (String.concat "" [path2;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf_raw prf2) (String.concat "" [path2;"/proof.txt"]) in
                 ()
         |Trinary_prf_raw (prf1, prf2, prf3, _, fml) ->
-                let _ : unit = IO.print_to_file (nd_string_of_prf_raw prf) (String.concat "" [path;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf_raw prf) (String.concat "" [path;"/proof.txt"]) in
                 let path1 = String.concat "" [path;"sub-left"] in
                 let make_dir1 = String.concat " " ["mkdir -p";path1] in
                 let _ : int = Sys.command make_dir1 in
-                let _ : unit = IO.print_to_file (nd_string_of_prf_raw prf1) (String.concat "" [path1;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf_raw prf1) (String.concat "" [path1;"/proof.txt"]) in
                 let path2 = String.concat "" [path;"sub-center"] in
                 let make_dir2 = String.concat " " ["mkdir -p";path2] in
                 let _ : int = Sys.command make_dir2 in
-                let _ : unit = IO.print_to_file (nd_string_of_prf_raw prf2) (String.concat "" [path2;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf_raw prf2) (String.concat "" [path2;"/proof.txt"]) in
                 let path3 = String.concat "" [path;"/sub-right"] in
                 let make_dir3 = String.concat " " ["mkdir -p";path3] in
                 let _ : int = Sys.command make_dir3 in
-                let _ : unit = IO.print_to_file (nd_string_of_prf_raw prf3) (String.concat "" [path3;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf_raw prf3) (String.concat "" [path3;"/proof.txt"]) in
                 ()
 
 
@@ -790,19 +790,19 @@ let rec decompose_prf_raw_rec (path : string) (prf : t_prf_raw) : unit =
         let _ : int = Sys.command make_dir in
         match prf with
         |Atomic_prf_raw _ 
-        |Nullary_prf_raw _ -> IO.print_to_file (nd_string_of_prf_raw prf) (String.concat "" [path;"/proof.txt"])
+        |Nullary_prf_raw _ -> IO.print_to_file (string_of_prf_raw prf) (String.concat "" [path;"/proof.txt"])
         |Unary_prf_raw (prf1, _, fml) ->
-                let _ : unit = IO.print_to_file (nd_string_of_prf_raw prf) (String.concat "" [path;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf_raw prf) (String.concat "" [path;"/proof.txt"]) in
                 let path1 = String.concat "" [path;"/sub-only"] in
                 let _ : unit = decompose_prf_raw_rec path1 prf1 in ()
         |Binary_prf_raw (prf1, prf2, _, fml) ->
-                let _ : unit = IO.print_to_file (nd_string_of_prf_raw prf) (String.concat "" [path;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf_raw prf) (String.concat "" [path;"/proof.txt"]) in
                 let path1 = String.concat "" [path;"/sub-left"] in
                 let _ : unit = decompose_prf_raw_rec path1 prf1 in
                 let path2 = String.concat "" [path;"/sub-right"] in
                 let _ : unit = decompose_prf_raw_rec path2 prf2 in ()
         |Trinary_prf_raw (prf1, prf2, prf3, _, fml) ->
-                let _ : unit = IO.print_to_file (nd_string_of_prf_raw prf) (String.concat "" [path;"/proof.txt"]) in
+                let _ : unit = IO.print_to_file (string_of_prf_raw prf) (String.concat "" [path;"/proof.txt"]) in
                 let path1 = String.concat "" [path;"/sub-left"] in
                 let _ : unit = decompose_prf_raw_rec path1 prf1 in
                 let path2 = String.concat "" [path;"/sub-center"] in
@@ -894,7 +894,7 @@ let compose_dir (options : string list) (path : string) : t_prf =
                 |false -> compose_prf
         in
         let prf : t_prf = func path in
-        let prf_string = nd_string_of_prf prf in
+        let prf_string = string_of_prf prf in
         let _ : unit =IO.print_to_stdout prf_string in
         let _ : unit = IO.print_to_file prf_string (String.concat "" [path;"/proof.txt"]) in
         prf
@@ -976,7 +976,7 @@ let compose_dir_raw (options : string list) (path : string) : t_prf_raw =
                 |false -> compose_prf_raw
         in
         let prf : t_prf_raw = func path in
-        let prf_string = nd_string_of_prf_raw prf in
+        let prf_string = string_of_prf_raw prf in
         let _ : unit =IO.print_to_stdout prf_string in
         let _ : unit = IO.print_to_file prf_string (String.concat "" [path;"/proof.txt"]) in
         prf
@@ -1022,12 +1022,12 @@ let rec sub (options : string list) (prf : t_prf) : t_prf =
 
 let sub_prf_of_file (options : string list) (path : string) : t_prf =
         let prf = sub options (prf_of_file path) in
-        let _ : unit = IO.print_to_stdout (nd_string_of_prf prf) in
+        let _ : unit = IO.print_to_stdout (string_of_prf prf) in
         prf
 
 let sub_prf_of_stdin (options : string list) : t_prf =
         let prf = sub options (prf_of_stdin ()) in
-        let _ : unit = IO.print_to_stdout (nd_string_of_prf prf) in
+        let _ : unit = IO.print_to_stdout (string_of_prf prf) in
         prf
 
 
@@ -1071,12 +1071,12 @@ let rec sub_raw (options : string list) (prf : t_prf_raw) : t_prf_raw =
 
 let sub_prf_raw_of_file (options : string list) (path : string) : t_prf_raw =
         let prf = sub_raw options (prf_raw_of_file path) in
-        let _ : unit = IO.print_to_stdout (nd_string_of_prf_raw prf) in
+        let _ : unit = IO.print_to_stdout (string_of_prf_raw prf) in
         prf
 
 let sub_prf_raw_of_stdin (options : string list) : t_prf_raw =
         let prf = sub_raw options (prf_raw_of_stdin ()) in
-        let _ : unit = IO.print_to_stdout (nd_string_of_prf_raw prf) in
+        let _ : unit = IO.print_to_stdout (string_of_prf_raw prf) in
         prf
 
 
@@ -1113,7 +1113,7 @@ let subst_in_file (replacement_path : string) (options : string list) (prf_path 
         let replacement = prf_of_file replacement_path in
         let prf = prf_of_file prf_path in
         let new_prf = subst_in_prf replacement options prf in
-        let prf_string : string = nd_string_of_prf new_prf in
+        let prf_string : string = string_of_prf new_prf in
         let _ : unit = IO.print_to_stdout (prf_string) in
         IO.print_to_file prf_string prf_path
 
@@ -1122,7 +1122,7 @@ let edit_file (options : string list) (path : string): unit =
         let prf = prf_of_file path in
         let sub_prf = sub options prf in
         let temp_path = Filename.temp_file "" (String.concat "" ((file_name_of_path path)::options)) in
-        let _ : unit = IO.print_to_file (nd_string_of_prf sub_prf) temp_path in
+        let _ : unit = IO.print_to_file (string_of_prf sub_prf) temp_path in
         let exit_code : int = Sys.command (String.concat " " ["nano";temp_path]) in
         match exit_code with
         |0 ->
@@ -1166,7 +1166,7 @@ let subst_in_file_raw (replacement_path : string) (options : string list) (prf_p
         let replacement = prf_raw_of_file replacement_path in
         let prf = prf_raw_of_file prf_path in
         let new_prf = subst_in_prf_raw replacement options prf in
-        let prf_string : string = nd_string_of_prf_raw new_prf in
+        let prf_string : string = string_of_prf_raw new_prf in
         let _ : unit = IO.print_to_stdout (prf_string) in
         IO.print_to_file prf_string prf_path
 
@@ -1175,7 +1175,7 @@ let edit_file_raw (options : string list) (path : string): unit =
         let prf = prf_raw_of_file path in
         let sub_prf = sub_raw options prf in
         let temp_path = Filename.temp_file "" (String.concat "" ((file_name_of_path path)::options)) in
-        let _ : unit = IO.print_to_file (nd_string_of_prf_raw sub_prf) temp_path in
+        let _ : unit = IO.print_to_file (string_of_prf_raw sub_prf) temp_path in
         let exit_code : int = Sys.command (String.concat " " ["nano";temp_path]) in
         match exit_code with
         |0 ->

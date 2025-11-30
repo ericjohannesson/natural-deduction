@@ -235,7 +235,7 @@ and merge (width : int) (lines1 : string list) (width1 : int) (lines2 : string l
         in aux (List.rev lines1) (List.rev lines2) []
 
 
-let nd_string_of_prf_raw (prf_raw : t_prf_raw) : string =
+let string_of_prf_raw (prf_raw : t_prf_raw) : string =
         let width : int = width_of_prf_raw prf_raw in
         let lines : string list = lines_of_prf_raw width prf_raw [] in
         String.concat "\n" lines

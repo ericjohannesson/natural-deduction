@@ -584,7 +584,7 @@ let nd_test input output : unit =
 
 let nd_fixpoint_test_raw input : unit =
 try     let out1 : ND_types.t_prf_raw = Main.prf_raw_of_file input in
-        let str : string = ND_main.nd_string_of_prf_raw out1 in
+        let str : string = ND_main.string_of_prf_raw out1 in
         let out2 : ND_types.t_prf_raw = Main.prf_raw_of_string str in
         match out1 = out2 with
         |true -> ()
@@ -594,7 +594,7 @@ with ND_main.Error e -> IO.print_to_stderr (String.concat " " ["nd_fixpoint_test
 
 let nd_fixpoint_test input : unit =
 try     let out1 : ND_types.t_prf = Main.prf_of_file input in
-        let str : string = Main.nd_string_of_prf out1 in
+        let str : string = Main.string_of_prf out1 in
         let out2 : ND_types.t_prf = Main.prf_of_string str in
         match out1 = out2 with
         |true -> ()

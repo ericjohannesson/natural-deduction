@@ -17,8 +17,8 @@ val prf_of_string : string -> ND_types.t_prf
 val string_of_fml : FOL_types.t_fml -> string
 val fml_raw_of_fml : FOL_types.t_fml -> ND_types.t_fml_raw
 val prf_raw_of_prf : ND_types.t_prf -> ND_types.t_prf_raw
-val nd_string_of_prf : ND_types.t_prf -> string
-val nd_string_of_prf_raw : ND_types.t_prf_raw -> string
+val string_of_prf : ND_types.t_prf -> string
+val string_of_prf_raw : ND_types.t_prf_raw -> string
 
 (** Validate *)
 
