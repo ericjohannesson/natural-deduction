@@ -195,7 +195,8 @@ content of `examples/proof2.txt`:
 ---------------
 \exists x Q(x)        \exists x P(x)
 --------------------------------------EE
-            \exists x Q(x)```
+            \exists x Q(x)
+```
 </details>
 
 <details>
