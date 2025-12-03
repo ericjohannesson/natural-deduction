@@ -554,8 +554,8 @@ let rec validate (options: string list) (rule_count : int) (attempt : int) (disc
                         )
                         |false -> validate options rule_count (attempt+1) dischargeable acc prf
                 )
-                |fml1, fml2, BinopApp (Binop "∨", left, right), _, 1 -> (
-                        match fml = fml1 && fml = fml2 with
+                |BinopApp (Binop "∨", left, right), fml3, fml2, _, 1 -> (
+                        match fml = fml2 && fml = fml3 with
                         |true -> (
                                 let dischargeable_left (f : t_fml) : int option =
                                          if f = left then Some rule_count else dischargeable f
@@ -564,13 +564,13 @@ let rec validate (options: string list) (rule_count : int) (attempt : int) (disc
                                          if f = right then Some rule_count else dischargeable f
                                 in
                                 match 
-                                validate options (rule_count+1) 0 dischargeable_left (prf::acc) prf1, 
-                                validate options (rule_count+1) 0 dischargeable_right (prf::acc) prf2, 
-                                validate options (rule_count+1) 0 dischargeable (prf::acc) prf3
+                                validate options (rule_count+1) 0 dischargeable (prf::acc) prf1, 
+                                validate options (rule_count+1) 0 dischargeable_left (prf::acc) prf2, 
+                                validate options (rule_count+1) 0 dischargeable_right (prf::acc) prf3
                                 with
                                 |Some valid_prf1, Some valid_prf2, Some valid_prf3 ->
                                         Some (Trinary_prf (
-                                                valid_prf1, valid_prf2, valid_prf3,
+                                                valid_prf1, valid_prf2, valid_prf3, 
                                                 Trinary_rule ("∨E" ^ (string_of_int rule_count)),
                                                 fml
                                         ))
@@ -578,7 +578,103 @@ let rec validate (options: string list) (rule_count : int) (attempt : int) (disc
                         )
                         |false -> validate options rule_count (attempt+1) dischargeable acc prf
                 )
-                |_, _, _, _, 2 ->
+                |fml2, BinopApp (Binop "∨", left, right), fml3, _, 2 -> (
+                        match fml = fml2 && fml = fml3 with
+                        |true -> (
+                                let dischargeable_left (f : t_fml) : int option =
+                                         if f = left then Some rule_count else dischargeable f
+                                in
+                                let dischargeable_right (f : t_fml) : int option =
+                                         if f = right then Some rule_count else dischargeable f
+                                in
+                                match 
+                                validate options (rule_count+1) 0 dischargeable (prf::acc) prf1, 
+                                validate options (rule_count+1) 0 dischargeable_left (prf::acc) prf2, 
+                                validate options (rule_count+1) 0 dischargeable_right (prf::acc) prf3
+                                with
+                                |Some valid_prf1, Some valid_prf2, Some valid_prf3 ->
+                                        Some (Trinary_prf (
+                                                valid_prf1, valid_prf2, valid_prf3, 
+                                                Trinary_rule ("∨E" ^ (string_of_int rule_count)),
+                                                fml
+                                        ))
+                                |_,_,_ -> validate options rule_count (attempt+1) dischargeable acc prf
+                        )
+                        |false -> validate options rule_count (attempt+1) dischargeable acc prf
+                )
+                |fml3, BinopApp (Binop "∨", left, right), fml2, _, 3 -> (
+                        match fml = fml2 && fml = fml3 with
+                        |true -> (
+                                let dischargeable_left (f : t_fml) : int option =
+                                         if f = left then Some rule_count else dischargeable f
+                                in
+                                let dischargeable_right (f : t_fml) : int option =
+                                         if f = right then Some rule_count else dischargeable f
+                                in
+                                match 
+                                validate options (rule_count+1) 0 dischargeable (prf::acc) prf1, 
+                                validate options (rule_count+1) 0 dischargeable_left (prf::acc) prf2, 
+                                validate options (rule_count+1) 0 dischargeable_right (prf::acc) prf3
+                                with
+                                |Some valid_prf1, Some valid_prf2, Some valid_prf3 ->
+                                        Some (Trinary_prf (
+                                                valid_prf1, valid_prf2, valid_prf3, 
+                                                Trinary_rule ("∨E" ^ (string_of_int rule_count)),
+                                                fml
+                                        ))
+                                |_,_,_ -> validate options rule_count (attempt+1) dischargeable acc prf
+                        )
+                        |false -> validate options rule_count (attempt+1) dischargeable acc prf
+                )
+                |fml2, fml3, BinopApp (Binop "∨", left, right), _, 4 -> (
+                        match fml = fml2 && fml = fml3 with
+                        |true -> (
+                                let dischargeable_left (f : t_fml) : int option =
+                                         if f = left then Some rule_count else dischargeable f
+                                in
+                                let dischargeable_right (f : t_fml) : int option =
+                                         if f = right then Some rule_count else dischargeable f
+                                in
+                                match 
+                                validate options (rule_count+1) 0 dischargeable (prf::acc) prf1, 
+                                validate options (rule_count+1) 0 dischargeable_left (prf::acc) prf2, 
+                                validate options (rule_count+1) 0 dischargeable_right (prf::acc) prf3
+                                with
+                                |Some valid_prf1, Some valid_prf2, Some valid_prf3 ->
+                                        Some (Trinary_prf (
+                                                valid_prf1, valid_prf2, valid_prf3, 
+                                                Trinary_rule ("∨E" ^ (string_of_int rule_count)),
+                                                fml
+                                        ))
+                                |_,_,_ -> validate options rule_count (attempt+1) dischargeable acc prf
+                        )
+                        |false -> validate options rule_count (attempt+1) dischargeable acc prf
+                )
+                |fml3, fml2, BinopApp (Binop "∨", left, right), _, 5 -> (
+                        match fml = fml2 && fml = fml3 with
+                        |true -> (
+                                let dischargeable_left (f : t_fml) : int option =
+                                         if f = left then Some rule_count else dischargeable f
+                                in
+                                let dischargeable_right (f : t_fml) : int option =
+                                         if f = right then Some rule_count else dischargeable f
+                                in
+                                match 
+                                validate options (rule_count+1) 0 dischargeable (prf::acc) prf1, 
+                                validate options (rule_count+1) 0 dischargeable_left (prf::acc) prf2, 
+                                validate options (rule_count+1) 0 dischargeable_right (prf::acc) prf3
+                                with
+                                |Some valid_prf1, Some valid_prf2, Some valid_prf3 ->
+                                        Some (Trinary_prf (
+                                                valid_prf1, valid_prf2, valid_prf3, 
+                                                Trinary_rule ("∨E" ^ (string_of_int rule_count)),
+                                                fml
+                                        ))
+                                |_,_,_ -> validate options rule_count (attempt+1) dischargeable acc prf
+                        )
+                        |false -> validate options rule_count (attempt+1) dischargeable acc prf
+                )
+                |_, _, _, _, 6 ->
                         let _ : unit = 
                                 if List.mem "verbose" options then
                                 IO.print_to_stderr (
