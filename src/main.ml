@@ -170,13 +170,30 @@ let conclusion_of_prf (prf : t_prf) : t_fml =
         |Binary_prf (_,_,_,fml) -> fml
         |Trinary_prf (_,_,_,_,fml) -> fml
 
-let rec premises_of_prf (excluded : t_fml list) (prf : t_prf): t_fml list =
-        match prf with
-        |Atomic_prf fml -> if List.mem fml excluded then [] else [fml]
-        |Nullary_prf (_, fml) -> []
-        |Unary_prf (prf1,_,_) -> premises_of_prf excluded prf1 
-        |Binary_prf (prf1, prf2, _, _) -> List.concat [premises_of_prf excluded prf1; premises_of_prf excluded prf2] 
-        |Trinary_prf (prf1, prf2, prf3, _, _) -> List.concat [premises_of_prf excluded prf1; premises_of_prf excluded prf2; premises_of_prf excluded prf3] 
+let enumerate (lst : 'a list) : 'a list =
+        let rec aux (lst: 'a list) (acc : 'a list) : 'a list =
+                match lst with
+                |[] -> acc
+                |hd::tl -> 
+                        match List.mem hd acc with
+                        |true -> aux tl acc
+                        |false -> aux tl (hd::acc)
+        in
+        List.rev (aux lst [])
+
+let premises_of_prf (excluded : t_fml list) (prf : t_prf): t_fml list =
+        let rec aux (prf : t_prf): t_fml list =
+                match prf with
+                |Atomic_prf fml -> if List.mem fml excluded then [] else [fml]
+                |Nullary_prf (_, fml) -> []
+                |Unary_prf (prf1,_,_) ->
+                        aux prf1 
+                |Binary_prf (prf1, prf2, _, _) ->
+                        List.concat [aux prf1; aux prf2] 
+                |Trinary_prf (prf1, prf2, prf3, _, _) ->
+                        List.concat [aux prf1; aux prf2; aux prf3]
+        in
+        enumerate (aux prf)
 
 
 let occurs_in (term : t_term) (fml : t_fml) : bool =
@@ -686,17 +703,6 @@ let rec validate (options: string list) (rule_count : int) (attempt : int) (disc
                         in None
                 |_, _, _, _, _ -> validate options rule_count (attempt+1) dischargeable acc prf
 
-let enumerate (lst : 'a list) : 'a list =
-        let rec aux (lst: 'a list) (acc : 'a list) : 'a list =
-                match lst with
-                |[] -> acc
-                |hd::tl -> 
-                        match List.mem hd acc with
-                        |true -> aux tl acc
-                        |false -> aux tl (hd::acc)
-        in
-        List.rev (aux lst [])
-
 
 let dischargeable (fml : t_fml) : int option = None
 
@@ -710,7 +716,7 @@ let print_proof (options : string list) : bool =
 let validate_prf (options : string list) (prf : t_prf) : t_prf option =
         match validate options 0 0 dischargeable [] prf with
         |Some valid_prf ->
-                let premises : t_fml list = enumerate (premises_of_prf [] valid_prf) in
+                let premises : t_fml list = premises_of_prf [] valid_prf in
                 let conclusion : t_fml = conclusion_of_prf valid_prf in
                 let premises_string : string = String.concat ", " (List.map string_of_fml premises) in
                 let conclusion_string : string = string_of_fml conclusion in
@@ -726,7 +732,7 @@ let validate_prf (options : string list) (prf : t_prf) : t_prf option =
                 let _ : unit = if print_proof options then IO.print_to_stdout proof_string else () in
                 Some valid_prf
         |None ->
-                let premises : t_fml list = enumerate (premises_of_prf [] prf) in
+                let premises : t_fml list = premises_of_prf [] prf in
                 let conclusion : t_fml = conclusion_of_prf prf in
                 let premises_string : string = String.concat ", " (List.map string_of_fml premises) in
                 let conclusion_string : string = string_of_fml conclusion in
