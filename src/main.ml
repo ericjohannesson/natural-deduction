@@ -1187,20 +1187,20 @@ let rec subst_in_prf (replacement : t_prf) (options : string list) (prf : t_prf)
                 |Atomic_prf _ | Nullary_prf _ -> raise (Error ("invalid argument: \"" ^ hd ^ "\""))
                 |Unary_prf (prf1, rule, fml) -> (
                         match hd with
-                        |"--sub" | "-s" -> Unary_prf (subst_in_prf replacement tl prf1, rule, fml)
+                        |"--sub-only" | "-o" -> Unary_prf (subst_in_prf replacement tl prf1, rule, fml)
                         | _ -> raise (Error ("invalid argument: \"" ^ hd ^ "\""))
                 )
                 |Binary_prf (prf1, prf2, rule, fml) -> (
                         match hd with
-                        |"--left" | "-l" -> Binary_prf (subst_in_prf replacement tl prf1, prf2, rule, fml)
-                        |"--right" | "-r" -> Binary_prf (prf1, subst_in_prf replacement tl prf2, rule, fml)
+                        |"--sub-left" | "-l" -> Binary_prf (subst_in_prf replacement tl prf1, prf2, rule, fml)
+                        |"--sub-right" | "-r" -> Binary_prf (prf1, subst_in_prf replacement tl prf2, rule, fml)
                         | _ -> raise (Error ("invalid argument: \"" ^ hd ^ "\""))
                 )
                 |Trinary_prf (prf1, prf2, prf3, rule, fml) -> (
                         match hd with
-                        |"--left" | "-l" -> Trinary_prf (subst_in_prf replacement tl prf1, prf2, prf3, rule, fml)
-                        |"--right" | "-r" -> Trinary_prf (prf1, prf2, subst_in_prf replacement tl prf3, rule, fml)
-                        |"--center" | "-c" -> Trinary_prf (prf1, subst_in_prf replacement tl prf2, prf3, rule, fml)
+                        |"--sub-left" | "-l" -> Trinary_prf (subst_in_prf replacement tl prf1, prf2, prf3, rule, fml)
+                        |"--sub-right" | "-r" -> Trinary_prf (prf1, prf2, subst_in_prf replacement tl prf3, rule, fml)
+                        |"--sub-center" | "-c" -> Trinary_prf (prf1, subst_in_prf replacement tl prf2, prf3, rule, fml)
                         | _ -> raise (Error ("invalid argument: \"" ^ hd ^ "\""))
                 )
 
@@ -1240,20 +1240,20 @@ let rec subst_in_prf_raw (replacement : t_prf_raw) (options : string list) (prf 
                 |Atomic_prf_raw _ | Nullary_prf_raw _ -> raise (Error ("invalid argument: \"" ^ hd ^ "\""))
                 |Unary_prf_raw (prf1, rule, fml) -> (
                         match hd with
-                        |"--sub" | "-s" -> Unary_prf_raw (subst_in_prf_raw replacement tl prf1, rule, fml)
+                        |"--sub-only" | "-o" -> Unary_prf_raw (subst_in_prf_raw replacement tl prf1, rule, fml)
                         | _ -> raise (Error ("invalid argument: \"" ^ hd ^ "\""))
                 )
                 |Binary_prf_raw (prf1, prf2, rule, fml) -> (
                         match hd with
-                        |"--left" | "-l" -> Binary_prf_raw (subst_in_prf_raw replacement tl prf1, prf2, rule, fml)
-                        |"--right" | "-r" -> Binary_prf_raw (prf1, subst_in_prf_raw replacement tl prf2, rule, fml)
+                        |"--sub-left" | "-l" -> Binary_prf_raw (subst_in_prf_raw replacement tl prf1, prf2, rule, fml)
+                        |"--sub-right" | "-r" -> Binary_prf_raw (prf1, subst_in_prf_raw replacement tl prf2, rule, fml)
                         | _ -> raise (Error ("invalid argument: \"" ^ hd ^ "\""))
                 )
                 |Trinary_prf_raw (prf1, prf2, prf3, rule, fml) -> (
                         match hd with
-                        |"--left" | "-l" -> Trinary_prf_raw (subst_in_prf_raw replacement tl prf1, prf2, prf3, rule, fml)
-                        |"--right" | "-r" -> Trinary_prf_raw (prf1, prf2, subst_in_prf_raw replacement tl prf3, rule, fml)
-                        |"--center" | "-c" -> Trinary_prf_raw (prf1, subst_in_prf_raw replacement tl prf2, prf3, rule, fml)
+                        |"--sub-left" | "-l" -> Trinary_prf_raw (subst_in_prf_raw replacement tl prf1, prf2, prf3, rule, fml)
+                        |"--sub-right" | "-r" -> Trinary_prf_raw (prf1, prf2, subst_in_prf_raw replacement tl prf3, rule, fml)
+                        |"--sub-center" | "-c" -> Trinary_prf_raw (prf1, subst_in_prf_raw replacement tl prf2, prf3, rule, fml)
                         | _ -> raise (Error ("invalid argument: \"" ^ hd ^ "\""))
                 )
 
