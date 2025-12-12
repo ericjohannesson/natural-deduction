@@ -24,7 +24,8 @@ fml:
         |nullary_pred                   { PredApp ($1,[]) }
         |prefix_pred terms              { PredApp ($1,$2) }
         |prefix_pred LPAR terms RPAR    { PredApp ($1,$3) }
-        |fml binop fml                  { BinopApp ($2,$1,$3) }
+(*      |fml binop fml                  { BinopApp ($2,$1,$3) }
+*)
         |LPAR fml binop fml RPAR        { BinopApp ($3,$2,$4) }
         |unop fml                       { UnopApp ($1,$2) }
         |quant var fml                  { QuantApp ($1,$2,$3) }

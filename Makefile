@@ -35,7 +35,7 @@ clean:
 
 utop: compilation_for_utop
 	cd compilation_for_utop
-	utop ND_lib.cma -init utop.ml
+	utop -require xml-light ND_lib.cma -init utop.ml
 
 
 compilation_for_utop: src/*
