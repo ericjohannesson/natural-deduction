@@ -22,8 +22,6 @@ val string_of_prf_raw : ND_types.t_prf_raw -> string
 
 (** Validate *)
 
-val subst_in_term : FOL_types.t_var -> FOL_types.t_term -> FOL_types.t_term -> FOL_types.t_term
-val subst_in_fml : FOL_types.t_var -> FOL_types.t_term -> FOL_types.t_fml -> FOL_types.t_fml
 val conclusion_of_prf : ND_types.t_prf -> FOL_types.t_fml
 val premises_of_prf : FOL_types.t_fml list -> ND_types.t_prf -> FOL_types.t_fml list
 val validate_prf : string list -> ND_types.t_prf -> ND_types.t_prf option
