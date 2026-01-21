@@ -609,7 +609,7 @@ try     let out1 : FOL_types.t_fml list = Main.fml_list_of_file input in
         match out1 = out2 with
         |true -> ()
         |false -> IO.print_to_stderr ("fol_fixpoint_test FAILED on " ^ input)
-with FOL_main.Error e -> IO.print_to_stderr (String.concat " " ["fol_fixpoint_test_raw FAILED on";input;e])
+with FOL_main.Error e -> IO.print_to_stderr (String.concat " " ["fol_fixpoint_test FAILED on";input;e])
 
 
 let validity_test input output : unit =
