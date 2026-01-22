@@ -181,14 +181,14 @@ let rec fml_contains_pred (fml : t_fml) (p : t_pred) : bool =
 	|QuantApp (_, _, fml1) ->
 		fml_contains_pred fml1 p
 
-let vars_of_terms (term_list : t_term list) : t_var list =
+let rec vars_of_terms (term_list : t_term list) : t_var list =
 	let rec aux (lst : t_term list) (acc : t_var list) : t_var list =
 		match lst with
 		|[] -> acc
 		|hd::tl ->
 			match hd with
 			|Atom (var : t_var) -> aux tl (var::acc)
-			|_ -> aux tl acc
+			|FuncApp (_, terms) -> aux tl (List.concat [acc;vars_of_terms terms])
 	in List.rev (aux term_list [])
 
 
