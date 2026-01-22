@@ -1,5 +1,5 @@
 open ND_types
-open FOL_types
+open FML_types
 
 exception Error of string
 

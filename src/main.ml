@@ -1,5 +1,5 @@
 open ND_types
-open FOL_types
+open FML_types
 
 exception Error of string
 
@@ -16,10 +16,10 @@ let prf_raw_of_stdin () : t_prf_raw =
 
 
 let fml_list_of_file (path : string) =
-        FOL_main.fml_list_of_file false path
+        FML_main.fml_list_of_file false path
 
 let fml_of_string (s : string) =
-        FOL_main.fml_of_string false s
+        FML_main.fml_of_string false s
 
 let rec prf_of_prf_raw (prf_raw : t_prf_raw) : t_prf =
         match prf_raw with
@@ -51,7 +51,7 @@ let prf_of_stdin () =
 (** Print *)
 
 let string_of_fml (fml : t_fml) : string =
-        FOL_main.string_of_fml fml
+        FML_main.string_of_fml fml
 
 let fml_raw_of_fml (fml : t_fml) : t_fml_raw =
         Fml_raw (string_of_fml fml)
@@ -96,7 +96,7 @@ and subst_equiv_term_lists (term1 : t_term) (term2 : t_term) (term_list1 : t_ter
 
 
 let rec subst_equiv (term1 : t_term) (term2 : t_term) (fml1 : t_fml) (fml2 : t_fml) : bool =
-        FOL_main.is_closed_term term1 && FOL_main.is_closed_term term2 &&
+        FML_main.is_closed_term term1 && FML_main.is_closed_term term2 &&
         match fml1, fml2 with
         | PredApp (pred1, term_list1), PredApp (pred2, term_list2) ->
                 pred1 = pred2 && (subst_equiv_term_lists term1 term2 term_list1 term_list2)
@@ -144,7 +144,7 @@ let premises_of_prf (excluded : t_fml list) (prf : t_prf): t_fml list =
 
 
 let occurs_in (term : t_term) (fml : t_fml) : bool =
-        List.mem term (FOL_main.closed_terms_of_fml fml)
+        List.mem term (FML_main.closed_terms_of_fml fml)
 
 let discharge (options : string list) : bool =
          List.mem "--discharge" options || List.mem "-d" options
@@ -255,7 +255,7 @@ let rec validate (options: string list) (rule_count : int) (attempt : int) (disc
                                 |false -> validate options rule_count (attempt+1) dischargeable acc prf
                         )
                         |fml1, QuantApp (Quant "∀", var, sub_fml), 3 -> (
-                                match FOL_main.is_instance_of_with fml1 sub_fml var with
+                                match FML_main.is_instance_of_with fml1 sub_fml var with
                                 |Some (FuncApp (Func c,[])) -> (
                                         let const : t_term = (FuncApp (Func c,[])) in
                                         match List.exists (occurs_in const) (premises_of_prf [] prf1) with
@@ -269,7 +269,7 @@ let rec validate (options: string list) (rule_count : int) (attempt : int) (disc
                                 |_ -> validate options rule_count (attempt+1) dischargeable acc prf
                         )
                         |fml1, QuantApp (Quant "∃", var, sub_fml), 4 -> (
-                                match FOL_main.is_instance_of_with fml1 sub_fml var with
+                                match FML_main.is_instance_of_with fml1 sub_fml var with
                                 |Some _ -> (
                                         match validate options rule_count 0 dischargeable (prf::acc) prf1 with
                                         |Some valid_prf1 -> Some (Unary_prf (valid_prf1, Unary_rule "∃I", fml))
@@ -278,7 +278,7 @@ let rec validate (options: string list) (rule_count : int) (attempt : int) (disc
                                 |None -> validate options rule_count (attempt+1) dischargeable acc prf
                         )
                         |QuantApp (Quant "∀", var, sub_fml1), _, 5 -> (
-                                match FOL_main.is_instance_of_with fml sub_fml1 var with
+                                match FML_main.is_instance_of_with fml sub_fml1 var with
                                 |Some _ -> (
                                         match validate options rule_count 0 dischargeable (prf::acc) prf1 with
                                         |Some valid_prf1 -> Some (Unary_prf (valid_prf1, Unary_rule "∀E", fml))
@@ -393,7 +393,7 @@ let rec validate (options: string list) (rule_count : int) (attempt : int) (disc
                                 match fml = fml2 with
                                 |true -> (
                                         let dischargeable_new (f : t_fml) : int option =
-                                                match FOL_main.is_instance_of_with f sub_fml1 var with
+                                                match FML_main.is_instance_of_with f sub_fml1 var with
                                                 |Some (FuncApp (Func c,[])) ->
                                                         let const = FuncApp (Func c,[]) in
                                                         if not (List.exists (occurs_in const) (fml2::(premises_of_prf [f] prf2)))
@@ -418,7 +418,7 @@ let rec validate (options: string list) (rule_count : int) (attempt : int) (disc
                                 match fml = fml1 with
                                 |true -> (
                                         let dischargeable_new (f : t_fml) : int option =
-                                                match FOL_main.is_instance_of_with f sub_fml2 var with
+                                                match FML_main.is_instance_of_with f sub_fml2 var with
                                                 |Some (FuncApp (Func c,[])) ->
                                                         let const = FuncApp (Func c,[]) in
                                                         if not (List.exists (occurs_in const) (fml1::(premises_of_prf [f] prf1)))

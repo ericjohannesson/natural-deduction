@@ -5,25 +5,25 @@ exception Error of string
 
 val prf_raw_of_file : string -> ND_types.t_prf_raw
 val prf_raw_of_string : string -> ND_types.t_prf_raw
-val fml_list_of_file : string -> FOL_types.t_fml list
-val fml_of_string : string -> FOL_types.t_fml
+val fml_list_of_file : string -> FML_types.t_fml list
+val fml_of_string : string -> FML_types.t_fml
 val prf_of_prf_raw : ND_types.t_prf_raw -> ND_types.t_prf
-val fml_of_fml_raw : ND_types.t_fml_raw -> FOL_types.t_fml
+val fml_of_fml_raw : ND_types.t_fml_raw -> FML_types.t_fml
 val prf_of_file : string -> ND_types.t_prf
 val prf_of_string : string -> ND_types.t_prf
 
 (** Print *)
 
-val string_of_fml : FOL_types.t_fml -> string
-val fml_raw_of_fml : FOL_types.t_fml -> ND_types.t_fml_raw
+val string_of_fml : FML_types.t_fml -> string
+val fml_raw_of_fml : FML_types.t_fml -> ND_types.t_fml_raw
 val prf_raw_of_prf : ND_types.t_prf -> ND_types.t_prf_raw
 val string_of_prf : ND_types.t_prf -> string
 val string_of_prf_raw : ND_types.t_prf_raw -> string
 
 (** Validate *)
 
-val conclusion_of_prf : ND_types.t_prf -> FOL_types.t_fml
-val premises_of_prf : FOL_types.t_fml list -> ND_types.t_prf -> FOL_types.t_fml list
+val conclusion_of_prf : ND_types.t_prf -> FML_types.t_fml
+val premises_of_prf : FML_types.t_fml list -> ND_types.t_prf -> FML_types.t_fml list
 val validate_prf : string list -> ND_types.t_prf -> ND_types.t_prf option
 val validate_file : string list -> string -> ND_types.t_prf option
 val validate_stdin : string list -> ND_types.t_prf option

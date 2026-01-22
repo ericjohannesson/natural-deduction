@@ -220,6 +220,6 @@ let _ : unit =
         with
         |Main.Error e
         |ND_main.Error e
-        |FOL_main.Error e -> IO.print_to_stderr e
+        |FML_main.Error e -> IO.print_to_stderr e
         |Error e -> IO.print_to_stderr (String.concat "\n" [e;usage])
         |_ -> IO.print_to_stderr usage

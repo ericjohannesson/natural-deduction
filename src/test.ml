@@ -1,4 +1,4 @@
-open FOL_types
+open FML_types
 open ND_types
 open Main
 
@@ -78,69 +78,69 @@ let nd3_out : ND_types.t_prf =
 ND_types.Binary_prf
  (ND_types.Unary_prf
    (ND_types.Atomic_prf
-     (FOL_types.QuantApp (FOL_types.Quant "∀", FOL_types.Var "x",
-       FOL_types.PredApp (FOL_types.Pred "=",
-        [FOL_types.FuncApp (FOL_types.Func "+",
-          [FOL_types.Atom (FOL_types.Var "x");
-           FOL_types.FuncApp (FOL_types.Func "0", [])]);
-         FOL_types.Atom (FOL_types.Var "x")]))),
+     (FML_types.QuantApp (FML_types.Quant "∀", FML_types.Var "x",
+       FML_types.PredApp (FML_types.Pred "=",
+        [FML_types.FuncApp (FML_types.Func "+",
+          [FML_types.Atom (FML_types.Var "x");
+           FML_types.FuncApp (FML_types.Func "0", [])]);
+         FML_types.Atom (FML_types.Var "x")]))),
     ND_types.Unary_rule "",
-    FOL_types.PredApp (FOL_types.Pred "=",
-     [FOL_types.FuncApp (FOL_types.Func "+",
-       [FOL_types.FuncApp (FOL_types.Func "'",
-         [FOL_types.FuncApp (FOL_types.Func "0", [])]);
-        FOL_types.FuncApp (FOL_types.Func "0", [])]);
-      FOL_types.FuncApp (FOL_types.Func "'",
-       [FOL_types.FuncApp (FOL_types.Func "0", [])])])),
+    FML_types.PredApp (FML_types.Pred "=",
+     [FML_types.FuncApp (FML_types.Func "+",
+       [FML_types.FuncApp (FML_types.Func "'",
+         [FML_types.FuncApp (FML_types.Func "0", [])]);
+        FML_types.FuncApp (FML_types.Func "0", [])]);
+      FML_types.FuncApp (FML_types.Func "'",
+       [FML_types.FuncApp (FML_types.Func "0", [])])])),
   ND_types.Unary_prf
    (ND_types.Unary_prf
      (ND_types.Atomic_prf
-       (FOL_types.QuantApp (FOL_types.Quant "∀", FOL_types.Var "x",
-         FOL_types.QuantApp (FOL_types.Quant "∀", FOL_types.Var "y",
-          FOL_types.PredApp (FOL_types.Pred "=",
-           [FOL_types.FuncApp (FOL_types.Func "+",
-             [FOL_types.Atom (FOL_types.Var "x");
-              FOL_types.FuncApp (FOL_types.Func "'",
-               [FOL_types.Atom (FOL_types.Var "y")])]);
-            FOL_types.FuncApp (FOL_types.Func "'",
-             [FOL_types.FuncApp (FOL_types.Func "+",
-               [FOL_types.Atom (FOL_types.Var "x");
-                FOL_types.Atom (FOL_types.Var "y")])])])))),
+       (FML_types.QuantApp (FML_types.Quant "∀", FML_types.Var "x",
+         FML_types.QuantApp (FML_types.Quant "∀", FML_types.Var "y",
+          FML_types.PredApp (FML_types.Pred "=",
+           [FML_types.FuncApp (FML_types.Func "+",
+             [FML_types.Atom (FML_types.Var "x");
+              FML_types.FuncApp (FML_types.Func "'",
+               [FML_types.Atom (FML_types.Var "y")])]);
+            FML_types.FuncApp (FML_types.Func "'",
+             [FML_types.FuncApp (FML_types.Func "+",
+               [FML_types.Atom (FML_types.Var "x");
+                FML_types.Atom (FML_types.Var "y")])])])))),
       ND_types.Unary_rule "",
-      FOL_types.QuantApp (FOL_types.Quant "∀", FOL_types.Var "y",
-       FOL_types.PredApp (FOL_types.Pred "=",
-        [FOL_types.FuncApp (FOL_types.Func "+",
-          [FOL_types.FuncApp (FOL_types.Func "'",
-            [FOL_types.FuncApp (FOL_types.Func "0", [])]);
-           FOL_types.FuncApp (FOL_types.Func "'",
-            [FOL_types.Atom (FOL_types.Var "y")])]);
-         FOL_types.FuncApp (FOL_types.Func "'",
-          [FOL_types.FuncApp (FOL_types.Func "+",
-            [FOL_types.FuncApp (FOL_types.Func "'",
-              [FOL_types.FuncApp (FOL_types.Func "0", [])]);
-             FOL_types.Atom (FOL_types.Var "y")])])]))),
+      FML_types.QuantApp (FML_types.Quant "∀", FML_types.Var "y",
+       FML_types.PredApp (FML_types.Pred "=",
+        [FML_types.FuncApp (FML_types.Func "+",
+          [FML_types.FuncApp (FML_types.Func "'",
+            [FML_types.FuncApp (FML_types.Func "0", [])]);
+           FML_types.FuncApp (FML_types.Func "'",
+            [FML_types.Atom (FML_types.Var "y")])]);
+         FML_types.FuncApp (FML_types.Func "'",
+          [FML_types.FuncApp (FML_types.Func "+",
+            [FML_types.FuncApp (FML_types.Func "'",
+              [FML_types.FuncApp (FML_types.Func "0", [])]);
+             FML_types.Atom (FML_types.Var "y")])])]))),
     ND_types.Unary_rule "",
-    FOL_types.PredApp (FOL_types.Pred "=",
-     [FOL_types.FuncApp (FOL_types.Func "+",
-       [FOL_types.FuncApp (FOL_types.Func "'",
-         [FOL_types.FuncApp (FOL_types.Func "0", [])]);
-        FOL_types.FuncApp (FOL_types.Func "'",
-         [FOL_types.FuncApp (FOL_types.Func "0", [])])]);
-      FOL_types.FuncApp (FOL_types.Func "'",
-       [FOL_types.FuncApp (FOL_types.Func "+",
-         [FOL_types.FuncApp (FOL_types.Func "'",
-           [FOL_types.FuncApp (FOL_types.Func "0", [])]);
-          FOL_types.FuncApp (FOL_types.Func "0", [])])])])),
+    FML_types.PredApp (FML_types.Pred "=",
+     [FML_types.FuncApp (FML_types.Func "+",
+       [FML_types.FuncApp (FML_types.Func "'",
+         [FML_types.FuncApp (FML_types.Func "0", [])]);
+        FML_types.FuncApp (FML_types.Func "'",
+         [FML_types.FuncApp (FML_types.Func "0", [])])]);
+      FML_types.FuncApp (FML_types.Func "'",
+       [FML_types.FuncApp (FML_types.Func "+",
+         [FML_types.FuncApp (FML_types.Func "'",
+           [FML_types.FuncApp (FML_types.Func "0", [])]);
+          FML_types.FuncApp (FML_types.Func "0", [])])])])),
   ND_types.Binary_rule "",
-  FOL_types.PredApp (FOL_types.Pred "=",
-   [FOL_types.FuncApp (FOL_types.Func "+",
-     [FOL_types.FuncApp (FOL_types.Func "'",
-       [FOL_types.FuncApp (FOL_types.Func "0", [])]);
-      FOL_types.FuncApp (FOL_types.Func "'",
-       [FOL_types.FuncApp (FOL_types.Func "0", [])])]);
-    FOL_types.FuncApp (FOL_types.Func "'",
-     [FOL_types.FuncApp (FOL_types.Func "'",
-       [FOL_types.FuncApp (FOL_types.Func "0", [])])])]))
+  FML_types.PredApp (FML_types.Pred "=",
+   [FML_types.FuncApp (FML_types.Func "+",
+     [FML_types.FuncApp (FML_types.Func "'",
+       [FML_types.FuncApp (FML_types.Func "0", [])]);
+      FML_types.FuncApp (FML_types.Func "'",
+       [FML_types.FuncApp (FML_types.Func "0", [])])]);
+    FML_types.FuncApp (FML_types.Func "'",
+     [FML_types.FuncApp (FML_types.Func "'",
+       [FML_types.FuncApp (FML_types.Func "0", [])])])]))
 
 
 let nd4_in : string = "../examples/ND4.txt"
@@ -153,11 +153,11 @@ ND_types.Unary_prf_raw
 let nd4_out : ND_types.t_prf =
 ND_types.Unary_prf
  (ND_types.Nullary_prf
-   (ND_types.Nullary_rule "", FOL_types.PredApp (FOL_types.Pred "P", [])),
+   (ND_types.Nullary_rule "", FML_types.PredApp (FML_types.Pred "P", [])),
   ND_types.Unary_rule "",
-  FOL_types.BinopApp (FOL_types.Binop "→",
-   FOL_types.PredApp (FOL_types.Pred "P", []),
-   FOL_types.PredApp (FOL_types.Pred "P", [])))
+  FML_types.BinopApp (FML_types.Binop "→",
+   FML_types.PredApp (FML_types.Pred "P", []),
+   FML_types.PredApp (FML_types.Pred "P", [])))
 
 let nd5_in : string = "../examples/ND5.txt"
 
@@ -171,12 +171,12 @@ ND_types.Binary_prf_raw
 let nd5_out : ND_types.t_prf =
 ND_types.Binary_prf
  (ND_types.Nullary_prf
-   (ND_types.Nullary_rule "", FOL_types.PredApp (FOL_types.Pred "P", [])),
-  ND_types.Atomic_prf (FOL_types.PredApp (FOL_types.Pred "Q", [])),
+   (ND_types.Nullary_rule "", FML_types.PredApp (FML_types.Pred "P", [])),
+  ND_types.Atomic_prf (FML_types.PredApp (FML_types.Pred "Q", [])),
   ND_types.Binary_rule "",
-  FOL_types.BinopApp (FOL_types.Binop "∧",
-   FOL_types.PredApp (FOL_types.Pred "P", []),
-   FOL_types.PredApp (FOL_types.Pred "Q", [])))
+  FML_types.BinopApp (FML_types.Binop "∧",
+   FML_types.PredApp (FML_types.Pred "P", []),
+   FML_types.PredApp (FML_types.Pred "Q", [])))
 
 let nd6_in : string = "../examples/ND6.txt"
 
@@ -190,14 +190,14 @@ let nd6_out : ND_types.t_prf =
 ND_types.Unary_prf
    (ND_types.Nullary_prf
      (ND_types.Nullary_rule "",
-      FOL_types.PredApp (FOL_types.Pred "=",
-       [FOL_types.FuncApp (FOL_types.Func "a", []);
-        FOL_types.FuncApp (FOL_types.Func "a", [])])),
+      FML_types.PredApp (FML_types.Pred "=",
+       [FML_types.FuncApp (FML_types.Func "a", []);
+        FML_types.FuncApp (FML_types.Func "a", [])])),
     ND_types.Unary_rule "",
-    FOL_types.QuantApp (FOL_types.Quant "∀", FOL_types.Var "x",
-     FOL_types.PredApp (FOL_types.Pred "=",
-      [FOL_types.Atom (FOL_types.Var "x");
-       FOL_types.Atom (FOL_types.Var "x")])))
+    FML_types.QuantApp (FML_types.Quant "∀", FML_types.Var "x",
+     FML_types.PredApp (FML_types.Pred "=",
+      [FML_types.Atom (FML_types.Var "x");
+       FML_types.Atom (FML_types.Var "x")])))
 
 let nd7_in : string = "../examples/ND7.txt"
 
@@ -225,39 +225,39 @@ ND_types.Binary_prf
      (ND_types.Unary_prf
        (ND_types.Nullary_prf
          (ND_types.Nullary_rule "1",
-          FOL_types.PredApp (FOL_types.Pred "P", [])),
+          FML_types.PredApp (FML_types.Pred "P", [])),
         ND_types.Unary_rule "",
-        FOL_types.BinopApp (FOL_types.Binop "∨",
-         FOL_types.PredApp (FOL_types.Pred "P", []),
-         FOL_types.UnopApp (FOL_types.Unop "¬",
-          FOL_types.PredApp (FOL_types.Pred "P", [])))),
+        FML_types.BinopApp (FML_types.Binop "∨",
+         FML_types.PredApp (FML_types.Pred "P", []),
+         FML_types.UnopApp (FML_types.Unop "¬",
+          FML_types.PredApp (FML_types.Pred "P", [])))),
       ND_types.Nullary_prf
        (ND_types.Nullary_rule "2",
-        FOL_types.UnopApp (FOL_types.Unop "¬",
-         FOL_types.BinopApp (FOL_types.Binop "∨",
-          FOL_types.PredApp (FOL_types.Pred "P", []),
-          FOL_types.UnopApp (FOL_types.Unop "¬",
-           FOL_types.PredApp (FOL_types.Pred "P", []))))),
+        FML_types.UnopApp (FML_types.Unop "¬",
+         FML_types.BinopApp (FML_types.Binop "∨",
+          FML_types.PredApp (FML_types.Pred "P", []),
+          FML_types.UnopApp (FML_types.Unop "¬",
+           FML_types.PredApp (FML_types.Pred "P", []))))),
       ND_types.Binary_rule "¬I,1",
-      FOL_types.UnopApp (FOL_types.Unop "¬",
-       FOL_types.PredApp (FOL_types.Pred "P", []))),
+      FML_types.UnopApp (FML_types.Unop "¬",
+       FML_types.PredApp (FML_types.Pred "P", []))),
     ND_types.Unary_rule "",
-    FOL_types.BinopApp (FOL_types.Binop "∨",
-     FOL_types.PredApp (FOL_types.Pred "P", []),
-     FOL_types.UnopApp (FOL_types.Unop "¬",
-      FOL_types.PredApp (FOL_types.Pred "P", [])))),
+    FML_types.BinopApp (FML_types.Binop "∨",
+     FML_types.PredApp (FML_types.Pred "P", []),
+     FML_types.UnopApp (FML_types.Unop "¬",
+      FML_types.PredApp (FML_types.Pred "P", [])))),
   ND_types.Nullary_prf
    (ND_types.Nullary_rule "2",
-    FOL_types.UnopApp (FOL_types.Unop "¬",
-     FOL_types.BinopApp (FOL_types.Binop "∨",
-      FOL_types.PredApp (FOL_types.Pred "P", []),
-      FOL_types.UnopApp (FOL_types.Unop "¬",
-       FOL_types.PredApp (FOL_types.Pred "P", []))))),
+    FML_types.UnopApp (FML_types.Unop "¬",
+     FML_types.BinopApp (FML_types.Binop "∨",
+      FML_types.PredApp (FML_types.Pred "P", []),
+      FML_types.UnopApp (FML_types.Unop "¬",
+       FML_types.PredApp (FML_types.Pred "P", []))))),
   ND_types.Binary_rule "¬E,2",
-  FOL_types.BinopApp (FOL_types.Binop "∨",
-   FOL_types.PredApp (FOL_types.Pred "P", []),
-   FOL_types.UnopApp (FOL_types.Unop "¬",
-    FOL_types.PredApp (FOL_types.Pred "P", []))))
+  FML_types.BinopApp (FML_types.Binop "∨",
+   FML_types.PredApp (FML_types.Pred "P", []),
+   FML_types.UnopApp (FML_types.Unop "¬",
+    FML_types.PredApp (FML_types.Pred "P", []))))
 
 let nd8_in : string = "../examples/ND8.txt"
 
@@ -275,22 +275,22 @@ let nd8_out : ND_types.t_prf =
 ND_types.Binary_prf
  (ND_types.Unary_prf
    (ND_types.Nullary_prf
-     (ND_types.Nullary_rule "1", FOL_types.PredApp (FOL_types.Pred "P", [])),
+     (ND_types.Nullary_rule "1", FML_types.PredApp (FML_types.Pred "P", [])),
     ND_types.Unary_rule "",
-    FOL_types.BinopApp (FOL_types.Binop "∨",
-     FOL_types.PredApp (FOL_types.Pred "P", []),
-     FOL_types.UnopApp (FOL_types.Unop "¬",
-      FOL_types.PredApp (FOL_types.Pred "P", [])))),
+    FML_types.BinopApp (FML_types.Binop "∨",
+     FML_types.PredApp (FML_types.Pred "P", []),
+     FML_types.UnopApp (FML_types.Unop "¬",
+      FML_types.PredApp (FML_types.Pred "P", [])))),
   ND_types.Nullary_prf
    (ND_types.Nullary_rule "",
-    FOL_types.UnopApp (FOL_types.Unop "¬",
-     FOL_types.BinopApp (FOL_types.Binop "∨",
-      FOL_types.PredApp (FOL_types.Pred "P", []),
-      FOL_types.UnopApp (FOL_types.Unop "¬",
-       FOL_types.PredApp (FOL_types.Pred "P", []))))),
+    FML_types.UnopApp (FML_types.Unop "¬",
+     FML_types.BinopApp (FML_types.Binop "∨",
+      FML_types.PredApp (FML_types.Pred "P", []),
+      FML_types.UnopApp (FML_types.Unop "¬",
+       FML_types.PredApp (FML_types.Pred "P", []))))),
   ND_types.Binary_rule "¬I,1",
-  FOL_types.UnopApp (FOL_types.Unop "¬",
-   FOL_types.PredApp (FOL_types.Pred "P", [])))
+  FML_types.UnopApp (FML_types.Unop "¬",
+   FML_types.PredApp (FML_types.Pred "P", [])))
 
 
 let nd9_in : string = "../examples/ND9.txt"
@@ -566,10 +566,10 @@ let nd18_in : string = "../examples/ND18.txt"
 let nd21_in : string = "../examples/ND21.txt"
 
 
-let fol0_in : string = "../examples/FOL0.txt"
-let fol1_in : string = "../examples/FOL1.txt"
-let fol2_in : string = "../examples/FOL2.txt"
-let fol3_in : string = "../examples/FOL3.txt"
+let fml0_in : string = "../examples/FML0.txt"
+let fml1_in : string = "../examples/FML1.txt"
+let fml2_in : string = "../examples/FML2.txt"
+let fml3_in : string = "../examples/FML3.txt"
 
 let nd_raw_test input output : unit =
         match Main.prf_raw_of_file input = output with
@@ -602,14 +602,14 @@ try     let out1 : ND_types.t_prf = Main.prf_of_file input in
 with ND_main.Error e -> IO.print_to_stderr (String.concat " " ["nd_fixpoint_test FAILED on";input;e])
 
 
-let fol_fixpoint_test input : unit =
-try     let out1 : FOL_types.t_fml list = Main.fml_list_of_file input in
+let fml_fixpoint_test input : unit =
+try     let out1 : FML_types.t_fml list = Main.fml_list_of_file input in
         let strings : string list = List.map Main.string_of_fml out1 in
-        let out2 : FOL_types.t_fml list = List.map Main.fml_of_string strings in
+        let out2 : FML_types.t_fml list = List.map Main.fml_of_string strings in
         match out1 = out2 with
         |true -> ()
-        |false -> IO.print_to_stderr ("fol_fixpoint_test FAILED on " ^ input)
-with FOL_main.Error e -> IO.print_to_stderr (String.concat " " ["fol_fixpoint_test FAILED on";input;e])
+        |false -> IO.print_to_stderr ("fml_fixpoint_test FAILED on " ^ input)
+with FML_main.Error e -> IO.print_to_stderr (String.concat " " ["fml_fixpoint_test FAILED on";input;e])
 
 
 let validity_test input output : unit =
@@ -648,10 +648,10 @@ let _ : unit = nd_raw_test nd4_in nd4_out_raw
 let _ : unit = nd_raw_test nd5_in nd5_out_raw
 let _ : unit = nd_raw_test nd6_in nd6_out_raw
 
-let _ : unit = fol_fixpoint_test fol0_in
-let _ : unit = fol_fixpoint_test fol1_in
-let _ : unit = fol_fixpoint_test fol2_in
-let _ : unit = fol_fixpoint_test fol3_in
+let _ : unit = fml_fixpoint_test fml0_in
+let _ : unit = fml_fixpoint_test fml1_in
+let _ : unit = fml_fixpoint_test fml2_in
+let _ : unit = fml_fixpoint_test fml3_in
 
 let _ : unit = nd_test nd3_in nd3_out
 let _ : unit = nd_test nd4_in nd4_out

@@ -1,30 +1,30 @@
-open FOL_types
+open FML_types
 
 exception Error of string
 
 
 (** Parse *)
 
-let string_of_token (t:FOL_parser.token) : string =
+let string_of_token (t:FML_parser.token) : string =
         match t with
-        |FOL_parser.EOF -> "EOF"
-        |FOL_parser.LPAR -> "LPAR"
-        |FOL_parser.RPAR -> "RPAR"
-        |FOL_parser.COMMA -> "COMMA"
-        |FOL_parser.VAR s -> String.concat "" ["VAR";" ";"\"";s;"\""]
-        |FOL_parser.PREFIX_FUNC s -> String.concat "" ["PREFIX_FUNC";" ";"\"";s;"\""]
-        |FOL_parser.INFIX_FUNC s -> String.concat "" ["INFIX_FUNC";" ";"\'";s;"\'"]
-        |FOL_parser.POSTFIX_FUNC s -> String.concat "" ["POSTFIX_FUNC";" ";"\"";s;"\""]
-        |FOL_parser.PREFIX_PRED s -> String.concat "" ["PREFIX_PRED";" ";"\"";s;"\""]
-        |FOL_parser.INFIX_PRED s -> String.concat "" ["INFIX_PRED";" ";"\"";s;"\""]
-        |FOL_parser.NEG_INFIX_PRED s -> String.concat "" ["NEG_INFIX_PRED";" ";"\"";s;"\""]
-        |FOL_parser.UNOP s -> String.concat "" ["UNOP";" ";"\"";s;"\""]
-        |FOL_parser.BINOP s -> String.concat "" ["BINOP";" ";"\"";s;"\""]
-        |FOL_parser.QUANT s -> String.concat "" ["QUANT";" ";"\"";s;"\""]
+        |FML_parser.EOF -> "EOF"
+        |FML_parser.LPAR -> "LPAR"
+        |FML_parser.RPAR -> "RPAR"
+        |FML_parser.COMMA -> "COMMA"
+        |FML_parser.VAR s -> String.concat "" ["VAR";" ";"\"";s;"\""]
+        |FML_parser.PREFIX_FUNC s -> String.concat "" ["PREFIX_FUNC";" ";"\"";s;"\""]
+        |FML_parser.INFIX_FUNC s -> String.concat "" ["INFIX_FUNC";" ";"\'";s;"\'"]
+        |FML_parser.POSTFIX_FUNC s -> String.concat "" ["POSTFIX_FUNC";" ";"\"";s;"\""]
+        |FML_parser.PREFIX_PRED s -> String.concat "" ["PREFIX_PRED";" ";"\"";s;"\""]
+        |FML_parser.INFIX_PRED s -> String.concat "" ["INFIX_PRED";" ";"\"";s;"\""]
+        |FML_parser.NEG_INFIX_PRED s -> String.concat "" ["NEG_INFIX_PRED";" ";"\"";s;"\""]
+        |FML_parser.UNOP s -> String.concat "" ["UNOP";" ";"\"";s;"\""]
+        |FML_parser.BINOP s -> String.concat "" ["BINOP";" ";"\"";s;"\""]
+        |FML_parser.QUANT s -> String.concat "" ["QUANT";" ";"\"";s;"\""]
 
 
-let lexer (print_tokens : bool) (b : Lexing.lexbuf) : FOL_parser.token =
-        let t : FOL_parser.token = FOL_lexer.token b in
+let lexer (print_tokens : bool) (b : Lexing.lexbuf) : FML_parser.token =
+        let t : FML_parser.token = FML_lexer.token b in
         match print_tokens with
         |true -> let _ : unit = IO.print_to_stderr (string_of_token t) in t
         |false -> t
@@ -33,16 +33,16 @@ let lexer (print_tokens : bool) (b : Lexing.lexbuf) : FOL_parser.token =
 let rec fml_of_string (print_tokens : bool) (s:string): t_fml =
         let b : Lexing.lexbuf = Lexing.from_string s in
         try
-                FOL_parser.main (lexer print_tokens) b
+                FML_parser.main (lexer print_tokens) b
         with
-        |FOL_parser.Error n ->
+        |FML_parser.Error n ->
                 match print_tokens with
                 |false -> 
                         let _ : unit = IO.print_to_stderr (
                                 String.concat "\n" [
                                         "Parsing failed in the following state of the automaton:";
                                         "=======================================================";
-                                        FOL_parser_automaton.state n;
+                                        FML_parser_automaton.state n;
                                         "=======================================================";
                                         "Read the the following tokens from \"" ^ s ^ "\":";
                                 ]
@@ -53,7 +53,7 @@ let rec fml_of_string (print_tokens : bool) (s:string): t_fml =
 
 let fml_list_of_file (print_tokens : bool) (path : string) : t_fml list =
         let ic = open_in path in
-        let rec aux (acc : FOL_types.t_fml list) : t_fml list =
+        let rec aux (acc : FML_types.t_fml list) : t_fml list =
                 try
                         let s : string = input_line ic in
                         let fml : t_fml = fml_of_string print_tokens s in
@@ -113,6 +113,12 @@ and is_postfix_func (f : string) : bool =
 
 (** Manipulate *)
 
+let rec is_closed_term (term : t_term) : bool =
+        match term with
+        |Atom _ -> false
+        |FuncApp (_, term_list) -> List.for_all is_closed_term term_list
+
+
 let rec closed_terms_of_fml (fml : t_fml) : t_term list =
         match fml with
         | PredApp (_, term_list) -> closed_terms_of_term_list term_list
@@ -132,10 +138,6 @@ and closed_terms_of_term (term : t_term) : t_term list =
                 |true -> term::(closed_terms_of_term_list term_list)
                 |false -> closed_terms_of_term_list term_list
 
-and is_closed_term (term : t_term) : bool =
-        match term with
-        |Atom _ -> false
-        |FuncApp (_, term_list) -> List.for_all is_closed_term term_list
 
 let rec subst_in_term (var : t_var) (replacement : t_term) (term : t_term): t_term =
         match term with
@@ -166,4 +168,50 @@ let is_instance_of_with (inst : t_fml) (fml : t_fml) (var : t_var) : t_term opti
                         |false -> aux tl
         in
         aux (closed_terms_of_fml inst)
+
+let rec fml_contains_pred (fml : t_fml) (p : t_pred) : bool =
+	match fml with
+	|PredApp ((q : t_pred), _) ->
+		p = q
+	|UnopApp (_, fml1) ->
+		fml_contains_pred fml1 p
+	|BinopApp (_, fml1, fml2) ->
+		(fml_contains_pred fml1 p) ||
+		(fml_contains_pred fml2 p)
+	|QuantApp (_, _, fml1) ->
+		fml_contains_pred fml1 p
+
+let vars_of_terms (term_list : t_term list) : t_var list =
+	let rec aux (lst : t_term list) (acc : t_var list) : t_var list =
+		match lst with
+		|[] -> acc
+		|hd::tl ->
+			match hd with
+			|Atom (var : t_var) -> aux tl (var::acc)
+			|_ -> aux tl acc
+	in List.rev (aux term_list [])
+
+
+let subtract (lst1 : 'a list) (lst2 : 'a list) : 'a list =
+	let rec aux (lst : 'a list) (acc : 'a list) : 'a list =
+		match lst with
+		|[] -> acc
+		|hd::tl ->
+			if List.mem hd lst2 then aux tl acc else
+			aux tl (hd::acc)
+	in aux lst1 []
+
+
+let free_vars_of_fml (fml : t_fml) : t_var list =
+	let rec aux (bound_vars : t_var list) (f : t_fml) : t_var list =
+		match f with
+		|PredApp (_, (term_list : t_term list)) ->
+			subtract (vars_of_terms term_list) bound_vars
+		|UnopApp (_, fml1) ->
+			aux bound_vars fml1
+		|BinopApp (_, fml1, fml2) ->
+			List.concat [aux bound_vars fml1;aux bound_vars fml2]
+		|QuantApp (_, (var : t_var), fml1) ->
+			aux (var::bound_vars) fml1
+	in aux [] fml
 

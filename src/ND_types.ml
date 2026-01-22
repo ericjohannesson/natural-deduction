@@ -13,9 +13,9 @@ type t_prf_raw =
         | Trinary_prf_raw of (t_prf_raw * t_prf_raw * t_prf_raw * t_trinary_rule * t_fml_raw)
 
 type t_prf =
-        | Atomic_prf of FOL_types.t_fml
-        | Nullary_prf of (t_nullary_rule * FOL_types.t_fml)
-        | Unary_prf of (t_prf * t_unary_rule * FOL_types.t_fml)
-        | Binary_prf of (t_prf * t_prf * t_binary_rule * FOL_types.t_fml)
-        | Trinary_prf of (t_prf * t_prf * t_prf * t_trinary_rule * FOL_types.t_fml)
+        | Atomic_prf of FML_types.t_fml
+        | Nullary_prf of (t_nullary_rule * FML_types.t_fml)
+        | Unary_prf of (t_prf * t_unary_rule * FML_types.t_fml)
+        | Binary_prf of (t_prf * t_prf * t_binary_rule * FML_types.t_fml)
+        | Trinary_prf of (t_prf * t_prf * t_prf * t_trinary_rule * FML_types.t_fml)
 

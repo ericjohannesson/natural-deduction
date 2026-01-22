@@ -1,7 +1,7 @@
-open FOL_types
+open FML_types
 open ND_types
 open Main
 
-#show FOL_types;;
+#show FML_types;;
 #show ND_types;;
 #show Main;;

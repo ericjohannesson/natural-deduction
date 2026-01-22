@@ -1,5 +1,5 @@
 {
-        open FOL_parser
+        open FML_parser
         exception Eof
 
 let canonical (s : string) : string =

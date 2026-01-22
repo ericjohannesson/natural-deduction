@@ -1,6 +1,6 @@
 %{
 
-open FOL_types
+open FML_types
 
 %}
 
@@ -13,7 +13,7 @@ open FOL_types
 %token EOF
 
 %start main
-%type <FOL_types.t_fml> main
+%type <FML_types.t_fml> main
 
 %%
 main:
