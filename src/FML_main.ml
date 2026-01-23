@@ -82,7 +82,7 @@ and string_of_term_list (term_list : t_term list) : string =
 
 and string_of_term (term : t_term) : string =
         match term with
-        | Atom (Var v) -> v
+        | Atom var -> string_of_var var
         | FuncApp (Func f, term_list) ->
                 match is_infix_func f, term_list with
                 |true, [a;b] -> String.concat "" ["(";string_of_term a;" ";f;" ";string_of_term b;")"]
@@ -94,6 +94,9 @@ and string_of_term (term : t_term) : string =
                 )
                 |_, _ -> String.concat "" [f;string_of_term_list term_list]
 
+and string_of_var (var : t_var) : string =
+	match var with
+	|Var v -> v
 
 and is_infix_pred (p : string) : bool =
         match p with
@@ -148,6 +151,7 @@ let rec subst_in_term (var : t_var) (replacement : t_term) (term : t_term): t_te
         )
         | FuncApp (func, term_list) -> FuncApp (func, List.map (subst_in_term var replacement) term_list)
 
+
 let rec subst_in_fml (var : t_var) (term : t_term) (fml : t_fml) : t_fml =
         match fml with
         | PredApp (pred, term_list) -> PredApp (pred, List.map (subst_in_term var term) term_list)
@@ -157,6 +161,47 @@ let rec subst_in_fml (var : t_var) (term : t_term) (fml : t_fml) : t_fml =
                 match var = var1 with
                 |true -> QuantApp (quant, var1, fml1)
                 |false -> QuantApp (quant, var1, subst_in_fml var term fml1)
+
+
+let rec vars_of_terms (term_list : t_term list) : t_var list =
+	let rec aux (lst : t_term list) (acc : t_var list) : t_var list =
+		match lst with
+		|[] -> acc
+		|hd::tl ->
+			match hd with
+			|Atom (var : t_var) -> aux tl (var::acc)
+			|FuncApp (_, terms) -> aux tl (List.concat [acc;vars_of_terms terms])
+	in List.rev (aux term_list [])
+
+
+let rec subst_in_fml_opt (var : t_var) (term : t_term) (fml : t_fml) : t_fml option =
+	match fml with
+        | PredApp (pred, term_list) -> Some (PredApp (pred, List.map (subst_in_term var term) term_list))
+        | BinopApp (binop, fml1, fml2) -> (
+		match subst_in_fml_opt var term fml1, subst_in_fml_opt var term fml2 with
+		|Some f1, Some f2 -> Some (BinopApp (binop, f1, f2))
+		|_, _ -> None
+	)
+        | UnopApp (unop, fml1) -> (
+		match subst_in_fml_opt var term fml1 with
+		|Some f1 -> Some (UnopApp (unop, f1))
+		|None -> None
+	)
+        | QuantApp (quant, var1, fml1) -> 
+                match var = var1 with
+                |true -> Some (QuantApp (quant, var1, fml1))
+                |false ->
+			match List.mem var1 (vars_of_terms [term]) with
+			|true -> let _ : unit = IO.print_to_stderr (String.concat "" [
+					"ERROR: cannot replace \'";string_of_var var;
+					"\' with \'";string_of_term term;
+					"\' in \'";string_of_fml fml;"\'";
+				])
+				in None
+			|false -> 
+				match subst_in_fml_opt var term fml1 with
+				|Some f1 -> Some (QuantApp (quant, var1, f1))
+				|None -> None
 
 let is_instance_of_with (inst : t_fml) (fml : t_fml) (var : t_var) : t_term option =
         let rec aux (term_list : t_term list) : t_term option =
@@ -181,16 +226,6 @@ let rec fml_contains_pred (fml : t_fml) (p : t_pred) : bool =
 	|QuantApp (_, _, fml1) ->
 		fml_contains_pred fml1 p
 
-let rec vars_of_terms (term_list : t_term list) : t_var list =
-	let rec aux (lst : t_term list) (acc : t_var list) : t_var list =
-		match lst with
-		|[] -> acc
-		|hd::tl ->
-			match hd with
-			|Atom (var : t_var) -> aux tl (var::acc)
-			|FuncApp (_, terms) -> aux tl (List.concat [acc;vars_of_terms terms])
-	in List.rev (aux term_list [])
-
 
 let subtract (lst1 : 'a list) (lst2 : 'a list) : 'a list =
 	let rec aux (lst : 'a list) (acc : 'a list) : 'a list =
@@ -214,4 +249,5 @@ let free_vars_of_fml (fml : t_fml) : t_var list =
 		|QuantApp (_, (var : t_var), fml1) ->
 			aux (var::bound_vars) fml1
 	in aux [] fml
+
 

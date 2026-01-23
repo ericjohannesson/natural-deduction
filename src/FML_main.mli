@@ -22,8 +22,15 @@ val is_instance_of_with : FML_types.t_fml -> FML_types.t_fml -> FML_types.t_var 
 
 val subst_in_fml : FML_types.t_var -> FML_types.t_term -> FML_types.t_fml -> FML_types.t_fml
 
+val subst_in_fml_opt : FML_types.t_var -> FML_types.t_term -> FML_types.t_fml -> FML_types.t_fml option
+
 val fml_contains_pred : FML_types.t_fml -> FML_types.t_pred -> bool
 
 val vars_of_terms : FML_types.t_term list -> FML_types.t_var list
 
+
 val free_vars_of_fml : FML_types.t_fml -> FML_types.t_var list
+
+(*
+val bound_vars_of_fml : FML_types.t_fml -> FML_types.t_var list
+*)

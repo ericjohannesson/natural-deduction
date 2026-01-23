@@ -18,6 +18,14 @@ USAGE:
 
         Otherwise prints a report to stderr.
 
+    expand <path-to-file> { <path-to-file> | - }
+
+        Uses definitions in first file to expand proof in second file
+        and prints the result to stdout, if definitions are valid and
+        do not yield unintended variable bindings.
+
+        Otherwise prints a report to stderr.
+
     show [ <directions> ] { <path-to-file> | - }
 
         Prints a formatted version of proof contained in file to stdout, or
@@ -39,13 +47,13 @@ USAGE:
 
         Same as edit, except that formulas are not parsed.
 
-    replace <path-to-file> [ <directions> ] <path-to-file>
+    replace [ <directions> ] <path-to-file> { <path-to-file> | - }
 
-        Prints to stdout result of replacing proof contained in second file
+        Prints to stdout result of replacing proof contained in first file
         (or sub-proof thereof specified by directions) with proof contained
-        in first file.
+        in second file.
 
-    replace-raw <path-to-file> [ <directions> ] <path-to-file>
+    replace-raw [ <directions> ] <path-to-file> { <path-to-file> | - }
 
         Same as replace, except that formulas are not parsed.
 
@@ -74,7 +82,7 @@ USAGE:
 
         Same as compose, except that formulas are not parsed.
 
-    help [ validate | show | edit | replace | decompose | compose |
+    help [ validate | expand | show | edit | replace | decompose | compose |
             options | directions ]
 
         Prints manual to stdout, or part thereof specified by keyword.
@@ -104,19 +112,19 @@ USAGE:
 
     --sub-only, -o
 
-        Targets the (only) sub-proof of a unary proof.
+        Matches the (only) sub-proof of a unary proof.
 
     --sub-left, -l
 
-        Targets the left sub-proof of a binary or trinary proof.
+        Matches the left sub-proof of a binary or trinary proof.
 
     --sub-right, -r
 
-        Targets the right sub-proof of a binary or trinary proof.
+        Matches the right sub-proof of a binary or trinary proof.
 
     --sub-center, -c
 
-        Targets the center sub-proof of a trinary proof.
+        Matches the center sub-proof of a trinary proof.
 
     A space-separated list of directions is interpreted from left to right,
     in such a way that 
@@ -165,15 +173,7 @@ output of `nd validate examples/proof1.txt` to stdout:
 ```
 and to stderr:
 ```
-Proof is VALID:
-
-                    ∀x ∀y (x + y') = (x + y)'      
-                    -------------------------∀E    
-∀x (x + 0) = x      ∀y (0' + y') = (0' + y)'       
---------------∀E    ---------------------------∀E  
-(0' + 0) = 0'          (0' + 0') = (0' + 0)'       
--------------------------------------------------=E
-                 (0' + 0') = 0''                   
+Proof is VALID.
 
 PROVES: ∀x (x + 0) = x, ∀x ∀y (x + y') = (x + y)' ⊢ (0' + 0') = 0''.
 ```
@@ -229,17 +229,7 @@ output of `nd validate examples/proof2.txt` to stdout:
 ```
 and to stderr:
 ```
-Proof is VALID:
-
-∀x (P(x) → Q(x))                             
-----------------∀E    ----0                  
- (P(c) → Q(c))        P(c)                   
----------------------------→E                
-           Q(c)                              
------------------------------∃I              
-           ∃x Q(x)                 ∃x P(x)   
-------------------------------------------∃E0
-                 ∃x Q(x)                     
+Proof is VALID.
 
 PROVES: ∀x (P(x) → Q(x)), ∃x P(x) ⊢ ∃x Q(x).
 ```
@@ -313,18 +303,7 @@ which is part of
 -----------------------------------EE
               ∃x Q(x)                
 
-
-Proof is VALID:
-
-∀x (P(x) → Q(x))                            
-----------------∀E                          
- (P(c) → Q(c))        P(c)                  
---------------------------→E                
-           Q(c)                             
-----------------------------∃I              
-          ∃x Q(x)                 ∃x P(x)   
------------------------------------------∃E0
-                 ∃x Q(x)                    
+Proof is VALID.
 
 PROVES: ∀x (P(x) → Q(x)), P(c), ∃x P(x) ⊢ ∃x Q(x).
 ```
@@ -402,14 +381,72 @@ P     Q
 ```
 and to stderr:
 ```
-Proof is VALID:
-
-P     Q  
--------∧I
-(P ∧ Q)  
+Proof is VALID.
 
 PROVES: P, Q ⊢ (P ∧ Q).
 ```
+</details>
+
+#### Expand proof with definitions
+
+<details>
+<summary><b>input</b></summary>
+
+content of `../examples/defs1.txt`:
+```
+I(z) := (T(0,z) ∧ ∀y(T(y,z) → T(y',z)))
+P(x) := ∀z(I(z) → T(x,z))
+```
+content of `../examples/prf1.txt`:
+```
+--------------1                 --------------------0                
+     P(a)                               I(b)                         
+---------------∀E    ----0      ---------------------∧E              
+(I(b) → T(a,b))      I(b)       ∀y (T(y,b) → T(y',b))                
+--------------------------→E    -----------------------∀E            
+          T(a,b)                  (T(a,b) → T(a',b))                 
+---------------------------------------------------------→E          
+                         T(a',b)                                     
+-----------------------------------------------------------→I0       
+                     (I(b) → T(a',b))                                
+--------------------------------------------------------------∀I     
+                            P(a')                                    
+----------------------------------------------------------------→I1  
+                         (P(a) → P(a'))                              
+-------------------------------------------------------------------∀I
+                         ∀x (P(x) → P(x'))                           
+```
+</details>
+
+<details>
+<summary><b>output</b></summary>
+
+output of `nd expand examples/defs1.txt examples/prf1.txt | nd validate -` to stdout:
+```
+----------------------------------------------0                                             --------------------------------1                
+∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(a,z))                                              (T(0,b) ∧ ∀y (T(y,b) → T(y',b)))                 
+-----------------------------------------------∀E    --------------------------------1      ---------------------------------∧E              
+  ((T(0,b) ∧ ∀y (T(y,b) → T(y',b))) → T(a,b))        (T(0,b) ∧ ∀y (T(y,b) → T(y',b)))             ∀y (T(y,b) → T(y',b))                      
+--------------------------------------------------------------------------------------→E    -----------------------------------∀E            
+                                        T(a,b)                                                      (T(a,b) → T(a',b))                       
+---------------------------------------------------------------------------------------------------------------------------------→E          
+                                                             T(a',b)                                                                         
+-----------------------------------------------------------------------------------------------------------------------------------→I1       
+                                           ((T(0,b) ∧ ∀y (T(y,b) → T(y',b))) → T(a',b))                                                      
+--------------------------------------------------------------------------------------------------------------------------------------∀I     
+                                           ∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(a',z))                                                   
+----------------------------------------------------------------------------------------------------------------------------------------→I0  
+                   (∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(a,z)) → ∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(a',z)))                        
+-------------------------------------------------------------------------------------------------------------------------------------------∀I
+                   ∀x (∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(x,z)) → ∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(x',z)))                     
+```
+and to stderr:
+```
+Proof is VALID.
+
+PROVES:  ⊢ ∀x (∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(x,z)) → ∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(x',z))).
+```
+
 </details>
 
 ## Build instructions

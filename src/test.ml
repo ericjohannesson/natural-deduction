@@ -1,6 +1,6 @@
 open FML_types
 open ND_types
-open Main
+
 
 
 let nd0_in : string = "../examples/ND0.txt"
@@ -571,6 +571,56 @@ let fml1_in : string = "../examples/FML1.txt"
 let fml2_in : string = "../examples/FML2.txt"
 let fml3_in : string = "../examples/FML3.txt"
 
+let def0_in : string = "../examples/DEF0.txt"
+
+let def0_out : (t_fml * t_fml) list =
+   [(FML_types.PredApp (FML_types.Pred "A",
+     [FML_types.Atom (FML_types.Var "x")]),
+    FML_types.QuantApp (FML_types.Quant "∃", FML_types.Var "y",
+     FML_types.PredApp (FML_types.Pred "Q",
+      [FML_types.Atom (FML_types.Var "x"); FML_types.Atom (FML_types.Var "y")])));
+   (FML_types.PredApp (FML_types.Pred "B",
+     [FML_types.Atom (FML_types.Var "x"); FML_types.Atom (FML_types.Var "y")]),
+    FML_types.QuantApp (FML_types.Quant "∀", FML_types.Var "z",
+     FML_types.BinopApp (FML_types.Binop "→",
+      FML_types.PredApp (FML_types.Pred "A",
+       [FML_types.Atom (FML_types.Var "z")]),
+      FML_types.PredApp (FML_types.Pred "R",
+       [FML_types.Atom (FML_types.Var "x"); FML_types.Atom (FML_types.Var "y");
+        FML_types.Atom (FML_types.Var "z")]))));
+   (FML_types.PredApp (FML_types.Pred "C",
+     [FML_types.Atom (FML_types.Var "u")]),
+    FML_types.BinopApp (FML_types.Binop "∧",
+     FML_types.PredApp (FML_types.Pred "A",
+      [FML_types.Atom (FML_types.Var "u")]),
+     FML_types.QuantApp (FML_types.Quant "∀", FML_types.Var "v",
+      FML_types.PredApp (FML_types.Pred "B",
+       [FML_types.Atom (FML_types.Var "u"); FML_types.Atom (FML_types.Var "v")]))))]
+
+let def0_valid : bool = true
+
+let prf1_in : string = "../examples/prf1.txt"
+let prf1_valid : t_prf option = None
+let defs1_in : string = "../examples/defs1.txt"
+let defs1_out : (t_fml * t_fml) list =
+[(PredApp (Pred "I", [Atom (Var "z")]),
+  BinopApp (Binop "∧",
+   PredApp (Pred "T", [FuncApp (Func "0", []); Atom (Var "z")]),
+   QuantApp (Quant "∀", Var "y",
+    BinopApp (Binop "→", PredApp (Pred "T", [Atom (Var "y"); Atom (Var "z")]),
+     PredApp (Pred "T", [FuncApp (Func "'", [Atom (Var "y")]); Atom (Var "z")])))));
+ (PredApp (Pred "P", [Atom (Var "x")]),
+  QuantApp (Quant "∀", Var "z",
+   BinopApp (Binop "→", PredApp (Pred "I", [Atom (Var "z")]),
+    PredApp (Pred "T", [Atom (Var "x"); Atom (Var "z")]))))]
+
+let defs1_valid : bool = true
+let exp_defs1_prf1 : string option = Some "../examples/exp_defs1_prf1.txt"
+
+let defs_in : string = "../examples/defs.txt"
+let prf_in : string = "../examples/prf.txt"
+let exp_defs_prf : string option = Some "../examples/exp_defs_prf.txt"
+
 let nd_raw_test input output : unit =
         match Main.prf_raw_of_file input = output with
         |true -> ()
@@ -639,6 +689,25 @@ let comp_test_raw input : unit =
         |true -> ()
         |false -> IO.print_to_stderr ("comp_test_raw FAILED on " ^ input)
 
+let def_parser_test (input : string) (output : (t_fml * t_fml) list) : unit =
+	match DEF_main.defs_of_file input = output with
+	|true -> ()
+	|false -> IO.print_to_stderr ("def_parser_test FAILED on " ^ input)
+
+let def_validity_test (input : string) (output : bool) : unit =
+	match DEF_main.defs_are_valid (DEF_main.defs_of_file input) = output with
+	|true -> ()
+	|false -> IO.print_to_stderr ("def_validity_test FAILED on " ^ input)
+
+let exp_test (defs_in : string) (prf_in : string) (exp_prf : string option) : unit =
+	match Main.expand_file_by_file [] defs_in prf_in, exp_prf with
+	|Some prf, Some path -> (
+		match prf = Main.prf_of_file path with
+		|true -> ()
+		|false -> IO.print_to_stderr (String.concat " " ["exp_test FAILED on";defs_in;prf_in])
+	)
+	|None,None -> ()
+	|_,_ -> IO.print_to_stderr (String.concat " " ["exp_test FAILED on";defs_in;prf_in])
 
 let _ : unit = nd_raw_test nd0_in nd0_out_raw
 let _ : unit = nd_raw_test nd1_in nd1_out_raw
@@ -734,3 +803,12 @@ let _ : unit = comp_test nd7_in
 let _ : unit = comp_test nd8_in
 let _ : unit = comp_test nd9_in
 
+let _ : unit = def_parser_test def0_in def0_out
+let _ : unit = def_validity_test def0_in def0_valid
+
+let _ : unit = validity_test prf1_in prf1_valid
+let _ : unit = def_parser_test defs1_in defs1_out
+let _ : unit = def_validity_test defs1_in defs1_valid
+let _ : unit = exp_test defs1_in prf1_in exp_defs1_prf1
+
+let _ : unit = exp_test defs_in prf_in exp_defs_prf

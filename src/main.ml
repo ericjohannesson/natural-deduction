@@ -76,6 +76,114 @@ let string_of_prf_raw (prf : t_prf_raw) : string =
 let string_of_prf (prf : t_prf) : string =
         string_of_prf_raw (prf_raw_of_prf prf)
 
+(** Expand *)
+
+let rec transform_prf (f : t_fml -> t_fml) (prf : t_prf) : t_prf =
+	match prf with
+	|Atomic_prf fml -> Atomic_prf (f fml)
+	|Nullary_prf (rule, fml) -> Nullary_prf (rule, f fml)
+	|Unary_prf (prf1, rule, fml) -> Unary_prf (transform_prf f prf1, rule, f fml)
+	|Binary_prf (prf1, prf2, rule, fml) -> Binary_prf (transform_prf f prf1, transform_prf f prf2, rule, f fml)
+	|Trinary_prf (prf1, prf2, prf3, rule, fml) -> Trinary_prf (transform_prf f prf1, transform_prf f prf2, transform_prf f prf3, rule, f fml)
+
+let rec transform_prf_opt (g : t_fml -> t_fml option) (prf : t_prf) : t_prf option =
+	match prf with
+	|Atomic_prf fml -> (
+		match g fml with
+		|Some f -> Some (Atomic_prf f)
+		|None -> None
+	)
+	|Nullary_prf (rule, fml) -> (
+		match g fml with 
+		|Some f -> Some (Nullary_prf (rule, f))
+		|None -> None
+	)
+	|Unary_prf (prf1, rule, fml) -> (
+		match transform_prf_opt g prf1, g fml with
+		|Some p1, Some f -> Some (Unary_prf (p1, rule, f))
+		|_,_ -> None
+	)
+	|Binary_prf (prf1, prf2, rule, fml) -> (
+		match transform_prf_opt g prf1, transform_prf_opt g prf2, g fml with
+		|Some p1, Some p2, Some f -> Some (Binary_prf (p1,p2, rule, f))
+		|_,_,_ -> None
+	)
+	|Trinary_prf (prf1, prf2, prf3, rule, fml) -> (
+		match transform_prf_opt g prf1, transform_prf_opt g prf2, transform_prf_opt g prf3, g fml with
+		|Some p1, Some p2, Some p3, Some f -> Some (Trinary_prf (p1, p2, p3, rule, f))
+		|_,_,_,_ -> None
+	)
+
+let expand_prf_by_defs (defs : (t_fml * t_fml) list) (prf : t_prf) : t_prf option =
+	if DEF_main.defs_are_valid defs then Some (transform_prf (DEF_main.expand_fml_by_defs defs) prf) else None
+
+let expand_prf_by_defs_opt (defs : (t_fml * t_fml) list) (prf : t_prf) : t_prf option =
+	if DEF_main.defs_are_valid defs then transform_prf_opt (DEF_main.expand_fml_by_defs_opt defs) prf else None
+
+
+let print_report (options : string list) : bool =
+        List.mem "--print-report" options
+
+let print_proof (options : string list) : bool =
+        List.mem "--print-proof" options
+
+
+let expand_file_by_file (options : string list) (path_to_defs : string) (path_to_prf : string) : t_prf option =
+	let prf : t_prf = prf_of_file path_to_prf in
+	let defs : (t_fml * t_fml) list = DEF_main.defs_of_file path_to_defs in
+	let result = expand_prf_by_defs defs prf in
+	match result with
+	|None -> let _ : unit = if print_report options then 
+		IO.print_to_stderr (String.concat "\n" ["ERROR: invalid definitions:";DEF_main.string_of_defs defs]) in result
+	|Some exp_prf -> let _ : unit = if print_proof options then IO.print_to_stdout (string_of_prf exp_prf) in result
+
+let expand_file_by_file_opt (options : string list) (path_to_defs : string) (path_to_prf : string) : t_prf option =
+	let defs : (t_fml * t_fml) list = DEF_main.defs_of_file path_to_defs in
+	match DEF_main.defs_are_valid defs with
+	|false -> let _ : unit = if print_report options then 
+		IO.print_to_stderr (String.concat "\n" ["ERROR: invalid definitions:";DEF_main.string_of_defs defs]) in None
+	|true -> 
+		let prf : t_prf = prf_of_file path_to_prf in
+		let result : t_prf option = expand_prf_by_defs_opt defs prf in
+		match result with
+		|Some exp_prf ->
+			let _ : unit = if print_proof options then IO.print_to_stdout (string_of_prf exp_prf) in result
+		|None -> let _ : unit = if print_report options then 
+			IO.print_to_stderr (String.concat "\n\n" [
+					"ERROR: expanding";string_of_prf prf;
+					"with";DEF_main.string_of_defs defs;"would yield unintended variable bindings:";
+					match expand_prf_by_defs defs prf with Some exp_prf -> string_of_prf exp_prf | None -> "";
+				])
+			in None
+
+let expand_stdin_by_file (options: string list) (path_to_defs : string) : t_prf option =
+	let prf : t_prf = prf_of_stdin () in
+	let defs : (t_fml * t_fml) list = DEF_main.defs_of_file path_to_defs in
+	let result = expand_prf_by_defs defs prf in
+	match result with
+	|None -> let _ : unit = if print_report options then 
+		IO.print_to_stderr (String.concat "\n" ["ERROR: invalid definitions:";DEF_main.string_of_defs defs]) in result
+	|Some exp_prf -> let _ : unit = if print_proof options then IO.print_to_stdout (string_of_prf exp_prf) in result
+
+let expand_stdin_by_file_opt (options: string list) (path_to_defs : string) : t_prf option =
+	let defs : (t_fml * t_fml) list = DEF_main.defs_of_file path_to_defs in
+	match DEF_main.defs_are_valid defs with
+	|false -> let _ : unit = if print_report options then 
+		IO.print_to_stderr (String.concat "\n" ["ERROR: invalid definitions:";DEF_main.string_of_defs defs]) in None
+	|true -> 
+		let prf : t_prf = prf_of_stdin () in
+		let result : t_prf option = expand_prf_by_defs_opt defs prf in
+		match result with
+		|Some exp_prf ->
+			let _ : unit = if print_proof options then IO.print_to_stdout (string_of_prf exp_prf) in result
+		|None -> let _ : unit = if print_report options then 
+			IO.print_to_stderr (String.concat "\n\n" [
+					"ERROR: expanding";string_of_prf prf;
+					"with";DEF_main.string_of_defs defs;"would yield unintended variable bindings:";
+					match expand_prf_by_defs defs prf with Some exp_prf -> string_of_prf exp_prf | None -> "";
+				])
+			in None
+
 
 (** Validate *)
 
@@ -640,7 +748,7 @@ let rec validate (options: string list) (rule_count : int) (attempt : int) (disc
                 )
                 |_, _, _, _, 6 ->
                         let _ : unit = 
-                                if List.mem "verbose" options then
+                                if verbose options then
                                 IO.print_to_stderr (
                                 String.concat "" [
                                 "\nBAD NEWS: The following branch does not satisfy the conditions of any trinary rule:\n\n";
@@ -651,16 +759,8 @@ let rec validate (options: string list) (rule_count : int) (attempt : int) (disc
                 |_, _, _, _, _ -> validate options rule_count (attempt+1) dischargeable acc prf
 
 
-let dischargeable (fml : t_fml) : int option = None
-
-let print_report (options : string list) : bool =
-        List.mem "--print-report" options
-
-let print_proof (options : string list) : bool =
-        List.mem "--print-proof" options
-
-
 let validate_prf (options : string list) (prf : t_prf) : t_prf option =
+	let dischargeable (fml : t_fml) : int option = None in
         match validate options 0 0 dischargeable [] prf with
         |Some valid_prf ->
                 let premises : t_fml list = premises_of_prf [] valid_prf in
@@ -670,8 +770,7 @@ let validate_prf (options : string list) (prf : t_prf) : t_prf option =
                 let proves_string : string = String.concat " ⊢ " [premises_string; conclusion_string] in
                 let proof_string : string = string_of_prf valid_prf in
                 let report_string : string = String.concat "" [
-                        "\n"; "Proof is VALID:"; "\n\n";
-                        proof_string;"\n\n";
+                        "\n"; "Proof is VALID."; "\n\n";
                         "PROVES: "; proves_string; ".\n";
                 ] 
                 in
@@ -781,7 +880,7 @@ let dir_path_of_file_path (path : string) : string =
         |_ -> "."
 
 let file_name_of_path (path : string) : string =
-        match List.rev (String.split_on_char '/' path) with
+       match List.rev (String.split_on_char '/' path) with
         |hd::tl -> hd
         |[] -> ""
 
@@ -1055,8 +1154,8 @@ let sub_prf_center_of_prf (prf : t_prf) : t_prf =
         |Trinary_prf (_, sub_prf, _, _, _) -> sub_prf
         |_ -> raise (Error "no such sub-proof")
 
-let rec sub (options : string list) (prf : t_prf) : t_prf =
-        match options with
+let rec sub (directions : string list) (prf : t_prf) : t_prf =
+        match directions with
         |[] -> prf
         |hd::tl -> 
                 let sub_prf : t_prf =
@@ -1069,13 +1168,13 @@ let rec sub (options : string list) (prf : t_prf) : t_prf =
                 in sub tl sub_prf
 
 
-let sub_prf_of_file (options : string list) (path : string) : t_prf =
-        let prf = sub options (prf_of_file path) in
+let sub_prf_of_file (directions : string list) (path : string) : t_prf =
+        let prf = sub directions (prf_of_file path) in
         let _ : unit = IO.print_to_stdout (string_of_prf prf) in
         prf
 
-let sub_prf_of_stdin (options : string list) : t_prf =
-        let prf = sub options (prf_of_stdin ()) in
+let sub_prf_of_stdin (directions : string list) : t_prf =
+        let prf = sub directions (prf_of_stdin ()) in
         let _ : unit = IO.print_to_stdout (string_of_prf prf) in
         prf
 
@@ -1104,8 +1203,8 @@ let sub_prf_center_of_prf_raw (prf : t_prf_raw) : t_prf_raw =
         |Trinary_prf_raw (_, sub_prf, _, _, _) -> sub_prf
         |_ -> raise (Error "no such sub-proof")
 
-let rec sub_raw (options : string list) (prf : t_prf_raw) : t_prf_raw =
-        match options with
+let rec sub_raw (directions : string list) (prf : t_prf_raw) : t_prf_raw =
+        match directions with
         |[] -> prf
         |hd::tl -> 
                 let sub_prf : t_prf_raw =
@@ -1118,13 +1217,13 @@ let rec sub_raw (options : string list) (prf : t_prf_raw) : t_prf_raw =
                 in sub_raw tl sub_prf
 
 
-let sub_prf_raw_of_file (options : string list) (path : string) : t_prf_raw =
-        let prf = sub_raw options (prf_raw_of_file path) in
+let sub_prf_raw_of_file (directions : string list) (path : string) : t_prf_raw =
+        let prf = sub_raw directions (prf_raw_of_file path) in
         let _ : unit = IO.print_to_stdout (string_of_prf_raw prf) in
         prf
 
-let sub_prf_raw_of_stdin (options : string list) : t_prf_raw =
-        let prf = sub_raw options (prf_raw_of_stdin ()) in
+let sub_prf_raw_of_stdin (directions : string list) : t_prf_raw =
+        let prf = sub_raw directions (prf_raw_of_stdin ()) in
         let _ : unit = IO.print_to_stdout (string_of_prf_raw prf) in
         prf
 
@@ -1132,8 +1231,8 @@ let sub_prf_raw_of_stdin (options : string list) : t_prf_raw =
 (** Edit *)
 
 
-let rec subst_in_prf (replacement : t_prf) (options : string list) (prf : t_prf) : t_prf =
-        match options with
+let rec subst_in_prf (replacement : t_prf) (directions : string list) (prf : t_prf) : t_prf =
+        match directions with
         |[] -> replacement
         |hd :: tl -> 
                 match prf with
@@ -1158,24 +1257,28 @@ let rec subst_in_prf (replacement : t_prf) (options : string list) (prf : t_prf)
                 )
 
 
-let subst_in_file (replacement_path : string) (options : string list) (prf_path : string) : unit =
-        let replacement = prf_of_file replacement_path in
+let subst_in_file (replacement_path : string) (directions : string list) (prf_path : string) : unit =
+        let replacement = 
+		match replacement_path with 
+		|"-" -> prf_of_stdin ()
+		|_ -> prf_of_file replacement_path
+	in
         let prf = prf_of_file prf_path in
-        let new_prf = subst_in_prf replacement options prf in
+        let new_prf = subst_in_prf replacement directions prf in
         let prf_string : string = string_of_prf new_prf in
         let _ : unit = IO.print_to_stdout (prf_string) in
         IO.print_to_file prf_string prf_path
 
 
-let edit_file (options : string list) (path : string): unit =
+let edit_file (directions : string list) (path : string): unit =
         let prf = prf_of_file path in
-        let sub_prf = sub options prf in
-        let temp_path = Filename.temp_file "" (String.concat "" ((file_name_of_path path)::options)) in
+        let sub_prf = sub directions prf in
+        let temp_path = Filename.temp_file "" (String.concat "" ((file_name_of_path path)::directions)) in
         let _ : unit = IO.print_to_file (string_of_prf sub_prf) temp_path in
         let exit_code : int = Sys.command (String.concat " " ["nano";temp_path]) in
         match exit_code with
         |0 ->
-                let _ : unit = subst_in_file temp_path options path in
+                let _ : unit = subst_in_file temp_path directions path in
                 let _ : int = Sys.command (String.concat " " ["rm";temp_path]) in
                 ()
         
@@ -1185,8 +1288,8 @@ let edit_file (options : string list) (path : string): unit =
 
 (** Edit raw *)
 
-let rec subst_in_prf_raw (replacement : t_prf_raw) (options : string list) (prf : t_prf_raw) : t_prf_raw =
-        match options with
+let rec subst_in_prf_raw (replacement : t_prf_raw) (directions : string list) (prf : t_prf_raw) : t_prf_raw =
+        match directions with
         |[] -> replacement
         |hd :: tl -> 
                 match prf with
@@ -1211,28 +1314,34 @@ let rec subst_in_prf_raw (replacement : t_prf_raw) (options : string list) (prf 
                 )
 
 
-let subst_in_file_raw (replacement_path : string) (options : string list) (prf_path : string) : unit =
-        let replacement = prf_raw_of_file replacement_path in
+let subst_in_file_raw (replacement_path : string) (directions : string list) (prf_path : string) : unit =
+        let replacement = 
+		match replacement_path with 
+		|"-" -> prf_raw_of_stdin ()
+		|_ -> prf_raw_of_file replacement_path
+	in
         let prf = prf_raw_of_file prf_path in
-        let new_prf = subst_in_prf_raw replacement options prf in
+        let new_prf = subst_in_prf_raw replacement directions prf in
         let prf_string : string = string_of_prf_raw new_prf in
         let _ : unit = IO.print_to_stdout (prf_string) in
         IO.print_to_file prf_string prf_path
 
 
-let edit_file_raw (options : string list) (path : string): unit =
+let edit_file_raw (directions : string list) (path : string): unit =
         let prf = prf_raw_of_file path in
-        let sub_prf = sub_raw options prf in
-        let temp_path = Filename.temp_file "" (String.concat "" ((file_name_of_path path)::options)) in
+        let sub_prf = sub_raw directions prf in
+        let temp_path = Filename.temp_file "" (String.concat "" ((file_name_of_path path)::directions)) in
         let _ : unit = IO.print_to_file (string_of_prf_raw sub_prf) temp_path in
         let exit_code : int = Sys.command (String.concat " " ["nano";temp_path]) in
         match exit_code with
         |0 ->
-                let _ : unit = subst_in_file_raw temp_path options path in
+                let _ : unit = subst_in_file_raw temp_path directions path in
                 let _ : int = Sys.command (String.concat " " ["rm";temp_path]) in
                 ()
         
         |_ ->
                 let _ : int = Sys.command (String.concat " " ["rm";temp_path]) in
                 ()
+
+
 

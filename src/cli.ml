@@ -3,25 +3,24 @@ exception Error of string
 let usage : string=
 "USAGE:
   nd validate [ <options> ] { <path-to-file> | - }
+  nd expand <path-to-file> { <path-to-file> | - }
   nd show [ <directions> ] { <path-to-file> | - }
   nd show-raw [ <directions> ] { <path-to-file> | - }
   nd edit [ <directions> ] <path-to-file>
   nd edit-raw [ <directions> ] <path-to-file>
-  nd replace <path-to-file> [ <directions> ] <path-to-file>
-  nd replace-raw <path-to-file> [ <directions> ] <path-to-file>
+  nd replace [ <directions> ] <path-to-file> { <path-to-file> | - }
+  nd replace-raw [ <directions> ] <path-to-file> { <path-to-file> | - }
   nd decompose [ -R ] <path-to-directory> <path-to-file>
   nd decompose-raw [ -R ] <path-to-directory> <path-to-file>
   nd compose [ -R ] <path-to-directory>
   nd compose-raw [ -R ] <path-to-directory>
-  nd help [ validate | show | edit | replace | decompose | compose |
+  nd help [ validate | expand | show | edit | replace | decompose | compose |
             options | directions ]"
 
 
 let headers : string=
-"==============================================================================
-NATURAL DEDUCTION
-A basic proof assistant for natural deduction in classical first-order logic.
-==============================================================================
+"A basic proof assistant for natural deduction in classical first-order logic.
+
 USAGE:
 
   nd <command>
@@ -38,6 +37,15 @@ let help_validate : string =
 
         Prints an annotated and formatted version of proof contained in file
         to stdout, and a report to stderr, if proof is valid.
+
+        Otherwise prints a report to stderr."
+
+let help_expand : string =
+"    expand <path-to-file> { <path-to-file> | - }
+
+        Uses definitions in first file to expand proof in second file
+        and prints the result to stdout, if definitions are valid and
+        do not yield unintended variable bindings.
 
         Otherwise prints a report to stderr."
 
@@ -65,13 +73,13 @@ let help_edit : string =
         Same as edit, except that formulas are not parsed."
 
 let help_replace : string =
-"    replace <path-to-file> [ <directions> ] <path-to-file>
+"    replace [ <directions> ] <path-to-file> { <path-to-file> | - }
 
-        Prints to stdout result of replacing proof contained in second file
+        Prints to stdout result of replacing proof contained in first file
         (or sub-proof thereof specified by directions) with proof contained
-        in first file.
+        in second file.
 
-    replace-raw <path-to-file> [ <directions> ] <path-to-file>
+    replace-raw [ <directions> ] <path-to-file> { <path-to-file> | - }
 
         Same as replace, except that formulas are not parsed."
 
@@ -104,7 +112,7 @@ let help_compose : string =
         Same as compose, except that formulas are not parsed."
 
 let help_help : string =
-"    help [ validate | show | edit | replace | decompose | compose |
+"    help [ validate | expand | show | edit | replace | decompose | compose |
             options | directions ]
 
         Prints manual to stdout, or part thereof specified by keyword."
@@ -137,19 +145,19 @@ let help_directions : string =
 
     --sub-only, -o
 
-        Targets the (only) sub-proof of a unary proof.
+        Matches the (only) sub-proof of a unary proof.
 
     --sub-left, -l
 
-        Targets the left sub-proof of a binary or trinary proof.
+        Matches the left sub-proof of a binary or trinary proof.
 
     --sub-right, -r
 
-        Targets the right sub-proof of a binary or trinary proof.
+        Matches the right sub-proof of a binary or trinary proof.
 
     --sub-center, -c
 
-        Targets the center sub-proof of a trinary proof.
+        Matches the center sub-proof of a trinary proof.
 
     A space-separated list of directions is interpreted from left to right,
     in such a way that 
@@ -164,6 +172,7 @@ let manual : string =
         String.concat "\n\n" [
                 headers;
                 help_validate;
+                help_expand;
                 help_show;
                 help_edit;
                 help_replace;
@@ -179,6 +188,7 @@ let manual : string =
 let help (keyword : string) : string =
         match keyword with
         |"validate" -> help_validate
+        |"expand" -> help_expand
         |"show" -> help_show
         |"edit" -> help_edit
         |"replace" -> help_replace
@@ -199,27 +209,29 @@ let _ : unit =
         |"nd"::(command :: tl) -> (
                 let options : string list = List.rev (List.tl (List.rev tl)) in
                 let path : string = List.hd (List.rev tl) in
-                match command, path with
-                |"validate", "-" -> let _ = Main.validate_stdin ("--print-proof"::("--print-report"::options)) in ()
-                |"validate", path -> let _ = Main.validate_file ("--print-proof"::("--print-report"::options)) path in ()
-                |"show", "-" -> let _ = Main.sub_prf_of_stdin options in ()
-                |"show", path -> let _ = Main.sub_prf_of_file options path in ()
-                |"show-raw", "-" -> let _ = Main.sub_prf_raw_of_stdin options in ()
-                |"show-raw", path -> let _ = Main.sub_prf_raw_of_file options path in ()
-                |"decompose", path -> Main.decompose_file (List.tl (List.rev options)) (List.hd (List.rev options)) path
-                |"decompose-raw", path -> Main.decompose_file_raw (List.tl (List.rev options)) (List.hd (List.rev options)) path
-                |"compose", path -> let _ = Main.compose_dir options path in ()
-                |"compose-raw", path -> let _ = Main.compose_dir_raw options path in ()
-                |"edit", path -> Main.edit_file options path
-                |"edit-raw", path -> Main.edit_file_raw options path
-                |"replace", path -> Main.subst_in_file (List.hd options) (List.tl options) path
-                |"replace-raw", path -> Main.subst_in_file_raw (List.hd options) (List.tl options) path
-                |_ -> raise (Error "invalid argument(s)")
-        )
-        |_ -> IO.print_to_stderr usage
+                match command, path, options with
+                |"validate", "-", _ -> let _ = Main.validate_stdin ("--print-proof"::("--print-report"::options)) in ()
+                |"validate", path, _ -> let _ = Main.validate_file ("--print-proof"::("--print-report"::options)) path in ()
+                |"show", "-", _ -> let _ = Main.sub_prf_of_stdin options in ()
+                |"show", path, _ -> let _ = Main.sub_prf_of_file options path in ()
+                |"show-raw", "-", _ -> let _ = Main.sub_prf_raw_of_stdin options in ()
+                |"show-raw", path, _ -> let _ = Main.sub_prf_raw_of_file options path in ()
+                |"decompose", path, hd::tl -> Main.decompose_file (List.tl (List.rev options)) (List.hd (List.rev options)) path
+                |"decompose-raw", path, hd::tl -> Main.decompose_file_raw (List.tl (List.rev options)) (List.hd (List.rev options)) path
+                |"compose", path, _ -> let _ = Main.compose_dir options path in ()
+                |"compose-raw", path, _ -> let _ = Main.compose_dir_raw options path in ()
+                |"edit", path, _ -> Main.edit_file options path
+                |"edit-raw", path, _ -> Main.edit_file_raw options path
+                |"replace", path, hd::tl -> Main.subst_in_file path (List.tl (List.rev options)) (List.hd (List.rev options))
+                |"replace-raw", path, hd::tl -> Main.subst_in_file_raw path (List.tl (List.rev options)) (List.hd (List.rev options))
+		|"expand", "-", [path_to_defs] -> let _ = Main.expand_stdin_by_file_opt ["--print-proof";"--print-report"] path_to_defs in ()
+		|"expand", path, [path_to_defs] -> let _ = Main.expand_file_by_file_opt ["--print-proof";"--print-report"] path_to_defs path in ()
+		|_,_,_ -> raise (Error "invalid argument(s)")
+		)
+        |_ -> raise (Error "invalid argument(s)")
         with
         |Main.Error e
         |ND_main.Error e
         |FML_main.Error e -> IO.print_to_stderr e
         |Error e -> IO.print_to_stderr (String.concat "\n" [e;usage])
-        |_ -> IO.print_to_stderr usage
+        |_ -> IO.print_to_stderr (String.concat "\n" ["invalid argument(s)";usage])
