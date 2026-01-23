@@ -44,8 +44,8 @@ let subset = "⊂" | "\\subset"
 let subseteq = "⊆" | "\\subseteq"
 let eq = '='
 
-let prefix_func = ['a' - 't'] (['_'] | ['A' - 'Z'] | ['a' - 'z'] | ['0' - '9'])* | ['0' - '9']+
-let var = ['u' - 'z'] (['_'] | ['A' - 'Z'] | ['a' - 'z'] | ['0' - '9'])*
+let prefix_func = ['a' - 't'] (['_'] | ['a' - 'z'] | ['0' - '9'])* | ['0' - '9']+
+let var = ['u' - 'z'] (['_'] | ['a' - 'z'] | ['0' - '9'])*
 let prefix_pred = ['A' - 'Z'] (['_'] | ['A' - 'Z'] | ['a' - 'z'] | ['0' - '9'])*
 let comma = ','
 let lpar = '('
