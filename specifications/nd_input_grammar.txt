@@ -1,3 +1,17 @@
+input ::= item | item nls input
+
+item ::= prf | def_prf | def_fml | nls | comment
+
+comment ::= '#' [! NL]* NL
+
+def_prf ::= atomic_prf def nls prf
+
+def_fml ::= fml def fml
+
+def ::= ':='
+
+nls ::= NL | NL nls
+
 prf ::= atomic_prf | nullary_prf | unary_prf | binary_prf | trinary_prf
 
 atomic_prf  ::= fml
@@ -21,7 +35,7 @@ fml ::= word | word SPACE fml
 
 sps ::= SPACE SPACE | sps SPACE
 
-rule ::= [! '#' ';' ':' SPACE TAB LF CR]*
+rule ::= [! '#' ';' ':' SPACE TAB NL]*
 
-word ::= [! '#' ';' ':' SPACE TAB LF CR]+
+word ::= [! '#' ';' ':' SPACE TAB NL]+
 

@@ -19,4 +19,12 @@ let print_to_stdout (s : string) : unit =
 let print_to_stderr (s:string):unit = 
         Printf.eprintf "%s\n" s
 
+let print_to_stderr_red (s:string):unit = 
+        Printf.eprintf "\027[31m%s\027[m\n" s
+
+let print_to_stderr_green (s:string):unit = 
+        Printf.eprintf "\027[32m%s\027[m\n" s
+
+let print_to_stderr_yellow (s:string):unit = 
+        Printf.eprintf "\027[33m%s\027[m\n" s
 

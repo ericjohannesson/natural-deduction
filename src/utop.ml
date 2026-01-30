@@ -1,7 +1,7 @@
 open FML_types
-open ND_types
+open PRF_types
 open Main
 
 #show FML_types;;
-#show ND_types;;
+#show PRF_types;;
 #show Main;;

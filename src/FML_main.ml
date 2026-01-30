@@ -1,7 +1,7 @@
 open FML_types
 
-exception Error of string
-
+exception Parse_error of string
+exception Cannot_replace_var_with_term_containing_var_in_fml of t_var * t_term * t_var * t_fml 
 
 (** Parse *)
 
@@ -11,22 +11,22 @@ let string_of_token (t:FML_parser.token) : string =
         |FML_parser.LPAR -> "LPAR"
         |FML_parser.RPAR -> "RPAR"
         |FML_parser.COMMA -> "COMMA"
-        |FML_parser.VAR s -> String.concat "" ["VAR";" ";"\"";s;"\""]
-        |FML_parser.PREFIX_FUNC s -> String.concat "" ["PREFIX_FUNC";" ";"\"";s;"\""]
+        |FML_parser.VAR s -> String.concat "" ["VAR";" ";"\'";s;"\'"]
+        |FML_parser.PREFIX_FUNC s -> String.concat "" ["PREFIX_FUNC";" ";"\'";s;"\'"]
         |FML_parser.INFIX_FUNC s -> String.concat "" ["INFIX_FUNC";" ";"\'";s;"\'"]
-        |FML_parser.POSTFIX_FUNC s -> String.concat "" ["POSTFIX_FUNC";" ";"\"";s;"\""]
-        |FML_parser.PREFIX_PRED s -> String.concat "" ["PREFIX_PRED";" ";"\"";s;"\""]
-        |FML_parser.INFIX_PRED s -> String.concat "" ["INFIX_PRED";" ";"\"";s;"\""]
-        |FML_parser.NEG_INFIX_PRED s -> String.concat "" ["NEG_INFIX_PRED";" ";"\"";s;"\""]
-        |FML_parser.UNOP s -> String.concat "" ["UNOP";" ";"\"";s;"\""]
-        |FML_parser.BINOP s -> String.concat "" ["BINOP";" ";"\"";s;"\""]
-        |FML_parser.QUANT s -> String.concat "" ["QUANT";" ";"\"";s;"\""]
+        |FML_parser.POSTFIX_FUNC s -> String.concat "" ["POSTFIX_FUNC";" ";"\'";s;"\'"]
+        |FML_parser.PREFIX_PRED s -> String.concat "" ["PREFIX_PRED";" ";"\'";s;"\'"]
+        |FML_parser.INFIX_PRED s -> String.concat "" ["INFIX_PRED";" ";"\'";s;"\'"]
+        |FML_parser.NEG_INFIX_PRED s -> String.concat "" ["NEG_INFIX_PRED";" ";"\'";s;"\'"]
+        |FML_parser.UNOP s -> String.concat "" ["UNOP";" ";"\'";s;"\'"]
+        |FML_parser.BINOP s -> String.concat "" ["BINOP";" ";"\'";s;"\'"]
+        |FML_parser.QUANT s -> String.concat "" ["QUANT";" ";"\'";s;"\'"]
 
 
 let lexer (print_tokens : bool) (b : Lexing.lexbuf) : FML_parser.token =
         let t : FML_parser.token = FML_lexer.token b in
         match print_tokens with
-        |true -> let _ : unit = IO.print_to_stderr (string_of_token t) in t
+        |true -> let _ : unit = IO.print_to_stderr_red (string_of_token t) in t
         |false -> t
 
 
@@ -38,17 +38,24 @@ let rec fml_of_string (print_tokens : bool) (s:string): t_fml =
         |FML_parser.Error n ->
                 match print_tokens with
                 |false -> 
-                        let _ : unit = IO.print_to_stderr (
+                        let _ : unit = IO.print_to_stderr_red (
                                 String.concat "\n" [
                                         "Parsing failed in the following state of the automaton:";
                                         "=======================================================";
                                         FML_parser_automaton.state n;
                                         "=======================================================";
-                                        "Read the the following tokens from \"" ^ s ^ "\":";
+                                        "Read the the following tokens from \'" ^ s ^ "\':";
                                 ]
                         ) 
                         in fml_of_string true s
-                |true -> raise (Error ("Last token does not match any Transitions or Reductions of State " ^ (Int.to_string n) ^ "."))
+                |true -> 
+			let _ : unit = IO.print_to_stderr_red (
+				String.concat "" [
+					"Last token does not match any Transitions or Reductions of State ";
+					Int.to_string n;"."
+				]
+			)
+			in raise (Parse_error s)
 
 
 let fml_list_of_file (print_tokens : bool) (path : string) : t_fml list =
@@ -60,18 +67,18 @@ let fml_list_of_file (print_tokens : bool) (path : string) : t_fml list =
                         aux (fml::acc)
                 with
                 |End_of_file -> acc
-                |Error e -> let _ : unit = IO.print_to_stderr e in acc
+                |Parse_error e -> let _ : unit = IO.print_to_stderr e in acc
         in List.rev (aux [])
 
 (** Print *)
 
 let rec string_of_fml (fml : t_fml) : string =
         match fml with
-        | PredApp (Pred p, term_list) -> (
+        | PredApp (p, term_list) -> (
                 match is_infix_pred p, term_list with
-                |true, [a;b] -> String.concat "" [string_of_term a;" ";p;" ";string_of_term b]
-                |false,[] -> p
-                |_, _ -> String.concat "" [p;string_of_term_list term_list]
+                |true, [a;b] -> String.concat "" [string_of_term a;" ";string_of_pred p;" ";string_of_term b]
+                |false,[] -> string_of_pred p
+                |_, _ -> String.concat "" [string_of_pred p;string_of_term_list term_list]
         )
         | BinopApp (Binop o, fml1, fml2) -> String.concat "" ["(";string_of_fml fml1;" ";o;" ";string_of_fml fml2;")"]
         | UnopApp (Unop o, fml) -> String.concat "" [o;string_of_fml fml]
@@ -94,12 +101,17 @@ and string_of_term (term : t_term) : string =
                 )
                 |_, _ -> String.concat "" [f;string_of_term_list term_list]
 
+and string_of_pred (p : t_pred) : string =
+	match p with
+	|Pred s -> s
+
+
 and string_of_var (var : t_var) : string =
 	match var with
 	|Var v -> v
 
-and is_infix_pred (p : string) : bool =
-        match p with
+and is_infix_pred (p : t_pred) : bool =
+	match string_of_pred p with
         |"=" | "<" | ">" |"≤" | "\\leq" | "≥" | "\\geq" 
         | "∈" | "\\in" | "⊂" | "\\subset" | "⊆" | "\\subseteq" -> true
         |_ -> false
@@ -172,6 +184,21 @@ let rec vars_of_terms (term_list : t_term list) : t_var list =
 			|Atom (var : t_var) -> aux tl (var::acc)
 			|FuncApp (_, terms) -> aux tl (List.concat [acc;vars_of_terms terms])
 	in List.rev (aux term_list [])
+
+
+let rec subst_in_fml_err (var : t_var) (term : t_term) (fml : t_fml) : t_fml =
+        match fml with
+        | PredApp (pred, term_list) -> PredApp (pred, List.map (subst_in_term var term) term_list)
+        | BinopApp (binop, fml1, fml2) -> BinopApp (binop, subst_in_fml var term fml1, subst_in_fml var term fml2)
+        | UnopApp (unop, fml1) -> UnopApp (unop, subst_in_fml var term fml1)
+        | QuantApp (quant, var1, fml1) -> 
+                match var = var1 with
+                |true -> QuantApp (quant, var1, fml1)
+                |false -> 
+			match List.mem var1 (vars_of_terms [term]) with
+			|true -> raise (Cannot_replace_var_with_term_containing_var_in_fml (var, term, var1, fml))
+			|false -> QuantApp (quant, var1, subst_in_fml var term fml1)
+
 
 
 let rec subst_in_fml_opt (var : t_var) (term : t_term) (fml : t_fml) : t_fml option =

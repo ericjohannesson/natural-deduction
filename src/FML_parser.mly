@@ -24,14 +24,13 @@ fml:
         |nullary_pred                   { PredApp ($1,[]) }
         |prefix_pred terms              { PredApp ($1,$2) }
         |prefix_pred LPAR terms RPAR    { PredApp ($1,$3) }
-(*      |fml binop fml                  { BinopApp ($2,$1,$3) }
-*)
         |LPAR fml binop fml RPAR        { BinopApp ($3,$2,$4) }
         |unop fml                       { UnopApp ($1,$2) }
         |quant var fml                  { QuantApp ($1,$2,$3) }
         |term infix_pred term           { PredApp ($2,[$1;$3]) }
         |term neg_infix_pred term       { UnopApp (Unop "¬", PredApp ($2,[$1;$3])) }
-        |LPAR term infix_pred term RPAR { PredApp ($3,[$2;$4]) }
+	|LPAR fml RPAR			{ $2 }
+
 ;
 
 term:
@@ -40,7 +39,7 @@ term:
         |prefix_func LPAR terms RPAR    { FuncApp ($1,$3) }
         |term infix_func term           { FuncApp ($2,[$1;$3]) }
         |term postfix_func              { FuncApp ($2,[$1]) }
-        |LPAR term infix_func term RPAR { FuncApp ($3,[$2;$4]) }
+	|LPAR term RPAR			{ $2 }
 ;
 
 var:

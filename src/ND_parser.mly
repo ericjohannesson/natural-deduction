@@ -1,51 +1,51 @@
 %{
-
+open FML_types
+open PRF_types
 open ND_types
-
 %}
 
-%token                  SEP EOF
-%token <string>         NULLARY_RULE UNARY_RULE BINARY_RULE TRINARY_RULE FML
 
-%type <t_prf_raw> main prf
-%type <t_fml_raw> fml
-%type <t_nullary_rule> nullary_rule
-%type <t_unary_rule> unary_rule
-%type <t_binary_rule> binary_rule
-%type <t_trinary_rule> trinary_rule
+%token					EOF
+%token <ND_types.t_def_token>		DEF
+%token <string> 			FML PRF
 
+%type <ND_types.t_item list> main
 %start main
 
 
 %%
 main:
-        |prf EOF                                { $1 : t_prf_raw }
+	|items EOF				{ $1 : t_item list }
+	|EOF					{ [] : t_item list }
 ;
 
-prf:
-        |fml                                    { Atomic_prf_raw $1 : t_prf_raw }
-        |nullary_rule fml                       { Nullary_prf_raw ($1, $2) : t_prf_raw }
-        |prf unary_rule fml                     { Unary_prf_raw ($1, $2, $3) : t_prf_raw }
-        |prf SEP prf binary_rule fml            { Binary_prf_raw ($1, $3, $4, $5) : t_prf_raw }
-        |prf SEP prf SEP prf trinary_rule fml   { Trinary_prf_raw ($1, $3, $5, $6, $7) : t_prf_raw }
+items:
+	|item					{ ($1::[]) : t_item list } 
+	|item items					{ ($1 :: $2) : t_item list }
+;
+
+item:
+	|prf					{ Prf $1 : t_item }
+	|def_fml				{ Def_fml $1 : t_item }
+	|def_prf				{ Def_prf $1 : t_item }
+;
+
+def_fml:
+	|def fml				{ (PRF_main.fml_of_string $1.content, $2, $1.line) : t_fml * t_fml * int }
+;
+
+def_prf:
+	|def prf				{ (PRF_main.prf_of_string $1.content, $2, $1.line) : t_prf * t_prf * int }
+;
+
+def:
+	|DEF					{ $1 : t_def_token }
 ;
 
 fml:
-        |FML                                    { Fml_raw $1 : t_fml_raw }
+	|FML					{ PRF_main.fml_of_string $1 : t_fml }
 ;
 
-nullary_rule:
-        |NULLARY_RULE                           { Nullary_rule $1 : t_nullary_rule }
-;
-
-unary_rule:
-        |UNARY_RULE                             { Unary_rule $1 : t_unary_rule }
-;
-
-binary_rule:
-        |BINARY_RULE                            { Binary_rule $1 : t_binary_rule }
-;
-
-trinary_rule:
-        |TRINARY_RULE                           { Trinary_rule $1 : t_trinary_rule }
+prf:
+	|PRF					{ PRF_main.prf_of_string $1 : t_prf }
 ;

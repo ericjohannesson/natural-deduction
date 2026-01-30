@@ -1,90 +1,90 @@
 open FML_types
-open ND_types
+open PRF_types
+
+let input_dir : string = "../tests/examples/"
+
+let prf0_in : string = input_dir ^ "prf0"
+
+let prf0_out_raw : PRF_types.t_prf_raw =
+PRF_types.Binary_prf_raw
+ (PRF_types.Atomic_prf_raw (PRF_types.Fml_raw "good bye"),
+  PRF_types.Atomic_prf_raw (PRF_types.Fml_raw "cruel"),
+  PRF_types.Binary_rule "", PRF_types.Fml_raw "world")
+
+let prf1_in :string = input_dir ^ "prf1"
+
+let prf1_out_raw : PRF_types.t_prf_raw =
+PRF_types.Binary_prf_raw
+ (PRF_types.Unary_prf_raw
+   (PRF_types.Binary_prf_raw
+     (PRF_types.Unary_prf_raw
+       (PRF_types.Atomic_prf_raw (PRF_types.Fml_raw "U"),
+        PRF_types.Unary_rule "∧E", PRF_types.Fml_raw "A"),
+      PRF_types.Trinary_prf_raw
+       (PRF_types.Atomic_prf_raw (PRF_types.Fml_raw "X"),
+        PRF_types.Atomic_prf_raw (PRF_types.Fml_raw "Y"),
+        PRF_types.Atomic_prf_raw (PRF_types.Fml_raw "Z"),
+        PRF_types.Trinary_rule "∨E", PRF_types.Fml_raw "B"),
+      PRF_types.Binary_rule "", PRF_types.Fml_raw "C"),
+    PRF_types.Unary_rule "∃I", PRF_types.Fml_raw "Hello"),
+  PRF_types.Binary_prf_raw
+   (PRF_types.Atomic_prf_raw (PRF_types.Fml_raw "g"),
+    PRF_types.Atomic_prf_raw (PRF_types.Fml_raw "(h→i)"),
+    PRF_types.Binary_rule "", PRF_types.Fml_raw "world"),
+  PRF_types.Binary_rule "∧I", PRF_types.Fml_raw "conclusion")
+
+
+let prf2_in : string = input_dir ^ "prf2"
+
+let prf2_out_raw : PRF_types.t_prf_raw =
+PRF_types.Binary_prf_raw
+ (PRF_types.Unary_prf_raw
+   (PRF_types.Binary_prf_raw
+     (PRF_types.Unary_prf_raw
+       (PRF_types.Nullary_prf_raw
+         (PRF_types.Nullary_rule "", PRF_types.Fml_raw "U"),
+        PRF_types.Unary_rule "∧E", PRF_types.Fml_raw "A"),
+      PRF_types.Trinary_prf_raw
+       (PRF_types.Nullary_prf_raw
+         (PRF_types.Nullary_rule "", PRF_types.Fml_raw "X"),
+        PRF_types.Atomic_prf_raw (PRF_types.Fml_raw "Y"),
+        PRF_types.Atomic_prf_raw (PRF_types.Fml_raw "Z"),
+        PRF_types.Trinary_rule "∨E", PRF_types.Fml_raw "B"),
+      PRF_types.Binary_rule "", PRF_types.Fml_raw "C"),
+    PRF_types.Unary_rule "∃I", PRF_types.Fml_raw "He llo"),
+  PRF_types.Binary_prf_raw
+   (PRF_types.Atomic_prf_raw (PRF_types.Fml_raw "g"),
+    PRF_types.Atomic_prf_raw (PRF_types.Fml_raw "(h → i)"),
+    PRF_types.Binary_rule "", PRF_types.Fml_raw "wor ld"),
+  PRF_types.Binary_rule "", PRF_types.Fml_raw "conclusion")
+
+let prf3_in : string = input_dir ^ "prf3"
+
+let prf3_out_raw : PRF_types.t_prf_raw =
+PRF_types.Binary_prf_raw
+ (PRF_types.Unary_prf_raw
+   (PRF_types.Atomic_prf_raw (PRF_types.Fml_raw "∀x(x+0=x)"),
+    PRF_types.Unary_rule "", PRF_types.Fml_raw "0'+0=0'"),
+  PRF_types.Unary_prf_raw
+   (PRF_types.Unary_prf_raw
+     (PRF_types.Atomic_prf_raw (PRF_types.Fml_raw "∀x∀y(x+y'=(x+y)')"),
+      PRF_types.Unary_rule "", PRF_types.Fml_raw "∀y(0'+y'=(0'+y)')"),
+    PRF_types.Unary_rule "", PRF_types.Fml_raw "0'+0'=(0'+0)'"),
+  PRF_types.Binary_rule "", PRF_types.Fml_raw "0'+0'=0''")
 
 
 
-let nd0_in : string = "../examples/ND0.txt"
-
-let nd0_out_raw : ND_types.t_prf_raw =
-ND_types.Binary_prf_raw
- (ND_types.Atomic_prf_raw (ND_types.Fml_raw "good bye"),
-  ND_types.Atomic_prf_raw (ND_types.Fml_raw "cruel"),
-  ND_types.Binary_rule "", ND_types.Fml_raw "world")
-
-let nd1_in :string = "../examples/ND1.txt"
-
-let nd1_out_raw : ND_types.t_prf_raw =
-ND_types.Binary_prf_raw
- (ND_types.Unary_prf_raw
-   (ND_types.Binary_prf_raw
-     (ND_types.Unary_prf_raw
-       (ND_types.Atomic_prf_raw (ND_types.Fml_raw "U"),
-        ND_types.Unary_rule "∧E", ND_types.Fml_raw "A"),
-      ND_types.Trinary_prf_raw
-       (ND_types.Atomic_prf_raw (ND_types.Fml_raw "X"),
-        ND_types.Atomic_prf_raw (ND_types.Fml_raw "Y"),
-        ND_types.Atomic_prf_raw (ND_types.Fml_raw "Z"),
-        ND_types.Trinary_rule "∨E", ND_types.Fml_raw "B"),
-      ND_types.Binary_rule "", ND_types.Fml_raw "C"),
-    ND_types.Unary_rule "∃I", ND_types.Fml_raw "Hello"),
-  ND_types.Binary_prf_raw
-   (ND_types.Atomic_prf_raw (ND_types.Fml_raw "g"),
-    ND_types.Atomic_prf_raw (ND_types.Fml_raw "(h→i)"),
-    ND_types.Binary_rule "", ND_types.Fml_raw "world"),
-  ND_types.Binary_rule "∧I", ND_types.Fml_raw "conclusion")
-
-
-let nd2_in : string = "../examples/ND2.txt"
-
-let nd2_out_raw : ND_types.t_prf_raw =
-ND_types.Binary_prf_raw
- (ND_types.Unary_prf_raw
-   (ND_types.Binary_prf_raw
-     (ND_types.Unary_prf_raw
-       (ND_types.Nullary_prf_raw
-         (ND_types.Nullary_rule "", ND_types.Fml_raw "U"),
-        ND_types.Unary_rule "∧E", ND_types.Fml_raw "A"),
-      ND_types.Trinary_prf_raw
-       (ND_types.Nullary_prf_raw
-         (ND_types.Nullary_rule "", ND_types.Fml_raw "X"),
-        ND_types.Atomic_prf_raw (ND_types.Fml_raw "Y"),
-        ND_types.Atomic_prf_raw (ND_types.Fml_raw "Z"),
-        ND_types.Trinary_rule "∨E", ND_types.Fml_raw "B"),
-      ND_types.Binary_rule "", ND_types.Fml_raw "C"),
-    ND_types.Unary_rule "∃I", ND_types.Fml_raw "He llo"),
-  ND_types.Binary_prf_raw
-   (ND_types.Atomic_prf_raw (ND_types.Fml_raw "g"),
-    ND_types.Atomic_prf_raw (ND_types.Fml_raw "(h → i)"),
-    ND_types.Binary_rule "", ND_types.Fml_raw "wor ld"),
-  ND_types.Binary_rule "", ND_types.Fml_raw "conclusion")
-
-let nd3_in : string = "../examples/ND3.txt"
-
-let nd3_out_raw : ND_types.t_prf_raw =
-ND_types.Binary_prf_raw
- (ND_types.Unary_prf_raw
-   (ND_types.Atomic_prf_raw (ND_types.Fml_raw "∀x(x+0=x)"),
-    ND_types.Unary_rule "", ND_types.Fml_raw "0'+0=0'"),
-  ND_types.Unary_prf_raw
-   (ND_types.Unary_prf_raw
-     (ND_types.Atomic_prf_raw (ND_types.Fml_raw "∀x∀y(x+y'=(x+y)')"),
-      ND_types.Unary_rule "", ND_types.Fml_raw "∀y(0'+y'=(0'+y)')"),
-    ND_types.Unary_rule "", ND_types.Fml_raw "0'+0'=(0'+0)'"),
-  ND_types.Binary_rule "", ND_types.Fml_raw "0'+0'=0''")
-
-
-
-let nd3_out : ND_types.t_prf =
-ND_types.Binary_prf
- (ND_types.Unary_prf
-   (ND_types.Atomic_prf
+let prf3_out : PRF_types.t_prf =
+PRF_types.Binary_prf
+ (PRF_types.Unary_prf
+   (PRF_types.Atomic_prf
      (FML_types.QuantApp (FML_types.Quant "∀", FML_types.Var "x",
        FML_types.PredApp (FML_types.Pred "=",
         [FML_types.FuncApp (FML_types.Func "+",
           [FML_types.Atom (FML_types.Var "x");
            FML_types.FuncApp (FML_types.Func "0", [])]);
          FML_types.Atom (FML_types.Var "x")]))),
-    ND_types.Unary_rule "",
+    PRF_types.Unary_rule "",
     FML_types.PredApp (FML_types.Pred "=",
      [FML_types.FuncApp (FML_types.Func "+",
        [FML_types.FuncApp (FML_types.Func "'",
@@ -92,9 +92,9 @@ ND_types.Binary_prf
         FML_types.FuncApp (FML_types.Func "0", [])]);
       FML_types.FuncApp (FML_types.Func "'",
        [FML_types.FuncApp (FML_types.Func "0", [])])])),
-  ND_types.Unary_prf
-   (ND_types.Unary_prf
-     (ND_types.Atomic_prf
+  PRF_types.Unary_prf
+   (PRF_types.Unary_prf
+     (PRF_types.Atomic_prf
        (FML_types.QuantApp (FML_types.Quant "∀", FML_types.Var "x",
          FML_types.QuantApp (FML_types.Quant "∀", FML_types.Var "y",
           FML_types.PredApp (FML_types.Pred "=",
@@ -106,7 +106,7 @@ ND_types.Binary_prf
              [FML_types.FuncApp (FML_types.Func "+",
                [FML_types.Atom (FML_types.Var "x");
                 FML_types.Atom (FML_types.Var "y")])])])))),
-      ND_types.Unary_rule "",
+      PRF_types.Unary_rule "",
       FML_types.QuantApp (FML_types.Quant "∀", FML_types.Var "y",
        FML_types.PredApp (FML_types.Pred "=",
         [FML_types.FuncApp (FML_types.Func "+",
@@ -119,7 +119,7 @@ ND_types.Binary_prf
             [FML_types.FuncApp (FML_types.Func "'",
               [FML_types.FuncApp (FML_types.Func "0", [])]);
              FML_types.Atom (FML_types.Var "y")])])]))),
-    ND_types.Unary_rule "",
+    PRF_types.Unary_rule "",
     FML_types.PredApp (FML_types.Pred "=",
      [FML_types.FuncApp (FML_types.Func "+",
        [FML_types.FuncApp (FML_types.Func "'",
@@ -131,7 +131,7 @@ ND_types.Binary_prf
          [FML_types.FuncApp (FML_types.Func "'",
            [FML_types.FuncApp (FML_types.Func "0", [])]);
           FML_types.FuncApp (FML_types.Func "0", [])])])])),
-  ND_types.Binary_rule "",
+  PRF_types.Binary_rule "",
   FML_types.PredApp (FML_types.Pred "=",
    [FML_types.FuncApp (FML_types.Func "+",
      [FML_types.FuncApp (FML_types.Func "'",
@@ -143,170 +143,170 @@ ND_types.Binary_prf
        [FML_types.FuncApp (FML_types.Func "0", [])])])]))
 
 
-let nd4_in : string = "../examples/ND4.txt"
+let prf4_in : string = input_dir ^ "prf4"
 
-let nd4_out_raw : ND_types.t_prf_raw =
-ND_types.Unary_prf_raw
- (ND_types.Nullary_prf_raw (ND_types.Nullary_rule "", ND_types.Fml_raw "P"),
-  ND_types.Unary_rule "", ND_types.Fml_raw "(P → P)")
+let prf4_out_raw : PRF_types.t_prf_raw =
+PRF_types.Unary_prf_raw
+ (PRF_types.Nullary_prf_raw (PRF_types.Nullary_rule "", PRF_types.Fml_raw "P"),
+  PRF_types.Unary_rule "", PRF_types.Fml_raw "(P → P)")
 
-let nd4_out : ND_types.t_prf =
-ND_types.Unary_prf
- (ND_types.Nullary_prf
-   (ND_types.Nullary_rule "", FML_types.PredApp (FML_types.Pred "P", [])),
-  ND_types.Unary_rule "",
+let prf4_out : PRF_types.t_prf =
+PRF_types.Unary_prf
+ (PRF_types.Nullary_prf
+   (PRF_types.Nullary_rule "", FML_types.PredApp (FML_types.Pred "P", [])),
+  PRF_types.Unary_rule "",
   FML_types.BinopApp (FML_types.Binop "→",
    FML_types.PredApp (FML_types.Pred "P", []),
    FML_types.PredApp (FML_types.Pred "P", [])))
 
-let nd5_in : string = "../examples/ND5.txt"
+let prf5_in : string = input_dir ^ "prf5"
 
-let nd5_out_raw : ND_types.t_prf_raw =
-ND_types.Binary_prf_raw
- (ND_types.Nullary_prf_raw (ND_types.Nullary_rule "", ND_types.Fml_raw "P"),
-  ND_types.Atomic_prf_raw (ND_types.Fml_raw "Q"), ND_types.Binary_rule "",
-  ND_types.Fml_raw "(P ∧ Q)")
+let prf5_out_raw : PRF_types.t_prf_raw =
+PRF_types.Binary_prf_raw
+ (PRF_types.Nullary_prf_raw (PRF_types.Nullary_rule "", PRF_types.Fml_raw "P"),
+  PRF_types.Atomic_prf_raw (PRF_types.Fml_raw "Q"), PRF_types.Binary_rule "",
+  PRF_types.Fml_raw "(P ∧ Q)")
 
 
-let nd5_out : ND_types.t_prf =
-ND_types.Binary_prf
- (ND_types.Nullary_prf
-   (ND_types.Nullary_rule "", FML_types.PredApp (FML_types.Pred "P", [])),
-  ND_types.Atomic_prf (FML_types.PredApp (FML_types.Pred "Q", [])),
-  ND_types.Binary_rule "",
+let prf5_out : PRF_types.t_prf =
+PRF_types.Binary_prf
+ (PRF_types.Nullary_prf
+   (PRF_types.Nullary_rule "", FML_types.PredApp (FML_types.Pred "P", [])),
+  PRF_types.Atomic_prf (FML_types.PredApp (FML_types.Pred "Q", [])),
+  PRF_types.Binary_rule "",
   FML_types.BinopApp (FML_types.Binop "∧",
    FML_types.PredApp (FML_types.Pred "P", []),
    FML_types.PredApp (FML_types.Pred "Q", [])))
 
-let nd6_in : string = "../examples/ND6.txt"
+let prf6_in : string = input_dir ^ "prf6"
 
-let nd6_out_raw : ND_types.t_prf_raw =
-ND_types.Unary_prf_raw
- (ND_types.Nullary_prf_raw (ND_types.Nullary_rule "", ND_types.Fml_raw "a=a"),
-  ND_types.Unary_rule "", ND_types.Fml_raw "∀x(x=x)")
+let prf6_out_raw : PRF_types.t_prf_raw =
+PRF_types.Unary_prf_raw
+ (PRF_types.Nullary_prf_raw (PRF_types.Nullary_rule "", PRF_types.Fml_raw "a=a"),
+  PRF_types.Unary_rule "", PRF_types.Fml_raw "∀x(x=x)")
 
 
-let nd6_out : ND_types.t_prf =
-ND_types.Unary_prf
-   (ND_types.Nullary_prf
-     (ND_types.Nullary_rule "",
+let prf6_out : PRF_types.t_prf =
+PRF_types.Unary_prf
+   (PRF_types.Nullary_prf
+     (PRF_types.Nullary_rule "",
       FML_types.PredApp (FML_types.Pred "=",
        [FML_types.FuncApp (FML_types.Func "a", []);
         FML_types.FuncApp (FML_types.Func "a", [])])),
-    ND_types.Unary_rule "",
+    PRF_types.Unary_rule "",
     FML_types.QuantApp (FML_types.Quant "∀", FML_types.Var "x",
      FML_types.PredApp (FML_types.Pred "=",
       [FML_types.Atom (FML_types.Var "x");
        FML_types.Atom (FML_types.Var "x")])))
 
-let nd7_in : string = "../examples/ND7.txt"
+let prf7_in : string = input_dir ^ "prf7"
 
-let nd7_out_raw : ND_types.t_prf_raw =
-ND_types.Binary_prf_raw
- (ND_types.Unary_prf_raw
-   (ND_types.Binary_prf_raw
-     (ND_types.Unary_prf_raw
-       (ND_types.Nullary_prf_raw
-         (ND_types.Nullary_rule "1", ND_types.Fml_raw "P"),
-        ND_types.Unary_rule "", ND_types.Fml_raw "(P \\lor \\neg P)"),
-      ND_types.Nullary_prf_raw
-       (ND_types.Nullary_rule "2",
-        ND_types.Fml_raw "\\neg (P \\lor \\neg P)"),
-      ND_types.Binary_rule "¬I,1", ND_types.Fml_raw "\\neg P"),
-    ND_types.Unary_rule "", ND_types.Fml_raw "(P \\lor \\neg P)"),
-  ND_types.Nullary_prf_raw
-   (ND_types.Nullary_rule "2", ND_types.Fml_raw "\\neg (P \\lor \\neg P)"),
-  ND_types.Binary_rule "¬E,2", ND_types.Fml_raw "(P \\lor \\neg P)")
+let prf7_out_raw : PRF_types.t_prf_raw =
+PRF_types.Binary_prf_raw
+ (PRF_types.Unary_prf_raw
+   (PRF_types.Binary_prf_raw
+     (PRF_types.Unary_prf_raw
+       (PRF_types.Nullary_prf_raw
+         (PRF_types.Nullary_rule "1", PRF_types.Fml_raw "P"),
+        PRF_types.Unary_rule "", PRF_types.Fml_raw "(P \\lor \\neg P)"),
+      PRF_types.Nullary_prf_raw
+       (PRF_types.Nullary_rule "2",
+        PRF_types.Fml_raw "\\neg (P \\lor \\neg P)"),
+      PRF_types.Binary_rule "¬I,1", PRF_types.Fml_raw "\\neg P"),
+    PRF_types.Unary_rule "", PRF_types.Fml_raw "(P \\lor \\neg P)"),
+  PRF_types.Nullary_prf_raw
+   (PRF_types.Nullary_rule "2", PRF_types.Fml_raw "\\neg (P \\lor \\neg P)"),
+  PRF_types.Binary_rule "¬E,2", PRF_types.Fml_raw "(P \\lor \\neg P)")
 
-let nd7_out : ND_types.t_prf =
-ND_types.Binary_prf
- (ND_types.Unary_prf
-   (ND_types.Binary_prf
-     (ND_types.Unary_prf
-       (ND_types.Nullary_prf
-         (ND_types.Nullary_rule "1",
+let prf7_out : PRF_types.t_prf =
+PRF_types.Binary_prf
+ (PRF_types.Unary_prf
+   (PRF_types.Binary_prf
+     (PRF_types.Unary_prf
+       (PRF_types.Nullary_prf
+         (PRF_types.Nullary_rule "1",
           FML_types.PredApp (FML_types.Pred "P", [])),
-        ND_types.Unary_rule "",
+        PRF_types.Unary_rule "",
         FML_types.BinopApp (FML_types.Binop "∨",
          FML_types.PredApp (FML_types.Pred "P", []),
          FML_types.UnopApp (FML_types.Unop "¬",
           FML_types.PredApp (FML_types.Pred "P", [])))),
-      ND_types.Nullary_prf
-       (ND_types.Nullary_rule "2",
+      PRF_types.Nullary_prf
+       (PRF_types.Nullary_rule "2",
         FML_types.UnopApp (FML_types.Unop "¬",
          FML_types.BinopApp (FML_types.Binop "∨",
           FML_types.PredApp (FML_types.Pred "P", []),
           FML_types.UnopApp (FML_types.Unop "¬",
            FML_types.PredApp (FML_types.Pred "P", []))))),
-      ND_types.Binary_rule "¬I,1",
+      PRF_types.Binary_rule "¬I,1",
       FML_types.UnopApp (FML_types.Unop "¬",
        FML_types.PredApp (FML_types.Pred "P", []))),
-    ND_types.Unary_rule "",
+    PRF_types.Unary_rule "",
     FML_types.BinopApp (FML_types.Binop "∨",
      FML_types.PredApp (FML_types.Pred "P", []),
      FML_types.UnopApp (FML_types.Unop "¬",
       FML_types.PredApp (FML_types.Pred "P", [])))),
-  ND_types.Nullary_prf
-   (ND_types.Nullary_rule "2",
+  PRF_types.Nullary_prf
+   (PRF_types.Nullary_rule "2",
     FML_types.UnopApp (FML_types.Unop "¬",
      FML_types.BinopApp (FML_types.Binop "∨",
       FML_types.PredApp (FML_types.Pred "P", []),
       FML_types.UnopApp (FML_types.Unop "¬",
        FML_types.PredApp (FML_types.Pred "P", []))))),
-  ND_types.Binary_rule "¬E,2",
+  PRF_types.Binary_rule "¬E,2",
   FML_types.BinopApp (FML_types.Binop "∨",
    FML_types.PredApp (FML_types.Pred "P", []),
    FML_types.UnopApp (FML_types.Unop "¬",
     FML_types.PredApp (FML_types.Pred "P", []))))
 
-let nd8_in : string = "../examples/ND8.txt"
+let prf8_in : string = input_dir ^ "prf8"
 
-let nd8_out_raw : ND_types.t_prf_raw =
-ND_types.Binary_prf_raw
- (ND_types.Unary_prf_raw
-   (ND_types.Nullary_prf_raw
-     (ND_types.Nullary_rule "1", ND_types.Fml_raw "P"),
-    ND_types.Unary_rule "", ND_types.Fml_raw "(P \\lor \\neg P)"),
-  ND_types.Nullary_prf_raw
-   (ND_types.Nullary_rule "", ND_types.Fml_raw "\\neg (P \\lor \\neg P)"),
-  ND_types.Binary_rule "¬I,1", ND_types.Fml_raw "\\neg P")
+let prf8_out_raw : PRF_types.t_prf_raw =
+PRF_types.Binary_prf_raw
+ (PRF_types.Unary_prf_raw
+   (PRF_types.Nullary_prf_raw
+     (PRF_types.Nullary_rule "1", PRF_types.Fml_raw "P"),
+    PRF_types.Unary_rule "", PRF_types.Fml_raw "(P \\lor \\neg P)"),
+  PRF_types.Nullary_prf_raw
+   (PRF_types.Nullary_rule "", PRF_types.Fml_raw "\\neg (P \\lor \\neg P)"),
+  PRF_types.Binary_rule "¬I,1", PRF_types.Fml_raw "\\neg P")
 
-let nd8_out : ND_types.t_prf =
-ND_types.Binary_prf
- (ND_types.Unary_prf
-   (ND_types.Nullary_prf
-     (ND_types.Nullary_rule "1", FML_types.PredApp (FML_types.Pred "P", [])),
-    ND_types.Unary_rule "",
+let prf8_out : PRF_types.t_prf =
+PRF_types.Binary_prf
+ (PRF_types.Unary_prf
+   (PRF_types.Nullary_prf
+     (PRF_types.Nullary_rule "1", FML_types.PredApp (FML_types.Pred "P", [])),
+    PRF_types.Unary_rule "",
     FML_types.BinopApp (FML_types.Binop "∨",
      FML_types.PredApp (FML_types.Pred "P", []),
      FML_types.UnopApp (FML_types.Unop "¬",
       FML_types.PredApp (FML_types.Pred "P", [])))),
-  ND_types.Nullary_prf
-   (ND_types.Nullary_rule "",
+  PRF_types.Nullary_prf
+   (PRF_types.Nullary_rule "",
     FML_types.UnopApp (FML_types.Unop "¬",
      FML_types.BinopApp (FML_types.Binop "∨",
       FML_types.PredApp (FML_types.Pred "P", []),
       FML_types.UnopApp (FML_types.Unop "¬",
        FML_types.PredApp (FML_types.Pred "P", []))))),
-  ND_types.Binary_rule "¬I,1",
+  PRF_types.Binary_rule "¬I,1",
   FML_types.UnopApp (FML_types.Unop "¬",
    FML_types.PredApp (FML_types.Pred "P", [])))
 
 
-let nd9_in : string = "../examples/ND9.txt"
-let nd10_in : string = "../examples/ND10.txt"
-let nd11_in : string = "../examples/ND11.txt"
-let nd12_in : string = "../examples/ND12.txt"
-let nd31_in : string = "../examples/ND31.txt"
-let nd32_in : string = "../examples/ND32.txt"
-let nd33_in : string = "../examples/ND33.txt"
-let nd20_in : string = "../examples/ND20.txt"
-let nd14_in : string = "../examples/ND14.txt"
-let nd15_in : string = "../examples/ND15.txt"
-let nd16_in : string = "../examples/ND16.txt"
+let prf9_in : string = input_dir ^ "prf9"
+let prf10_in : string = input_dir ^ "prf10"
+let prf11_in : string = input_dir ^ "prf11"
+let prf12_in : string = input_dir ^ "prf12"
+let prf31_in : string = input_dir ^ "prf31"
+let prf32_in : string = input_dir ^ "prf32"
+let prf33_in : string = input_dir ^ "prf33"
+let prf20_in : string = input_dir ^ "prf20"
+let prf14_in : string = input_dir ^ "prf14"
+let prf15_in : string = input_dir ^ "prf15"
+let prf16_in : string = input_dir ^ "prf16"
 
 
-let nd3_valid = Some
+let prf3_valid = Some
  (Binary_prf
    (Unary_prf
      (Atomic_prf
@@ -355,7 +355,7 @@ let nd3_valid = Some
       FuncApp (Func "'", [FuncApp (Func "'", [FuncApp (Func "0", [])])])])))
 
 
-let nd31_valid =Some
+let prf31_valid =Some
  (Binary_prf
    (Atomic_prf
      (PredApp (Pred "=",
@@ -378,7 +378,7 @@ let nd31_valid =Some
         FuncApp (Func "'", [FuncApp (Func "0", [])])]);
       FuncApp (Func "'", [FuncApp (Func "'", [FuncApp (Func "0", [])])])])))
 
-let nd32_valid = Some
+let prf32_valid = Some
  (Unary_prf
    (Unary_prf
      (Atomic_prf
@@ -407,7 +407,7 @@ let nd32_valid = Some
        [FuncApp (Func "+",
          [FuncApp (Func "'", [FuncApp (Func "0", [])]); FuncApp (Func "0", [])])])])))
 
-let nd33_valid = Some
+let prf33_valid = Some
  (Unary_prf
    (Atomic_prf
      (QuantApp (Quant "∀", Var "x",
@@ -428,14 +428,14 @@ let nd33_valid = Some
           [FuncApp (Func "'", [FuncApp (Func "0", [])]); Atom (Var "y")])])]))))
 
 
-let nd4_valid = Some
+let prf4_valid = Some
  (Unary_prf
    (Nullary_prf (Nullary_rule "0", PredApp (Pred "P", [])), Unary_rule "→I0",
     BinopApp (Binop "→", PredApp (Pred "P", []), PredApp (Pred "P", []))))
 
-let nd5_valid = None
+let prf5_valid = None
 
-let nd6_valid = Some
+let prf6_valid = Some
  (Unary_prf
    (Nullary_prf
      (Nullary_rule "=I",
@@ -444,7 +444,7 @@ let nd6_valid = Some
     QuantApp (Quant "∀", Var "x",
      PredApp (Pred "=", [Atom (Var "x"); Atom (Var "x")]))))
 
-let nd7_valid = Some
+let prf7_valid = Some
  (Binary_prf
    (Unary_prf
      (Binary_prf
@@ -471,9 +471,9 @@ let nd7_valid = Some
     BinopApp (Binop "∨", PredApp (Pred "P", []),
      UnopApp (Unop "¬", PredApp (Pred "P", [])))))
 
-let nd8_valid = None
+let prf8_valid = None
 
-let nd9_valid = Some
+let prf9_valid = Some
  (Trinary_prf
    (Atomic_prf
      (BinopApp (Binop "∨", PredApp (Pred "P", []), PredApp (Pred "R", []))),
@@ -500,9 +500,9 @@ let nd9_valid = Some
     Trinary_rule "∨E0", PredApp (Pred "Q", [])))
 
 
-let nd10_valid = None
+let prf10_valid = None
 
-let nd11_valid = Some
+let prf11_valid = Some
  (Unary_prf
    (Atomic_prf
      (BinopApp (Binop "∧",
@@ -512,9 +512,9 @@ let nd11_valid = Some
     BinopApp (Binop "→", PredApp (Pred "P", []), PredApp (Pred "Q", []))))
 
 
-let nd12_valid = None
+let prf12_valid = None
 
-let nd20_valid = Some
+let prf20_valid = Some
  (Binary_prf
    (Unary_prf
      (Binary_prf
@@ -536,7 +536,7 @@ let nd20_valid = Some
     Binary_rule "∃E0",
     QuantApp (Quant "∃", Var "x", PredApp (Pred "Q", [Atom (Var "x")]))))
 
-let nd14_valid = Some
+let prf14_valid = Some
  (Binary_prf
    (Unary_prf
      (Nullary_prf
@@ -552,104 +552,55 @@ let nd14_valid = Some
      BinopApp (Binop "↔", PredApp (Pred "A", []), PredApp (Pred "B", [])))))
 
 
-let nd15_valid = Some
+let prf15_valid = Some
  (Unary_prf
    (Atomic_prf
      (BinopApp (Binop "↔", PredApp (Pred "A", []), PredApp (Pred "B", []))),
     Unary_rule "↔E",
     BinopApp (Binop "→", PredApp (Pred "A", []), PredApp (Pred "B", []))))
 
-let nd16_valid = None
+let prf16_valid = None
 
-let nd17_in : string = "../examples/ND17.txt"
-let nd18_in : string = "../examples/ND18.txt"
-let nd21_in : string = "../examples/ND21.txt"
+let prf17_in : string = input_dir ^ "prf17"
+let prf18_in : string = input_dir ^ "prf18"
+let prf21_in : string = input_dir ^ "prf21"
 
 
-let fml0_in : string = "../examples/FML0.txt"
-let fml1_in : string = "../examples/FML1.txt"
-let fml2_in : string = "../examples/FML2.txt"
-let fml3_in : string = "../examples/FML3.txt"
+let fml0_in : string = input_dir ^ "fml0"
+let fml1_in : string = input_dir ^ "fml1"
+let fml2_in : string = input_dir ^ "fml2"
+let fml3_in : string = input_dir ^ "fml3"
 
-let def0_in : string = "../examples/DEF0.txt"
 
-let def0_out : (t_fml * t_fml) list =
-   [(FML_types.PredApp (FML_types.Pred "A",
-     [FML_types.Atom (FML_types.Var "x")]),
-    FML_types.QuantApp (FML_types.Quant "∃", FML_types.Var "y",
-     FML_types.PredApp (FML_types.Pred "Q",
-      [FML_types.Atom (FML_types.Var "x"); FML_types.Atom (FML_types.Var "y")])));
-   (FML_types.PredApp (FML_types.Pred "B",
-     [FML_types.Atom (FML_types.Var "x"); FML_types.Atom (FML_types.Var "y")]),
-    FML_types.QuantApp (FML_types.Quant "∀", FML_types.Var "z",
-     FML_types.BinopApp (FML_types.Binop "→",
-      FML_types.PredApp (FML_types.Pred "A",
-       [FML_types.Atom (FML_types.Var "z")]),
-      FML_types.PredApp (FML_types.Pred "R",
-       [FML_types.Atom (FML_types.Var "x"); FML_types.Atom (FML_types.Var "y");
-        FML_types.Atom (FML_types.Var "z")]))));
-   (FML_types.PredApp (FML_types.Pred "C",
-     [FML_types.Atom (FML_types.Var "u")]),
-    FML_types.BinopApp (FML_types.Binop "∧",
-     FML_types.PredApp (FML_types.Pred "A",
-      [FML_types.Atom (FML_types.Var "u")]),
-     FML_types.QuantApp (FML_types.Quant "∀", FML_types.Var "v",
-      FML_types.PredApp (FML_types.Pred "B",
-       [FML_types.Atom (FML_types.Var "u"); FML_types.Atom (FML_types.Var "v")]))))]
-
-let def0_valid : bool = true
-
-let prf1_in : string = "../examples/prf1.txt"
-let prf1_valid : t_prf option = None
-let defs1_in : string = "../examples/defs1.txt"
-let defs1_out : (t_fml * t_fml) list =
-[(PredApp (Pred "I", [Atom (Var "z")]),
-  BinopApp (Binop "∧",
-   PredApp (Pred "T", [FuncApp (Func "0", []); Atom (Var "z")]),
-   QuantApp (Quant "∀", Var "y",
-    BinopApp (Binop "→", PredApp (Pred "T", [Atom (Var "y"); Atom (Var "z")]),
-     PredApp (Pred "T", [FuncApp (Func "'", [Atom (Var "y")]); Atom (Var "z")])))));
- (PredApp (Pred "P", [Atom (Var "x")]),
-  QuantApp (Quant "∀", Var "z",
-   BinopApp (Binop "→", PredApp (Pred "I", [Atom (Var "z")]),
-    PredApp (Pred "T", [Atom (Var "x"); Atom (Var "z")]))))]
-
-let defs1_valid : bool = true
-let exp_defs1_prf1 : string option = Some "../examples/exp_defs1_prf1.txt"
-
-let defs_in : string = "../examples/defs.txt"
-let prf_in : string = "../examples/prf.txt"
-let exp_defs_prf : string option = Some "../examples/exp_defs_prf.txt"
-
-let nd_raw_test input output : unit =
+let prf_raw_test input output : unit =
         match Main.prf_raw_of_file input = output with
         |true -> ()
-        |false -> IO.print_to_stderr ("nd_raw_test FAILED on " ^ input)
+        |false -> IO.print_to_stderr ("prf_raw_test FAILED on " ^ input)
 
-let nd_test input output : unit =
+let prf_test input output : unit =
         match Main.prf_of_file input = output with
         |true -> ()
-        |false -> IO.print_to_stderr ("nd_test FAILED on " ^ input)
+        |false -> IO.print_to_stderr ("prf_test FAILED on " ^ input)
 
 
-let nd_fixpoint_test_raw input : unit =
-try     let out1 : ND_types.t_prf_raw = Main.prf_raw_of_file input in
-        let str : string = ND_main.string_of_prf_raw out1 in
-        let out2 : ND_types.t_prf_raw = Main.prf_raw_of_string str in
+let prf_fixpoint_test_raw input : unit =
+try     let out1 : PRF_types.t_prf_raw = Main.prf_raw_of_file input in
+        let str : string = Main.string_of_prf_raw out1 in
+        let out2 : PRF_types.t_prf_raw = Main.prf_raw_of_string str in
         match out1 = out2 with
         |true -> ()
-        |false -> IO.print_to_stderr ("nd_fixpoint_test_raw FAILED on " ^ input)
-with ND_main.Error e -> IO.print_to_stderr (String.concat " " ["nd_fixpoint_test_raw FAILED on";input;e])
+        |false -> IO.print_to_stderr ("prf_fixpoint_test_raw FAILED on " ^ input)
+with PRF_main.Error e -> IO.print_to_stderr (String.concat " " ["prf_fixpoint_test_raw FAILED on";input;e])
 
 
-let nd_fixpoint_test input : unit =
-try     let out1 : ND_types.t_prf = Main.prf_of_file input in
+let prf_fixpoint_test input : unit =
+try     let out1 : PRF_types.t_prf = Main.prf_of_file input in
         let str : string = Main.string_of_prf out1 in
-        let out2 : ND_types.t_prf = Main.prf_of_string str in
+        let out2 : PRF_types.t_prf = Main.prf_of_string str in
         match out1 = out2 with
         |true -> ()
-        |false -> IO.print_to_stderr ("nd_fixpoint_test FAILED on " ^ input)
-with ND_main.Error e -> IO.print_to_stderr (String.concat " " ["nd_fixpoint_test FAILED on";input;e])
+        |false -> IO.print_to_stderr ("prf_fixpoint_test FAILED on " ^ input)
+with PRF_main.Error e -> IO.print_to_stderr (String.concat " " ["prf_fixpoint_test FAILED on";input;e])
 
 
 let fml_fixpoint_test input : unit =
@@ -659,11 +610,19 @@ try     let out1 : FML_types.t_fml list = Main.fml_list_of_file input in
         match out1 = out2 with
         |true -> ()
         |false -> IO.print_to_stderr ("fml_fixpoint_test FAILED on " ^ input)
-with FML_main.Error e -> IO.print_to_stderr (String.concat " " ["fml_fixpoint_test FAILED on";input;e])
+with FML_main.Parse_error e -> IO.print_to_stderr (String.concat " " ["fml_fixpoint_test FAILED on";input;e])
 
 
 let validity_test input output : unit =
-        match Main.validate_file [] input = output with 
+	let options : Main.t_options = {
+		verbose = false;
+		discharge = false;
+		undischarge = false;
+		print_proof = false;
+		print_report = false;
+	}
+	in
+        match Main.validate_file options input = output with 
         |true -> ()
         |false -> IO.print_to_stderr ("validity_test FAILED on " ^ input)
 
@@ -671,8 +630,8 @@ let validity_test input output : unit =
 let comp_test input : unit =
         let prf_in : t_prf = Main.prf_of_file input in
         let temp_dir = Filename.temp_dir "" "" in
-        let _ : unit = Main.decompose_file ["-R"] temp_dir input in
-        let prf_out : t_prf = Main.compose_prf_rec temp_dir in
+        let _ : unit = PRF_edit.decompose_file ["-R"] temp_dir input in
+        let prf_out : t_prf = PRF_edit.compose_prf_rec temp_dir in
         let _ : int = Sys.command (String.concat " " ["rm -r";temp_dir]) in
         match prf_in = prf_out with
         |true -> ()
@@ -682,133 +641,106 @@ let comp_test input : unit =
 let comp_test_raw input : unit =
         let prf_in : t_prf_raw = Main.prf_raw_of_file input in
         let temp_dir = Filename.temp_dir "" "" in
-        let _ : unit = Main.decompose_file_raw ["-R"] temp_dir input in
-        let prf_out : t_prf_raw = Main.compose_prf_raw_rec temp_dir in
+        let _ : unit = PRF_edit.decompose_file_raw ["-R"] temp_dir input in
+        let prf_out : t_prf_raw = PRF_edit.compose_prf_raw_rec temp_dir in
         let _ : int = Sys.command (String.concat " " ["rm -r";temp_dir]) in
         match prf_in = prf_out with
         |true -> ()
         |false -> IO.print_to_stderr ("comp_test_raw FAILED on " ^ input)
 
-let def_parser_test (input : string) (output : (t_fml * t_fml) list) : unit =
-	match DEF_main.defs_of_file input = output with
-	|true -> ()
-	|false -> IO.print_to_stderr ("def_parser_test FAILED on " ^ input)
 
-let def_validity_test (input : string) (output : bool) : unit =
-	match DEF_main.defs_are_valid (DEF_main.defs_of_file input) = output with
-	|true -> ()
-	|false -> IO.print_to_stderr ("def_validity_test FAILED on " ^ input)
-
-let exp_test (defs_in : string) (prf_in : string) (exp_prf : string option) : unit =
-	match Main.expand_file_by_file [] defs_in prf_in, exp_prf with
-	|Some prf, Some path -> (
-		match prf = Main.prf_of_file path with
-		|true -> ()
-		|false -> IO.print_to_stderr (String.concat " " ["exp_test FAILED on";defs_in;prf_in])
-	)
-	|None,None -> ()
-	|_,_ -> IO.print_to_stderr (String.concat " " ["exp_test FAILED on";defs_in;prf_in])
-
-let _ : unit = nd_raw_test nd0_in nd0_out_raw
-let _ : unit = nd_raw_test nd1_in nd1_out_raw
-let _ : unit = nd_raw_test nd2_in nd2_out_raw
-let _ : unit = nd_raw_test nd3_in nd3_out_raw
-let _ : unit = nd_raw_test nd4_in nd4_out_raw
-let _ : unit = nd_raw_test nd5_in nd5_out_raw
-let _ : unit = nd_raw_test nd6_in nd6_out_raw
+let _ : unit = prf_raw_test prf0_in prf0_out_raw
+let _ : unit = prf_raw_test prf1_in prf1_out_raw
+let _ : unit = prf_raw_test prf2_in prf2_out_raw
+let _ : unit = prf_raw_test prf3_in prf3_out_raw
+let _ : unit = prf_raw_test prf4_in prf4_out_raw
+let _ : unit = prf_raw_test prf5_in prf5_out_raw
+let _ : unit = prf_raw_test prf6_in prf6_out_raw
 
 let _ : unit = fml_fixpoint_test fml0_in
 let _ : unit = fml_fixpoint_test fml1_in
 let _ : unit = fml_fixpoint_test fml2_in
 let _ : unit = fml_fixpoint_test fml3_in
 
-let _ : unit = nd_test nd3_in nd3_out
-let _ : unit = nd_test nd4_in nd4_out
-let _ : unit = nd_test nd5_in nd5_out
-let _ : unit = nd_test nd6_in nd6_out
-let _ : unit = nd_test nd7_in nd7_out
-let _ : unit = nd_test nd8_in nd8_out
+let _ : unit = prf_test prf3_in prf3_out
+let _ : unit = prf_test prf4_in prf4_out
+let _ : unit = prf_test prf5_in prf5_out
+let _ : unit = prf_test prf6_in prf6_out
+let _ : unit = prf_test prf7_in prf7_out
+let _ : unit = prf_test prf8_in prf8_out
 
 
-let _ : unit = nd_fixpoint_test_raw nd0_in
-let _ : unit = nd_fixpoint_test_raw nd1_in
-let _ : unit = nd_fixpoint_test_raw nd2_in
-let _ : unit = nd_fixpoint_test_raw nd3_in
-let _ : unit = nd_fixpoint_test_raw nd4_in
-let _ : unit = nd_fixpoint_test_raw nd5_in
-let _ : unit = nd_fixpoint_test_raw nd6_in
-let _ : unit = nd_fixpoint_test_raw nd7_in
-let _ : unit = nd_fixpoint_test_raw nd8_in
-let _ : unit = nd_fixpoint_test_raw nd9_in
-let _ : unit = nd_fixpoint_test_raw nd10_in
-let _ : unit = nd_fixpoint_test_raw nd11_in
-let _ : unit = nd_fixpoint_test_raw nd12_in
-let _ : unit = nd_fixpoint_test_raw nd14_in
-let _ : unit = nd_fixpoint_test_raw nd15_in
+let _ : unit = prf_fixpoint_test_raw prf0_in
+let _ : unit = prf_fixpoint_test_raw prf1_in
+let _ : unit = prf_fixpoint_test_raw prf2_in
+let _ : unit = prf_fixpoint_test_raw prf3_in
+let _ : unit = prf_fixpoint_test_raw prf4_in
+let _ : unit = prf_fixpoint_test_raw prf5_in
+let _ : unit = prf_fixpoint_test_raw prf6_in
+let _ : unit = prf_fixpoint_test_raw prf7_in
+let _ : unit = prf_fixpoint_test_raw prf8_in
+let _ : unit = prf_fixpoint_test_raw prf9_in
+let _ : unit = prf_fixpoint_test_raw prf10_in
+let _ : unit = prf_fixpoint_test_raw prf11_in
+let _ : unit = prf_fixpoint_test_raw prf12_in
+let _ : unit = prf_fixpoint_test_raw prf14_in
+let _ : unit = prf_fixpoint_test_raw prf15_in
 
 
-let _ : unit = nd_fixpoint_test nd3_in
-let _ : unit = nd_fixpoint_test nd4_in
-let _ : unit = nd_fixpoint_test nd5_in
-let _ : unit = nd_fixpoint_test nd6_in
-let _ : unit = nd_fixpoint_test nd7_in
-let _ : unit = nd_fixpoint_test nd8_in
-let _ : unit = nd_fixpoint_test nd9_in
-let _ : unit = nd_fixpoint_test nd10_in
-let _ : unit = nd_fixpoint_test nd11_in
-let _ : unit = nd_fixpoint_test nd12_in
-let _ : unit = nd_fixpoint_test nd20_in
-let _ : unit = nd_fixpoint_test nd14_in
-let _ : unit = nd_fixpoint_test nd15_in
-let _ : unit = nd_fixpoint_test nd15_in
-let _ : unit = nd_fixpoint_test nd16_in
-let _ : unit = nd_fixpoint_test nd17_in
-let _ : unit = nd_fixpoint_test nd18_in
-let _ : unit = nd_fixpoint_test nd20_in
-let _ : unit = nd_fixpoint_test nd21_in
+let _ : unit = prf_fixpoint_test prf3_in
+let _ : unit = prf_fixpoint_test prf4_in
+let _ : unit = prf_fixpoint_test prf5_in
+let _ : unit = prf_fixpoint_test prf6_in
+let _ : unit = prf_fixpoint_test prf7_in
+let _ : unit = prf_fixpoint_test prf8_in
+let _ : unit = prf_fixpoint_test prf9_in
+let _ : unit = prf_fixpoint_test prf10_in
+let _ : unit = prf_fixpoint_test prf11_in
+let _ : unit = prf_fixpoint_test prf12_in
+let _ : unit = prf_fixpoint_test prf20_in
+let _ : unit = prf_fixpoint_test prf14_in
+let _ : unit = prf_fixpoint_test prf15_in
+let _ : unit = prf_fixpoint_test prf15_in
+let _ : unit = prf_fixpoint_test prf16_in
+let _ : unit = prf_fixpoint_test prf17_in
+let _ : unit = prf_fixpoint_test prf18_in
+let _ : unit = prf_fixpoint_test prf20_in
+let _ : unit = prf_fixpoint_test prf21_in
 
-let _ : unit = validity_test nd3_in nd3_valid
-let _ : unit = validity_test nd4_in nd4_valid
-let _ : unit = validity_test nd5_in nd5_valid
-let _ : unit = validity_test nd6_in nd6_valid
-let _ : unit = validity_test nd7_in nd7_valid
-let _ : unit = validity_test nd8_in nd8_valid
-let _ : unit = validity_test nd9_in nd9_valid
-let _ : unit = validity_test nd10_in nd10_valid
-let _ : unit = validity_test nd11_in nd11_valid
-let _ : unit = validity_test nd12_in nd12_valid
-let _ : unit = validity_test nd14_in nd14_valid
-let _ : unit = validity_test nd15_in nd15_valid
-let _ : unit = validity_test nd16_in nd16_valid
-let _ : unit = validity_test nd31_in nd31_valid
-let _ : unit = validity_test nd32_in nd32_valid
-let _ : unit = validity_test nd33_in nd33_valid
-let _ : unit = validity_test nd20_in nd20_valid
+let _ : unit = validity_test prf3_in prf3_valid
+let _ : unit = validity_test prf4_in prf4_valid
+let _ : unit = validity_test prf5_in prf5_valid
+let _ : unit = validity_test prf6_in prf6_valid
+let _ : unit = validity_test prf7_in prf7_valid
+let _ : unit = validity_test prf8_in prf8_valid
+let _ : unit = validity_test prf9_in prf9_valid
+let _ : unit = validity_test prf10_in prf10_valid
+let _ : unit = validity_test prf11_in prf11_valid
+let _ : unit = validity_test prf12_in prf12_valid
+let _ : unit = validity_test prf14_in prf14_valid
+let _ : unit = validity_test prf15_in prf15_valid
+let _ : unit = validity_test prf16_in prf16_valid
+let _ : unit = validity_test prf31_in prf31_valid
+let _ : unit = validity_test prf32_in prf32_valid
+let _ : unit = validity_test prf33_in prf33_valid
+let _ : unit = validity_test prf20_in prf20_valid
 
-let _ : unit = comp_test_raw nd0_in
-let _ : unit = comp_test_raw nd1_in
-let _ : unit = comp_test_raw nd3_in
-let _ : unit = comp_test_raw nd4_in
-let _ : unit = comp_test_raw nd5_in
-let _ : unit = comp_test_raw nd6_in
-let _ : unit = comp_test_raw nd7_in
-let _ : unit = comp_test_raw nd8_in
-let _ : unit = comp_test_raw nd9_in
+let _ : unit = comp_test_raw prf0_in
+let _ : unit = comp_test_raw prf1_in
+let _ : unit = comp_test_raw prf3_in
+let _ : unit = comp_test_raw prf4_in
+let _ : unit = comp_test_raw prf5_in
+let _ : unit = comp_test_raw prf6_in
+let _ : unit = comp_test_raw prf7_in
+let _ : unit = comp_test_raw prf8_in
+let _ : unit = comp_test_raw prf9_in
 
-let _ : unit = comp_test nd3_in
-let _ : unit = comp_test nd4_in
-let _ : unit = comp_test nd5_in
-let _ : unit = comp_test nd6_in
-let _ : unit = comp_test nd7_in
-let _ : unit = comp_test nd8_in
-let _ : unit = comp_test nd9_in
+let _ : unit = comp_test prf3_in
+let _ : unit = comp_test prf4_in
+let _ : unit = comp_test prf5_in
+let _ : unit = comp_test prf6_in
+let _ : unit = comp_test prf7_in
+let _ : unit = comp_test prf8_in
+let _ : unit = comp_test prf9_in
 
-let _ : unit = def_parser_test def0_in def0_out
-let _ : unit = def_validity_test def0_in def0_valid
 
-let _ : unit = validity_test prf1_in prf1_valid
-let _ : unit = def_parser_test defs1_in defs1_out
-let _ : unit = def_validity_test defs1_in defs1_valid
-let _ : unit = exp_test defs1_in prf1_in exp_defs1_prf1
-
-let _ : unit = exp_test defs_in prf_in exp_defs_prf

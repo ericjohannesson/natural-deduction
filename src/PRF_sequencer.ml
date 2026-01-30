@@ -211,13 +211,6 @@ let transition (state : t_state) (symbol : t_symbol) (arity: int list) : (t_acti
                 |Dash -> Stay, State 30, None, arity
                 |Out -> Right, State 92, None, arity            (* continue *)
         )
-        |State 100 -> (
-                match symbol with
-                |Space -> Stay, State 100, None, arity
-                |Letter _ -> Stay, State 100, None, arity
-                |Dash -> Stay, State 100, None, arity
-                |Out -> Stay, State 100, None, arity
-        )
         |State n -> raise (ERROR (String.concat " " ["State"; string_of_int n; "does not exist."]))
 
 
@@ -239,8 +232,8 @@ let string_of_return_opt (return_opt : t_return option) : string =
         |Some HSEP -> "HSEP"
         |Some (RSEP arity) -> "RSEP" ^ (string_of_int arity)
         |Some VSEP -> "VSEP"
-        |Some (FML_LETTER s) -> String.concat "" ["FML_LETTER ";"\"";s;"\""]
-        |Some (RULE_LETTER r) -> String.concat "" ["RULE_LETTER ";"\"";r;"\""]
+        |Some (FML_LETTER s) -> String.concat "" ["FML_LETTER ";"\'";s;"\'"]
+        |Some (RULE_LETTER r) -> String.concat "" ["RULE_LETTER ";"\'";r;"\'"]
         |None -> "None"
 
 let string_of_return (return : t_return) : string =
@@ -255,7 +248,7 @@ let string_of_symbol (symbol : t_symbol) : string =
         match symbol with
         |Space -> "Space"
         |Dash -> "Dash"
-        |Letter s -> String.concat "" ["Letter ";"\"";s;"\""]
+        |Letter s -> String.concat "" ["Letter ";"\'";s;"\'"]
         |Out -> "Out"
 
 let string_of_arity (arity : int list) : string =
@@ -263,7 +256,7 @@ let string_of_arity (arity : int list) : string =
 
 let print_trace (trace : bool) (state : t_state) (row : int) (col : int) (symbol : t_symbol) (return_opt : t_return option) (arity: int list): unit =
         match trace with 
-        |true -> IO.print_to_stderr (String.concat " " [string_of_state state;"row";string_of_int row;"col";string_of_int col;string_of_symbol symbol;"->";string_of_return_opt return_opt;string_of_arity arity])
+        |true -> IO.print_to_stderr_red (String.concat " " [string_of_state state;"row";string_of_int row;"col";string_of_int col;string_of_symbol symbol;"->";string_of_return_opt return_opt;string_of_arity arity])
         |false -> ()
 
 let matrix_of_string (s : string) : string array array =

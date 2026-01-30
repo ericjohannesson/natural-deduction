@@ -1,3 +1,0 @@
-A(x) := ∃y Q(x,y)
-B(x,y) := ∀z (A(z) → R(x,y,z))
-C(u) := (A(u) ∧ ∀v B(u,v))

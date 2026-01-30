@@ -1,34 +1,33 @@
 {
-
 open ND_parser
 
-exception ERROR of string
+let line_of_lexbuf (lexbuf : Lexing.lexbuf) : int =
+	(lexbuf.Lexing.lex_curr_p).Lexing.pos_lnum
 
-let rule_token (d: char) (name: string) : ND_parser.token =
-        match d with
-        |'0' -> NULLARY_RULE name
-        |'1' -> UNARY_RULE name
-        |'2' -> BINARY_RULE name
-        |'3' -> TRINARY_RULE name
-        |_ -> raise (ERROR "arity of rule greater than 3")
-
+let new_lines (s : string) (b : Lexing.lexbuf) : unit =
+	let rec aux (string_list : string list) : unit =
+		match string_list with
+		|[] -> ()
+		|hd::[] -> ()
+		|hd::tl-> let _ : unit = Lexing.new_line b in aux tl
+	in
+	aux (String.split_on_char '\n' s)
 }
 
-let digit = ['0' '1' '2' '3']
-let rule_name = [^ '#' ';' ':']*
-let fml = [^ '#' ';' ':']+
-let hsep = ';'
-let vsep = ':'
-let rsep = '#'
+let prf_line = [^ '=' '\n' ':' '#']+ [^ '\n' ':' '#']* "\n"?
+let prf = prf_line+
+let nls = "\n"+
+let fml = [^ '=' '\n' ':' '#']+ [^ ':' '\n' '#']*
+(*let prf = [^ '=' '\n' ':' '#']+ [^ ':' '#']* *)
+let comment = "#" [^ '\n']* "\n"
+let colon = ":"
+let eq = "="
 
-
-
-rule token = parse
-        |hsep                                   { SEP }
-        |fml as s                               { FML s }
-        |rsep (digit as d) (rule_name as s)     { rule_token d s }
-        |vsep                                   { token lexbuf }
-        |eof                                    { EOF }
-        |_                                      { token lexbuf }
-
-
+rule token = parse 
+	|prf as s		{ let _ : unit = new_lines s lexbuf in PRF s }
+	|eq nls (prf as s) nls	{ let _ : unit = new_lines s lexbuf in PRF s }
+	|(fml as s) colon	{ DEF { content = s ; line = line_of_lexbuf lexbuf } }
+	|eq (fml as s)		{ FML s }
+	|comment as s		{ let _ : unit = new_lines s lexbuf in token lexbuf }
+	|nls as s		{ let _ : unit = new_lines s lexbuf in token lexbuf }
+	|eof			{ EOF }

@@ -1,9 +1,19 @@
 exception Error of string
 
+let basic_usage : string =
+"BASIC USAGE:
+
+  nd [ <options> ] <path-to-file>
+
+        Expands proofs in file according to definitions in file and checks
+        validity of each proof according to options.
+
+        Prints a report to stdout."
+
 let usage : string=
 "USAGE:
+  nd [ <options> ] <path-to-file>
   nd validate [ <options> ] { <path-to-file> | - }
-  nd expand <path-to-file> { <path-to-file> | - }
   nd show [ <directions> ] { <path-to-file> | - }
   nd show-raw [ <directions> ] { <path-to-file> | - }
   nd edit [ <directions> ] <path-to-file>
@@ -14,9 +24,8 @@ let usage : string=
   nd decompose-raw [ -R ] <path-to-directory> <path-to-file>
   nd compose [ -R ] <path-to-directory>
   nd compose-raw [ -R ] <path-to-directory>
-  nd help [ validate | expand | show | edit | replace | decompose | compose |
+  nd help [ basic | validate | | show | edit | replace | decompose | compose |
             options | directions ]"
-
 
 let headers : string=
 "A basic proof assistant for natural deduction in classical first-order logic.
@@ -32,6 +41,14 @@ let author_website : string =
 Website: https://github.com/ericjohannesson/natural-deduction"
 
 
+let help_nd : string =
+"    [ <options> ] <path-to-file>
+
+        Expands proofs in file according to definitions in file and checks
+        validity of each proof according to options.
+
+        Prints a report to stdout."
+
 let help_validate : string =
 "    validate [ <options> ] { <path-to-file> | - }
 
@@ -40,14 +57,6 @@ let help_validate : string =
 
         Otherwise prints a report to stderr."
 
-let help_expand : string =
-"    expand <path-to-file> { <path-to-file> | - }
-
-        Uses definitions in first file to expand proof in second file
-        and prints the result to stdout, if definitions are valid and
-        do not yield unintended variable bindings.
-
-        Otherwise prints a report to stderr."
 
 let help_show : string =
 "    show [ <directions> ] { <path-to-file> | - }
@@ -112,8 +121,8 @@ let help_compose : string =
         Same as compose, except that formulas are not parsed."
 
 let help_help : string =
-"    help [ validate | expand | show | edit | replace | decompose | compose |
-            options | directions ]
+"    help [ basic | validate | show | edit | replace | decompose | compose |
+           options | directions ]
 
         Prints manual to stdout, or part thereof specified by keyword."
 
@@ -171,8 +180,8 @@ let help_directions : string =
 let manual : string =
         String.concat "\n\n" [
                 headers;
+                help_nd;
                 help_validate;
-                help_expand;
                 help_show;
                 help_edit;
                 help_replace;
@@ -187,8 +196,8 @@ let manual : string =
 
 let help (keyword : string) : string =
         match keyword with
+	|"basic" -> String.concat "\n\n" [basic_usage;help_options] 
         |"validate" -> help_validate
-        |"expand" -> help_expand
         |"show" -> help_show
         |"edit" -> help_edit
         |"replace" -> help_replace
@@ -197,41 +206,208 @@ let help (keyword : string) : string =
         |"options" -> help_options
         |"directions" -> help_directions
         |"" -> manual
-        |_ -> raise (Error "invalid argument(s)")
+        |_ -> raise (Invalid_argument keyword)
+
+
+let options_of_string (options : Main.t_options) (s : string) : Main.t_options =
+	match s with
+	|"--verbose" | "-v" -> {
+		verbose = true;
+		discharge = options.discharge;
+		undischarge = options.undischarge;
+		print_proof = options.print_proof;
+		print_report = options.print_report;
+	}
+	|"--discharge" | "-d" -> {
+		verbose = options.verbose;
+		discharge = true;
+		undischarge = options.undischarge;
+		print_proof = options.print_proof;
+		print_report = options.print_report;
+	}
+	|"--undischarge" | "-u" -> {
+		verbose = options.verbose;
+		discharge = options.discharge;
+		undischarge = true;
+		print_proof = options.print_proof;
+		print_report = options.print_report;
+	}
+	|_ -> raise (Invalid_argument s)
+
+
+let rec options_of_string_list (options : Main.t_options) (string_list : string list) : Main.t_options =
+	match string_list with
+	|[] -> options
+	|hd::tl -> options_of_string_list (options_of_string options hd) tl
+
+let direction_of_string (s : string) : PRF_edit.t_direction =
+	match s with
+	|"--sub-only" | "-o" -> PRF_edit.Only
+	|"--sub-left" | "-l" -> PRF_edit.Left
+	|"--sub-right" | "-r" -> PRF_edit.Right
+	|"--sub-center" | "-c" -> PRF_edit.Center
+	|_ -> raise (Invalid_argument s)
 
 let arg_array : string array = Sys.argv
 let arg_list : string list = Array.to_list arg_array
 
+
 let _ : unit = 
         try
         match arg_list with
-        |"nd"::("help" :: tl) -> IO.print_to_stdout (help (String.concat "" tl))
-        |"nd"::(command :: tl) -> (
-                let options : string list = List.rev (List.tl (List.rev tl)) in
-                let path : string = List.hd (List.rev tl) in
-                match command, path, options with
-                |"validate", "-", _ -> let _ = Main.validate_stdin ("--print-proof"::("--print-report"::options)) in ()
-                |"validate", path, _ -> let _ = Main.validate_file ("--print-proof"::("--print-report"::options)) path in ()
-                |"show", "-", _ -> let _ = Main.sub_prf_of_stdin options in ()
-                |"show", path, _ -> let _ = Main.sub_prf_of_file options path in ()
-                |"show-raw", "-", _ -> let _ = Main.sub_prf_raw_of_stdin options in ()
-                |"show-raw", path, _ -> let _ = Main.sub_prf_raw_of_file options path in ()
-                |"decompose", path, hd::tl -> Main.decompose_file (List.tl (List.rev options)) (List.hd (List.rev options)) path
-                |"decompose-raw", path, hd::tl -> Main.decompose_file_raw (List.tl (List.rev options)) (List.hd (List.rev options)) path
-                |"compose", path, _ -> let _ = Main.compose_dir options path in ()
-                |"compose-raw", path, _ -> let _ = Main.compose_dir_raw options path in ()
-                |"edit", path, _ -> Main.edit_file options path
-                |"edit-raw", path, _ -> Main.edit_file_raw options path
-                |"replace", path, hd::tl -> Main.subst_in_file path (List.tl (List.rev options)) (List.hd (List.rev options))
-                |"replace-raw", path, hd::tl -> Main.subst_in_file_raw path (List.tl (List.rev options)) (List.hd (List.rev options))
-		|"expand", "-", [path_to_defs] -> let _ = Main.expand_stdin_by_file_opt ["--print-proof";"--print-report"] path_to_defs in ()
-		|"expand", path, [path_to_defs] -> let _ = Main.expand_file_by_file_opt ["--print-proof";"--print-report"] path_to_defs path in ()
-		|_,_,_ -> raise (Error "invalid argument(s)")
+	|_::tl -> (
+		match tl with
+		|"help"::keywords -> (
+			match keywords with
+			|[] -> IO.print_to_stdout (help "")
+			|[keyword] -> IO.print_to_stdout (help keyword)
+			|_ -> raise (Invalid_argument (String.concat " " keywords))
 		)
-        |_ -> raise (Error "invalid argument(s)")
+		|"validate"::option_list_path -> (
+			let default_options : Main.t_options = {
+				verbose = false;
+				discharge = false;
+				undischarge = false;
+				print_proof = true;
+				print_report = true;
+			}
+			in
+			match List.rev option_list_path with
+			|path::option_list -> (
+				let options : Main.t_options =
+					options_of_string_list default_options option_list
+				in
+				match path with
+				|"-" -> let _ = Main.validate_stdin options in ()
+				|_ -> let _ = Main.validate_file options path in ()
+			)
+			|_ -> raise (Invalid_argument (String.concat " " option_list_path))
+		)
+                |"show"::direction_list_path -> (
+			match List.rev direction_list_path with
+			|path::rev_direction_list -> (
+				let directions : PRF_edit.t_direction list =
+					List.rev (List.map direction_of_string rev_direction_list)
+				in
+				match path with
+				|"-" -> let _ = PRF_edit.sub_prf_of_stdin directions in ()
+                		|path -> let _ = PRF_edit.sub_prf_of_file directions path in ()
+			)
+			|_ -> raise (Invalid_argument (String.concat " " direction_list_path))
+		)
+                |"show-raw"::direction_list_path -> (
+			match List.rev direction_list_path with
+			|path::rev_direction_list -> (
+				let directions : PRF_edit.t_direction list =
+					List.rev (List.map direction_of_string rev_direction_list)
+				in
+				match path with
+				|"-" -> let _ = PRF_edit.sub_prf_raw_of_stdin directions in ()
+                		|path -> let _ = PRF_edit.sub_prf_raw_of_file directions path in ()
+			)
+			|_ -> raise (Invalid_argument (String.concat " " direction_list_path))
+		)
+                |"edit"::direction_list_path -> (
+			match List.rev direction_list_path with
+			|path::rev_direction_list -> (
+				let directions : PRF_edit.t_direction list =
+					List.rev (List.map direction_of_string rev_direction_list)
+				in
+                		let _ = PRF_edit.edit_file directions path in ()
+			)
+			|_ -> raise (Invalid_argument (String.concat " " direction_list_path))
+		)
+                |"edit-raw"::direction_list_path -> (
+			match List.rev direction_list_path with
+			|path::rev_direction_list -> (
+				let directions : PRF_edit.t_direction list =
+					List.rev (List.map direction_of_string rev_direction_list)
+				in
+                		let _ = PRF_edit.edit_file_raw directions path in ()
+			)
+			|_ -> raise (Invalid_argument (String.concat " " direction_list_path))
+		)
+                |"decompose"::recopt_dir_file -> (
+			match recopt_dir_file with
+			|"-R"::dir_file -> (
+				match dir_file with
+				|dir::[file] -> PRF_edit.decompose_file ["-R"] dir file 
+				|_ -> raise (Invalid_argument (String.concat " " dir_file))
+			)
+			|dir_file -> (
+				match dir_file with
+				|dir::[file] -> PRF_edit.decompose_file [] dir file 
+				|_ -> raise (Invalid_argument (String.concat " " dir_file))
+			)
+		)
+                |"decompose-raw"::recopt_dir_file -> (
+			match recopt_dir_file with
+			|"-R"::dir_file -> (
+				match dir_file with
+				|dir::[file] -> PRF_edit.decompose_file_raw ["-R"] dir file 
+				|_ -> raise (Invalid_argument (String.concat " " dir_file))
+			)
+			|dir_file -> (
+				match dir_file with
+				|dir::[file] -> PRF_edit.decompose_file_raw [] dir file 
+				|_ -> raise (Invalid_argument (String.concat " " dir_file))
+			)
+		)
+                |"compose"::recopt_dir -> (
+			match recopt_dir with
+			|"-R"::[dir] -> let _ = PRF_edit.compose_dir ["-R"] dir in ()
+			|[dir] -> let _ = PRF_edit.compose_dir [] dir in ()
+			|_ -> raise (Invalid_argument (String.concat " " recopt_dir))
+		)
+                |"compose-raw"::recopt_dir -> (
+			match recopt_dir with
+			|"-R"::[dir] -> let _ = PRF_edit.compose_dir_raw ["-R"] dir in ()
+			|[dir] -> let _ = PRF_edit.compose_dir_raw [] dir in ()
+			|_ -> raise (Invalid_argument (String.concat " " recopt_dir))
+		)
+                |"replace"::direction_list_path_path -> (
+			match List.rev direction_list_path_path with
+			|path2::(path1::rev_direction_list) ->
+				let directions : PRF_edit.t_direction list =
+					List.rev (List.map direction_of_string rev_direction_list)
+				in
+				PRF_edit.replace_in_file directions path1 path2
+			|_ -> raise (Invalid_argument (String.concat " " direction_list_path_path))
+		)
+                |"replace-raw"::direction_list_path_path -> (
+			match List.rev direction_list_path_path with
+			|path2::(path1::rev_direction_list) ->
+				let directions : PRF_edit.t_direction list =
+					List.rev (List.map direction_of_string rev_direction_list)
+				in
+				PRF_edit.replace_in_file_raw directions path1 path2
+			|_ -> raise (Invalid_argument (String.concat " " direction_list_path_path))
+		)
+		|option_list_path -> (
+			let default_options : Main.t_options = {
+				verbose = false;
+				discharge = false;
+				undischarge = false;
+				print_proof = false;
+				print_report = false;
+			}
+			in
+			match List.rev option_list_path with
+			|path::option_list -> (
+				let options : Main.t_options = 
+					options_of_string_list default_options option_list
+				in
+				Main.expand_and_validate_file options path
+			)
+			|_ -> raise (Invalid_argument (String.concat " " option_list_path))
+		)
+	)
+        |_ -> raise (Invalid_argument (String.concat " " arg_list))
         with
+	|PRF_edit.Error e
+	|ND_main.Parse_error e
         |Main.Error e
-        |ND_main.Error e
-        |FML_main.Error e -> IO.print_to_stderr e
-        |Error e -> IO.print_to_stderr (String.concat "\n" [e;usage])
-        |_ -> IO.print_to_stderr (String.concat "\n" ["invalid argument(s)";usage])
+        |PRF_main.Parse_error e
+        |PRF_main.Error e
+        |FML_main.Parse_error e -> IO.print_to_stderr_red e
+        |Invalid_argument e -> IO.print_to_stderr (String.concat "" ["invalid argument(s): ";e;"\n";usage])

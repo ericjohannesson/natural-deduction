@@ -5,90 +5,14 @@ A basic proof assistant for natural deduction proofs in classical first-order lo
 ## Command-line interface
 
 ```
-USAGE:
+BASIC USAGE:
 
-  nd <command>
+  nd [ <options> ] <path-to-file>
 
-  COMMANDS:
+        Expands proofs in file according to definitions in file and checks
+        validity of each proof according to options.
 
-    validate [ <options> ] { <path-to-file> | - }
-
-        Prints an annotated and formatted version of proof contained in file
-        to stdout, and a report to stderr, if proof is valid.
-
-        Otherwise prints a report to stderr.
-
-    expand <path-to-file> { <path-to-file> | - }
-
-        Uses definitions in first file to expand proof in second file
-        and prints the result to stdout, if definitions are valid and
-        do not yield unintended variable bindings.
-
-        Otherwise prints a report to stderr.
-
-    show [ <directions> ] { <path-to-file> | - }
-
-        Prints a formatted version of proof contained in file to stdout, or
-        sub-proof thereof specified by directions.
-
-        Prints message to stderr if no sub-proof matches directions.
-
-    show-raw [ <directions> ] { <path-to-file> | - }
-
-        Same as show, except that formulas are not parsed.
-
-    edit [ <directions> ] <path-to-file>
-
-        Opens a formatted version of proof contained in file in nano, or
-        sub-proof thereof specified by directions. Writes any changes to file,
-        and prints the result to stdout.
-
-    edit-raw [ <directions> ] <path-to-file>
-
-        Same as edit, except that formulas are not parsed.
-
-    replace [ <directions> ] <path-to-file> { <path-to-file> | - }
-
-        Prints to stdout result of replacing proof contained in first file
-        (or sub-proof thereof specified by directions) with proof contained
-        in second file.
-
-    replace-raw [ <directions> ] <path-to-file> { <path-to-file> | - }
-
-        Same as replace, except that formulas are not parsed.
-
-    decompose [ -R ] <path-to-directory> <path-to-file>
-
-        Parses proof contained in file and creates a directory for each
-        immediate sub-proof containing a file called 'proof.txt'. Also prints
-        main proof to a file called 'proof.txt', and puts everything in
-        directory.
-
-        Does it recursively for each sub-proof if '-R' is provided.
-
-    decompose-raw [ -R ] <path-to-directory> <path-to-file>
-
-        Same as decompose, except that formulas are not parsed.
-
-    compose [ -R ] <path-to-directory>
-
-        Assumes that a proof has been decomposed in directory, and composes a
-        proof from its immediate sub-proofs. Prints the result to stdout and
-        to the file called 'proof.txt' located in directory.
-
-        Does it recursively for each sub-proof if '-R' is provided.
-
-    compose-raw [ -R ] <path-to-directory>
-
-        Same as compose, except that formulas are not parsed.
-
-    help [ validate | expand | show | edit | replace | decompose | compose |
-            options | directions ]
-
-        Prints manual to stdout, or part thereof specified by keyword.
-
-    Reads from stdin if '-' is provided instead of a path (and if it may be so
-    provided).
+        Prints a report to stdout.
 
   OPTIONS:
 
@@ -107,46 +31,105 @@ USAGE:
         Prints information to stderr about discharged assumptions that may not
         be discharged, undischarged assumptions that may be discharged, and
         sub-proofs not satisfying the conditions of any inferential rule.
-
-  DIRECTIONS:
-
-    --sub-only, -o
-
-        Matches the (only) sub-proof of a unary proof.
-
-    --sub-left, -l
-
-        Matches the left sub-proof of a binary or trinary proof.
-
-    --sub-right, -r
-
-        Matches the right sub-proof of a binary or trinary proof.
-
-    --sub-center, -c
-
-        Matches the center sub-proof of a trinary proof.
-
-    A space-separated list of directions is interpreted from left to right,
-    in such a way that 
-
-        nd show <directions> <direction> <path-to-file>
-
-    is equivalent to
-
-        nd show <directions> <path-to-file> | nd show <direction> -
 ```
 
 ### Examples
+
+#### Propositional logic
+
+<details open>
+<summary>input</summary>
+
+```
+$ cat examples/prop.txt
+
+     -----1
+       P
+----------------  ----------------------2
+(P \lor \neg P)    \neg (P \lor \neg P)
+----------------------------------------¬I,1
+            \neg P
+-----------------------------      ----------------------2
+          (P \lor \neg P)           \neg (P \lor \neg P)
+        ---------------------------------------------------¬E,2
+                    (P \lor \neg P)
+```
+
+</details>
+
+<details open>
+<summary>output</summary>
+
+```
+$ nd examples/prop.txt
+
+-------1                                      
+   P                                          
+--------∨I    ---------0                      
+(P ∨ ¬P)      ¬(P ∨ ¬P)                       
+------------------------¬I1                   
+           ¬P                                 
+---------------------------∨I    ---------0   
+         (P ∨ ¬P)                ¬(P ∨ ¬P)    
+-------------------------------------------¬E0
+                 (P ∨ ¬P)                     
+
+# Proof is VALID.
+# PROVES:  ⊢ (P ∨ ¬P).
+```
+</details>
+
+#### Predicate logic
+
+<details>
+<summary>input</summary>
+
+```
+$ cat examples/pred.txt
+
+\forall x (P(x) -> Q(x))
+--------------------------        -----
+      (P(c) -> Q(c))               P(c)
+-----------------------------------------
+      Q(c)
+---------------
+\exists x Q(x)        \exists x P(x)
+--------------------------------------EE
+            \exists x Q(x)
+
+```
+</details>
+
+<details>
+<summary>output</summary>
+
+```
+$ nd examples/pred.txt
+
+∀x (P(x) → Q(x))                             
+----------------∀E    ----0                  
+ (P(c) → Q(c))        P(c)                   
+---------------------------→E                
+           Q(c)                              
+-----------------------------∃I              
+           ∃x Q(x)                 ∃x P(x)   
+------------------------------------------∃E0
+                 ∃x Q(x)                     
+
+# Proof is VALID.
+# PROVES: ∀x (P(x) → Q(x)), ∃x P(x) ⊢ ∃x Q(x).
+```
+</details>
 
 #### Peano arithmetic
 
 
 <details>
-<summary><b>input</b></summary>
-
-content of `examples/proof1.txt`:
+<summary>input</summary>
 
 ```
+$ cat examples/peano.txt
+
                   ∀x∀y(x+y'=(x+y)')
                 ----------------------
  ∀x(x+0=x)       ∀y(0'+y'=(0'+y)')
@@ -158,11 +141,11 @@ content of `examples/proof1.txt`:
 </details>
 
 <details>
-<summary><b>output</b></summary>
-
-output of `nd validate examples/proof1.txt` to stdout:
+<summary>output</summary>
 
 ```
+$ nd examples/peano.txt
+
                     ∀x ∀y (x + y') = (x + y)'      
                     -------------------------∀E    
 ∀x (x + 0) = x      ∀y (0' + y') = (0' + y)'       
@@ -170,235 +153,27 @@ output of `nd validate examples/proof1.txt` to stdout:
 (0' + 0) = 0'          (0' + 0') = (0' + 0)'       
 -------------------------------------------------=E
                  (0' + 0') = 0''                   
-```
-and to stderr:
-```
-Proof is VALID.
 
-PROVES: ∀x (x + 0) = x, ∀x ∀y (x + y') = (x + y)' ⊢ (0' + 0') = 0''.
-```
-</details>
-
-
-#### Predicate logic
-
-<details>
-<summary><b>input</b></summary>
-
-content of `examples/proof2.txt`:
-```
-\forall x (P(x) -> Q(x))
---------------------------        -----
-      (P(c) -> Q(c))               P(c)
------------------------------------------
-      Q(c)
----------------
-\exists x Q(x)        \exists x P(x)
---------------------------------------EE
-            \exists x Q(x)
-```
-</details>
-
-<details>
-<summary><b>output</b></summary>
-
-output of `nd show examples/proof2.txt` to stdout:
-```
-∀x (P(x) → Q(x))                     
-----------------    ----             
- (P(c) → Q(c))      P(c)             
-------------------------             
-          Q(c)                       
-------------------------             
-        ∃x Q(x)             ∃x P(x)  
------------------------------------EE
-              ∃x Q(x)                
-```
-
-output of `nd validate examples/proof2.txt` to stdout:
-```
-∀x (P(x) → Q(x))                             
-----------------∀E    ----0                  
- (P(c) → Q(c))        P(c)                   
----------------------------→E                
-           Q(c)                              
------------------------------∃I              
-           ∃x Q(x)                 ∃x P(x)   
-------------------------------------------∃E0
-                 ∃x Q(x)                     
-```
-and to stderr:
-```
-Proof is VALID.
-
-PROVES: ∀x (P(x) → Q(x)), ∃x P(x) ⊢ ∃x Q(x).
-```
-
-output of `nd show --sub-left --sub-only examples/proof2.txt` to stdout:
-```
-∀x (P(x) → Q(x))        
-----------------    ----
- (P(c) → Q(c))      P(c)
-------------------------
-          Q(c)          
+# Proof is VALID.
+# PROVES: ∀x (x + 0) = x, ∀x ∀y (x + y') = (x + y)' ⊢ (0' + 0') = 0''.
 ```
 
 </details>
 
-#### Discharge dischargeable assumptions
+#### Defining sub-formulas
 
 <details>
-<summary><b>input</b></summary>
+<summary>input</summary>
 
-content of `examples/proof3.txt`:
 ```
-\forall x (P(x) -> Q(x))
---------------------------        
-      (P(c) -> Q(c))                P(c)
------------------------------------------
-      Q(c)
----------------
-\exists x Q(x)        \exists x P(x)
---------------------------------------EE
-            \exists x Q(x)
-```
-</details>
+$ cat examples/ind.txt
 
-<details>
-<summary><b>output</b></summary>
-
-output of `nd validate --verbose examples/proof3.txt` to stderr:
-```
-GOOD NEWS: Undischarged assumption 'P(c)' may be discharged on the following branch:
-
-P(c)
-
-which is part of
-
-∀x (P(x) → Q(x))        
-----------------        
- (P(c) → Q(c))      P(c)
-------------------------
-          Q(c)          
-
-which is part of
-
-∀x (P(x) → Q(x))        
-----------------        
- (P(c) → Q(c))      P(c)
-------------------------
-          Q(c)          
-------------------------
-        ∃x Q(x)         
-
-which is part of
-
-∀x (P(x) → Q(x))                     
-----------------                     
- (P(c) → Q(c))      P(c)             
-------------------------             
-          Q(c)                       
-------------------------             
-        ∃x Q(x)             ∃x P(x)  
------------------------------------EE
-              ∃x Q(x)                
-
-Proof is VALID.
-
-PROVES: ∀x (P(x) → Q(x)), P(c), ∃x P(x) ⊢ ∃x Q(x).
-```
-
-output of `nd validate --discharge examples/proof3.txt` to stdout:
-```
-∀x (P(x) → Q(x))                             
-----------------∀E    ----0                  
- (P(c) → Q(c))        P(c)                   
----------------------------→E                
-           Q(c)                              
------------------------------∃I              
-           ∃x Q(x)                 ∃x P(x)   
-------------------------------------------∃E0
-                 ∃x Q(x)                     
-```
-</details>
-
-#### Undischarge non-dischargeable assumptions
-
-<details>
-<summary><b>input</b></summary>
-
-content of `examples/proof4.txt`:
-```
--
-P     Q
----------
-(P ∧ Q)
-```
-
-</details>
-
-<details>
-<summary><b>output</b></summary>
-
-output of `nd validate --verbose examples/proof4.txt` to stderr:
-```
-BAD NEWS: Discharged assumption 'P' may not be discharged on the following branch:
-
--
-P
-
-which is part of
-
--      
-P     Q
--------
-(P ∧ Q)
-
-
-BAD NEWS: The following branch does not satisfy the conditions of any binary rule:
-
--      
-P     Q
--------
-(P ∧ Q)
-
-
-Proof is NOT valid:
-
--      
-P     Q
--------
-(P ∧ Q)
-
-Does NOT prove: Q ⊢ (P ∧ Q).
-```
-
-output of `nd validate --undischarge examples/proof4.txt` to stdout:
-```
-P     Q  
--------∧I
-(P ∧ Q)  
-```
-and to stderr:
-```
-Proof is VALID.
-
-PROVES: P, Q ⊢ (P ∧ Q).
-```
-</details>
-
-#### Expand proof with definitions
-
-<details>
-<summary><b>input</b></summary>
-
-content of `../examples/defs1.txt`:
-```
 I(z) := (T(0,z) ∧ ∀y(T(y,z) → T(y',z)))
+
 P(x) := ∀z(I(z) → T(x,z))
-```
-content of `../examples/prf1.txt`:
-```
+
+Prf :=
+
 --------------1                 --------------------0                
      P(a)                               I(b)                         
 ---------------∀E    ----0      ---------------------∧E              
@@ -419,10 +194,17 @@ content of `../examples/prf1.txt`:
 </details>
 
 <details>
-<summary><b>output</b></summary>
+<summary>output</summary>
 
-output of `nd expand examples/defs1.txt examples/prf1.txt | nd validate -` to stdout:
 ```
+$ nd examples/ind.txt
+
+I(z) := (T(0,z) ∧ ∀y (T(y,z) → T(y',z)))
+
+P(x) := ∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(x,z))
+
+Prf :=
+
 ----------------------------------------------0                                             --------------------------------1                
 ∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(a,z))                                              (T(0,b) ∧ ∀y (T(y,b) → T(y',b)))                 
 -----------------------------------------------∀E    --------------------------------1      ---------------------------------∧E              
@@ -439,13 +221,229 @@ output of `nd expand examples/defs1.txt examples/prf1.txt | nd validate -` to st
                    (∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(a,z)) → ∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(a',z)))                        
 -------------------------------------------------------------------------------------------------------------------------------------------∀I
                    ∀x (∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(x,z)) → ∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(x',z)))                     
-```
-and to stderr:
-```
-Proof is VALID.
 
-PROVES:  ⊢ ∀x (∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(x,z)) → ∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(x',z))).
+# Prf is VALID.
+# PROVES:  ⊢ ∀x (∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(x,z)) → ∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(x',z))).
 ```
+</details>
+
+
+#### Defining sub-proofs
+
+<details>
+<summary>input</summary>
+
+```
+$ cat examples/discharge.txt
+
+Sub :=
+
+\forall x (P(x) -> Q(x))
+--------------------------
+      (P(c) -> Q(c))        P(c)
+---------------------------------
+      Q(c)
+---------------
+\exists x Q(x)
+
+
+Sub   \exists x P(x)
+---------------------EE
+  \exists x Q(x)
+```
+</details>
+
+<details>
+<summary>output</summary>
+
+```
+$ nd examples/discharge.txt
+
+Sub :=
+
+∀x (P(x) → Q(x))              
+----------------∀E            
+ (P(c) → Q(c))        P(c)    
+--------------------------→E  
+           Q(c)               
+----------------------------∃I
+          ∃x Q(x)             
+
+# Sub is VALID.
+# PROVES: ∀x (P(x) → Q(x)), P(c) ⊢ ∃x Q(x).
+
+
+∀x (P(x) → Q(x))                            
+----------------∀E                          
+ (P(c) → Q(c))        P(c)                  
+--------------------------→E                
+           Q(c)                             
+----------------------------∃I              
+          ∃x Q(x)                 ∃x P(x)   
+-----------------------------------------∃E0
+                 ∃x Q(x)                    
+
+# Proof is VALID.
+# PROVES: ∀x (P(x) → Q(x)), P(c), ∃x P(x) ⊢ ∃x Q(x).
+```
+</details>
+
+
+#### Discharge dischargeable assumptions
+
+<details>
+<summary>input</summary>
+
+```
+$ cat examples/discharge.txt
+
+Sub :=
+
+\forall x (P(x) -> Q(x))
+--------------------------
+      (P(c) -> Q(c))        P(c)
+---------------------------------
+      Q(c)
+---------------
+\exists x Q(x)
+
+
+Sub   \exists x P(x)
+---------------------EE
+  \exists x Q(x)
+```
+</details>
+
+<details>
+<summary>output with option -d</summary>
+
+```
+$ nd -d examples/discharge.txt
+
+Sub :=
+
+∀x (P(x) → Q(x))              
+----------------∀E            
+ (P(c) → Q(c))        P(c)    
+--------------------------→E  
+           Q(c)               
+----------------------------∃I
+          ∃x Q(x)             
+
+# Sub is VALID.
+# PROVES: ∀x (P(x) → Q(x)), P(c) ⊢ ∃x Q(x).
+
+
+∀x (P(x) → Q(x))                             
+----------------∀E    ----0                  
+ (P(c) → Q(c))        P(c)                   
+---------------------------→E                
+           Q(c)                              
+-----------------------------∃I              
+           ∃x Q(x)                 ∃x P(x)   
+------------------------------------------∃E0
+                 ∃x Q(x)                     
+
+# Proof is VALID.
+# PROVES: ∀x (P(x) → Q(x)), ∃x P(x) ⊢ ∃x Q(x).
+```
+</details>
+
+#### Undischarge non-dischargeable assumptions
+
+<details>
+<summary>input</summary>
+
+```
+$ cat examples/undischarge.txt
+
+Sub :=
+
+\forall x (P(x) -> Q(x))
+--------------------------   ----
+      (P(c) -> Q(c))         P(c)
+----------------------------------
+      Q(c)
+---------------
+\exists x Q(x)
+
+
+Sub    \exists x P(x)
+----------------------EE
+    \exists x Q(x)
+```
+
+</details>
+
+<details>
+<summary>output</summary>
+
+```
+$ nd examples/undischarge.txt
+
+Sub :=
+
+∀x (P(x) → Q(x))        
+----------------    ----
+ (P(c) → Q(c))      P(c)
+------------------------
+          Q(c)          
+------------------------
+        ∃x Q(x)         
+
+# Sub is NOT valid.
+# Does NOT prove: ∀x (P(x) → Q(x)) ⊢ ∃x Q(x).
+
+
+∀x (P(x) → Q(x))                             
+----------------∀E    ----0                  
+ (P(c) → Q(c))        P(c)                   
+---------------------------→E                
+           Q(c)                              
+-----------------------------∃I              
+           ∃x Q(x)                 ∃x P(x)   
+------------------------------------------∃E0
+                 ∃x Q(x)                     
+
+# Proof is VALID.
+# PROVES: ∀x (P(x) → Q(x)), ∃x P(x) ⊢ ∃x Q(x).
+```
+</details>
+
+<details>
+<summary>output with option -u</summary>
+
+```
+$ nd -u examples/undischarge.txt
+
+Sub :=
+
+∀x (P(x) → Q(x))              
+----------------∀E            
+ (P(c) → Q(c))        P(c)    
+--------------------------→E  
+           Q(c)               
+----------------------------∃I
+          ∃x Q(x)             
+
+# Sub is VALID.
+# PROVES: ∀x (P(x) → Q(x)), P(c) ⊢ ∃x Q(x).
+
+
+∀x (P(x) → Q(x))                             
+----------------∀E    ----0                  
+ (P(c) → Q(c))        P(c)                   
+---------------------------→E                
+           Q(c)                              
+-----------------------------∃I              
+           ∃x Q(x)                 ∃x P(x)   
+------------------------------------------∃E0
+                 ∃x Q(x)                     
+
+# Proof is VALID.
+# PROVES: ∀x (P(x) → Q(x)), ∃x P(x) ⊢ ∃x Q(x).
+```
+</details>
 
 </details>
 
