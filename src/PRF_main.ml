@@ -350,7 +350,7 @@ let prf_contains_pred (prf : t_prf) (p : t_pred) : bool =
 let rec subst_in_prf (f : t_prf -> t_prf) (prf : t_prf) : t_prf =
 	match prf with
 	|Atomic_prf _ -> f prf
-	|Nullary_prf _ -> f prf
+	|Nullary_prf _ -> prf
 	|Unary_prf (prf1, rule, fml) -> Unary_prf (subst_in_prf f prf1, rule, fml)
 	|Binary_prf (prf1, prf2, rule, fml) -> Binary_prf (subst_in_prf f prf1, subst_in_prf f prf2, rule, fml)
 	|Trinary_prf (prf1, prf2, prf3, rule, fml) -> Trinary_prf (subst_in_prf f prf1, subst_in_prf f prf2, subst_in_prf f prf3, rule, fml)
