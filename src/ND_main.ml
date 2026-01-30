@@ -60,7 +60,7 @@ let rec is_subset_of (lst1 : 'a list) (lst2: 'a list) : bool =
 		if List.mem hd lst2 then is_subset_of tl lst2 else false
 
 
-let valid_item_fml (item : t_item) : (t_pred * (t_var list) * t_fml) option =
+let valid_def_fml (item : t_item) : (t_pred * (t_var list) * t_fml) option =
 	match item with
 	|Prf _ -> None
 	|Def_fml (fml1, fml2, line) -> (
@@ -78,7 +78,7 @@ let valid_item_fml (item : t_item) : (t_pred * (t_var list) * t_fml) option =
 	)
 	|Def_prf _ -> None
 
-let valid_item_prf (item : t_item) : (t_prf * t_prf) option =
+let valid_def_prf (item : t_item) : (t_prf * t_prf) option =
 	match item with
 	|Prf _ -> None
 	|Def_fml _ -> None
@@ -93,12 +93,12 @@ let is_valid_item (item : t_item) : bool =
 	match item with
 	|Prf _ -> true
 	|Def_fml _ -> (
-		match valid_item_fml item with
+		match valid_def_fml item with
 		|Some _ -> true
 		|None -> false
 	)
 	|Def_prf _ -> (
-		match valid_item_prf item with
+		match valid_def_prf item with
 		|Some _ -> true
 		|None -> false
 	)
@@ -151,7 +151,7 @@ let apply_item_to_item (item1 : t_item) (item2 : t_item) : t_item =
 	match item1 with
 	|Prf _ -> item2
 	|Def_fml _ -> ( 
-		match valid_item_fml item1 with
+		match valid_def_fml item1 with
 		|Some (p1,vars,right1) -> (
 			let map (fml : t_fml) : t_fml = 
 				replace_pred_in_fml_with_fml_err p1 vars right1 fml
@@ -164,7 +164,7 @@ let apply_item_to_item (item1 : t_item) (item2 : t_item) : t_item =
 		|None -> raise (Invalid_definition item1)
 	)
 	|Def_prf _ -> (
-		match valid_item_prf item1 with
+		match valid_def_prf item1 with
 		|Some (prf1, right1) -> (
 			let map (prf : t_prf) : t_prf =
 				if prf = prf1 then right1 else prf
