@@ -1,0 +1,87 @@
+Propositional fragment
+======================
+Below, φ, ψ and χ are assumed to be formulas, Γ, Δ, and Σ are assumed to be sets of formulas, and Γ ⊢ φ is assumed to be a proof whose undischarged assumptions belong to Γ and whose conclusion is φ.
+
+
+{φ} ⊢ φ
+
+
+Γ ⊢ φ; Δ ⊢ ψ
+-------------∧I
+Γ ∪ Δ ⊢ φ ∧ ψ
+
+Γ ⊢ φ ∧ ψ
+------------∧E
+Γ ⊢ φ; Γ ⊢ ψ
+
+
+Γ ⊢ φ
+--------------------∨I
+Γ ⊢ φ ∨ ψ; Γ ⊢ ψ ∨ φ
+
+Γ ⊢ φ ∨ ψ; Δ ∪ {φ} ⊢ χ; Σ ∪ {ψ} ⊢ χ
+-----------------------------------∨E
+Γ ∪ Δ ∪ Σ ⊢ χ
+
+
+Γ ∪ {φ} ⊢ ψ
+-----------→I
+Γ ⊢ φ → ψ
+
+Γ ⊢ φ → ψ; Δ ⊢ φ
+----------------→E
+Γ ∪ Δ ⊢ ψ
+
+
+Γ ⊢ φ → ψ; Δ ⊢ ψ → φ
+--------------------↔I
+Γ ∪ Δ ⊢ φ ↔ ψ
+
+Γ ⊢ φ ↔ ψ
+--------------------↔E
+Γ ⊢ φ → ψ; Γ ⊢ ψ → φ
+
+
+Γ ∪ {φ} ⊢ ψ; Δ ∪ {φ} ⊢ ¬ψ
+-------------------------¬I
+Γ ∪ Δ ⊢ ¬φ
+
+Γ ∪ {¬φ} ⊢ ψ; Δ ∪ {¬φ} ⊢ ¬ψ
+---------------------------¬E
+Γ ∪ Δ ⊢ φ
+
+
+Quantifiers
+===========
+Below, φ and ψ are assumed to be formulas, x is assumed to be a variable, c is assumed to be a constant, and φ(c/x) is assumed to be the result of replacing every free ocurrence of x in φ with c.
+
+
+Γ ⊢ φ(c/x); c not in Γ or φ
+---------------------------∀I
+Γ ⊢ ∀x φ
+
+Γ ⊢ ∀x φ
+----------∀E
+Γ ⊢ φ(c/x)
+
+
+Γ ⊢ φ(c/x)
+----------∃I
+Γ ⊢ ∃x φ
+
+Γ ⊢ ∃x φ; Δ ∪ {φ(c/x)} ⊢ ψ; c not in Δ, φ, or ψ
+-----------------------------------------------∃E
+Γ ∪ Δ ⊢ ψ
+
+
+Equality
+========
+Below, φ is assumed to be a formula, s and t are assumed to terms not containing any variables, and φ(s/t) is assumed to be the result of replacing arbitrarily many occurrences of t in φ with s.
+
+
+---------=I
+Ø ⊢ s = t
+
+Γ ⊢ s = t; Δ ⊢ φ
+----------------=E
+Γ ∪ Δ ⊢ φ(s/t)
