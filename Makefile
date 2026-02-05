@@ -22,9 +22,18 @@ nd: src/*
 	ocamllex ND_lexer.mll
 	ocamlyacc --strict ND_parser.mly
 	ocamlc -c ND_parser.mli
-	ocamlfind ocamlopt -o nd -linkpkg -package uuseg IO.ml FML_types.ml FML_parser.ml FML_lexer.ml FML_parser_automaton.ml FML_main.mli FML_main.ml UTF8_decoder.mli UTF8_decoder.ml PRF_sequencer.mli PRF_sequencer.ml PRF_parser.ml PRF_lexer.ml PRF_main.mli PRF_main.ml PRF_edit.mli PRF_edit.ml ND_types.ml ND_parser.ml ND_lexer.ml ND_main.mli ND_main.ml main.mli main.ml cli.ml
+	ocamlfind ocamlopt -o nd -linkpkg -package uuseg IO.ml FML_types.ml FML_parser.ml FML_lexer.mli FML_lexer.ml FML_parser_automaton.ml FML_main.mli FML_main.ml UTF8_decoder.mli UTF8_decoder.ml PRF_sequencer.mli PRF_sequencer.ml PRF_parser.ml PRF_lexer.mli PRF_lexer.ml PRF_main.mli PRF_main.ml PRF_edit.mli PRF_edit.ml ND_types.ml ND_parser.ml ND_lexer.mli ND_lexer.ml ND_main.mli ND_main.ml main.mli main.ml cli.ml
 	mv nd ..
 	cd -
+
+
+documentation: nd
+	cd compilation_for_nd
+	mkdir -p documentation
+	ocamlfind ocamldoc -colorize-code -d documentation -package menhir -package uuseg -html IO.ml FML_types.ml FML_parser.mli FML_lexer.mli FML_main.mli UTF8_decoder.mli PRF_sequencer.mli PRF_types.ml PRF_parser.mli PRF_lexer.mli PRF_main.mli PRF_edit.mli ND_types.ml ND_parser.mli ND_lexer.mli ND_main.mli main.mli
+	cd -
+	mv compilation_for_nd/documentation/* documentation
+
 
 test: tests/test.exe nd
 	cd tests
@@ -34,7 +43,7 @@ test: tests/test.exe nd
 
 tests/test.exe: nd
 	cd compilation_for_nd
-	ocamlfind ocamlopt -o test.exe -linkpkg -package uuseg IO.ml FML_types.ml FML_parser.ml FML_lexer.ml FML_parser_automaton.ml FML_main.ml  UTF8_decoder.mli UTF8_decoder.ml PRF_sequencer.mli PRF_sequencer.ml PRF_parser.ml PRF_lexer.ml PRF_main.mli PRF_main.ml PRF_edit.mli PRF_edit.ml ND_parser.ml ND_types.ml ND_lexer.ml ND_main.mli ND_main.ml main.mli main.ml test.ml
+	ocamlfind ocamlopt -o test.exe -linkpkg -package uuseg IO.ml FML_types.ml FML_parser.ml FML_lexer.ml FML_parser_automaton.ml FML_main.ml UTF8_decoder.ml PRF_sequencer.ml PRF_parser.ml PRF_lexer.ml PRF_main.ml PRF_edit.ml ND_parser.ml ND_types.ml ND_lexer.ml ND_main.ml main.ml test.ml
 	cd -
 	mv compilation_for_nd/test.exe tests
 
@@ -45,7 +54,7 @@ clean:
 
 utop: compilation_for_utop
 	cd compilation_for_utop
-	utop PRF_lib.cma -init utop.ml
+	utop nd_lib.cma -init utop.ml
 
 
 compilation_for_utop: src/*
@@ -66,7 +75,7 @@ compilation_for_utop: src/*
 	ocamllex ND_lexer.mll
 	ocamlyacc --strict ND_parser.mly
 	ocamlc -c ND_parser.mli
-	ocamlfind ocamlc -a -o PRF_lib.cma -linkpkg -package uuseg IO.ml FML_types.ml FML_parser.ml FML_lexer.ml FML_parser_automaton.ml FML_main.mli FML_main.ml UTF8_decoder.mli UTF8_decoder.ml PRF_sequencer.mli PRF_sequencer.ml PRF_parser.ml PRF_lexer.ml PRF_main.mli PRF_main.ml PRF_edit.mli PRF_edit.ml ND_types.ml ND_parser.ml ND_lexer.ml ND_main.mli ND_main.ml main.mli main.ml
+	ocamlfind ocamlc -a -o nd_lib.cma -linkpkg -package uuseg IO.ml FML_types.ml FML_parser.ml FML_lexer.mli FML_lexer.ml FML_parser_automaton.ml FML_main.mli FML_main.ml UTF8_decoder.mli UTF8_decoder.ml PRF_sequencer.mli PRF_sequencer.ml PRF_parser.ml PRF_lexer.mli PRF_lexer.ml PRF_main.mli PRF_main.ml PRF_edit.mli PRF_edit.ml ND_types.ml ND_parser.ml ND_lexer.mli ND_lexer.ml ND_main.mli ND_main.ml main.mli main.ml
 	cd -
 
 
