@@ -1,0 +1,16 @@
+content := items EOF | EOF
+
+items ::= item | item nls items
+
+item ::= prf_tree | def_prf | def_fml | nls | comment
+
+comment ::= '#' [! NL]* NL
+
+def_prf ::= atomic_prf_tree def nls prf_tree
+
+def_fml ::= fml_raw def fml_raw
+
+def ::= ':='
+
+nls ::= NL+
+

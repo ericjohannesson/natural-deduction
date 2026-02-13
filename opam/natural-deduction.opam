@@ -1,0 +1,19 @@
+opam-version: "2.0"
+name: "natural-deduction"
+version: "1.0"
+maintainer: "Eric Johannesson <eric@ericjohannesson.com>"
+authors: "Eric Johannesson <eric@ericjohannesson.com>"
+synopsis: "A basic proof assistant for natural deduction in first-order logic"
+license: "GPL-3.0-or-later"
+homepage: "https://github.com/ericjohannesson/natural-deduction"
+dev-repo: "git+https://github.com/ericjohannesson/natural-deduction.git"
+bug-reports: "https://github.com/ericjohannesson/natural-deduction/issues"
+depends : [ 
+	"ocaml"
+	"uuseg"
+	"ocamlfind" { build }
+	"menhir" { build }
+]
+build: [ make "build" ]
+install: [ make "install" ]
+

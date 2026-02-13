@@ -1,0 +1,7 @@
+version = "1.0"
+description = "A basic proof assistant for natural deduction in first-order logic"
+requires = "uuseg"
+archive(byte) = "natural_deduction.cma"
+archive(native) = "natural_deduction.cmxa"
+plugin(byte) = "natural_deduction.cma"
+plugin(native) = "natural_deduction.cmxs"
