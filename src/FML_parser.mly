@@ -21,9 +21,7 @@
 (*****************************************************************************)
 
 %{
-
 open FML_types
-
 %}
 
 %token <string> VAR
@@ -51,9 +49,14 @@ fml:
         |quant_fml                      { $1 }
         |binop_fml                      { $1 }
         |atomic_fml                     { $1 }
-        |LPAR fml RPAR                  { $2 }
-        |LBR fml RBR                    { $2 }
+	|par_fml			{ $1 }
 ;
+
+par_fml:
+        |lpar fml rpar                  { $2 }
+        |lbr fml rbr                    { $2 }
+;
+
 
 atomic_fml:
         |nullary_pred                   { PredApp ($1,[]) }
@@ -63,8 +66,8 @@ atomic_fml:
 ;
 
 par_terms:
-        |LPAR terms RPAR                { $2 }
-        |LBR terms RBR                  { $2 }
+        |lpar terms rpar                { $2 }
+        |lbr terms rbr                  { $2 }
 ;
 
 unop_fml:
@@ -81,7 +84,7 @@ binop_fml:
 
 terms:
         |term                           { $1::[] }
-        |term COMMA terms               { $1::$3 }
+        |term comma terms               { $1::$3 }
 ;
 
 term:
@@ -90,8 +93,12 @@ term:
         |prefix_func par_terms                  { FuncApp ($1,$2) }
         |term infix_func term %prec INFIX_FUNC  { FuncApp ($2,[$1;$3]) }
         |term postfix_func                      { FuncApp ($2,[$1]) }
-        |LPAR term RPAR                         { $2 }
-        |LBR term RBR                           { $2 }
+        |par_term                               { $1 }
+;
+
+par_term:
+        |lpar term rpar                         { $2 }
+        |lbr term rbr                           { $2 }
 ;
 
 var:
@@ -141,5 +148,25 @@ unop:
 
 quant:
         |QUANT                          { Quant $1 }
+;
+
+lpar:
+	|LPAR				{ }
+;
+
+rpar:
+	|RPAR				{ }
+;
+
+lbr:
+	|LBR				{ }
+;
+
+rbr:
+	|RBR				{ }
+;
+
+comma:
+	|COMMA				{ }
 ;
 

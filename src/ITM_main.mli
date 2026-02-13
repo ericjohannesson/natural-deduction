@@ -40,21 +40,21 @@ Otherwise raises an exception.
 The content of the file must conform to the following grammar:
 
 {v
-	content	::= items EOF | EOF
+	content := items EOF | EOF
 
-	items	::= item | item nls items
+	items ::= item | item nls items
 
-	item	::= prf_tree | def_prf | def_fml | nls | comment
+	item ::= prf_tree | def_prf | def_fml | nls | comment
 
-	comment	::= '#' [! NL]* NL
+	comment ::= '#' [! NL]* NL
 
-	def_prf	::= atomic_prf_tree def nls prf_tree
+	def_prf ::= atomic_prf_tree def nls prf_tree
 
-	def_fml	::= fml_raw def fml_raw
+	def_fml ::= fml def fml
 
-	def	::= ':='
+	def ::= ':='
 
-	nls	::= NL+
+	nls ::= NL+
 v}
 
 *)

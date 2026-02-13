@@ -8,9 +8,8 @@ comment ::= '#' [! NL]* NL
 
 def_prf ::= atomic_prf_tree def nls prf_tree
 
-def_fml ::= fml_raw def fml_raw
+def_fml ::= fml def fml
 
 def ::= ':='
 
 nls ::= NL+
-
