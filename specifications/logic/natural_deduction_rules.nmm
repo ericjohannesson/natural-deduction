@@ -1,0 +1,286 @@
+TITLE:
+	Natural deduction in classical first-order logic
+
+AUTHOR:
+	Eric Johannesson, eric@ericjohannesson.com
+
+§
+Proving a formula from a set of formulas
+
+We stipulate that a proof P proves a formula φ from a set of formulas Γ (written ⌜P proves Γ ⊢ φ⌝)
+just in case it does so according to the rules listed in [SEC:rules] below.
+
+
+§ SEC:aux
+Terminology and notation
+
+¶ PAR:dis
+Discharging
+
+If A is a proof and φ is a formula, then A|φ is the result of replacing every atomic sub-proof
+
+	⌜   ⌝
+	  φ 
+	⌞   ⌟
+
+in A with the nullary proof
+
+	⌜     ⌝
+	  ---
+	   φ
+	⌞     ⌟
+
+¶ PAR:closed
+Closed terms
+
+A term is closed just in case it does not contain any variables. In other words:
+
+-	All constants are closed terms.
+
+-	If t₁,...,tₙ are closed terms, and f is an n-place function symbol,
+	then ⌜f(t₁,...,tₙ)⌝ is a closed term.
+
+-	Nothing else is a closed term.
+
+¶ PAR:subst
+Substitution of closed terms
+
+If φ is a formula, x is a variable, and t is closed term, then φ(t/x) is the result of replacing every free ocurrence of x in φ with t.
+
+
+§ SEC:rules
+Rules
+
+¶ PAR:prop_rules
+Propositional rules
+
+For every formula φ, ψ and χ, set of formulas Γ, Δ, and Σ,
+and for every proof A, B, and C:
+
+[Ass]	ITM:Ass
+	By the rule of assumption, the atomic proof
+
+		⌜   ⌝
+		  φ
+		⌞   ⌟
+
+	proves Γ ∪ {φ} ⊢ φ.
+
+[∧I]	ITM:∧I
+	If A proves Γ ⊢ φ, and B proves Δ ⊢ ψ, then
+
+		⌜        ⌝
+		  A   B
+		  -----∧I
+		  φ ∧ ψ
+		⌞        ⌟
+
+	proves Γ ∪ Δ ⊢ φ ∧ ψ.
+
+[∧E]	ITM:∧E
+	If A proves Γ ⊢ φ ∧ ψ, then
+
+		⌜      ⌝
+		   A
+		  ---∧E
+		   φ
+		⌞      ⌟
+
+	proves Γ ⊢ φ, and
+
+		⌜      ⌝
+		   A
+		  ---∧E
+		   ψ
+		⌞      ⌟
+
+	proves Γ ⊢ ψ.
+
+[∨I]	ITM:∨I
+	If A proves Γ ⊢ φ, then
+
+		⌜        ⌝
+		    A
+		  -----∨I
+		  φ ∨ ψ
+		⌞        ⌟
+
+	proves Γ ⊢ φ ∨ ψ, and
+
+		⌜        ⌝
+		    A
+		  -----∨I
+		  ψ ∨ φ
+		⌞        ⌟
+
+	proves Γ ⊢ ψ ∨ φ.
+
+[∨E]	ITM:∨E
+	If A proves Γ ⊢ φ ∨ ψ, B proves Δ ⊢ χ, and C proves Σ ⊢ χ, then
+
+		⌜               ⌝
+		  A  B|φ  C|ψ
+		  -----------∨E
+		       χ
+		⌞               ⌟
+
+	proves Γ ∪ (Δ - {φ}) ∪ (Σ - {ψ}) ⊢ χ.
+
+[→I]	ITM:→I
+	If A proves Γ ⊢ ψ, then
+
+		⌜        ⌝
+		   A|φ
+		  -----→I
+		  φ → ψ
+		⌞        ⌟
+
+	proves Γ - {φ} ⊢ φ → ψ.
+
+[→E]	ITM:→E
+	If A proves Γ ⊢ φ → ψ, and B proves Δ ⊢ φ, then
+
+		⌜        ⌝
+		  A   B
+		  -----→E
+		    ψ
+		⌞        ⌟
+
+	proves Γ ∪ Δ ⊢ ψ.
+
+[↔I]	ITM:↔I
+	If A proves Γ ⊢ φ → ψ, and B proves Δ ⊢ ψ → φ, then
+
+		⌜        ⌝
+		  A   B
+		  -----↔I
+		  φ ↔ ψ
+		⌞        ⌟
+
+	proves Γ ∪ Δ ⊢ φ ↔ ψ.
+
+[↔E]	ITM:↔E
+	If A proves Γ ⊢ φ ↔ ψ, then
+
+		⌜        ⌝
+		    A
+		  -----↔E
+		  φ → ψ
+		⌞        ⌟
+
+	proves Γ ⊢ φ → ψ, and
+
+		⌜        ⌝
+		    A
+		  -----↔E
+		  ψ → φ
+		⌞        ⌟
+
+	proves Γ ⊢ ψ → φ.
+
+[¬I]	ITM:¬I
+	If A proves Γ ⊢ ψ, and B proves Δ ⊢ ¬ψ, then
+
+		⌜           ⌝
+		  A|φ  B|φ
+		  --------¬I
+		     ¬φ
+		⌞           ⌟
+
+	proves (Γ - {φ}) ∪ (Δ - {φ}) ⊢ ¬φ.
+
+[¬E]	ITM:¬E
+	If A proves Γ ⊢ ψ, and B proves Δ ⊢ ¬ψ, then
+
+		⌜             ⌝
+		  A|¬φ  B|¬φ
+		  ----------¬E
+		      φ
+		⌞             ⌟
+
+	proves (Γ - {¬φ}) ∪ (Δ - {¬φ}) ⊢ φ.
+
+
+¶ PAR:quant_rules
+Quantifier rules
+
+For every formula φ and ψ, variable x, closed term t, constant c, set of formulas
+Γ and Δ, and for every proof A and B:
+
+[∀I]	ITM:∀I
+	If A proves Γ ⊢ φ(c/x), and c does not occur in Γ nor in φ, then
+
+		⌜        ⌝
+		    A
+		  ----∀I
+		  ∀x φ
+		⌞        ⌟
+
+	proves Γ ⊢ ∀x φ.
+
+[∀E]	ITM:∀E
+	If A proves Γ ⊢ ∀x φ, then
+
+		⌜         ⌝
+		    A
+		  ------∀E
+		  φ(t/x)
+		⌞         ⌟
+
+	proves Γ ⊢ φ(t/x).
+
+
+[∃I]	ITM:∃I
+	If A proves Γ ⊢ φ(t/x), then
+
+		⌜       ⌝
+		    A
+		  ----∃I
+		  ∃x φ
+		⌞       ⌟
+
+	proves Γ ⊢ ∃x φ.
+
+[∃E]	ITM:∃E
+	If A proves Γ ⊢ ∃x φ, B proves Δ ⊢ ψ, and c does not occur in
+	(Δ - {φ(c/x)}), in φ, nor in ψ, then
+
+		⌜        ⌝
+		  A   B
+		  -----∃E
+		    ψ
+		⌞        ⌟
+
+	proves Γ ∪ (Δ - {φ(c/x)}) ⊢ ψ.
+
+¶ PAR:id_rules
+Identity rules
+
+For every formula φ, closed term s and t, set of formulas Γ and Δ, and for every
+proof A and B:
+
+[=I]	ITM:=I
+	By the rule of identity introduction,
+
+		⌜        ⌝
+		  -----=I
+		  t = t
+		⌞        ⌟
+
+	proves Γ ⊢ t = t.
+
+[=E]	ITM:=E
+	If A proves Γ ⊢ s = t, B proves Δ ⊢ φ,
+	and φ(s/t) is the result of replacing zero or some
+	occurrences of t in φ with s, then
+
+		⌜         ⌝
+		  A    B
+		  ------=E
+		  φ(s/t)
+		⌞         ⌟
+
+	proves Γ ∪ Δ ⊢ φ(s/t).
+
+
+

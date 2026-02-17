@@ -1,0 +1,91 @@
+fml ::=
+        | UNOP fml
+        | QUANT VAR fml
+        | fml BINOP fml
+        | atomic_fml
+        | LPAR fml RPAR
+        | LBR fml RBR
+
+atomic_fml ::=
+        | PREFIX_PRED
+        | PREFIX_PRED par_terms
+        | term INFIX_PRED term
+        | term NEG_INFIX_PRED term
+
+par_terms ::=
+        | LPAR terms RPAR
+        | LBR terms RBR
+
+terms ::=
+        | term
+        | term COMMA terms
+
+term ::=
+        | VAR
+        | PREFIX_FUNC
+        | PREFIX_FUNC par_terms
+        | term INFIX_FUNC term
+        | term POSTFIX_FUNC
+        | LPAR term RPAR
+        | LBR term RBR
+
+
+UNOP ::=
+        | "¬" | "\neg" | "~"
+
+QUANT ::=
+        | "∀" | "\forall" | "\A"
+        | "∃" | "\exists" | "\E"
+
+BINOP ::=
+        | "→" | "\to"   | "\rightarrow" | "->"
+        | "∧" | "\land" | "\wedge"      | "&"
+        | "∨" | "\lor"  | "\vee"
+        | "↔" | "\leftrightarrow"       | "<->"
+
+LPAR ::= "("
+
+RPAR ::= ")"
+
+LBR ::= "["
+
+RBR ::= "]"
+
+COMMA ::= ","
+
+VAR ::= ['u' - 'z'] (['_' '.'] | ['a' - 'z'] | ['0' - '9'])*
+
+PREFIX_PRED ::= ['A' - 'Z'] (['_' '.'] | ['A' - 'Z'] | ['a' - 'z'] | ['0' - '9'])*
+
+INFIX_PRED ::=
+        | "="
+        | "<"
+        | ">"
+        | "≤" | "\leq" 
+        | "≥" | "\geq"
+        | "∈" | "\in"
+        | "⊂" | "\subset"
+        | "⊆" | "\subseteq"
+
+NEG_INFIX_PRED ::=
+        | "≠" | "\neq" 
+        | "∉" | "\not\in" | "\not \in" | "\notin"
+
+PREFIX_FUNC ::=
+        | ['a' - 't'] (['_' '.'] | ['a' - 'z'] | ['0' - '9'])*
+        | ['0' - '9']+
+
+INFIX_FUNC ::=
+        | "+"
+        | "×" | "\times" 
+        | "*"
+        | "·" | "\cdot" 
+        | "-"
+        | "∩" | "\cap" 
+        | "∪" | "\cup"
+        | "^"
+
+POSTFIX_FUNC ::=
+        | "'"
+        | "²"
+        | "³"

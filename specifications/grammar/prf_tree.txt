@@ -1,0 +1,20 @@
+prf_tree ::= atomic_prf_tree | nullary_prf_tree | unary_prf_tree | binary_prf_tree | trinary_prf_tree
+
+atomic_prf_tree  ::= fml_raw
+
+nullary_prf_tree ::= -------rule
+                     fml_raw
+
+                     prf_tree
+unary_prf_tree   ::= --------rule
+                     fml_raw
+
+                     prf_tree sps prf_tree
+binary_prf_tree  ::= ---------------------rule
+                            fml_raw
+
+                     prf_tree sps prf_tree sps prf_tree
+trinary_prf_tree ::= ----------------------------------rule
+                                  fml_raw
+
+rule ::= [! '#' ';' ':' SPACE TAB NL]*

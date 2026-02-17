@@ -1,0 +1,18 @@
+content := elements EOF | EOF
+
+elements ::= element | element nls elements
+
+element ::= itm | nls | comment
+
+comment ::= '#' [! NL]* NL
+
+nls ::= NL+
+
+itm ::= prf_tree | def_prf | def_fml
+
+def_prf ::= atomic_prf_tree def nls prf_tree
+
+def_fml ::= fml def fml
+
+def ::= ':='
+

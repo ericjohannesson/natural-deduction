@@ -1,0 +1,19 @@
+prf ::= atomic_prf | nullary_prf | unary_prf | binary_prf | trinary_prf
+
+atomic_prf  ::= fml
+
+nullary_prf ::= ---rule
+                fml
+
+                prf
+unary_prf   ::= ---rule
+                fml
+
+                prf sps prf
+binary_prf  ::= -----------rule
+                    fml
+
+                prf sps prf sps prf
+trinary_prf ::= -------------------rule
+                        fml
+

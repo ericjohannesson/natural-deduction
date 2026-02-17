@@ -1,0 +1,25 @@
+prf_seq ::= atomic_prf_seq | nullary_prf_seq | unary_prf_seq | binary_prf_seq | trinary_prf_seq
+
+atomic_prf_seq ::= fml_raw
+
+nullary_prf_seq ::= rsep nullary_rule vsep fml_raw
+
+unary_prf_seq ::= prf_seq rsep unary_rule vsep fml_raw
+
+binary_prf_seq ::= prf_seq hsep prf_seq rsep binary_rule vsep fml_raw
+
+trinary_prf_seq ::= prf_seq hsep prf_seq hsep prf_seq rsep trinary_rule vsep fml_raw
+
+rsep ::= '#'
+
+hsep ::= ';'
+
+vsep ::= ':'
+
+nullary_rule ::= '0' rule
+
+unary_rule ::= '1' rule
+
+binary_rule ::= '2' rule
+
+trinary_rule ::= '3' rule

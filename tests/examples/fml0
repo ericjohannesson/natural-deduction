@@ -1,0 +1,10 @@
+a=b
+A
+\neg A
+A \land B
+P(a,b,c) \land Q(x,y,z)
+\forall x (Px \to Qx)
+\forall x (P(x) \to Q(x))
+\forall x (P(f(x),y) \to Q(x,z))
+\forall x (P(x+z,y) \to Q(x,z))
+\forall x (P(x + z, y) \to (x < z))

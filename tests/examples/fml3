@@ -1,0 +1,4 @@
+∀x∃y∀z(z ∈ y ↔ (z ∈ x ∧ P(z)))
+A -> B
+P_1 <-> Q_2
+\forall x \forall y(x \subseteq y <-> \forall z(z \in x \to z \in y))
