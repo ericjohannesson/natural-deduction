@@ -1,0 +1,261 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="IO" rel="Chapter" href="IO.html">
+<link title="FML_types" rel="Chapter" href="FML_types.html">
+<link title="FML_parser" rel="Chapter" href="FML_parser.html">
+<link title="FML_lexer" rel="Chapter" href="FML_lexer.html">
+<link title="FML_main" rel="Chapter" href="FML_main.html">
+<link title="UTF8_segmenter" rel="Chapter" href="UTF8_segmenter.html">
+<link title="PRF_sequencer" rel="Chapter" href="PRF_sequencer.html">
+<link title="PRF_types" rel="Chapter" href="PRF_types.html">
+<link title="PRF_parser" rel="Chapter" href="PRF_parser.html">
+<link title="PRF_lexer" rel="Chapter" href="PRF_lexer.html">
+<link title="PRF_main" rel="Chapter" href="PRF_main.html">
+<link title="ITM_types" rel="Chapter" href="ITM_types.html">
+<link title="ITM_parser" rel="Chapter" href="ITM_parser.html">
+<link title="ITM_lexer" rel="Chapter" href="ITM_lexer.html">
+<link title="ITM_main" rel="Chapter" href="ITM_main.html">
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="Cli" rel="Chapter" href="Cli.html"><title>Index of values</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Index of values</h1>
+<table>
+<tr><td align="left"><div>C</div></td></tr>
+<tr><td><a href="FML_lexer.html#VALcanonical">canonical</a> [<a href="FML_lexer.html">FML_lexer</a>]</td>
+<td><div class="info">
+Maps common notational variants of logical and mathematical terms to
+their canonical counterparts, e.g.
+</div>
+</td></tr>
+<tr><td><a href="FML_main.html#VALclosed_terms_of_fml">closed_terms_of_fml</a> [<a href="FML_main.html">FML_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="Main.html#VALconclusion_of_prf">conclusion_of_prf</a> [<a href="Main.html">Main</a>]</td>
+<td></td></tr>
+<tr><td align="left"><div>D</div></td></tr>
+<tr><td><a href="PRF_sequencer.html#VALdefault_automaton">default_automaton</a> [<a href="PRF_sequencer.html">PRF_sequencer</a>]</td>
+<td></td></tr>
+<tr><td><a href="Main.html#VALdefault_options">default_options</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<pre class="codepre"><code class="code">= {
+        verbose = <span class="keyword">false</span>;
+        discharge = <span class="keyword">false</span>;
+        undischarge = <span class="keyword">false</span>;
+        logic = <span class="constructor">Classical</span>;
+        quiet = <span class="keyword">false</span>;
+}
+</code></pre>
+</div>
+</td></tr>
+<tr><td align="left"><div>E</div></td></tr>
+<tr><td><a href="Cli.html#VALexecute_arg_list">execute_arg_list</a> [<a href="Cli.html">Cli</a>]</td>
+<td></td></tr>
+<tr><td><a href="Main.html#VALexpand_and_validate_file">expand_and_validate_file</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<code class="code">expand_and_validate_file&nbsp;options&nbsp;path</code> expands proofs in file located at <code class="code">path</code> according to definitions in file and checks validity of each expanded proof according to <code class="code">options</code>.
+</div>
+</td></tr>
+<tr><td><a href="ITM_main.html#VALexpand_file">expand_file</a> [<a href="ITM_main.html">ITM_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="ITM_main.html#VALexpand_items">expand_items</a> [<a href="ITM_main.html">ITM_main</a>]</td>
+<td><div class="info">
+Recursively expands each item on a list according to the definitions preceding it (with the most immediate predecessors being applied first).
+</div>
+</td></tr>
+<tr><td align="left"><div>F</div></td></tr>
+<tr><td><a href="FML_main.html#VALfml_is_fml_with_var_replaced_by_term">fml_is_fml_with_var_replaced_by_term</a> [<a href="FML_main.html">FML_main</a>]</td>
+<td><div class="info">
+<code class="code">fml_is_fml_with_var_replaced_by_term&nbsp;fml1&nbsp;fml2&nbsp;var</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;term</code>, if <code class="code">term</code> is the first element of <code class="code">closed_terms_of_fml&nbsp;fml1</code> such that <code class="code">fml1&nbsp;=&nbsp;subst_in_fml&nbsp;var&nbsp;term&nbsp;fml2</code> evaluates to <code class="code"><span class="keyword">true</span></code>, and to <code class="code"><span class="constructor">None</span></code> if no such element exists.
+</div>
+</td></tr>
+<tr><td><a href="FML_main.html#VALfml_list_of_file">fml_list_of_file</a> [<a href="FML_main.html">FML_main</a>]</td>
+<td><div class="info">
+<code class="code">fml_list_of_file&nbsp;path</code> applies <code class="code">fml_of_string</code> to each line of the file located at <code class="code">path</code>.
+</div>
+</td></tr>
+<tr><td><a href="PRF_main.html#VALfml_of_fml_raw">fml_of_fml_raw</a> [<a href="PRF_main.html">PRF_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="FML_main.html#VALfml_of_string">fml_of_string</a> [<a href="FML_main.html">FML_main</a>]</td>
+<td><div class="info">
+<code class="code">fml_of_string&nbsp;fml</code> evaluates to an object of type <code class="code"><span class="constructor">FML_types</span>.t_fml</code> if <code class="code">fml</code> conforms to the grammar specified below, and raises exception <code class="code"><span class="constructor">Parse_error</span>&nbsp;fml</code> otherwise.
+</div>
+</td></tr>
+<tr><td><a href="FML_main.html#VALfree_vars_of_fml">free_vars_of_fml</a> [<a href="FML_main.html">FML_main</a>]</td>
+<td></td></tr>
+<tr><td align="left"><div>I</div></td></tr>
+<tr><td><a href="FML_main.html#VALis_closed_term">is_closed_term</a> [<a href="FML_main.html">FML_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="ITM_main.html#VALitems_of_file">items_of_file</a> [<a href="ITM_main.html">ITM_main</a>]</td>
+<td><div class="info">
+If <code class="code">path</code> is the path of a file containing items conforming to the grammar specified below,
+</div>
+</td></tr>
+<tr><td align="left"><div>L</div></td></tr>
+<tr><td><a href="PRF_sequencer.html#VALlexer_of_file">lexer_of_file</a> [<a href="PRF_sequencer.html">PRF_sequencer</a>]</td>
+<td></td></tr>
+<tr><td><a href="PRF_sequencer.html#VALlexer_of_matrix">lexer_of_matrix</a> [<a href="PRF_sequencer.html">PRF_sequencer</a>]</td>
+<td></td></tr>
+<tr><td><a href="PRF_sequencer.html#VALlexer_of_string">lexer_of_string</a> [<a href="PRF_sequencer.html">PRF_sequencer</a>]</td>
+<td></td></tr>
+<tr><td><a href="ITM_lexer.html#VALline_of_lexbuf">line_of_lexbuf</a> [<a href="ITM_lexer.html">ITM_lexer</a>]</td>
+<td></td></tr>
+<tr><td align="left"><div>M</div></td></tr>
+<tr><td><a href="ITM_parser.html#VALmain">main</a> [<a href="ITM_parser.html">ITM_parser</a>]</td>
+<td></td></tr>
+<tr><td><a href="PRF_parser.html#VALmain">main</a> [<a href="PRF_parser.html">PRF_parser</a>]</td>
+<td></td></tr>
+<tr><td><a href="FML_parser.html#VALmain">main</a> [<a href="FML_parser.html">FML_parser</a>]</td>
+<td></td></tr>
+<tr><td><a href="PRF_sequencer.html#VALmatrix_of_file">matrix_of_file</a> [<a href="PRF_sequencer.html">PRF_sequencer</a>]</td>
+<td><div class="info">
+Same as <code class="code">matrix_of_string</code>, but reads string from file located at the provided path.
+</div>
+</td></tr>
+<tr><td><a href="PRF_sequencer.html#VALmatrix_of_string">matrix_of_string</a> [<a href="PRF_sequencer.html">PRF_sequencer</a>]</td>
+<td><div class="info">
+<code class="code">matrix_of_string&nbsp;s</code> forms rows by splitting <code class="code">s</code> on character <code class="code"><span class="string">'\n'</span></code>, forms columns by applying <a href="UTF8_segmenter.html#VALutf_8_grapheme_clusters"><code class="code"><span class="constructor">UTF8_segmenter</span>.utf_8_grapheme_clusters</code></a> to each row, and converts the result to arrays.
+</div>
+</td></tr>
+<tr><td align="left"><div>O</div></td></tr>
+<tr><td><a href="Cli.html#VALoptions_of_string_list">options_of_string_list</a> [<a href="Cli.html">Cli</a>]</td>
+<td></td></tr>
+<tr><td align="left"><div>P</div></td></tr>
+<tr><td><a href="Main.html#VALpremises_of_prf">premises_of_prf</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<code class="code">premises_of_prf&nbsp;excluded&nbsp;prf</code> evaluates to a non-repeating list of all undsicharged assumptions of <code class="code">prf</code>, except for those in <code class="code">excluded</code>.
+</div>
+</td></tr>
+<tr><td><a href="PRF_main.html#VALprf_of_file">prf_of_file</a> [<a href="PRF_main.html">PRF_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="PRF_main.html#VALprf_of_prf_raw">prf_of_prf_raw</a> [<a href="PRF_main.html">PRF_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="PRF_main.html#VALprf_of_stdin">prf_of_stdin</a> [<a href="PRF_main.html">PRF_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="PRF_main.html#VALprf_of_string">prf_of_string</a> [<a href="PRF_main.html">PRF_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="PRF_main.html#VALprf_raw_of_file">prf_raw_of_file</a> [<a href="PRF_main.html">PRF_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="PRF_main.html#VALprf_raw_of_prf_seq">prf_raw_of_prf_seq</a> [<a href="PRF_main.html">PRF_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="PRF_main.html#VALprf_raw_of_stdin">prf_raw_of_stdin</a> [<a href="PRF_main.html">PRF_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="PRF_main.html#VALprf_raw_of_string">prf_raw_of_string</a> [<a href="PRF_main.html">PRF_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="PRF_sequencer.html#VALprf_seq_of_file">prf_seq_of_file</a> [<a href="PRF_sequencer.html">PRF_sequencer</a>]</td>
+<td><div class="info">
+Like <a href="PRF_sequencer.html#VALprf_seq_of_string"><code class="code"><span class="constructor">PRF_sequencer</span>.prf_seq_of_string</code></a>, but reads from the file located at the provided path.
+</div>
+</td></tr>
+<tr><td><a href="PRF_sequencer.html#VALprf_seq_of_string">prf_seq_of_string</a> [<a href="PRF_sequencer.html">PRF_sequencer</a>]</td>
+<td><div class="info">
+If <code class="code">prf_tree</code> is a string conforming to the grammar specified below,
+</div>
+</td></tr>
+<tr><td><a href="IO.html#VALprint_to_file">print_to_file</a> [<a href="IO.html">IO</a>]</td>
+<td></td></tr>
+<tr><td><a href="IO.html#VALprint_to_stderr">print_to_stderr</a> [<a href="IO.html">IO</a>]</td>
+<td></td></tr>
+<tr><td><a href="IO.html#VALprint_to_stderr_green">print_to_stderr_green</a> [<a href="IO.html">IO</a>]</td>
+<td></td></tr>
+<tr><td><a href="IO.html#VALprint_to_stderr_red">print_to_stderr_red</a> [<a href="IO.html">IO</a>]</td>
+<td></td></tr>
+<tr><td><a href="IO.html#VALprint_to_stderr_yellow">print_to_stderr_yellow</a> [<a href="IO.html">IO</a>]</td>
+<td></td></tr>
+<tr><td><a href="IO.html#VALprint_to_stdout">print_to_stdout</a> [<a href="IO.html">IO</a>]</td>
+<td></td></tr>
+<tr><td align="left"><div>S</div></td></tr>
+<tr><td><a href="FML_main.html#VALstring_of_binop">string_of_binop</a> [<a href="FML_main.html">FML_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="IO.html#VALstring_of_file">string_of_file</a> [<a href="IO.html">IO</a>]</td>
+<td></td></tr>
+<tr><td><a href="FML_main.html#VALstring_of_fml">string_of_fml</a> [<a href="FML_main.html">FML_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="ITM_main.html#VALstring_of_item">string_of_item</a> [<a href="ITM_main.html">ITM_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="ITM_main.html#VALstring_of_items">string_of_items</a> [<a href="ITM_main.html">ITM_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="FML_main.html#VALstring_of_pred">string_of_pred</a> [<a href="FML_main.html">FML_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="PRF_main.html#VALstring_of_prf">string_of_prf</a> [<a href="PRF_main.html">PRF_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="PRF_main.html#VALstring_of_prf_raw">string_of_prf_raw</a> [<a href="PRF_main.html">PRF_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="FML_main.html#VALstring_of_quant">string_of_quant</a> [<a href="FML_main.html">FML_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="IO.html#VALstring_of_stdin">string_of_stdin</a> [<a href="IO.html">IO</a>]</td>
+<td></td></tr>
+<tr><td><a href="FML_main.html#VALstring_of_term">string_of_term</a> [<a href="FML_main.html">FML_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="FML_main.html#VALstring_of_unop">string_of_unop</a> [<a href="FML_main.html">FML_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="FML_main.html#VALstring_of_var">string_of_var</a> [<a href="FML_main.html">FML_main</a>]</td>
+<td></td></tr>
+<tr><td><a href="ITM_main.html#VALsubst_free_vars_in_fml_with_terms">subst_free_vars_in_fml_with_terms</a> [<a href="ITM_main.html">ITM_main</a>]</td>
+<td><div class="info">
+<code class="code">subst_free_vars_in_fml_with_terms&nbsp;subst&nbsp;fml</code> evaluates to the result of simultaneously replacing every free variable in <code class="code">fml</code> with a term according to the function <code class="code">subst:&nbsp;t_var&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t_term</code>.
+</div>
+</td></tr>
+<tr><td><a href="FML_main.html#VALsubst_in_fml">subst_in_fml</a> [<a href="FML_main.html">FML_main</a>]</td>
+<td><div class="info">
+<code class="code">subst_in_fml&nbsp;var&nbsp;term&nbsp;fml</code> evaluates to the result of replacing every free occurrence of <code class="code">var</code> in <code class="code">fml</code> with <code class="code">term</code>,
+regardless of whether <code class="code">term</code> contains variables that become bound.
+</div>
+</td></tr>
+<tr><td><a href="PRF_main.html#VALsubst_in_prf">subst_in_prf</a> [<a href="PRF_main.html">PRF_main</a>]</td>
+<td><div class="info">
+<code class="code">subst_in_prf&nbsp;subst&nbsp;prf</code> evaluates to the result of simultaneously replacing every atomic proof (undischarged assumption) in <code class="code">prf</code> with another proof according to the function <code class="code">subst&nbsp;:&nbsp;t_prf&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t_prf</code>.
+</div>
+</td></tr>
+<tr><td align="left"><div>T</div></td></tr>
+<tr><td><a href="ITM_lexer.html#VALtoken">token</a> [<a href="ITM_lexer.html">ITM_lexer</a>]</td>
+<td></td></tr>
+<tr><td><a href="PRF_lexer.html#VALtoken">token</a> [<a href="PRF_lexer.html">PRF_lexer</a>]</td>
+<td></td></tr>
+<tr><td><a href="FML_lexer.html#VALtoken">token</a> [<a href="FML_lexer.html">FML_lexer</a>]</td>
+<td></td></tr>
+<tr><td><a href="PRF_main.html#VALtransform_prf">transform_prf</a> [<a href="PRF_main.html">PRF_main</a>]</td>
+<td></td></tr>
+<tr><td align="left"><div>U</div></td></tr>
+<tr><td><a href="FML_lexer.html#VALunnegate">unnegate</a> [<a href="FML_lexer.html">FML_lexer</a>]</td>
+<td><div class="info">
+Maps <code class="code"><span class="string">"≠"</span></code> to <code class="code"><span class="string">"="</span></code>, for instance.
+</div>
+</td></tr>
+<tr><td><a href="UTF8_segmenter.html#VALutf_8_grapheme_clusters">utf_8_grapheme_clusters</a> [<a href="UTF8_segmenter.html">UTF8_segmenter</a>]</td>
+<td><div class="info">
+evaluates to <code class="code">utf_8_segments&nbsp;<span class="keywordsign">`</span><span class="constructor">Grapheme_cluster</span></code>.
+</div>
+</td></tr>
+<tr><td><a href="UTF8_segmenter.html#VALutf_8_segments">utf_8_segments</a> [<a href="UTF8_segmenter.html">UTF8_segmenter</a>]</td>
+<td><div class="info">
+Splits a string by <a href="https://erratique.ch/software/uuseg/doc/Uuseg/index.html#type-boundary"><code class="code"><span class="constructor">Uuseg</span>.boundary</code></a>.
+</div>
+</td></tr>
+<tr><td align="left"><div>V</div></td></tr>
+<tr><td><a href="Main.html#VALvalidate_file">validate_file</a> [<a href="Main.html">Main</a>]</td>
+<td></td></tr>
+<tr><td><a href="Main.html#VALvalidate_prf">validate_prf</a> [<a href="Main.html">Main</a>]</td>
+<td><div class="info">
+<code class="code">validate_prf&nbsp;prf</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;prf</code> if <code class="code">prf</code> represents a valid proof in classical first-order logic, and to <code class="code"><span class="constructor">None</span></code> otherwise.
+</div>
+</td></tr>
+<tr><td><a href="Main.html#VALvalidate_stdin">validate_stdin</a> [<a href="Main.html">Main</a>]</td>
+<td></td></tr>
+<tr><td><a href="FML_main.html#VALvars_of_terms">vars_of_terms</a> [<a href="FML_main.html">FML_main</a>]</td>
+<td><div class="info">
+Recursively lists all variables occurring in a list of terms.
+</div>
+</td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="PRF_sequencer.html">
+<link rel="next" href="PRF_parser.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="IO" rel="Chapter" href="IO.html">
+<link title="FML_types" rel="Chapter" href="FML_types.html">
+<link title="FML_parser" rel="Chapter" href="FML_parser.html">
+<link title="FML_lexer" rel="Chapter" href="FML_lexer.html">
+<link title="FML_main" rel="Chapter" href="FML_main.html">
+<link title="UTF8_segmenter" rel="Chapter" href="UTF8_segmenter.html">
+<link title="PRF_sequencer" rel="Chapter" href="PRF_sequencer.html">
+<link title="PRF_types" rel="Chapter" href="PRF_types.html">
+<link title="PRF_parser" rel="Chapter" href="PRF_parser.html">
+<link title="PRF_lexer" rel="Chapter" href="PRF_lexer.html">
+<link title="PRF_main" rel="Chapter" href="PRF_main.html">
+<link title="ITM_types" rel="Chapter" href="ITM_types.html">
+<link title="ITM_parser" rel="Chapter" href="ITM_parser.html">
+<link title="ITM_lexer" rel="Chapter" href="ITM_lexer.html">
+<link title="ITM_main" rel="Chapter" href="ITM_main.html">
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="Cli" rel="Chapter" href="Cli.html"><title>PRF_types</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="PRF_sequencer.html" title="PRF_sequencer">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="PRF_parser.html" title="PRF_parser">Next</a>
+</div>
+<h1>Module <a href="type_PRF_types.html">PRF_types</a></h1>
+
+<pre><span id="MODULEPRF_types"><span class="keyword">module</span> PRF_types</span>: <code class="code"><span class="keyword">sig</span></code> <a href="PRF_types.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
+<div class="info-desc">
+<p>The abstract proof types (and their sub-types).</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><code><span id="TYPEt_fml_raw"><span class="keyword">type</span> <code class="type"></code>t_fml_raw</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_fml_raw.Fml_raw"><span class="constructor">Fml_raw</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_nullary_rule"><span class="keyword">type</span> <code class="type"></code>t_nullary_rule</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_nullary_rule.Nullary_rule"><span class="constructor">Nullary_rule</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_unary_rule"><span class="keyword">type</span> <code class="type"></code>t_unary_rule</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_unary_rule.Unary_rule"><span class="constructor">Unary_rule</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_binary_rule"><span class="keyword">type</span> <code class="type"></code>t_binary_rule</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_binary_rule.Binary_rule"><span class="constructor">Binary_rule</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_trinary_rule"><span class="keyword">type</span> <code class="type"></code>t_trinary_rule</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_trinary_rule.Trinary_rule"><span class="constructor">Trinary_rule</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_prf_raw"><span class="keyword">type</span> <code class="type"></code>t_prf_raw</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_prf_raw.Atomic_prf_raw"><span class="constructor">Atomic_prf_raw</span></span> <span class="keyword">of</span> <code class="type"><a href="PRF_types.html#TYPEt_fml_raw">t_fml_raw</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_prf_raw.Nullary_prf_raw"><span class="constructor">Nullary_prf_raw</span></span> <span class="keyword">of</span> <code class="type">(<a href="PRF_types.html#TYPEt_nullary_rule">t_nullary_rule</a> * <a href="PRF_types.html#TYPEt_fml_raw">t_fml_raw</a>)</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_prf_raw.Unary_prf_raw"><span class="constructor">Unary_prf_raw</span></span> <span class="keyword">of</span> <code class="type">(<a href="PRF_types.html#TYPEt_prf_raw">t_prf_raw</a> * <a href="PRF_types.html#TYPEt_unary_rule">t_unary_rule</a> * <a href="PRF_types.html#TYPEt_fml_raw">t_fml_raw</a>)</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_prf_raw.Binary_prf_raw"><span class="constructor">Binary_prf_raw</span></span> <span class="keyword">of</span> <code class="type">(<a href="PRF_types.html#TYPEt_prf_raw">t_prf_raw</a> * <a href="PRF_types.html#TYPEt_prf_raw">t_prf_raw</a> * <a href="PRF_types.html#TYPEt_binary_rule">t_binary_rule</a> *<br>      <a href="PRF_types.html#TYPEt_fml_raw">t_fml_raw</a>)</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_prf_raw.Trinary_prf_raw"><span class="constructor">Trinary_prf_raw</span></span> <span class="keyword">of</span> <code class="type">(<a href="PRF_types.html#TYPEt_prf_raw">t_prf_raw</a> * <a href="PRF_types.html#TYPEt_prf_raw">t_prf_raw</a> * <a href="PRF_types.html#TYPEt_prf_raw">t_prf_raw</a> *<br>      <a href="PRF_types.html#TYPEt_trinary_rule">t_trinary_rule</a> * <a href="PRF_types.html#TYPEt_fml_raw">t_fml_raw</a>)</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_prf"><span class="keyword">type</span> <code class="type"></code>t_prf</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_prf.Atomic_prf"><span class="constructor">Atomic_prf</span></span> <span class="keyword">of</span> <code class="type"><a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_prf.Nullary_prf"><span class="constructor">Nullary_prf</span></span> <span class="keyword">of</span> <code class="type">(<a href="PRF_types.html#TYPEt_nullary_rule">t_nullary_rule</a> * <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a>)</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_prf.Unary_prf"><span class="constructor">Unary_prf</span></span> <span class="keyword">of</span> <code class="type">(<a href="PRF_types.html#TYPEt_prf">t_prf</a> * <a href="PRF_types.html#TYPEt_unary_rule">t_unary_rule</a> * <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a>)</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_prf.Binary_prf"><span class="constructor">Binary_prf</span></span> <span class="keyword">of</span> <code class="type">(<a href="PRF_types.html#TYPEt_prf">t_prf</a> * <a href="PRF_types.html#TYPEt_prf">t_prf</a> * <a href="PRF_types.html#TYPEt_binary_rule">t_binary_rule</a> *<br>      <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a>)</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_prf.Trinary_prf"><span class="constructor">Trinary_prf</span></span> <span class="keyword">of</span> <code class="type">(<a href="PRF_types.html#TYPEt_prf">t_prf</a> * <a href="PRF_types.html#TYPEt_prf">t_prf</a> * <a href="PRF_types.html#TYPEt_prf">t_prf</a> *<br>      <a href="PRF_types.html#TYPEt_trinary_rule">t_trinary_rule</a> * <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a>)</code></code></td>
+
+</tr></table>
+
+
+</body></html>

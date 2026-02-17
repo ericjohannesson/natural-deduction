@@ -36,10 +36,9 @@ test: tests/test.bc tests/test.sh nd
 	bash test.sh
 	cd -
 
-doc: src byte
-	mkdir -p doc
+docs: src byte
 	cd byte
-	ocamlfind ocamldoc -colorize-code -d ../doc -package menhir -package uuseg -html IO.mli FML_types.ml ../src/FML_parser.mli FML_lexer.mli FML_main.mli UTF8_segmenter.mli PRF_sequencer.mli PRF_types.ml ../src/PRF_parser.mli PRF_lexer.mli PRF_main.mli ITM_types.ml ../src/ITM_parser.mli ITM_lexer.mli ITM_main.mli main.mli cli.mli cli.ml
+	ocamlfind ocamldoc -colorize-code -d ../docs -package menhir -package uuseg -html IO.mli FML_types.ml ../src/FML_parser.mli FML_lexer.mli FML_main.mli UTF8_segmenter.mli PRF_sequencer.mli PRF_types.ml ../src/PRF_parser.mli PRF_lexer.mli PRF_main.mli ITM_types.ml ../src/ITM_parser.mli ITM_lexer.mli ITM_main.mli main.mli cli.mli cli.ml
 	cd -
 
 

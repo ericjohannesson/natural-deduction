@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="PRF_lexer.html">
+<link rel="next" href="ITM_types.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="IO" rel="Chapter" href="IO.html">
+<link title="FML_types" rel="Chapter" href="FML_types.html">
+<link title="FML_parser" rel="Chapter" href="FML_parser.html">
+<link title="FML_lexer" rel="Chapter" href="FML_lexer.html">
+<link title="FML_main" rel="Chapter" href="FML_main.html">
+<link title="UTF8_segmenter" rel="Chapter" href="UTF8_segmenter.html">
+<link title="PRF_sequencer" rel="Chapter" href="PRF_sequencer.html">
+<link title="PRF_types" rel="Chapter" href="PRF_types.html">
+<link title="PRF_parser" rel="Chapter" href="PRF_parser.html">
+<link title="PRF_lexer" rel="Chapter" href="PRF_lexer.html">
+<link title="PRF_main" rel="Chapter" href="PRF_main.html">
+<link title="ITM_types" rel="Chapter" href="ITM_types.html">
+<link title="ITM_parser" rel="Chapter" href="ITM_parser.html">
+<link title="ITM_lexer" rel="Chapter" href="ITM_lexer.html">
+<link title="ITM_main" rel="Chapter" href="ITM_main.html">
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="Cli" rel="Chapter" href="Cli.html"><link title="Parse " rel="Section" href="#2_Parse">
+<link title="Print " rel="Section" href="#2_Print">
+<link title="Manipulate " rel="Section" href="#2_Manipulate">
+<title>PRF_main</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="PRF_lexer.html" title="PRF_lexer">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="ITM_types.html" title="ITM_types">Next</a>
+</div>
+<h1>Module <a href="type_PRF_main.html">PRF_main</a></h1>
+
+<pre><span id="MODULEPRF_main"><span class="keyword">module</span> PRF_main</span>: <code class="code"><span class="keyword">sig</span></code> <a href="PRF_main.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
+<div class="info-desc">
+<p>For parsing, printing, and manipulating proofs.</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+
+<pre><span id="EXCEPTIONParse_error"><span class="keyword">exception</span> Parse_error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+<h3 id="2_Parse">Parse </h3>
+<pre><span id="VALprf_raw_of_prf_seq"><span class="keyword">val</span> prf_raw_of_prf_seq</span> : <code class="type">?print_tokens:bool -&gt; <a href="PRF_sequencer.html#TYPEt_prf_seq">PRF_sequencer.t_prf_seq</a> -&gt; <a href="PRF_types.html#TYPEt_prf_raw">PRF_types.t_prf_raw</a></code></pre>
+<pre><span id="VALprf_raw_of_string"><span class="keyword">val</span> prf_raw_of_string</span> : <code class="type">?print_trace:bool -&gt; ?print_tokens:bool -&gt; string -&gt; <a href="PRF_types.html#TYPEt_prf_raw">PRF_types.t_prf_raw</a></code></pre>
+<pre><span id="VALprf_raw_of_file"><span class="keyword">val</span> prf_raw_of_file</span> : <code class="type">?print_trace:bool -&gt; ?print_tokens:bool -&gt; string -&gt; <a href="PRF_types.html#TYPEt_prf_raw">PRF_types.t_prf_raw</a></code></pre>
+<pre><span id="VALprf_raw_of_stdin"><span class="keyword">val</span> prf_raw_of_stdin</span> : <code class="type">?print_trace:bool -&gt; ?print_tokens:bool -&gt; unit -&gt; <a href="PRF_types.html#TYPEt_prf_raw">PRF_types.t_prf_raw</a></code></pre>
+<pre><span id="VALprf_of_prf_raw"><span class="keyword">val</span> prf_of_prf_raw</span> : <code class="type"><a href="PRF_types.html#TYPEt_prf_raw">PRF_types.t_prf_raw</a> -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a></code></pre>
+<pre><span id="VALfml_of_fml_raw"><span class="keyword">val</span> fml_of_fml_raw</span> : <code class="type"><a href="PRF_types.html#TYPEt_fml_raw">PRF_types.t_fml_raw</a> -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a></code></pre>
+<pre><span id="VALprf_of_file"><span class="keyword">val</span> prf_of_file</span> : <code class="type">?print_trace:bool -&gt; ?print_tokens:bool -&gt; string -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a></code></pre>
+<pre><span id="VALprf_of_string"><span class="keyword">val</span> prf_of_string</span> : <code class="type">?print_trace:bool -&gt; ?print_tokens:bool -&gt; string -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a></code></pre>
+<pre><span id="VALprf_of_stdin"><span class="keyword">val</span> prf_of_stdin</span> : <code class="type">?print_trace:bool -&gt; ?print_tokens:bool -&gt; unit -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a></code></pre><h3 id="2_Print">Print </h3>
+<pre><span id="VALstring_of_prf_raw"><span class="keyword">val</span> string_of_prf_raw</span> : <code class="type"><a href="PRF_types.html#TYPEt_prf_raw">PRF_types.t_prf_raw</a> -&gt; string</code></pre>
+<pre><span id="VALstring_of_prf"><span class="keyword">val</span> string_of_prf</span> : <code class="type"><a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> -&gt; string</code></pre><h3 id="2_Manipulate">Manipulate </h3>
+<pre><span id="VALtransform_prf"><span class="keyword">val</span> transform_prf</span> : <code class="type">(<a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a>) -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a></code></pre>
+<pre><span id="VALsubst_in_prf"><span class="keyword">val</span> subst_in_prf</span> : <code class="type">(<a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a>) -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">subst_in_prf&nbsp;subst&nbsp;prf</code> evaluates to the result of simultaneously replacing every atomic proof (undischarged assumption) in <code class="code">prf</code> with another proof according to the function <code class="code">subst&nbsp;:&nbsp;t_prf&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t_prf</code>.</p>
+</div>
+</div>
+</body></html>

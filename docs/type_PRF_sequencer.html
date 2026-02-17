@@ -1,0 +1,67 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="IO" rel="Chapter" href="IO.html">
+<link title="FML_types" rel="Chapter" href="FML_types.html">
+<link title="FML_parser" rel="Chapter" href="FML_parser.html">
+<link title="FML_lexer" rel="Chapter" href="FML_lexer.html">
+<link title="FML_main" rel="Chapter" href="FML_main.html">
+<link title="UTF8_segmenter" rel="Chapter" href="UTF8_segmenter.html">
+<link title="PRF_sequencer" rel="Chapter" href="PRF_sequencer.html">
+<link title="PRF_types" rel="Chapter" href="PRF_types.html">
+<link title="PRF_parser" rel="Chapter" href="PRF_parser.html">
+<link title="PRF_lexer" rel="Chapter" href="PRF_lexer.html">
+<link title="PRF_main" rel="Chapter" href="PRF_main.html">
+<link title="ITM_types" rel="Chapter" href="ITM_types.html">
+<link title="ITM_parser" rel="Chapter" href="ITM_parser.html">
+<link title="ITM_lexer" rel="Chapter" href="ITM_lexer.html">
+<link title="ITM_main" rel="Chapter" href="ITM_main.html">
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="Cli" rel="Chapter" href="Cli.html"><title>PRF_sequencer</title>
+</head>
+<body>
+<code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_prf_seq&nbsp;=&nbsp;<span class="constructor">Prf_seq</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_of_string&nbsp;:&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_of_file&nbsp;:&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;array&nbsp;array<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_state&nbsp;=&nbsp;<span class="constructor">State</span>&nbsp;<span class="keyword">of</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_symbol&nbsp;=&nbsp;<span class="constructor">Space</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Dash</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Letter</span>&nbsp;<span class="keyword">of</span>&nbsp;string&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Out</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_action&nbsp;=&nbsp;<span class="constructor">Left</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Right</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Up</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Down</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Stay</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_token&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">HSEP</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">RSEP</span>&nbsp;<span class="keyword">of</span>&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">VSEP</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">FML_LETTER</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">RULE_LETTER</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_stack&nbsp;=&nbsp;<span class="constructor">Stack</span>&nbsp;<span class="keyword">of</span>&nbsp;int&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_automaton&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;transition&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">PRF_sequencer</span>.t_state&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">PRF_sequencer</span>.t_symbol&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">PRF_sequencer</span>.t_stack&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">PRF_sequencer</span>.t_action&nbsp;*&nbsp;<span class="constructor">PRF_sequencer</span>.t_state&nbsp;*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">PRF_sequencer</span>.t_token&nbsp;option&nbsp;*&nbsp;<span class="constructor">PRF_sequencer</span>.t_stack;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;end_state&nbsp;:&nbsp;<span class="constructor">PRF_sequencer</span>.t_state;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Error</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Automaton_error</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">PRF_sequencer</span>.t_state<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;default_automaton&nbsp;:&nbsp;<span class="constructor">PRF_sequencer</span>.t_automaton<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;lexer_of_matrix&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?print_trace:bool&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?automaton:<span class="constructor">PRF_sequencer</span>.t_automaton&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;array&nbsp;array&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">PRF_sequencer</span>.t_token&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;lexer_of_string&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?print_trace:bool&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">PRF_sequencer</span>.t_token&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;lexer_of_file&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?print_trace:bool&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">PRF_sequencer</span>.t_token&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;prf_seq_of_string&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?print_trace:bool&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">PRF_sequencer</span>.t_prf_seq<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;prf_seq_of_file&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?print_trace:bool&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">PRF_sequencer</span>.t_prf_seq<br>
+<span class="keyword">end</span></code></body></html>

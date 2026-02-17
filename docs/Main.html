@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="ITM_main.html">
+<link rel="next" href="Cli.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="IO" rel="Chapter" href="IO.html">
+<link title="FML_types" rel="Chapter" href="FML_types.html">
+<link title="FML_parser" rel="Chapter" href="FML_parser.html">
+<link title="FML_lexer" rel="Chapter" href="FML_lexer.html">
+<link title="FML_main" rel="Chapter" href="FML_main.html">
+<link title="UTF8_segmenter" rel="Chapter" href="UTF8_segmenter.html">
+<link title="PRF_sequencer" rel="Chapter" href="PRF_sequencer.html">
+<link title="PRF_types" rel="Chapter" href="PRF_types.html">
+<link title="PRF_parser" rel="Chapter" href="PRF_parser.html">
+<link title="PRF_lexer" rel="Chapter" href="PRF_lexer.html">
+<link title="PRF_main" rel="Chapter" href="PRF_main.html">
+<link title="ITM_types" rel="Chapter" href="ITM_types.html">
+<link title="ITM_parser" rel="Chapter" href="ITM_parser.html">
+<link title="ITM_lexer" rel="Chapter" href="ITM_lexer.html">
+<link title="ITM_main" rel="Chapter" href="ITM_main.html">
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="Cli" rel="Chapter" href="Cli.html"><title>Main</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="ITM_main.html" title="ITM_main">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Cli.html" title="Cli">Next</a>
+</div>
+<h1>Module <a href="type_Main.html">Main</a></h1>
+
+<pre><span id="MODULEMain"><span class="keyword">module</span> Main</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Main.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
+<div class="info-desc">
+<p>For validating natural deduction proofs in first-order { classical | intuitionistic | minimal } logic.
+For a specification of the proof system, see <a href="../specifications/logic/natural_deduction_rules.txt">Natural deduction in classical first-order logic</a>.</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><code><span id="TYPEt_logic"><span class="keyword">type</span> <code class="type"></code>t_logic</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_logic.Classical"><span class="constructor">Classical</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_logic.Intuitionistic"><span class="constructor">Intuitionistic</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_logic.Minimal"><span class="constructor">Minimal</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_options"><span class="keyword">type</span> <code class="type"></code>t_options</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_options.verbose">verbose</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_options.discharge">discharge</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_options.undischarge">undischarge</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_options.logic">logic</span>&nbsp;: <code class="type"><a href="Main.html#TYPEt_logic">t_logic</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_options.quiet">quiet</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr></table>
+<code>}</code>
+
+
+
+<pre><span id="VALdefault_options"><span class="keyword">val</span> default_options</span> : <code class="type"><a href="Main.html#TYPEt_options">t_options</a></code></pre><div class="info ">
+<div class="info-desc">
+<pre class="codepre"><code class="code">= {
+        verbose = <span class="keyword">false</span>;
+        discharge = <span class="keyword">false</span>;
+        undischarge = <span class="keyword">false</span>;
+        logic = <span class="constructor">Classical</span>;
+        quiet = <span class="keyword">false</span>;
+}
+</code></pre></div>
+</div>
+
+<pre><span id="VALconclusion_of_prf"><span class="keyword">val</span> conclusion_of_prf</span> : <code class="type"><a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a></code></pre>
+<pre><span id="VALpremises_of_prf"><span class="keyword">val</span> premises_of_prf</span> : <code class="type"><a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> list -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> list</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">premises_of_prf&nbsp;excluded&nbsp;prf</code> evaluates to a non-repeating list of all undsicharged assumptions of <code class="code">prf</code>, except for those in <code class="code">excluded</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALvalidate_prf"><span class="keyword">val</span> validate_prf</span> : <code class="type">?options:<a href="Main.html#TYPEt_options">t_options</a> -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> option</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">validate_prf&nbsp;prf</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;prf</code> if <code class="code">prf</code> represents a valid proof in classical first-order logic, and to <code class="code"><span class="constructor">None</span></code> otherwise. Prints proof to <code class="code">stdout</code> if proof is valid, and a report to <code class="code">stderr</code>. Otherwise prints both proof and report to <code class="code">stderr</code>.</p>
+
+<p>If <code class="code">options.logic</code> evaluates to <code class="code"><span class="constructor">Intuitionistic</span></code>, then <code class="code">validate_prf&nbsp;options&nbsp;prf</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;prf</code> if <code class="code">prf</code> represents a valid proof in intuitionistic logic, and to <code class="code"><span class="constructor">None</span></code> otherwise. Mutatis mutandis for <code class="code"><span class="constructor">Minimal</span></code>.</p>
+
+<p>If <code class="code">options.discharge</code> evaluates to <code class="code"><span class="keyword">true</span></code>, then a version of the proof is considered where all dischargeable assumptions are discharged.</p>
+
+<p>If <code class="code">options.undischarge</code> evaluates to <code class="code"><span class="keyword">true</span></code>, then a version of the proof is considered where all non-discharegeable assumptions are undischarged.</p>
+
+<p>If <code class="code">options.quiet</code> evaluates to <code class="code"><span class="keyword">true</span></code>, then no proof is printed to <code class="code">stdout</code> or <code class="code">stderr</code>, and no report is printed to <code class="code">stderr</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALvalidate_file"><span class="keyword">val</span> validate_file</span> : <code class="type">?options:<a href="Main.html#TYPEt_options">t_options</a> -&gt; string -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> option</code></pre>
+<pre><span id="VALvalidate_stdin"><span class="keyword">val</span> validate_stdin</span> : <code class="type">?options:<a href="Main.html#TYPEt_options">t_options</a> -&gt; unit -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> option</code></pre>
+<pre><span id="VALexpand_and_validate_file"><span class="keyword">val</span> expand_and_validate_file</span> : <code class="type">?options:<a href="Main.html#TYPEt_options">t_options</a> -&gt; string -&gt; unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">expand_and_validate_file&nbsp;options&nbsp;path</code> expands proofs in file located at <code class="code">path</code> according to definitions in file and checks validity of each expanded proof according to <code class="code">options</code>. Prints a report to <code class="code">stdout</code>.</p>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="FML_lexer.html">
+<link rel="next" href="UTF8_segmenter.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="IO" rel="Chapter" href="IO.html">
+<link title="FML_types" rel="Chapter" href="FML_types.html">
+<link title="FML_parser" rel="Chapter" href="FML_parser.html">
+<link title="FML_lexer" rel="Chapter" href="FML_lexer.html">
+<link title="FML_main" rel="Chapter" href="FML_main.html">
+<link title="UTF8_segmenter" rel="Chapter" href="UTF8_segmenter.html">
+<link title="PRF_sequencer" rel="Chapter" href="PRF_sequencer.html">
+<link title="PRF_types" rel="Chapter" href="PRF_types.html">
+<link title="PRF_parser" rel="Chapter" href="PRF_parser.html">
+<link title="PRF_lexer" rel="Chapter" href="PRF_lexer.html">
+<link title="PRF_main" rel="Chapter" href="PRF_main.html">
+<link title="ITM_types" rel="Chapter" href="ITM_types.html">
+<link title="ITM_parser" rel="Chapter" href="ITM_parser.html">
+<link title="ITM_lexer" rel="Chapter" href="ITM_lexer.html">
+<link title="ITM_main" rel="Chapter" href="ITM_main.html">
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="Cli" rel="Chapter" href="Cli.html"><link title="Parse " rel="Section" href="#2_Parse">
+<link title="Print " rel="Section" href="#2_Print">
+<link title="Manipulate " rel="Section" href="#2_Manipulate">
+<title>FML_main</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="FML_lexer.html" title="FML_lexer">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="UTF8_segmenter.html" title="UTF8_segmenter">Next</a>
+</div>
+<h1>Module <a href="type_FML_main.html">FML_main</a></h1>
+
+<pre><span id="MODULEFML_main"><span class="keyword">module</span> FML_main</span>: <code class="code"><span class="keyword">sig</span></code> <a href="FML_main.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
+<div class="info-desc">
+<p>For parsing, printing, and manipulating formulas.</p>
+</div>
+</div>
+<hr width="100%">
+<h3 id="2_Parse">Parse </h3>
+<pre><span id="EXCEPTIONParse_error"><span class="keyword">exception</span> Parse_error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+
+<pre><span id="VALfml_of_string"><span class="keyword">val</span> fml_of_string</span> : <code class="type">?print_tokens:bool -&gt; string -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">fml_of_string&nbsp;fml</code> evaluates to an object of type <code class="code"><span class="constructor">FML_types</span>.t_fml</code> if <code class="code">fml</code> conforms to the grammar specified below, and raises exception <code class="code"><span class="constructor">Parse_error</span>&nbsp;fml</code> otherwise.</p>
+
+<pre class="verbatim">
+fml ::=
+        | UNOP fml
+        | QUANT VAR fml
+        | fml BINOP fml
+        | atomic_fml
+        | LPAR fml RPAR
+        | LBR fml RBR
+
+atomic_fml ::=
+        | PREFIX_PRED
+        | PREFIX_PRED par_terms
+        | term INFIX_PRED term
+        | term NEG_INFIX_PRED term
+
+par_terms ::=
+        | LPAR terms RPAR
+        | LBR terms RBR
+
+terms ::=
+        | term
+        | term COMMA terms
+
+term ::=
+        | VAR
+        | PREFIX_FUNC
+        | PREFIX_FUNC par_terms
+        | term INFIX_FUNC term
+        | term POSTFIX_FUNC
+        | LPAR term RPAR
+        | LBR term RBR
+
+
+UNOP ::=
+        | "¬" | "\neg" | "~"
+
+QUANT ::=
+        | "∀" | "\forall" | "\A"
+        | "∃" | "\exists" | "\E"
+
+BINOP ::=
+        | "→" | "\to"   | "\rightarrow" | "-&gt;"
+        | "∧" | "\land" | "\wedge"      | "&amp;"
+        | "∨" | "\lor"  | "\vee"
+        | "↔" | "\leftrightarrow"       | "&lt;-&gt;"
+
+LPAR ::= "("
+
+RPAR ::= ")"
+
+LBR ::= "["
+
+RBR ::= "]"
+
+COMMA ::= ","
+
+VAR ::= ['u' - 'z'] (['_' '.'] | ['a' - 'z'] | ['0' - '9'])*
+
+PREFIX_PRED ::= ['A' - 'Z'] (['_' '.'] | ['A' - 'Z'] | ['a' - 'z'] | ['0' - '9'])*
+
+INFIX_PRED ::=
+        | "="
+        | "&lt;"
+        | "&gt;"
+        | "≤" | "\leq" 
+        | "≥" | "\geq"
+        | "∈" | "\in"
+        | "⊂" | "\subset"
+        | "⊆" | "\subseteq"
+
+NEG_INFIX_PRED ::=
+        | "≠" | "\neq" 
+        | "∉" | "\not\in" | "\not \in" | "\notin"
+
+PREFIX_FUNC ::=
+        | ['a' - 't'] (['_' '.'] | ['a' - 'z'] | ['0' - '9'])*
+        | ['0' - '9']+
+
+INFIX_FUNC ::=
+        | "+"
+        | "×" | "\times" 
+        | "*"
+        | "·" | "\cdot" 
+        | "-"
+        | "∩" | "\cap" 
+        | "∪" | "\cup"
+        | "^"
+
+POSTFIX_FUNC ::=
+        | "'"
+        | "²"
+        | "³"
+
+</pre></div>
+</div>
+
+<pre><span id="VALfml_list_of_file"><span class="keyword">val</span> fml_list_of_file</span> : <code class="type">string -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> list</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">fml_list_of_file&nbsp;path</code> applies <code class="code">fml_of_string</code> to each line of the file located at <code class="code">path</code>.</p>
+</div>
+</div>
+<h3 id="2_Print">Print </h3>
+<pre><span id="VALstring_of_binop"><span class="keyword">val</span> string_of_binop</span> : <code class="type"><a href="FML_types.html#TYPEt_binop">FML_types.t_binop</a> -&gt; string</code></pre>
+<pre><span id="VALstring_of_unop"><span class="keyword">val</span> string_of_unop</span> : <code class="type"><a href="FML_types.html#TYPEt_unop">FML_types.t_unop</a> -&gt; string</code></pre>
+<pre><span id="VALstring_of_quant"><span class="keyword">val</span> string_of_quant</span> : <code class="type"><a href="FML_types.html#TYPEt_quant">FML_types.t_quant</a> -&gt; string</code></pre>
+<pre><span id="VALstring_of_pred"><span class="keyword">val</span> string_of_pred</span> : <code class="type"><a href="FML_types.html#TYPEt_pred">FML_types.t_pred</a> -&gt; string</code></pre>
+<pre><span id="VALstring_of_var"><span class="keyword">val</span> string_of_var</span> : <code class="type"><a href="FML_types.html#TYPEt_var">FML_types.t_var</a> -&gt; string</code></pre>
+<pre><span id="VALstring_of_term"><span class="keyword">val</span> string_of_term</span> : <code class="type"><a href="FML_types.html#TYPEt_term">FML_types.t_term</a> -&gt; string</code></pre>
+<pre><span id="VALstring_of_fml"><span class="keyword">val</span> string_of_fml</span> : <code class="type"><a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; string</code></pre><h3 id="2_Manipulate">Manipulate </h3>
+<pre><span id="VALclosed_terms_of_fml"><span class="keyword">val</span> closed_terms_of_fml</span> : <code class="type"><a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; <a href="FML_types.html#TYPEt_term">FML_types.t_term</a> list</code></pre>
+<pre><span id="VALis_closed_term"><span class="keyword">val</span> is_closed_term</span> : <code class="type"><a href="FML_types.html#TYPEt_term">FML_types.t_term</a> -&gt; bool</code></pre>
+<pre><span id="VALfml_is_fml_with_var_replaced_by_term"><span class="keyword">val</span> fml_is_fml_with_var_replaced_by_term</span> : <code class="type"><a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt;<br>       <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; <a href="FML_types.html#TYPEt_var">FML_types.t_var</a> -&gt; <a href="FML_types.html#TYPEt_term">FML_types.t_term</a> option</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">fml_is_fml_with_var_replaced_by_term&nbsp;fml1&nbsp;fml2&nbsp;var</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;term</code>, if <code class="code">term</code> is the first element of <code class="code">closed_terms_of_fml&nbsp;fml1</code> such that <code class="code">fml1&nbsp;=&nbsp;subst_in_fml&nbsp;var&nbsp;term&nbsp;fml2</code> evaluates to <code class="code"><span class="keyword">true</span></code>, and to <code class="code"><span class="constructor">None</span></code> if no such element exists.</p>
+</div>
+</div>
+
+<pre><span id="VALsubst_in_fml"><span class="keyword">val</span> subst_in_fml</span> : <code class="type"><a href="FML_types.html#TYPEt_var">FML_types.t_var</a> -&gt; <a href="FML_types.html#TYPEt_term">FML_types.t_term</a> -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">subst_in_fml&nbsp;var&nbsp;term&nbsp;fml</code> evaluates to the result of replacing every free occurrence of <code class="code">var</code> in <code class="code">fml</code> with <code class="code">term</code>,
+regardless of whether <code class="code">term</code> contains variables that become bound.</p>
+</div>
+</div>
+
+<pre><span id="VALvars_of_terms"><span class="keyword">val</span> vars_of_terms</span> : <code class="type"><a href="FML_types.html#TYPEt_term">FML_types.t_term</a> list -&gt; <a href="FML_types.html#TYPEt_var">FML_types.t_var</a> list</code></pre><div class="info ">
+<div class="info-desc">
+<p>Recursively lists all variables occurring in a list of terms.</p>
+</div>
+</div>
+
+<pre><span id="VALfree_vars_of_fml"><span class="keyword">val</span> free_vars_of_fml</span> : <code class="type"><a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; <a href="FML_types.html#TYPEt_var">FML_types.t_var</a> list</code></pre></body></html>

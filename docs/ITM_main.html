@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="ITM_lexer.html">
+<link rel="next" href="Main.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="IO" rel="Chapter" href="IO.html">
+<link title="FML_types" rel="Chapter" href="FML_types.html">
+<link title="FML_parser" rel="Chapter" href="FML_parser.html">
+<link title="FML_lexer" rel="Chapter" href="FML_lexer.html">
+<link title="FML_main" rel="Chapter" href="FML_main.html">
+<link title="UTF8_segmenter" rel="Chapter" href="UTF8_segmenter.html">
+<link title="PRF_sequencer" rel="Chapter" href="PRF_sequencer.html">
+<link title="PRF_types" rel="Chapter" href="PRF_types.html">
+<link title="PRF_parser" rel="Chapter" href="PRF_parser.html">
+<link title="PRF_lexer" rel="Chapter" href="PRF_lexer.html">
+<link title="PRF_main" rel="Chapter" href="PRF_main.html">
+<link title="ITM_types" rel="Chapter" href="ITM_types.html">
+<link title="ITM_parser" rel="Chapter" href="ITM_parser.html">
+<link title="ITM_lexer" rel="Chapter" href="ITM_lexer.html">
+<link title="ITM_main" rel="Chapter" href="ITM_main.html">
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="Cli" rel="Chapter" href="Cli.html"><link title="Parse " rel="Section" href="#2_Parse">
+<link title="Print " rel="Section" href="#2_Print">
+<link title="Expand " rel="Section" href="#2_Expand">
+<title>ITM_main</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="ITM_lexer.html" title="ITM_lexer">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Main.html" title="Main">Next</a>
+</div>
+<h1>Module <a href="type_ITM_main.html">ITM_main</a></h1>
+
+<pre><span id="MODULEITM_main"><span class="keyword">module</span> ITM_main</span>: <code class="code"><span class="keyword">sig</span></code> <a href="ITM_main.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
+<div class="info-desc">
+<p>For expanding formulas and proofs containing defined expressions, replacing the defined expression with the defining expression.</p>
+</div>
+</div>
+<hr width="100%">
+<h3 id="2_Parse">Parse </h3>
+<pre><span id="EXCEPTIONParse_error"><span class="keyword">exception</span> Parse_error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+
+<pre><span id="VALitems_of_file"><span class="keyword">val</span> items_of_file</span> : <code class="type">string -&gt; <a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> list</code></pre><div class="info ">
+<div class="info-desc">
+<p>If <code class="code">path</code> is the path of a file containing items conforming to the grammar specified below,</p>
+
+<p>then <code class="code">items_of_file&nbsp;path</code> evaluates to a list of type <a href="ITM_types.html#TYPEt_itm"><code class="code"><span class="constructor">ITM_types</span>.t_itm</code></a>.</p>
+
+<p>Otherwise raises an exception.</p>
+
+<p>The content of the file must conform to the following grammar:</p>
+
+<pre class="verbatim">        content := elements EOF | EOF
+
+        elements ::= element | element nls elements
+
+        element ::= itm | nls | comment
+
+        comment ::= '#' [! NL]* NL
+
+        nls ::= NL+
+
+	itm ::= prf_tree | def_prf | def_fml
+
+        def_prf ::= atomic_prf_tree def nls prf_tree
+
+        def_fml ::= fml def fml
+
+        def ::= ':='
+</pre></div>
+</div>
+<h3 id="2_Print">Print </h3>
+<pre><span id="VALstring_of_item"><span class="keyword">val</span> string_of_item</span> : <code class="type"><a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> -&gt; string</code></pre>
+<pre><span id="VALstring_of_items"><span class="keyword">val</span> string_of_items</span> : <code class="type"><a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> list -&gt; string</code></pre><h3 id="2_Expand">Expand </h3>
+<pre><span id="EXCEPTIONInvalid_definition"><span class="keyword">exception</span> Invalid_definition</span> <span class="keyword">of</span> <code class="type"><a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a></code></pre>
+
+<pre><span id="EXCEPTIONCannot_replace_var_with_term_containing_var_in_fml"><span class="keyword">exception</span> Cannot_replace_var_with_term_containing_var_in_fml</span> <span class="keyword">of</span> <code class="type"><a href="FML_types.html#TYPEt_var">FML_types.t_var</a> * <a href="FML_types.html#TYPEt_term">FML_types.t_term</a> * <a href="FML_types.html#TYPEt_var">FML_types.t_var</a> * <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a></code></pre>
+
+<pre><span id="VALsubst_free_vars_in_fml_with_terms"><span class="keyword">val</span> subst_free_vars_in_fml_with_terms</span> : <code class="type">(<a href="FML_types.html#TYPEt_var">FML_types.t_var</a> -&gt; <a href="FML_types.html#TYPEt_term">FML_types.t_term</a>) -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">subst_free_vars_in_fml_with_terms&nbsp;subst&nbsp;fml</code> evaluates to the result of simultaneously replacing every free variable in <code class="code">fml</code> with a term according to the function <code class="code">subst:&nbsp;t_var&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t_term</code>.</p>
+
+<p>Raises exception <code class="code"><span class="constructor">Cannot_replace_var_with_term_containing_var_in_fml</span>&nbsp;(var1,&nbsp;term,&nbsp;var2,&nbsp;fml)</code> if <code class="code">term</code> contains a variable <code class="code">var2</code> that will be bound if <code class="code">term</code> replaces <code class="code">var1</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALexpand_items"><span class="keyword">val</span> expand_items</span> : <code class="type"><a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> list -&gt; <a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> list</code></pre><div class="info ">
+<div class="info-desc">
+<p>Recursively expands each item on a list according to the definitions preceding it (with the most immediate predecessors being applied first).</p>
+
+<p>For instance, if the head of the list is a definition, the last operation is to expand every element in the tail according to that definition.</p>
+
+<p>Raises <code class="code"><span class="constructor">Invalid_definition</span>&nbsp;item</code> if <code class="code">item</code> represents an invalid definition, e.g. 'P(x) := ∃yQ(y,z)'.</p>
+</div>
+</div>
+
+<pre><span id="VALexpand_file"><span class="keyword">val</span> expand_file</span> : <code class="type">string -&gt; <a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> list</code></pre></body></html>

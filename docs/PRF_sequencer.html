@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="UTF8_segmenter.html">
+<link rel="next" href="PRF_types.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="IO" rel="Chapter" href="IO.html">
+<link title="FML_types" rel="Chapter" href="FML_types.html">
+<link title="FML_parser" rel="Chapter" href="FML_parser.html">
+<link title="FML_lexer" rel="Chapter" href="FML_lexer.html">
+<link title="FML_main" rel="Chapter" href="FML_main.html">
+<link title="UTF8_segmenter" rel="Chapter" href="UTF8_segmenter.html">
+<link title="PRF_sequencer" rel="Chapter" href="PRF_sequencer.html">
+<link title="PRF_types" rel="Chapter" href="PRF_types.html">
+<link title="PRF_parser" rel="Chapter" href="PRF_parser.html">
+<link title="PRF_lexer" rel="Chapter" href="PRF_lexer.html">
+<link title="PRF_main" rel="Chapter" href="PRF_main.html">
+<link title="ITM_types" rel="Chapter" href="ITM_types.html">
+<link title="ITM_parser" rel="Chapter" href="ITM_parser.html">
+<link title="ITM_lexer" rel="Chapter" href="ITM_lexer.html">
+<link title="ITM_main" rel="Chapter" href="ITM_main.html">
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="Cli" rel="Chapter" href="Cli.html"><link title="Utf8-segmentation " rel="Section" href="#2_Utf8segmentation">
+<link title="Automaton " rel="Section" href="#2_Automaton">
+<link title="Lexer " rel="Section" href="#2_Lexer">
+<title>PRF_sequencer</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="UTF8_segmenter.html" title="UTF8_segmenter">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="PRF_types.html" title="PRF_types">Next</a>
+</div>
+<h1>Module <a href="type_PRF_sequencer.html">PRF_sequencer</a></h1>
+
+<pre><span id="MODULEPRF_sequencer"><span class="keyword">module</span> PRF_sequencer</span>: <code class="code"><span class="keyword">sig</span></code> <a href="PRF_sequencer.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
+<div class="info-desc">
+<p>For mapping two-dimensional natural deduction proof trees onto one-dimensional proof sequences of type <a href="PRF_sequencer.html#TYPEt_prf_seq"><code class="code"><span class="constructor">PRF_sequencer</span>.t_prf_seq</code></a>.</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><code><span id="TYPEt_prf_seq"><span class="keyword">type</span> <code class="type"></code>t_prf_seq</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_prf_seq.Prf_seq"><span class="constructor">Prf_seq</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+<h3 id="2_Utf8segmentation">Utf8-segmentation </h3>
+<pre><span id="VALmatrix_of_string"><span class="keyword">val</span> matrix_of_string</span> : <code class="type">string -&gt; string array array</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">matrix_of_string&nbsp;s</code> forms rows by splitting <code class="code">s</code> on character <code class="code"><span class="string">'\n'</span></code>, forms columns by applying <a href="UTF8_segmenter.html#VALutf_8_grapheme_clusters"><code class="code"><span class="constructor">UTF8_segmenter</span>.utf_8_grapheme_clusters</code></a> to each row, and converts the result to arrays.</p>
+</div>
+</div>
+
+<pre><span id="VALmatrix_of_file"><span class="keyword">val</span> matrix_of_file</span> : <code class="type">string -&gt; string array array</code></pre><div class="info ">
+<div class="info-desc">
+<p>Same as <code class="code">matrix_of_string</code>, but reads string from file located at the provided path.</p>
+</div>
+</div>
+<h3 id="2_Automaton">Automaton </h3>
+<pre><code><span id="TYPEt_state"><span class="keyword">type</span> <code class="type"></code>t_state</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_state.State"><span class="constructor">State</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_symbol"><span class="keyword">type</span> <code class="type"></code>t_symbol</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_symbol.Space"><span class="constructor">Space</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_symbol.Dash"><span class="constructor">Dash</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_symbol.Letter"><span class="constructor">Letter</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_symbol.Out"><span class="constructor">Out</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_action"><span class="keyword">type</span> <code class="type"></code>t_action</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_action.Left"><span class="constructor">Left</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_action.Right"><span class="constructor">Right</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_action.Up"><span class="constructor">Up</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_action.Down"><span class="constructor">Down</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_action.Stay"><span class="constructor">Stay</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_token"><span class="keyword">type</span> <code class="type"></code>t_token</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_token.HSEP"><span class="constructor">HSEP</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_token.RSEP"><span class="constructor">RSEP</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_token.VSEP"><span class="constructor">VSEP</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_token.FML_LETTER"><span class="constructor">FML_LETTER</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_token.RULE_LETTER"><span class="constructor">RULE_LETTER</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_stack"><span class="keyword">type</span> <code class="type"></code>t_stack</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_stack.Stack"><span class="constructor">Stack</span></span> <span class="keyword">of</span> <code class="type">int list</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_automaton"><span class="keyword">type</span> <code class="type"></code>t_automaton</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_automaton.transition">transition</span>&nbsp;: <code class="type"><a href="PRF_sequencer.html#TYPEt_state">t_state</a> -&gt;<br>       <a href="PRF_sequencer.html#TYPEt_symbol">t_symbol</a> -&gt;<br>       <a href="PRF_sequencer.html#TYPEt_stack">t_stack</a> -&gt;<br>       <a href="PRF_sequencer.html#TYPEt_action">t_action</a> * <a href="PRF_sequencer.html#TYPEt_state">t_state</a> *<br>       <a href="PRF_sequencer.html#TYPEt_token">t_token</a> option * <a href="PRF_sequencer.html#TYPEt_stack">t_stack</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_automaton.end_state">end_state</span>&nbsp;: <code class="type"><a href="PRF_sequencer.html#TYPEt_state">t_state</a></code>;</code></td>
+
+</tr></table>
+<code>}</code>
+
+
+
+<pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+
+<pre><span id="EXCEPTIONAutomaton_error"><span class="keyword">exception</span> Automaton_error</span> <span class="keyword">of</span> <code class="type"><a href="PRF_sequencer.html#TYPEt_state">t_state</a></code></pre>
+
+<pre><span id="VALdefault_automaton"><span class="keyword">val</span> default_automaton</span> : <code class="type"><a href="PRF_sequencer.html#TYPEt_automaton">t_automaton</a></code></pre><h3 id="2_Lexer">Lexer </h3>
+<pre><span id="VALlexer_of_matrix"><span class="keyword">val</span> lexer_of_matrix</span> : <code class="type">?print_trace:bool -&gt;<br>       ?automaton:<a href="PRF_sequencer.html#TYPEt_automaton">t_automaton</a> -&gt;<br>       string array array -&gt; <a href="PRF_sequencer.html#TYPEt_token">t_token</a> list</code></pre>
+<pre><span id="VALlexer_of_string"><span class="keyword">val</span> lexer_of_string</span> : <code class="type">?print_trace:bool -&gt; string -&gt; <a href="PRF_sequencer.html#TYPEt_token">t_token</a> list</code></pre>
+<pre><span id="VALlexer_of_file"><span class="keyword">val</span> lexer_of_file</span> : <code class="type">?print_trace:bool -&gt; string -&gt; <a href="PRF_sequencer.html#TYPEt_token">t_token</a> list</code></pre>
+<pre><span id="VALprf_seq_of_string"><span class="keyword">val</span> prf_seq_of_string</span> : <code class="type">?print_trace:bool -&gt; string -&gt; <a href="PRF_sequencer.html#TYPEt_prf_seq">t_prf_seq</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>If <code class="code">prf_tree</code> is a string conforming to the grammar specified below,</p>
+
+<p>then <code class="code">prf_seq_of_string&nbsp;prf_tree</code> evaluates to <code class="code"><span class="constructor">Prf_seq</span>&nbsp;prf_seq</code>,</p>
+
+<p>where <code class="code">prf_seq</code> is a string conforming to the grammar also specified below.</p>
+
+<p>Otherwise evaluates to <code class="code">prf_seq_of_string&nbsp;~print_trace:<span class="keyword">true</span>&nbsp;prf_tree</code>.</p>
+
+<p><code class="code">prf_seq_of_string&nbsp;~print_trace:<span class="keyword">true</span>&nbsp;prf_tree</code> evaluates to the same thing, but prints the trace of <a href="PRF_sequencer.html#VALdefault_automaton"><code class="code"><span class="constructor">PRF_sequencer</span>.default_automaton</code></a> to stderr, and raises exception <code class="code"><span class="constructor">Automaton_error</span>&nbsp;state</code> if <code class="code">prf_tree</code> does not conform to the grammar.</p>
+
+<p>Roughly, <code class="code">prf_tree</code> must conform to the following grammar:</p>
+
+<pre class="verbatim">	prf_tree	 ::= atomic_prf_tree | nullary_prf_tree | unary_prf_tree | binary_prf_tree | trinary_prf_tree
+
+	atomic_prf_tree  ::= fml_raw
+
+	nullary_prf_tree ::= -------rule
+	                     fml_raw
+
+	                     prf_tree
+	unary_prf_tree   ::= --------rule
+	                     fml_raw
+
+	                     prf_tree sps prf_tree
+	binary_prf_tree  ::= ---------------------rule
+	                            fml_raw
+
+	                     prf_tree sps prf_tree sps prf_tree
+	trinary_prf_tree ::= ----------------------------------rule
+	                                  fml_raw
+
+	rule		 ::= [! '#' ';' ':' SPACE TAB NL]*
+
+        fml_raw          ::= word | word SPACE fml_raw
+
+        sps              ::= SPACE SPACE | sps SPACE
+
+        word             ::= [! '#' ';' ':' SPACE TAB NL]+</pre>
+<p>The corresponding proof sequence <code class="code">prf_seq</code> then conforms to the following grammar:</p>
+
+<pre class="verbatim">
+        prf_seq          ::= atomic_prf_seq | nullary_prf_seq | unary_prf_seq | binary_prf_seq | trinary_prf_seq
+
+        atomic_prf_seq   ::= fml_raw
+
+        nullary_prf_seq  ::= rsep nullary_rule vsep fml_raw
+
+        unary_prf_seq    ::= prf_seq rsep unary_rule vsep fml_raw
+
+        binary_prf_seq   ::= prf_seq hsep prf_seq rsep binary_rule vsep fml_raw
+
+        trinary_prf_seq  ::= prf_seq hsep prf_seq hsep prf_seq rsep trinary_rule vsep fml_raw
+
+        rsep             ::= '#'
+
+        hsep             ::= ';'
+
+        vsep             ::= ':'
+
+        nullary_rule     ::= '0' rule
+
+        unary_rule       ::= '1' rule
+
+        binary_rule      ::= '2' rule
+
+        trinary_rule     ::= '3' rule</pre></div>
+</div>
+
+<pre><span id="VALprf_seq_of_file"><span class="keyword">val</span> prf_seq_of_file</span> : <code class="type">?print_trace:bool -&gt; string -&gt; <a href="PRF_sequencer.html#TYPEt_prf_seq">t_prf_seq</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Like <a href="PRF_sequencer.html#VALprf_seq_of_string"><code class="code"><span class="constructor">PRF_sequencer</span>.prf_seq_of_string</code></a>, but reads from the file located at the provided path.</p>
+</div>
+</div>
+</body></html>

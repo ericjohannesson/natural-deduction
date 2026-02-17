@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="IO.html">
+<link rel="next" href="FML_parser.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="IO" rel="Chapter" href="IO.html">
+<link title="FML_types" rel="Chapter" href="FML_types.html">
+<link title="FML_parser" rel="Chapter" href="FML_parser.html">
+<link title="FML_lexer" rel="Chapter" href="FML_lexer.html">
+<link title="FML_main" rel="Chapter" href="FML_main.html">
+<link title="UTF8_segmenter" rel="Chapter" href="UTF8_segmenter.html">
+<link title="PRF_sequencer" rel="Chapter" href="PRF_sequencer.html">
+<link title="PRF_types" rel="Chapter" href="PRF_types.html">
+<link title="PRF_parser" rel="Chapter" href="PRF_parser.html">
+<link title="PRF_lexer" rel="Chapter" href="PRF_lexer.html">
+<link title="PRF_main" rel="Chapter" href="PRF_main.html">
+<link title="ITM_types" rel="Chapter" href="ITM_types.html">
+<link title="ITM_parser" rel="Chapter" href="ITM_parser.html">
+<link title="ITM_lexer" rel="Chapter" href="ITM_lexer.html">
+<link title="ITM_main" rel="Chapter" href="ITM_main.html">
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="Cli" rel="Chapter" href="Cli.html"><title>FML_types</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="IO.html" title="IO">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="FML_parser.html" title="FML_parser">Next</a>
+</div>
+<h1>Module <a href="type_FML_types.html">FML_types</a></h1>
+
+<pre><span id="MODULEFML_types"><span class="keyword">module</span> FML_types</span>: <code class="code"><span class="keyword">sig</span></code> <a href="FML_types.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
+<div class="info-desc">
+<p>The abstract formula type (and its sub-types).</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><code><span id="TYPEt_fml"><span class="keyword">type</span> <code class="type"></code>t_fml</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_fml.PredApp"><span class="constructor">PredApp</span></span> <span class="keyword">of</span> <code class="type"><a href="FML_types.html#TYPEt_pred">t_pred</a> * <a href="FML_types.html#TYPEt_term">t_term</a> list</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_fml.BinopApp"><span class="constructor">BinopApp</span></span> <span class="keyword">of</span> <code class="type"><a href="FML_types.html#TYPEt_binop">t_binop</a> * <a href="FML_types.html#TYPEt_fml">t_fml</a> * <a href="FML_types.html#TYPEt_fml">t_fml</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_fml.UnopApp"><span class="constructor">UnopApp</span></span> <span class="keyword">of</span> <code class="type"><a href="FML_types.html#TYPEt_unop">t_unop</a> * <a href="FML_types.html#TYPEt_fml">t_fml</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_fml.QuantApp"><span class="constructor">QuantApp</span></span> <span class="keyword">of</span> <code class="type"><a href="FML_types.html#TYPEt_quant">t_quant</a> * <a href="FML_types.html#TYPEt_var">t_var</a> * <a href="FML_types.html#TYPEt_fml">t_fml</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_binop"><span class="keyword">type</span> <code class="type"></code>t_binop</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_binop.Binop"><span class="constructor">Binop</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_unop"><span class="keyword">type</span> <code class="type"></code>t_unop</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_unop.Unop"><span class="constructor">Unop</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_quant"><span class="keyword">type</span> <code class="type"></code>t_quant</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_quant.Quant"><span class="constructor">Quant</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_term"><span class="keyword">type</span> <code class="type"></code>t_term</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_term.Atom"><span class="constructor">Atom</span></span> <span class="keyword">of</span> <code class="type"><a href="FML_types.html#TYPEt_var">t_var</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_term.FuncApp"><span class="constructor">FuncApp</span></span> <span class="keyword">of</span> <code class="type"><a href="FML_types.html#TYPEt_func">t_func</a> * <a href="FML_types.html#TYPEt_term">t_term</a> list</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_pred"><span class="keyword">type</span> <code class="type"></code>t_pred</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_pred.Pred"><span class="constructor">Pred</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_func"><span class="keyword">type</span> <code class="type"></code>t_func</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_func.Func"><span class="constructor">Func</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEt_var"><span class="keyword">type</span> <code class="type"></code>t_var</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt_var.Var"><span class="constructor">Var</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+</body></html>
