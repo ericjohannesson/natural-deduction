@@ -72,6 +72,6 @@ val validate_stdin : ?options:t_options -> unit -> PRF_types.t_prf option
 
 val expand_and_validate_file : ?options:t_options -> string -> unit
 (**
-[expand_and_validate_file options path] expands proofs in file located at [path] according to definitions in file and checks validity of each expanded proof according to [options]. Prints a report to [stdout].
+[expand_and_validate_file options path] applies {!val:ITM_main.expand_file} to [path] and checks validity of each expanded proof according to [options]. Prints a report to [stdout].
 *)
 

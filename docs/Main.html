@@ -147,7 +147,7 @@ For a specification of the proof system, see <a href="natural_deduction_rules.ht
 <pre><span id="VALvalidate_stdin"><span class="keyword">val</span> validate_stdin</span> : <code class="type">?options:<a href="Main.html#TYPEt_options">t_options</a> -&gt; unit -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> option</code></pre>
 <pre><span id="VALexpand_and_validate_file"><span class="keyword">val</span> expand_and_validate_file</span> : <code class="type">?options:<a href="Main.html#TYPEt_options">t_options</a> -&gt; string -&gt; unit</code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">expand_and_validate_file&nbsp;options&nbsp;path</code> expands proofs in file located at <code class="code">path</code> according to definitions in file and checks validity of each expanded proof according to <code class="code">options</code>. Prints a report to <code class="code">stdout</code>.</p>
+<p><code class="code">expand_and_validate_file&nbsp;options&nbsp;path</code> applies <a href="ITM_main.html#VALexpand_file"><code class="code"><span class="constructor">ITM_main</span>.expand_file</code></a> to <code class="code">path</code> and checks validity of each expanded proof according to <code class="code">options</code>. Prints a report to <code class="code">stdout</code>.</p>
 </div>
 </div>
 </body></html>

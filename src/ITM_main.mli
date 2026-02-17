@@ -93,7 +93,8 @@ Raises [Invalid_definition item] if [item] represents an invalid definition, e.g
 *)
 
 val expand_file : string -> ITM_types.t_itm list
-
-
+(**
+[expand_file path] evaluates to [expand_items (items_of_file path)].
+*)
 
 
