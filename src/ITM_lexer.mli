@@ -21,7 +21,7 @@
 (*****************************************************************************)
 
 (** Lexer for parsing deinitions and proofs (items).
-Generated from {{:../src/ITM_lexer.mll}ITM_lexer.mll} with ocamllex. *)
+Generated from ITM_lexer.mll with ocamllex. *)
 
 val line_of_lexbuf : Stdlib.Lexing.lexbuf -> int
 

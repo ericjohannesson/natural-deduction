@@ -20,7 +20,7 @@
 (*                                                                           *)
 (*****************************************************************************)
 
-(** Parser for mapping formula strings to objects of type {!type:FML_types.t_fml}. Generated from {{:../src/FML_parser.mly}FML_parser.mly} with {{:https://gallium.inria.fr/~fpottier/menhir/}Menhir}. *)
+(** Parser for mapping formula strings to objects of type {!type:FML_types.t_fml}. Generated from FML_parser.mly with {{:https://gallium.inria.fr/~fpottier/menhir/}Menhir}. *)
 
 
 type token = 

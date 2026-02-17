@@ -21,7 +21,7 @@
 (*****************************************************************************)
 
 (** For validating natural deduction proofs in first-order \{ classical | intuitionistic | minimal \} logic.
-For a specification of the proof system, see {{:../specifications/logic/natural_deduction_rules.txt}Natural deduction in classical first-order logic}. *)
+For a specification of the proof system, see {{:natural_deduction_rules.html}Natural deduction in classical first-order logic}. *)
 
 type t_logic = Classical | Intuitionistic | Minimal
 

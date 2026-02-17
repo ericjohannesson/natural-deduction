@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natural deduction in classical first-order logic</title>
+<meta name="author" content="Eric Johannesson, eric@ericjohannesson.com">
+<style>
+
+html {
+    font-family   : monospace;
+    font-size     : medium;
+    line-height   : 150%;
+}
+
+
+a {
+    text-decoration : none;
+}
+
+p, pre {
+    margin-top    : 0;
+    margin-bottom : 0;
+}
+
+h2, h3, h4, h5 {
+    margin-top : 0;
+}
+
+
+/************* TITLE ********************/
+
+.title {
+    font-weight : normal;
+    font-size   : x-large;
+    margin-bottom : 1rem;
+}
+
+.doc.pars .title {
+    margin-left : 4.20rem;
+}
+
+.doc.secs .title {
+    margin-left : 4.20rem;
+}
+
+.doc.chs .title {
+    font-size : xx-large;
+}
+
+
+/************ AUTHORS *******************/
+
+
+.authors {
+    font-size : large;
+    margin-bottom : 1rem;
+}
+
+.author + .author {
+    margin-top : 1rem;
+}
+
+.doc.pars .authors {
+    margin-left : 4.20rem;
+}
+
+.doc.secs .authors {
+    margin-left : 4.20rem;
+}
+
+
+/************ ABSTRACT ******************/
+
+.abstract {
+    margin-bottom : 3rem;
+}
+
+* + .abstract {
+    margin-top : 2rem;
+}
+
+.doc.pars .abstract {
+    margin-left : 4.20rem;
+}
+
+.doc.secs .abstract {
+    margin-left : 4.20rem;
+}
+
+.abstract_hdr {
+    font-weight : normal;
+    font-size   : large;
+    margin-bottom : 0.5rem;
+}
+
+
+/************* REFS *********************/
+
+.refs {
+    margin-top : 3rem;
+}
+
+.doc.pars .refs {
+    margin-left : 4.20rem;
+}
+
+.doc.secs .refs {
+    margin-left : 4.20rem;
+}
+
+.doc.chs .refs {
+    margin-top  : 0;
+    padding-top : 3rem;
+    border-top  : thin solid gray;
+}
+
+.refs_hdr {
+    font-weight : normal;
+    font-size   : large;
+}
+
+.doc.chs .refs_hdr {
+    font-size : x-large;
+    margin-bottom : 3rem;
+}
+
+
+/************* DOC_MAIN *****************/
+
+* + .doc_main {
+    margin-top : 2rem;
+}
+
+/************** CH **********************/
+
+.ch {
+    padding-top    : 3rem;
+    padding-bottom : 3rem;
+    border-top     : thin solid gray;
+}
+
+.ch_lbl {
+    font-weight : normal;
+    font-size   : x-large;
+}
+
+.ch_hdr {
+    font-size : x-large;
+}
+
+.ch_hdr, .ch_lbl.hdr {
+    margin-bottom : 3rem;
+}
+
+.ch_lbl + .ch_hdr {
+    margin-top : 1rem;
+}
+
+
+/************** SEC *********************/
+
+.sec + .sec {
+    margin-top : 3rem;
+}
+
+.sec_lbl {
+    font-size   : large;
+    font-weight : normal;
+}
+
+.sec_hdr {
+    margin-left : 4.20rem;
+    font-size   : large;
+}
+
+
+/************** PAR *********************/
+
+.par + .par {
+    margin-top : 2rem;
+}
+
+.par_lbl {
+    font-weight : normal;
+}
+
+.par_tag {
+    font-weight : bold;
+    margin-right : 1ch;
+}
+
+.par_hdr, .par_tag.hdr {
+    margin-right  : 2ch;
+    margin-bottom : 1rem;
+}
+
+.par_tag + .par_hdr::before {
+    content : " (";
+}
+
+.par_tag + .par_hdr::after {
+    content : ")";
+}
+
+.par_main {
+    margin-left : 4.20rem;
+}
+
+
+/************** BLK *********************/
+
+.blk + .blk {
+    margin-top : 1rem;
+}
+
+.sec_main > .blk {
+    margin-left : 4.20rem;
+}
+
+
+.blk.txt {
+    hyphens     : auto;
+    white-space : pre-wrap;
+}
+
+
+.blk_blt_main {
+    margin-left : 6ch;
+}
+
+
+.blk_itm_main {
+    margin-left : 6ch;
+}
+
+
+.dsp_line_main {
+    margin-left : 6ch;
+}
+
+
+/*************** PRINTING ***************/
+
+@media print {
+
+  html {
+    font-size : 13px;
+  }
+
+
+  h1, h2, h3, h4, h5, .ch_lbl, .sec_lbl, .par_lbl, .par_tag, .blk_itm_lbl, .blk_blt_lbl {
+    break-after  : avoid-page;
+    break-inside : avoid-page;
+  }
+
+
+  .ch_main, .sec_main, .par_main, .blk_itm_main, .blk_blt_main {
+    break-before : avoid-page;
+  }
+
+
+  .blk.dsp {
+    break-inside : avoid-page;
+  }
+
+
+  .ch {
+    break-before : page;
+    border       : none;
+  }
+
+
+  .doc.chs .refs {
+    break-before : page;
+    border       : none;
+  }
+
+
+  @page {
+    size          : a4;
+    margin-top    : 20mm;
+    margin-left   : 20mm;
+    margin-right  : 20mm;
+    margin-bottom : 30mm;
+
+    @top-center {
+       content : " ";
+    }
+
+    @bottom-center {
+      padding : 10mm;
+      content : counter(page) " of " counter(pages);
+    }
+  }
+}
+</style>
+</head>
+<body>
+<div style="display:block" class="doc secs">
+<h1 class="title">Natural deduction in classical first-order logic</h1>
+<div class="authors" style="display:block">
+<p class="author">Eric Johannesson, eric@ericjohannesson.com</p>
+</div>
+<div class="doc_main" style="display:block">
+<div style="display:block" class="sec">
+<div class="sec_lbl" style="display:block;float:left">§ 1</div>
+<h3 class="sec_hdr">Proving a formula from a set of formulas</h3>
+<div class="sec_main" style="display:block">
+<p class="blk txt">We stipulate that a proof P proves a formula φ from a set of formulas Γ (written ⌜P proves Γ ⊢ φ⌝) just in case it does so according to the rules listed in <a class="txt_unit_c_ref" href="#SEC_rules">§ 3</a> below.</p>
+</div>
+</div>
+<div style="display:block" class="sec" id="SEC_aux">
+<div class="sec_lbl" style="display:block;float:left">§ 2</div>
+<h3 class="sec_hdr">Terminology and notation</h3>
+<div class="sec_main" style="display:block">
+<div style="display:block" class="par" id="PAR_dis">
+<div class="par_lbl" style="display:block;float:left">¶ 2.1</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Discharging</h4>
+<p class="blk txt">If A is a proof and φ is a formula, then A|φ is the result of replacing every atomic sub-proof</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜   ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  φ </div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞   ⌟</div>
+</div>
+</div>
+<p class="blk txt">in A with the nullary proof</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜     ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  ---</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">   φ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞     ⌟</div>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="par" id="PAR_closed">
+<div class="par_lbl" style="display:block;float:left">¶ 2.2</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Closed terms</h4>
+<p class="blk txt">A term is closed just in case it does not contain any variables. In other words:</p>
+<div class="blk blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt">All constants are closed terms.</p>
+</div>
+</div>
+<div class="blk blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt">If t₁,...,tₙ are closed terms, and f is an n-place function symbol, then ⌜f(t₁,...,tₙ)⌝ is a closed term.</p>
+</div>
+</div>
+<div class="blk blt" style="display:block">
+<div class="blk_blt_lbl" style="display:block;float:left">─</div>
+<div class="clear"></div>
+<div class="blk_blt_main" style="display:block">
+<p class="blk txt">Nothing else is a closed term.</p>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="par" id="PAR_subst">
+<div class="par_lbl" style="display:block;float:left">¶ 2.3</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Substitution of closed terms</h4>
+<p class="blk txt">If φ is a formula, x is a variable, and t is closed term, then φ(t/x) is the result of replacing every free ocurrence of x in φ with t.</p>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="sec" id="SEC_rules">
+<div class="sec_lbl" style="display:block;float:left">§ 3</div>
+<h3 class="sec_hdr">Rules</h3>
+<div class="sec_main" style="display:block">
+<div style="display:block" class="par" id="PAR_prop_rules">
+<div class="par_lbl" style="display:block;float:left">¶ 3.1</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Propositional rules</h4>
+<p class="blk txt">For every formula φ, ψ and χ, set of formulas Γ, Δ, and Σ, and for every proof A, B, and C:</p>
+<div class="blk itm" style="display:block" id="ITM_Ass">
+<div class="blk_itm_lbl" style="display:block;float:left">(Ass)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">By the rule of assumption, the atomic proof</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜   ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  φ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞   ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves Γ ∪ {φ} ⊢ φ.</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_∧I">
+<div class="blk_itm_lbl" style="display:block;float:left">(∧I)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">If A proves Γ ⊢ φ, and B proves Δ ⊢ ψ, then</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜        ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  A   B</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  -----∧I</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  φ ∧ ψ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞        ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves Γ ∪ Δ ⊢ φ ∧ ψ.</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_∧E">
+<div class="blk_itm_lbl" style="display:block;float:left">(∧E)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">If A proves Γ ⊢ φ ∧ ψ, then</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜      ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">   A</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  ---∧E</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">   φ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞      ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves Γ ⊢ φ, and</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜      ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">   A</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  ---∧E</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">   ψ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞      ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves Γ ⊢ ψ.</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_∨I">
+<div class="blk_itm_lbl" style="display:block;float:left">(∨I)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">If A proves Γ ⊢ φ, then</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜        ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">    A</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  -----∨I</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  φ ∨ ψ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞        ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves Γ ⊢ φ ∨ ψ, and</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜        ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">    A</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  -----∨I</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  ψ ∨ φ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞        ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves Γ ⊢ ψ ∨ φ.</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_∨E">
+<div class="blk_itm_lbl" style="display:block;float:left">(∨E)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">If A proves Γ ⊢ φ ∨ ψ, B proves Δ ⊢ χ, and C proves Σ ⊢ χ, then</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜               ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  A  B|φ  C|ψ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  -----------∨E</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">       χ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞               ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves Γ ∪ (Δ - {φ}) ∪ (Σ - {ψ}) ⊢ χ.</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_→I">
+<div class="blk_itm_lbl" style="display:block;float:left">(→I)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">If A proves Γ ⊢ ψ, then</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜        ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">   A|φ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  -----→I</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  φ → ψ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞        ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves Γ - {φ} ⊢ φ → ψ.</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_→E">
+<div class="blk_itm_lbl" style="display:block;float:left">(→E)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">If A proves Γ ⊢ φ → ψ, and B proves Δ ⊢ φ, then</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜        ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  A   B</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  -----→E</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">    ψ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞        ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves Γ ∪ Δ ⊢ ψ.</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_↔I">
+<div class="blk_itm_lbl" style="display:block;float:left">(↔I)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">If A proves Γ ⊢ φ → ψ, and B proves Δ ⊢ ψ → φ, then</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜        ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  A   B</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  -----↔I</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  φ ↔ ψ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞        ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves Γ ∪ Δ ⊢ φ ↔ ψ.</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_↔E">
+<div class="blk_itm_lbl" style="display:block;float:left">(↔E)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">If A proves Γ ⊢ φ ↔ ψ, then</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜        ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">    A</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  -----↔E</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  φ → ψ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞        ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves Γ ⊢ φ → ψ, and</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜        ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">    A</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  -----↔E</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  ψ → φ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞        ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves Γ ⊢ ψ → φ.</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_¬I">
+<div class="blk_itm_lbl" style="display:block;float:left">(¬I)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">If A proves Γ ⊢ ψ, and B proves Δ ⊢ ¬ψ, then</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜           ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  A|φ  B|φ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  --------¬I</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">     ¬φ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞           ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves (Γ - {φ}) ∪ (Δ - {φ}) ⊢ ¬φ.</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_¬E">
+<div class="blk_itm_lbl" style="display:block;float:left">(¬E)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">If A proves Γ ⊢ ψ, and B proves Δ ⊢ ¬ψ, then</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜             ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  A|¬φ  B|¬φ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  ----------¬E</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">      φ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞             ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves (Γ - {¬φ}) ∪ (Δ - {¬φ}) ⊢ φ.</p>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="par" id="PAR_quant_rules">
+<div class="par_lbl" style="display:block;float:left">¶ 3.2</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Quantifier rules</h4>
+<p class="blk txt">For every formula φ and ψ, variable x, closed term t, constant c, set of formulas Γ and Δ, and for every proof A and B:</p>
+<div class="blk itm" style="display:block" id="ITM_∀I">
+<div class="blk_itm_lbl" style="display:block;float:left">(∀I)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">If A proves Γ ⊢ φ(c/x), and c does not occur in Γ nor in φ, then</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜        ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">    A</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  ----∀I</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  ∀x φ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞        ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves Γ ⊢ ∀x φ.</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_∀E">
+<div class="blk_itm_lbl" style="display:block;float:left">(∀E)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">If A proves Γ ⊢ ∀x φ, then</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜         ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">    A</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  ------∀E</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  φ(t/x)</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞         ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves Γ ⊢ φ(t/x).</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_∃I">
+<div class="blk_itm_lbl" style="display:block;float:left">(∃I)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">If A proves Γ ⊢ φ(t/x), then</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜       ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">    A</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  ----∃I</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  ∃x φ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞       ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves Γ ⊢ ∃x φ.</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_∃E">
+<div class="blk_itm_lbl" style="display:block;float:left">(∃E)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">If A proves Γ ⊢ ∃x φ, B proves Δ ⊢ ψ, and c does not occur in (Δ - {φ(c/x)}), in φ, nor in ψ, then</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜        ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  A   B</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  -----∃E</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">    ψ</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞        ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves Γ ∪ (Δ - {φ(c/x)}) ⊢ ψ.</p>
+</div>
+</div>
+</div>
+</div>
+<div style="display:block" class="par" id="PAR_id_rules">
+<div class="par_lbl" style="display:block;float:left">¶ 3.3</div>
+<div class="clear"></div>
+<div class="par_main" style="display:block">
+<h4 class="par_hdr inline" style="float:left;margin-bottom:0">Identity rules</h4>
+<p class="blk txt">For every formula φ, closed term s and t, set of formulas Γ and Δ, and for every proof A and B:</p>
+<div class="blk itm" style="display:block" id="ITM_=I">
+<div class="blk_itm_lbl" style="display:block;float:left">(=I)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">By the rule of identity introduction,</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜        ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  -----=I</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  t = t</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞        ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves Γ ⊢ t = t.</p>
+</div>
+</div>
+<div class="blk itm" style="display:block" id="ITM_=E">
+<div class="blk_itm_lbl" style="display:block;float:left">(=E)</div>
+<div class="clear"></div>
+<div class="blk_itm_main" style="display:block">
+<p class="blk txt">If A proves Γ ⊢ s = t, B proves Δ ⊢ φ, and φ(s/t) is the result of replacing zero or some occurrences of t in φ with s, then</p>
+<div class="blk dsp" style="display:block;white-space:nowrap">
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌜         ⌝</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  A    B</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  ------=E</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">  φ(s/t)</div>
+</div>
+<div class="dsp_line" style="display:block">
+<div class="dsp_line_main" style="display:block;white-space:pre">⌞         ⌟</div>
+</div>
+</div>
+<p class="blk txt">proves Γ ∪ Δ ⊢ φ(s/t).</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

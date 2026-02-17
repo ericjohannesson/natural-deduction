@@ -21,7 +21,7 @@
 (*****************************************************************************)
 
 (** Parser for mapping files containing definitions and proofs to objects of type {!type:ITM_types.t_itm} [list].
-Generated from {{:../src/ITM_parser.mly}ITM_parser.mly} with ocamlyacc. *)
+Generated from ITM_parser.mly with ocamlyacc. *)
 
 
 type token = 

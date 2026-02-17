@@ -21,7 +21,7 @@
 (*****************************************************************************)
 
 (** Parser for mapping objects of type {!type:PRF_sequencer.t_prf_seq} to objects of type {!type:PRF_types.t_prf}.
-Generated from {{:../src/PRF_parser.mly}PRF_parser.mly} with {{:https://gallium.inria.fr/~fpottier/menhir/}Menhir}. *)
+Generated from PRF_parser.mly with {{:https://gallium.inria.fr/~fpottier/menhir/}Menhir}. *)
 
 
 type token = 
