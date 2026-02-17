@@ -246,14 +246,20 @@ Splits a string by <a href="https://erratique.ch/software/uuseg/doc/Uuseg/index.
 </td></tr>
 <tr><td align="left"><div>V</div></td></tr>
 <tr><td><a href="Main.html#VALvalidate_file">validate_file</a> [<a href="Main.html">Main</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">validate_file&nbsp;options&nbsp;path</code> evaluates to <code class="code">validate_prf&nbsp;options&nbsp;(</code> <a href="PRF_main.html#VALprf_of_file"><code class="code"><span class="constructor">PRF_main</span>.prf_of_file</code></a> <code class="code">path)</code>.
+</div>
+</td></tr>
 <tr><td><a href="Main.html#VALvalidate_prf">validate_prf</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
 <code class="code">validate_prf&nbsp;prf</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;prf</code> if <code class="code">prf</code> represents a valid proof in classical first-order logic, and to <code class="code"><span class="constructor">None</span></code> otherwise.
 </div>
 </td></tr>
 <tr><td><a href="Main.html#VALvalidate_stdin">validate_stdin</a> [<a href="Main.html">Main</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">validate_stdin&nbsp;options&nbsp;()</code> evaluates to <code class="code">validate_prf&nbsp;options&nbsp;(</code> <a href="PRF_main.html#VALprf_of_stdin"><code class="code"><span class="constructor">PRF_main</span>.prf_of_stdin</code></a> <code class="code">())</code>.
+</div>
+</td></tr>
 <tr><td><a href="FML_main.html#VALvars_of_terms">vars_of_terms</a> [<a href="FML_main.html">FML_main</a>]</td>
 <td><div class="info">
 Recursively lists all variables occurring in a list of terms.
