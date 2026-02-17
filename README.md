@@ -491,3 +491,7 @@ In that shell, build executable:
 ```bash
 make nd
 ```
+
+## Documentation
+
+Documentation for the opam package can be found at https://ericjohannesson.github.io/natural-deduction/
