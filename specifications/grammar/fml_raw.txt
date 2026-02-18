@@ -1,5 +1,3 @@
 fml_raw ::= word | word SPACE fml_raw
 
-sps ::= SPACE SPACE | sps SPACE
-
 word ::= [! '#' ';' ':' SPACE TAB NL]+

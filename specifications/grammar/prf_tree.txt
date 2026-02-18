@@ -17,4 +17,6 @@ binary_prf_tree  ::= ---------------------rule
 trinary_prf_tree ::= ----------------------------------rule
                                   fml_raw
 
+sps ::= SPACE SPACE | sps SPACE
+
 rule ::= [! '#' ';' ':' SPACE TAB NL]*
