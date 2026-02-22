@@ -34,8 +34,9 @@
 <tr><td align="left"><div>C</div></td></tr>
 <tr><td><a href="FML_lexer.html#VALcanonical">canonical</a> [<a href="FML_lexer.html">FML_lexer</a>]</td>
 <td><div class="info">
-Maps common notational variants of logical and mathematical terms to
-their canonical counterparts, e.g.
+<p>Maps common notational variants of logical and mathematical terms to
+their canonical counterparts, e.g.</p>
+
 </div>
 </td></tr>
 <tr><td><a href="FML_main.html#VALclosed_terms_of_fml">closed_terms_of_fml</a> [<a href="FML_main.html">FML_main</a>]</td>
@@ -62,35 +63,41 @@ their canonical counterparts, e.g.
 <td></td></tr>
 <tr><td><a href="Main.html#VALexpand_and_validate_file">expand_and_validate_file</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<code class="code">expand_and_validate_file&nbsp;options&nbsp;path</code> applies <a href="ITM_main.html#VALexpand_file"><code class="code"><span class="constructor">ITM_main</span>.expand_file</code></a> to <code class="code">path</code> and checks validity of each expanded proof according to <code class="code">options</code>.
+<p><code class="code">expand_and_validate_file&nbsp;options&nbsp;path</code> applies <a href="ITM_main.html#VALexpand_file"><code class="code"><span class="constructor">ITM_main</span>.expand_file</code></a> to <code class="code">path</code> and checks validity of each expanded proof according to <code class="code">options</code>.</p>
+
 </div>
 </td></tr>
 <tr><td><a href="ITM_main.html#VALexpand_file">expand_file</a> [<a href="ITM_main.html">ITM_main</a>]</td>
 <td><div class="info">
-<code class="code">expand_file&nbsp;path</code> evaluates to <code class="code">expand_items&nbsp;(items_of_file&nbsp;path)</code>.
+<p><code class="code">expand_file&nbsp;path</code> evaluates to <code class="code">expand_items&nbsp;(items_of_file&nbsp;path)</code>.</p>
+
 </div>
 </td></tr>
 <tr><td><a href="ITM_main.html#VALexpand_items">expand_items</a> [<a href="ITM_main.html">ITM_main</a>]</td>
 <td><div class="info">
-Recursively expands each item on a list according to the definitions preceding it (with the most immediate predecessors being applied first).
+<p>Recursively expands each item on a list according to the definitions preceding it (with the most immediate predecessors being applied first).</p>
+
 </div>
 </td></tr>
 <tr><td align="left"><div>F</div></td></tr>
 <tr><td><a href="FML_main.html#VALfml_is_fml_with_var_replaced_by_term">fml_is_fml_with_var_replaced_by_term</a> [<a href="FML_main.html">FML_main</a>]</td>
 <td><div class="info">
-<code class="code">fml_is_fml_with_var_replaced_by_term&nbsp;fml1&nbsp;fml2&nbsp;var</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;term</code>, if <code class="code">term</code> is the first element of <code class="code">closed_terms_of_fml&nbsp;fml1</code> such that <code class="code">fml1&nbsp;=&nbsp;subst_in_fml&nbsp;var&nbsp;term&nbsp;fml2</code> evaluates to <code class="code"><span class="keyword">true</span></code>, and to <code class="code"><span class="constructor">None</span></code> if no such element exists.
+<p><code class="code">fml_is_fml_with_var_replaced_by_term&nbsp;fml1&nbsp;fml2&nbsp;var</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;term</code>, if <code class="code">term</code> is the first element of <code class="code">closed_terms_of_fml&nbsp;fml1</code> such that <code class="code">fml1&nbsp;=&nbsp;subst_in_fml&nbsp;var&nbsp;term&nbsp;fml2</code> evaluates to <code class="code"><span class="keyword">true</span></code>, and to <code class="code"><span class="constructor">None</span></code> if no such element exists.</p>
+
 </div>
 </td></tr>
 <tr><td><a href="FML_main.html#VALfml_list_of_file">fml_list_of_file</a> [<a href="FML_main.html">FML_main</a>]</td>
 <td><div class="info">
-<code class="code">fml_list_of_file&nbsp;path</code> applies <code class="code">fml_of_string</code> to each line of the file located at <code class="code">path</code>.
+<p><code class="code">fml_list_of_file&nbsp;path</code> applies <code class="code">fml_of_string</code> to each line of the file located at <code class="code">path</code>.</p>
+
 </div>
 </td></tr>
 <tr><td><a href="PRF_main.html#VALfml_of_fml_raw">fml_of_fml_raw</a> [<a href="PRF_main.html">PRF_main</a>]</td>
 <td></td></tr>
 <tr><td><a href="FML_main.html#VALfml_of_string">fml_of_string</a> [<a href="FML_main.html">FML_main</a>]</td>
 <td><div class="info">
-<code class="code">fml_of_string&nbsp;fml</code> evaluates to an object of type <code class="code"><span class="constructor">FML_types</span>.t_fml</code> if <code class="code">fml</code> conforms to the grammar specified below, and raises exception <code class="code"><span class="constructor">Parse_error</span>&nbsp;fml</code> otherwise.
+<p><code class="code">fml_of_string&nbsp;fml</code> evaluates to an object of type <code class="code"><span class="constructor">FML_types</span>.t_fml</code> if <code class="code">fml</code> conforms to the grammar specified below, and raises exception <code class="code"><span class="constructor">Parse_error</span>&nbsp;fml</code> otherwise.</p>
+
 </div>
 </td></tr>
 <tr><td><a href="FML_main.html#VALfree_vars_of_fml">free_vars_of_fml</a> [<a href="FML_main.html">FML_main</a>]</td>
@@ -100,7 +107,8 @@ Recursively expands each item on a list according to the definitions preceding i
 <td></td></tr>
 <tr><td><a href="ITM_main.html#VALitems_of_file">items_of_file</a> [<a href="ITM_main.html">ITM_main</a>]</td>
 <td><div class="info">
-If <code class="code">path</code> is the path of a file containing items conforming to the grammar specified below,
+<p>If <code class="code">path</code> is the path of a file containing items conforming to the grammar specified below,</p>
+
 </div>
 </td></tr>
 <tr><td align="left"><div>L</div></td></tr>
@@ -121,12 +129,14 @@ If <code class="code">path</code> is the path of a file containing items conform
 <td></td></tr>
 <tr><td><a href="PRF_sequencer.html#VALmatrix_of_file">matrix_of_file</a> [<a href="PRF_sequencer.html">PRF_sequencer</a>]</td>
 <td><div class="info">
-Same as <code class="code">matrix_of_string</code>, but reads string from file located at the provided path.
+<p>Same as <code class="code">matrix_of_string</code>, but reads string from file located at the provided path.</p>
+
 </div>
 </td></tr>
 <tr><td><a href="PRF_sequencer.html#VALmatrix_of_string">matrix_of_string</a> [<a href="PRF_sequencer.html">PRF_sequencer</a>]</td>
 <td><div class="info">
-<code class="code">matrix_of_string&nbsp;s</code> forms rows by splitting <code class="code">s</code> on character <code class="code"><span class="string">'\n'</span></code>, forms columns by applying <a href="UTF8_segmenter.html#VALutf_8_grapheme_clusters"><code class="code"><span class="constructor">UTF8_segmenter</span>.utf_8_grapheme_clusters</code></a> to each row, and converts the result to arrays.
+<p><code class="code">matrix_of_string&nbsp;s</code> forms rows by splitting <code class="code">s</code> on character <code class="code"><span class="string">'\n'</span></code>, forms columns by applying <a href="UTF8_segmenter.html#VALutf_8_grapheme_clusters"><code class="code"><span class="constructor">UTF8_segmenter</span>.utf_8_grapheme_clusters</code></a> to each row, and converts the result to arrays.</p>
+
 </div>
 </td></tr>
 <tr><td align="left"><div>O</div></td></tr>
@@ -135,7 +145,8 @@ Same as <code class="code">matrix_of_string</code>, but reads string from file l
 <tr><td align="left"><div>P</div></td></tr>
 <tr><td><a href="Main.html#VALpremises_of_prf">premises_of_prf</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<code class="code">premises_of_prf&nbsp;excluded&nbsp;prf</code> evaluates to a non-repeating list of all undsicharged assumptions of <code class="code">prf</code>, except for those in <code class="code">excluded</code>.
+<p><code class="code">premises_of_prf&nbsp;excluded&nbsp;prf</code> evaluates to a non-repeating list of all undsicharged assumptions of <code class="code">prf</code>, except for those in <code class="code">excluded</code>.</p>
+
 </div>
 </td></tr>
 <tr><td><a href="PRF_main.html#VALprf_of_file">prf_of_file</a> [<a href="PRF_main.html">PRF_main</a>]</td>
@@ -156,12 +167,14 @@ Same as <code class="code">matrix_of_string</code>, but reads string from file l
 <td></td></tr>
 <tr><td><a href="PRF_sequencer.html#VALprf_seq_of_file">prf_seq_of_file</a> [<a href="PRF_sequencer.html">PRF_sequencer</a>]</td>
 <td><div class="info">
-Like <a href="PRF_sequencer.html#VALprf_seq_of_string"><code class="code"><span class="constructor">PRF_sequencer</span>.prf_seq_of_string</code></a>, but reads from the file located at the provided path.
+<p>Like <a href="PRF_sequencer.html#VALprf_seq_of_string"><code class="code"><span class="constructor">PRF_sequencer</span>.prf_seq_of_string</code></a>, but reads from the file located at the provided path.</p>
+
 </div>
 </td></tr>
 <tr><td><a href="PRF_sequencer.html#VALprf_seq_of_string">prf_seq_of_string</a> [<a href="PRF_sequencer.html">PRF_sequencer</a>]</td>
 <td><div class="info">
-If <code class="code">prf_tree</code> is a string conforming to the grammar specified below,
+<p>If <code class="code">prf_tree</code> is a string conforming to the grammar specified below,</p>
+
 </div>
 </td></tr>
 <tr><td><a href="IO.html#VALprint_to_file">print_to_file</a> [<a href="IO.html">IO</a>]</td>
@@ -205,18 +218,21 @@ If <code class="code">prf_tree</code> is a string conforming to the grammar spec
 <td></td></tr>
 <tr><td><a href="ITM_main.html#VALsubst_free_vars_in_fml_with_terms">subst_free_vars_in_fml_with_terms</a> [<a href="ITM_main.html">ITM_main</a>]</td>
 <td><div class="info">
-<code class="code">subst_free_vars_in_fml_with_terms&nbsp;subst&nbsp;fml</code> evaluates to the result of simultaneously replacing every free variable in <code class="code">fml</code> with a term according to the function <code class="code">subst:&nbsp;t_var&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t_term</code>.
+<p><code class="code">subst_free_vars_in_fml_with_terms&nbsp;subst&nbsp;fml</code> evaluates to the result of simultaneously replacing every free variable in <code class="code">fml</code> with a term according to the function <code class="code">subst:&nbsp;t_var&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t_term</code>.</p>
+
 </div>
 </td></tr>
 <tr><td><a href="FML_main.html#VALsubst_in_fml">subst_in_fml</a> [<a href="FML_main.html">FML_main</a>]</td>
 <td><div class="info">
-<code class="code">subst_in_fml&nbsp;var&nbsp;term&nbsp;fml</code> evaluates to the result of replacing every free occurrence of <code class="code">var</code> in <code class="code">fml</code> with <code class="code">term</code>,
-regardless of whether <code class="code">term</code> contains variables that become bound.
+<p><code class="code">subst_in_fml&nbsp;var&nbsp;term&nbsp;fml</code> evaluates to the result of replacing every free occurrence of <code class="code">var</code> in <code class="code">fml</code> with <code class="code">term</code>,
+regardless of whether <code class="code">term</code> contains variables that become bound.</p>
+
 </div>
 </td></tr>
 <tr><td><a href="PRF_main.html#VALsubst_in_prf">subst_in_prf</a> [<a href="PRF_main.html">PRF_main</a>]</td>
 <td><div class="info">
-<code class="code">subst_in_prf&nbsp;subst&nbsp;prf</code> evaluates to the result of simultaneously replacing every atomic proof (undischarged assumption) in <code class="code">prf</code> with another proof according to the function <code class="code">subst&nbsp;:&nbsp;t_prf&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t_prf</code>.
+<p><code class="code">subst_in_prf&nbsp;subst&nbsp;prf</code> evaluates to the result of simultaneously replacing every atomic proof (undischarged assumption) in <code class="code">prf</code> with another proof according to the function <code class="code">subst&nbsp;:&nbsp;t_prf&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t_prf</code>.</p>
+
 </div>
 </td></tr>
 <tr><td align="left"><div>T</div></td></tr>
@@ -231,38 +247,45 @@ regardless of whether <code class="code">term</code> contains variables that bec
 <tr><td align="left"><div>U</div></td></tr>
 <tr><td><a href="FML_lexer.html#VALunnegate">unnegate</a> [<a href="FML_lexer.html">FML_lexer</a>]</td>
 <td><div class="info">
-Maps <code class="code"><span class="string">"≠"</span></code> to <code class="code"><span class="string">"="</span></code>, for instance.
+<p>Maps <code class="code"><span class="string">"≠"</span></code> to <code class="code"><span class="string">"="</span></code>, for instance.</p>
+
 </div>
 </td></tr>
 <tr><td><a href="UTF8_segmenter.html#VALutf_8_grapheme_clusters">utf_8_grapheme_clusters</a> [<a href="UTF8_segmenter.html">UTF8_segmenter</a>]</td>
 <td><div class="info">
-evaluates to <code class="code">utf_8_segments&nbsp;<span class="keywordsign">`</span><span class="constructor">Grapheme_cluster</span></code>.
+<p>evaluates to <code class="code">utf_8_segments&nbsp;<span class="keywordsign">`</span><span class="constructor">Grapheme_cluster</span></code>.</p>
+
 </div>
 </td></tr>
 <tr><td><a href="UTF8_segmenter.html#VALutf_8_segments">utf_8_segments</a> [<a href="UTF8_segmenter.html">UTF8_segmenter</a>]</td>
 <td><div class="info">
-Splits a string by <a href="https://erratique.ch/software/uuseg/doc/Uuseg/index.html#type-boundary"><code class="code"><span class="constructor">Uuseg</span>.boundary</code></a>.
+<p>Splits a string by <a href="https://erratique.ch/software/uuseg/doc/Uuseg/index.html#type-boundary"><code class="code"><span class="constructor">Uuseg</span>.boundary</code></a>.</p>
+
 </div>
 </td></tr>
 <tr><td align="left"><div>V</div></td></tr>
 <tr><td><a href="Main.html#VALvalidate_file">validate_file</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<code class="code">validate_file&nbsp;options&nbsp;path</code> evaluates to <code class="code">validate_prf&nbsp;options&nbsp;(</code> <a href="PRF_main.html#VALprf_of_file"><code class="code"><span class="constructor">PRF_main</span>.prf_of_file</code></a> <code class="code">path)</code>.
+<p><code class="code">validate_file&nbsp;options&nbsp;path</code> evaluates to <code class="code">validate_prf&nbsp;options&nbsp;(</code> <a href="PRF_main.html#VALprf_of_file"><code class="code"><span class="constructor">PRF_main</span>.prf_of_file</code></a> <code class="code">path)</code>.</p>
+
 </div>
 </td></tr>
 <tr><td><a href="Main.html#VALvalidate_prf">validate_prf</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<code class="code">validate_prf&nbsp;prf</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;prf</code> if <code class="code">prf</code> represents a valid proof in classical first-order logic, and to <code class="code"><span class="constructor">None</span></code> otherwise.
+<p><code class="code">validate_prf&nbsp;prf</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;prf</code> if <code class="code">prf</code> represents a valid proof in classical first-order logic, and to <code class="code"><span class="constructor">None</span></code> otherwise.</p>
+
 </div>
 </td></tr>
 <tr><td><a href="Main.html#VALvalidate_stdin">validate_stdin</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<code class="code">validate_stdin&nbsp;options&nbsp;()</code> evaluates to <code class="code">validate_prf&nbsp;options&nbsp;(</code> <a href="PRF_main.html#VALprf_of_stdin"><code class="code"><span class="constructor">PRF_main</span>.prf_of_stdin</code></a> <code class="code">())</code>.
+<p><code class="code">validate_stdin&nbsp;options&nbsp;()</code> evaluates to <code class="code">validate_prf&nbsp;options&nbsp;(</code> <a href="PRF_main.html#VALprf_of_stdin"><code class="code"><span class="constructor">PRF_main</span>.prf_of_stdin</code></a> <code class="code">())</code>.</p>
+
 </div>
 </td></tr>
 <tr><td><a href="FML_main.html#VALvars_of_terms">vars_of_terms</a> [<a href="FML_main.html">FML_main</a>]</td>
 <td><div class="info">
-Recursively lists all variables occurring in a list of terms.
+<p>Recursively lists all variables occurring in a list of terms.</p>
+
 </div>
 </td></tr>
 </table>
