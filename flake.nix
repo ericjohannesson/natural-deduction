@@ -11,7 +11,6 @@
       opam-nix,
       nixpkgs,
     }@inputs:
-    # Don't forget to put the package name instead of `throw':
     let
       package = "natural-deduction";
     in
