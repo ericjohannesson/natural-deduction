@@ -13,7 +13,7 @@
     }@inputs:
     # Don't forget to put the package name instead of `throw':
     let
-      package = throw "Put the package name here!";
+      package = "natural-deduction";
     in
     flake-utils.lib.eachDefaultSystem (
       system:
