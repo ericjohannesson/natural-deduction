@@ -20,13 +20,16 @@
 (*                                                                           *)
 (*****************************************************************************)
 
-open FML_types
-open FML_main
+open Natural_deduction
 
-open PRF_types
-open PRF_main
+open Natural_deduction.FML_types
+open Natural_deduction.FML_main
 
-open Main
+open Natural_deduction.PRF_types
+open Natural_deduction.PRF_main
+
+open Natural_deduction.Main
+
 
 let options : t_options = {
         verbose = false;
