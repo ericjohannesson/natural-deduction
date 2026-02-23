@@ -457,39 +457,17 @@ Sub :=
 
 ## Build instructions
 
-Clone this repository. In the root directory of the clone, follow either of the instructions below.
+Requirements:
+- A flake-enabled nix package manager, see https://github.com/DeterminateSystems/nix-installer
 
-### Alternative 1 (opam)
-
-For installing the opam package manager, see https://opam.ocaml.org/
-
-Install required packages:
-```bash
-opam install ocaml ocamlfind uuseg menhir
-```
-
-Build executable:
+Clone this repository. In the root directory of the clone, run
 ```bash
 make nd
 ```
 
-Install natural-deduction as a local opam package:
+If you do not have direnv installed, you first need to run
 ```bash
-opam install .
-```
-
-### Alternative 2 (nix)
-
-For installing the nix package manager, see https://nixos.org/
-
-Open a nix-shell with the required packages:
-```bash
-nix-shell -p ocaml ocamlPackages.findlib ocamlPackages.uuseg ocamlPackages.menhir
-```
-
-In that shell, build executable:
-```bash
-make nd
+nix develop
 ```
 
 ## Documentation
