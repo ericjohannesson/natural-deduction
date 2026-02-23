@@ -1,33 +1,111 @@
 {
-  inputs = {
-    opam-nix.url = "github:tweag/opam-nix";
-    flake-utils.url = "github:numtide/flake-utils";
-    nixpkgs.follows = "opam-nix/nixpkgs";
-  };
-  outputs =
-    {
-      self,
-      flake-utils,
-      opam-nix,
-      nixpkgs,
-    }@inputs:
-    let
-      package = "natural-deduction";
-    in
-    flake-utils.lib.eachDefaultSystem (
-      system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-        on = opam-nix.lib.${system};
-        scope = on.buildOpamProject { } package ./. { ocaml-base-compiler = "*"; };
-        overlay = final: prev: {
-          # Your overrides go here
-        };
-      in
-      {
-        legacyPackages = scope.overrideScope overlay;
+  description = "natural-deduction";
 
-        packages.default = self.legacyPackages.${system}.${package};
-      }
-    );
+  inputs = {
+    nixpkgs-linux.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url      = "github:numtide/flake-utils";
+  };
+  outputs = {
+    self, nixpkgs-linux, nixpkgs-darwin, nixpkgs-unstable, flake-utils
+  }:
+    let
+      linux-systems  = [
+        # TODO "aarch64-linux"
+        "x86_64-linux"
+      ];
+      darwin-systems = [
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+      ## windows-systems = [
+      ##   # TODO "x86_64-windows"
+      ## ];
+      systems = linux-systems ++ darwin-systems; ## TODO ++ windows-systems;
+      version = "0";
+    in
+      flake-utils.lib.eachSystem systems (system:
+        let
+          nixpkgs      = (
+            if      builtins.elem system linux-systems  then
+              nixpkgs-linux
+            else if builtins.elem system darwin-systems then
+              nixpkgs-darwin
+            else
+              nixpkgs-unstable
+          );
+          pkgs          = nixpkgs.legacyPackages.${system};
+          pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+          pkgs_common   = [
+            pkgs.bash
+            pkgs.gnumake
+            ## pkgs.python313
+            ## pkgs-unstable.python313Packages.weasyprint
+            ## pkgs.xmldiff
+          ];
+          ## pkgs_mercury  = [pkgs.mercury];
+          ## pkgs_rocq     = [pkgs.coq];
+          pkgs_ocaml    = [
+            pkgs-unstable.ocaml
+            pkgs-unstable.ocamlPackages.findlib
+            pkgs-unstable.ocamlPackages.menhir
+            ## pkgs-unstable.ocamlPackages.menhirLib
+            ## pkgs-unstable.ocamlPackages.sedlex
+            pkgs-unstable.ocamlPackages.uuseg
+            ## pkgs-unstable.ocamlPackages.xml-light
+          ];
+          ## pkgs_github  = [pkgs.gh pkgs.gh-markdown-preview];
+        in {
+          devShells.default = pkgs.mkShell {
+            buildInputs = (
+              pkgs_common
+              ++
+              ## pkgs_mercury
+              ## ++
+              ## pkgs_rocq
+              ## ++
+              pkgs_ocaml
+              ## ++
+              ## pkgs_github
+            );
+          };
+          ## devShells.rocq = pkgs.mkShell {
+          ##  buildInputs = pkgs_common ++ pkgs_rocq;
+          ## };
+          ## devShells.mercury = pkgs.mkShell {
+          ##  buildInputs = pkgs_common ++ pkgs_mercury;
+          ## };
+          devShells.ocaml = pkgs.mkShell {
+            buildInputs = pkgs_common ++ pkgs_ocaml;
+          };
+          ## devShells.github = pkgs.mkShell {
+          ##  buildInputs = pkgs_common ++ pkgs_github;
+          ## };
+          packages.default = pkgs.stdenv.mkDerivation {
+            name        = "natural-deduction-${version}";
+            buildInputs = (
+              [pkgs.makeWrapper]
+              ++
+              pkgs_common
+              ++
+              ## pkgs_mercury
+              ## ++
+              pkgs_ocaml
+            );
+            src          = ./.;
+            buildPhase   = ''
+              make nd
+            '';
+            installPhase = ''
+              mkdir -p $out/bin
+              cp nd $out/bin/
+            '';
+          };
+          apps.default = {
+            type    = "app";
+            program = "${self.packages.${system}.default}/nd";
+          };
+        }
+      );
 }
