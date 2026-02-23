@@ -36,16 +36,15 @@
               nixpkgs-unstable
           );
           pkgs          = nixpkgs.legacyPackages.${system};
-          pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
           pkgs_common   = [
             pkgs.bash
             pkgs.gnumake
           ];
           pkgs_ocaml    = [
-            pkgs-unstable.ocaml
-            pkgs-unstable.ocamlPackages.findlib
-            pkgs-unstable.ocamlPackages.menhir
-            pkgs-unstable.ocamlPackages.uuseg
+            pkgs.ocaml
+            pkgs.ocamlPackages.findlib
+            pkgs.ocamlPackages.menhir
+            pkgs.ocamlPackages.uuseg
           ];
         in {
           devShells.default = pkgs.mkShell {
