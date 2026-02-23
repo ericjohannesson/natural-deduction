@@ -40,48 +40,24 @@
           pkgs_common   = [
             pkgs.bash
             pkgs.gnumake
-            ## pkgs.python313
-            ## pkgs-unstable.python313Packages.weasyprint
-            ## pkgs.xmldiff
           ];
-          ## pkgs_mercury  = [pkgs.mercury];
-          ## pkgs_rocq     = [pkgs.coq];
           pkgs_ocaml    = [
             pkgs-unstable.ocaml
             pkgs-unstable.ocamlPackages.findlib
             pkgs-unstable.ocamlPackages.menhir
-            ## pkgs-unstable.ocamlPackages.menhirLib
-            ## pkgs-unstable.ocamlPackages.sedlex
             pkgs-unstable.ocamlPackages.uuseg
-            ## pkgs-unstable.ocamlPackages.xml-light
           ];
-          ## pkgs_github  = [pkgs.gh pkgs.gh-markdown-preview];
         in {
           devShells.default = pkgs.mkShell {
             buildInputs = (
               pkgs_common
               ++
-              ## pkgs_mercury
-              ## ++
-              ## pkgs_rocq
-              ## ++
               pkgs_ocaml
-              ## ++
-              ## pkgs_github
             );
           };
-          ## devShells.rocq = pkgs.mkShell {
-          ##  buildInputs = pkgs_common ++ pkgs_rocq;
-          ## };
-          ## devShells.mercury = pkgs.mkShell {
-          ##  buildInputs = pkgs_common ++ pkgs_mercury;
-          ## };
           devShells.ocaml = pkgs.mkShell {
             buildInputs = pkgs_common ++ pkgs_ocaml;
           };
-          ## devShells.github = pkgs.mkShell {
-          ##  buildInputs = pkgs_common ++ pkgs_github;
-          ## };
           packages.default = pkgs.stdenv.mkDerivation {
             name        = "natural-deduction-${version}";
             buildInputs = (
@@ -89,8 +65,6 @@
               ++
               pkgs_common
               ++
-              ## pkgs_mercury
-              ## ++
               pkgs_ocaml
             );
             src          = ./.;
@@ -104,7 +78,7 @@
           };
           apps.default = {
             type    = "app";
-            program = "${self.packages.${system}.default}/nd";
+            program = "${self.packages.${system}.default}/bin/nd";
           };
         }
       );
