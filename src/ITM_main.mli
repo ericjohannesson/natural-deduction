@@ -21,7 +21,7 @@
 (*****************************************************************************)
 
 (**
-For expanding formulas and proofs containing defined expressions, replacing the defined expression with the defining expression.
+For expanding formulas and proofs containing defined expressions, replacing each defined expression with its defining expression.
 *)
 
 (** {2 Parse } *)
