@@ -964,4 +964,5 @@ let _ : unit = fml_bidirection_test fml2_in
 let _ : unit = fml_bidirection_test fml3_in
 let _ : unit = fml_bidirection_test fml4_in
 let _ : unit = fml_bidirection_test fml5_in
+let _ : unit = fml_bidirection_test fml6_in
 
