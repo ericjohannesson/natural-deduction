@@ -27,11 +27,12 @@ open FML_types
 %token <string> VAR
 %token <string> PREFIX_PRED INFIX_PRED NEG_INFIX_PRED
 %token <string> PREFIX_FUNC INFIX_FUNC POSTFIX_FUNC
-%token <string> UNOP BINOP QUANT
+%token <string> UNOP BINOP1 BINOP2 QUANT
 %token LPAR RPAR LBR RBR COMMA
 %token EOF
 
-%left BINOP
+%left BINOP2
+%left BINOP1
 %left INFIX_FUNC
 %nonassoc UNOP QUANT
 %nonassoc POSTFIX_FUNC
@@ -79,7 +80,8 @@ quant_fml:
 ;
 
 binop_fml:
-        |fml binop fml %prec BINOP      { BinopApp ($2,$1,$3) }
+        |fml binop1 fml %prec BINOP1    { BinopApp ($2,$1,$3) }
+        |fml binop2 fml %prec BINOP2    { BinopApp ($2,$1,$3) }
 ;
 
 terms:
@@ -138,8 +140,12 @@ postfix_func:
         |POSTFIX_FUNC                   { Func $1 }
 ;
 
-binop:
-        |BINOP                          { Binop $1 }
+binop1:
+        |BINOP1                         { Binop $1 }
+;
+
+binop2:
+        |BINOP2                         { Binop $1 }
 ;
 
 unop:

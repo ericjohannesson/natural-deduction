@@ -4,6 +4,7 @@ examples/fml2
 examples/fml3
 examples/fml4
 examples/fml5
+examples/fml6
 examples/itm0
 T(x,y) := x < y
 

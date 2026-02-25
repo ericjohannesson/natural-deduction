@@ -611,6 +611,7 @@ let fml2_in : string = input_dir ^ "fml2"
 let fml3_in : string = input_dir ^ "fml3"
 let fml4_in : string = input_dir ^ "fml4"
 let fml5_in : string = input_dir ^ "fml5"
+let fml6_in : string = input_dir ^ "fml6"
 
 let fml0_out : t_fml list = 
 [PredApp (Pred "=", [FuncApp (Func "a", []); FuncApp (Func "b", [])]);
@@ -765,6 +766,46 @@ let fml5_out : t_fml list =
        FuncApp (Func "×",
         [FuncApp (Func "^", [Atom (Var "x"); Atom (Var "y")]); Atom (Var "x")])])))]
 
+let fml6_out : t_fml list =
+[BinopApp (Binop "→",
+  BinopApp (Binop "∧", PredApp (Pred "P", []), PredApp (Pred "Q", [])),
+  PredApp (Pred "R", []));
+ BinopApp (Binop "→", PredApp (Pred "P", []),
+  BinopApp (Binop "∧", PredApp (Pred "Q", []), PredApp (Pred "R", [])));
+ BinopApp (Binop "→",
+  BinopApp (Binop "∨", PredApp (Pred "P", []), PredApp (Pred "Q", [])),
+  PredApp (Pred "R", []));
+ BinopApp (Binop "→", PredApp (Pred "P", []),
+  BinopApp (Binop "∨", PredApp (Pred "Q", []), PredApp (Pred "R", [])));
+ BinopApp (Binop "→",
+  BinopApp (Binop "∧",
+   BinopApp (Binop "∧", PredApp (Pred "P", []), PredApp (Pred "Q", [])),
+   PredApp (Pred "R", [])),
+  PredApp (Pred "S", []));
+ BinopApp (Binop "→", PredApp (Pred "S", []),
+  BinopApp (Binop "∧",
+   BinopApp (Binop "∧", PredApp (Pred "P", []), PredApp (Pred "Q", [])),
+   PredApp (Pred "R", [])));
+ BinopApp (Binop "↔",
+  BinopApp (Binop "∧", PredApp (Pred "P", []), PredApp (Pred "Q", [])),
+  PredApp (Pred "R", []));
+ BinopApp (Binop "↔", PredApp (Pred "P", []),
+  BinopApp (Binop "∧", PredApp (Pred "Q", []), PredApp (Pred "R", [])));
+ BinopApp (Binop "↔",
+  BinopApp (Binop "∨", PredApp (Pred "P", []), PredApp (Pred "Q", [])),
+  PredApp (Pred "R", []));
+ BinopApp (Binop "↔", PredApp (Pred "P", []),
+  BinopApp (Binop "∨", PredApp (Pred "Q", []), PredApp (Pred "R", [])));
+ BinopApp (Binop "↔",
+  BinopApp (Binop "∧",
+   BinopApp (Binop "∧", PredApp (Pred "P", []), PredApp (Pred "Q", [])),
+   PredApp (Pred "R", [])),
+  PredApp (Pred "S", []));
+ BinopApp (Binop "↔", PredApp (Pred "S", []),
+  BinopApp (Binop "∧",
+   BinopApp (Binop "∧", PredApp (Pred "P", []), PredApp (Pred "Q", [])),
+   PredApp (Pred "R", [])))]
+
 
 let prf_raw_test input output : unit =
         match prf_raw_of_file input = output with
@@ -915,6 +956,7 @@ let _ : unit = fml_test fml2_in fml2_out
 let _ : unit = fml_test fml3_in fml3_out
 let _ : unit = fml_test fml4_in fml4_out
 let _ : unit = fml_test fml5_in fml5_out
+let _ : unit = fml_test fml6_in fml6_out
 
 let _ : unit = fml_bidirection_test fml0_in
 let _ : unit = fml_bidirection_test fml1_in
