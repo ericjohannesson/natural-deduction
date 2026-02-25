@@ -92,7 +92,8 @@ let lbr = "["
 let rbr = "]"
 let quant = forall | exists
 let unop = neg
-let binop = conj | disj | impl | eqv
+let binop1 = conj | disj
+let binop2 = impl | eqv
 let infix_func = plus | times | star | cdot | minus | cap | cup | hat
 let infix_pred = le | ge | leq | geq | eq | el | subset | subseteq
 let neg_infix_pred = neq | nel
@@ -113,6 +114,7 @@ rule token = parse
         | neg_infix_pred as e   { NEG_INFIX_PRED (unnegate e) }
         | quant as e            { QUANT (canonical e) }
         | unop as e             { UNOP (canonical e) }
-        | binop as e            { BINOP (canonical e) }
+        | binop1 as e           { BINOP1 (canonical e) }
+        | binop2 as e           { BINOP2 (canonical e) }
         | eof                   { EOF }
         | _                     { token lexbuf }

@@ -1,0 +1,12 @@
+P ∧ Q → R
+P → Q ∧ R
+P ∨ Q → R
+P → Q ∨ R
+P ∧ Q ∧ R → S
+S → P ∧ Q ∧ R
+P ∧ Q ↔ R
+P ↔ Q ∧ R
+P ∨ Q ↔ R
+P ↔ Q ∨ R
+P ∧ Q ∧ R ↔ S
+S ↔ P ∧ Q ∧ R

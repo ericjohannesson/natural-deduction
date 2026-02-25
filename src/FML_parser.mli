@@ -39,7 +39,8 @@ type token =
 |       INFIX_FUNC of string
 |       EOF
 |       COMMA
-|       BINOP of string
+|       BINOP1 of string
+|       BINOP2 of string
 
 exception Error of int
 

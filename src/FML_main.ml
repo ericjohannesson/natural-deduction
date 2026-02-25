@@ -42,7 +42,8 @@ let string_of_token (t:FML_parser.token) : string =
         |FML_parser.INFIX_PRED s -> String.concat "" ["INFIX_PRED";" ";"\'";s;"\'"]
         |FML_parser.NEG_INFIX_PRED s -> String.concat "" ["NEG_INFIX_PRED";" ";"\'";s;"\'"]
         |FML_parser.UNOP s -> String.concat "" ["UNOP";" ";"\'";s;"\'"]
-        |FML_parser.BINOP s -> String.concat "" ["BINOP";" ";"\'";s;"\'"]
+        |FML_parser.BINOP1 s -> String.concat "" ["BINOP1";" ";"\'";s;"\'"]
+        |FML_parser.BINOP2 s -> String.concat "" ["BINOP2";" ";"\'";s;"\'"]
         |FML_parser.QUANT s -> String.concat "" ["QUANT";" ";"\'";s;"\'"]
 
 
