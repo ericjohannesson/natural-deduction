@@ -20,28 +20,29 @@
 (*                                                                           *)
 (*****************************************************************************)
 
-(** Parser for mapping formula strings to objects of type {!type:FML_types.t_fml}. Generated from FML_parser.mly with {{:https://gallium.inria.fr/~fpottier/menhir/}Menhir}. *)
+(** Parser for mapping formula strings to objects of type {!type:FML_types.t_fml}. Generated from FML_parser.mly with [ocamlyacc]. *)
 
 
-type token = 
-|       VAR of string
-|       UNOP of string
-|       RPAR
-|       RBR
-|       QUANT of string
-|       PREFIX_PRED of string
-|       PREFIX_FUNC of string
-|       POSTFIX_FUNC of string
-|       NEG_INFIX_PRED of string
-|       LPAR
-|       LBR
-|       INFIX_PRED of string
-|       INFIX_FUNC of string
-|       EOF
-|       COMMA
-|       BINOP1 of string
-|       BINOP2 of string
+type token =
+        VAR of string
+      | PREFIX_PRED of string
+      | INFIX_PRED of string
+      | NEG_INFIX_PRED of string
+      | PREFIX_FUNC of string
+      | INFIX_FUNC of string
+      | POSTFIX_FUNC of string
+      | UNOP of string
+      | BINOP1 of string
+      | BINOP2 of string
+      | QUANT of string
+      | LPAR
+      | RPAR
+      | LBR
+      | RBR
+      | COMMA
+      | EOF
 
-exception Error of int
+val main :
+      (Lexing.lexbuf -> token) ->
+      Lexing.lexbuf -> Natural_deduction.FML_types.t_fml
 
-val main : (Stdlib.Lexing.lexbuf -> token) -> Stdlib.Lexing.lexbuf -> FML_types.t_fml

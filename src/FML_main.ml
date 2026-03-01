@@ -59,27 +59,12 @@ let rec fml_of_string ?(print_tokens = false) (s:string): t_fml =
         try
                 FML_parser.main (lexer print_tokens) b
         with
-        |FML_parser.Error n ->
+        |_ ->
                 match print_tokens with
                 |false -> 
-                        let _ : unit = IO.print_to_stderr_red (
-                                String.concat "\n" [
-                                        "FML_parser failed in the following state of the automaton:";
-                                        "==========================================================";
-                                        FML_parser_automaton.state n;
-                                        "==========================================================";
-                                        "Read the the following tokens from \'" ^ s ^ "\':";
-                                ]
-                        ) 
-                        in fml_of_string ~print_tokens:true s
-                |true -> 
-                        let _ : unit = IO.print_to_stderr_red (
-                                String.concat "" [
-                                        "Last token does not match any Transitions or Reductions of State ";
-                                        Int.to_string n;"."
-                                ]
-                        )
-                        in raise (Parse_error s)
+                        let _ : unit = IO.print_to_stderr_red ("FML_parser failed; read the the following tokens:") in
+                        fml_of_string ~print_tokens:true s
+                |true -> raise (Parse_error s)
 
 
 let fml_list_of_file (path : string) : t_fml list =

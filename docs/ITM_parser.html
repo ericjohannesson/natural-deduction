@@ -57,13 +57,6 @@ Generated from ITM_parser.mly with ocamlyacc.</p>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtoken.DEF"><span class="constructor">DEF</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
 <code><span id="TYPEELTtoken.FML"><span class="constructor">FML</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
 
 </tr>
@@ -73,8 +66,15 @@ Generated from ITM_parser.mly with ocamlyacc.</p>
 <td align="left" valign="top" >
 <code><span id="TYPEELTtoken.PRF"><span class="constructor">PRF</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
 
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.DEF"><span class="constructor">DEF</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
 </tr></table>
 
 
 
-<pre><span id="VALmain"><span class="keyword">val</span> main</span> : <code class="type">(Stdlib.Lexing.lexbuf -&gt; <a href="ITM_parser.html#TYPEtoken">token</a>) -&gt;<br>       Stdlib.Lexing.lexbuf -&gt; <a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> list</code></pre></body></html>
+<pre><span id="VALmain"><span class="keyword">val</span> main</span> : <code class="type">(Stdlib.Lexing.lexbuf -&gt; <a href="ITM_parser.html#TYPEtoken">token</a>) -&gt;<br>       Stdlib.Lexing.lexbuf -&gt; Natural_deduction.ITM_types.t_itm list</code></pre></body></html>

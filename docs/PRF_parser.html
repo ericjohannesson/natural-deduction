@@ -40,7 +40,7 @@
 <pre><span id="MODULEPRF_parser"><span class="keyword">module</span> PRF_parser</span>: <code class="code"><span class="keyword">sig</span></code> <a href="PRF_parser.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
 <p>Parser for mapping objects of type <a href="PRF_sequencer.html#TYPEt_prf_seq"><code class="code"><span class="constructor">PRF_sequencer</span>.t_prf_seq</code></a> to objects of type <a href="PRF_types.html#TYPEt_prf"><code class="code"><span class="constructor">PRF_types</span>.t_prf</code></a>.
-Generated from PRF_parser.mly with <a href="https://gallium.inria.fr/~fpottier/menhir/">Menhir</a>.</p>
+Generated from PRF_parser.mly with <code class="code">ocamlyacc</code>.</p>
 </div>
 </div>
 <hr width="100%">
@@ -50,35 +50,7 @@ Generated from PRF_parser.mly with <a href="https://gallium.inria.fr/~fpottier/m
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtoken.UNARY_RULE"><span class="constructor">UNARY_RULE</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.TRINARY_RULE"><span class="constructor">TRINARY_RULE</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
 <code><span id="TYPEELTtoken.SEP"><span class="constructor">SEP</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.NULLARY_RULE"><span class="constructor">NULLARY_RULE</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.FML"><span class="constructor">FML</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
 
 </tr>
 <tr>
@@ -92,12 +64,38 @@ Generated from PRF_parser.mly with <a href="https://gallium.inria.fr/~fpottier/m
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
+<code><span id="TYPEELTtoken.NULLARY_RULE"><span class="constructor">NULLARY_RULE</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.UNARY_RULE"><span class="constructor">UNARY_RULE</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
 <code><span id="TYPEELTtoken.BINARY_RULE"><span class="constructor">BINARY_RULE</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.TRINARY_RULE"><span class="constructor">TRINARY_RULE</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.FML"><span class="constructor">FML</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
 
 </tr></table>
 
 
 
-<pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type">int</code></pre>
-
-<pre><span id="VALmain"><span class="keyword">val</span> main</span> : <code class="type">(Stdlib.Lexing.lexbuf -&gt; <a href="PRF_parser.html#TYPEtoken">token</a>) -&gt;<br>       Stdlib.Lexing.lexbuf -&gt; <a href="PRF_types.html#TYPEt_prf_raw">PRF_types.t_prf_raw</a></code></pre></body></html>
+<pre><span id="VALmain"><span class="keyword">val</span> main</span> : <code class="type">(Stdlib.Lexing.lexbuf -&gt; <a href="PRF_parser.html#TYPEtoken">token</a>) -&gt;<br>       Stdlib.Lexing.lexbuf -&gt; Natural_deduction.PRF_types.t_prf_raw</code></pre></body></html>

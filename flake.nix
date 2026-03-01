@@ -43,7 +43,6 @@
           pkgs_ocaml    = [
             pkgs.ocaml
             pkgs.ocamlPackages.findlib
-            pkgs.ocamlPackages.menhir
             pkgs.ocamlPackages.uuseg
           ];
         in {
