@@ -39,7 +39,7 @@
 
 <pre><span id="MODULEFML_parser"><span class="keyword">module</span> FML_parser</span>: <code class="code"><span class="keyword">sig</span></code> <a href="FML_parser.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
-<p>Parser for mapping formula strings to objects of type <a href="FML_types.html#TYPEt_fml"><code class="code"><span class="constructor">FML_types</span>.t_fml</code></a>. Generated from FML_parser.mly with <a href="https://gallium.inria.fr/~fpottier/menhir/">Menhir</a>.</p>
+<p>Parser for mapping formula strings to objects of type <a href="FML_types.html#TYPEt_fml"><code class="code"><span class="constructor">FML_types</span>.t_fml</code></a>. Generated from FML_parser.mly with <code class="code">ocamlyacc</code>.</p>
 </div>
 </div>
 <hr width="100%">
@@ -56,70 +56,7 @@
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtoken.UNOP"><span class="constructor">UNOP</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.RPAR"><span class="constructor">RPAR</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.RBR"><span class="constructor">RBR</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.QUANT"><span class="constructor">QUANT</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
 <code><span id="TYPEELTtoken.PREFIX_PRED"><span class="constructor">PREFIX_PRED</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.PREFIX_FUNC"><span class="constructor">PREFIX_FUNC</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.POSTFIX_FUNC"><span class="constructor">POSTFIX_FUNC</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.NEG_INFIX_PRED"><span class="constructor">NEG_INFIX_PRED</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.LPAR"><span class="constructor">LPAR</span></span></code></td>
-
-</tr>
-<tr>
-<td align="left" valign="top" >
-<code><span class="keyword">|</span></code></td>
-<td align="left" valign="top" >
-<code><span id="TYPEELTtoken.LBR"><span class="constructor">LBR</span></span></code></td>
 
 </tr>
 <tr>
@@ -133,6 +70,20 @@
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
+<code><span id="TYPEELTtoken.NEG_INFIX_PRED"><span class="constructor">NEG_INFIX_PRED</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.PREFIX_FUNC"><span class="constructor">PREFIX_FUNC</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
 <code><span id="TYPEELTtoken.INFIX_FUNC"><span class="constructor">INFIX_FUNC</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
 
 </tr>
@@ -140,14 +91,14 @@
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtoken.EOF"><span class="constructor">EOF</span></span></code></td>
+<code><span id="TYPEELTtoken.POSTFIX_FUNC"><span class="constructor">POSTFIX_FUNC</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
 
 </tr>
 <tr>
 <td align="left" valign="top" >
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top" >
-<code><span id="TYPEELTtoken.COMMA"><span class="constructor">COMMA</span></span></code></td>
+<code><span id="TYPEELTtoken.UNOP"><span class="constructor">UNOP</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
 
 </tr>
 <tr>
@@ -163,10 +114,57 @@
 <td align="left" valign="top" >
 <code><span id="TYPEELTtoken.BINOP2"><span class="constructor">BINOP2</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
 
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.QUANT"><span class="constructor">QUANT</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.LPAR"><span class="constructor">LPAR</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.RPAR"><span class="constructor">RPAR</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.LBR"><span class="constructor">LBR</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.RBR"><span class="constructor">RBR</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.COMMA"><span class="constructor">COMMA</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtoken.EOF"><span class="constructor">EOF</span></span></code></td>
+
 </tr></table>
 
 
 
-<pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type">int</code></pre>
-
-<pre><span id="VALmain"><span class="keyword">val</span> main</span> : <code class="type">(Stdlib.Lexing.lexbuf -&gt; <a href="FML_parser.html#TYPEtoken">token</a>) -&gt;<br>       Stdlib.Lexing.lexbuf -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a></code></pre></body></html>
+<pre><span id="VALmain"><span class="keyword">val</span> main</span> : <code class="type">(Stdlib.Lexing.lexbuf -&gt; <a href="FML_parser.html#TYPEtoken">token</a>) -&gt;<br>       Stdlib.Lexing.lexbuf -&gt; Natural_deduction.FML_types.t_fml</code></pre></body></html>

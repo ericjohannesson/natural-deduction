@@ -49,7 +49,7 @@ let rec prf_raw_of_prf_seq ?(print_tokens = false) (prf_seq : PRF_sequencer.t_pr
         |Prf_seq s ->
                 let lexbuf = Lexing.from_string s in
                 try PRF_parser.main (lexer print_tokens) lexbuf with
-                |PRF_parser.Error _ ->
+                |_ ->
                         match print_tokens with
                         |false -> 
                                 let _ = IO.print_to_stderr_red "PRF_parser failed; read the following tokens:" in

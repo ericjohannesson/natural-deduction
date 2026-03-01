@@ -21,18 +21,19 @@
 (*****************************************************************************)
 
 (** Parser for mapping objects of type {!type:PRF_sequencer.t_prf_seq} to objects of type {!type:PRF_types.t_prf}.
-Generated from PRF_parser.mly with {{:https://gallium.inria.fr/~fpottier/menhir/}Menhir}. *)
+Generated from PRF_parser.mly with [ocamlyacc]. *)
 
 
-type token = 
-|       UNARY_RULE of string
-|       TRINARY_RULE of string
-|       SEP
-|       NULLARY_RULE of string
-|       FML of string
-|       EOF
-|       BINARY_RULE of string
+type token =
+        SEP
+      | EOF
+      | NULLARY_RULE of string
+      | UNARY_RULE of string
+      | BINARY_RULE of string
+      | TRINARY_RULE of string
+      | FML of string
 
-exception Error of int
+val main :
+      (Lexing.lexbuf -> token) ->
+      Lexing.lexbuf -> Natural_deduction.PRF_types.t_prf_raw
 
-val main : (Lexing.lexbuf -> token) -> Lexing.lexbuf -> PRF_types.t_prf_raw

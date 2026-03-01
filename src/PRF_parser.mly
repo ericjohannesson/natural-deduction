@@ -27,7 +27,7 @@ open PRF_types
 %token                  SEP EOF
 %token <string>         NULLARY_RULE UNARY_RULE BINARY_RULE TRINARY_RULE FML
 
-%type <t_prf_raw> main prf
+%type <PRF_types.t_prf_raw> main prf
 %type <t_fml_raw> fml
 %type <t_nullary_rule> nullary_rule
 %type <t_unary_rule> unary_rule

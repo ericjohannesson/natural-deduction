@@ -24,10 +24,9 @@
 Generated from ITM_parser.mly with ocamlyacc. *)
 
 
-type token = 
-|       EOF
-|       DEF of string
-|       FML of string
-|       PRF of string
+type token = EOF | FML of string | PRF of string | DEF of string
 
-val main : (Stdlib.Lexing.lexbuf -> token) -> Stdlib.Lexing.lexbuf -> ITM_types.t_itm list
+val main :
+      (Lexing.lexbuf -> token) ->
+      Lexing.lexbuf -> Natural_deduction.ITM_types.t_itm list
+
