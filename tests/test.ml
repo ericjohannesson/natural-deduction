@@ -877,7 +877,7 @@ let itm_bidirection_tests (int_list : int list) : unit list =
 	in
 	List.map itm_bidirection_test inputs 
 
-let _ : unit list = itm_bidirection_tests [0;1;2;3;4;5;6;7;8;9;10;11;12]
+let _ : unit list = itm_bidirection_tests [0;1;2;3;4;5;6;7;8;9;10;11;12;13;14]
 
 let _ : unit = prf_raw_test prf0_in prf0_out_raw
 let _ : unit = prf_raw_test prf1_in prf1_out_raw

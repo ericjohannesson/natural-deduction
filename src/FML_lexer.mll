@@ -71,8 +71,6 @@ let ge = ">"
 let leq = "≤" | "\\leq"
 let geq = "≥" | "\\geq"
 let prime = "\'"
-let pwr2 = "²"
-let pwr3 = "³"
 let hat = "^"
 
 let el = "∈" | "\\in"
@@ -82,9 +80,14 @@ let subseteq = "⊆" | "\\subseteq"
 let cap = "\\cap" | "∩"
 let cup = "\\cup" | "∪"
 
-let prefix_func = ['a' - 't'] (['_' '.'] | ['a' - 'z'] | ['0' - '9'])* | ['0' - '9']+
-let var = ['u' - 'z'] (['_' '.'] | ['a' - 'z'] | ['0' - '9'])*
-let prefix_pred = ['A' - 'Z'] (['_' '.'] | ['A' - 'Z'] | ['a' - 'z'] | ['0' - '9'])*
+let subscript = "₀" | "₁" | "₂" | "₃" | "₄" | "₅" | "₆" | "₇" | "₈" | "₉"
+let superscript = "⁰" | "¹" | "²" | "³" | "⁴" | "⁵" | "⁶" | "⁷" | "⁸" | "⁹"
+let upper_case_greek = "Γ" | "Δ" | "Φ" | "Λ" | "Ω" | "Π" | "Σ" | "Θ" | "Ψ"
+let lower_case_greek = "α" | "β" | "γ" | "δ" | "φ" | "ψ" | "κ" | "λ" | "ω" | "ρ" | "σ" | "τ" | "π" | "χ" | "ι" | "η"
+
+let prefix_func = (['a' - 't'] | lower_case_greek) (['_' '.'] | ['a' - 'z'] | ['0' - '9'] | subscript | lower_case_greek)* | ['0' - '9']+
+let var = ['u' - 'z'] (['_' '.'] | ['a' - 'z'] | ['0' - '9'] | subscript)*
+let prefix_pred = (['A' - 'Z'] | upper_case_greek) (['_' '.'] | ['A' - 'Z'] | ['a' - 'z'] | ['0' - '9'] | subscript | upper_case_greek | lower_case_greek)*
 let comma = ","
 let lpar = "("
 let rpar = ")"
@@ -97,7 +100,7 @@ let binop2 = impl | eqv
 let infix_func = plus | times | star | cdot | minus | cap | cup | hat
 let infix_pred = le | ge | leq | geq | eq | el | subset | subseteq
 let neg_infix_pred = neq | nel
-let postfix_func = prime | pwr2 | pwr3
+let postfix_func = prime | superscript
 
 rule token = parse
         | comma                 { COMMA }

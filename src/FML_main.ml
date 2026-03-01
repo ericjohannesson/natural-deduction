@@ -151,7 +151,7 @@ and is_infix_func (f : string) : bool =
 
 and is_postfix_func (f : string) : bool =
         match f with
-        |"\'" | "²" | "³" -> true
+        |"\'" | "⁰" | "¹" | "²" | "³" | "⁴" | "⁵" | "⁶" | "⁷" | "⁸" | "⁹" -> true
         |_ -> false
 
 and string_of_fml (fml : t_fml) : string =
