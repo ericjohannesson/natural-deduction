@@ -21,7 +21,7 @@
 (*****************************************************************************)
 
 (** Parser for mapping objects of type {!type:PRF_sequencer.t_prf_seq} to objects of type {!type:PRF_types.t_prf}.
-Generated from PRF_parser.mly with [ocamlyacc]. *)
+Generated from PRF_parser.mly with ocamlyacc. *)
 
 
 type token =

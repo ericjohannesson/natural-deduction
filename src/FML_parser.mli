@@ -20,7 +20,7 @@
 (*                                                                           *)
 (*****************************************************************************)
 
-(** Parser for mapping formula strings to objects of type {!type:FML_types.t_fml}. Generated from FML_parser.mly with [ocamlyacc]. *)
+(** Parser for mapping formula strings to objects of type {!type:FML_types.t_fml}. Generated from FML_parser.mly with ocamlyacc. *)
 
 
 type token =
