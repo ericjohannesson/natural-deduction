@@ -109,9 +109,9 @@ RBR ::= "]"
 
 COMMA ::= ","
 
-VAR ::= ['u' - 'z'] (['_' '.'] | ['a' - 'z'] | ['0' - '9'])*
+VAR ::= ['u' - 'z'] (['_' '.'] | ['a' - 'z'] | ['0' - '9'] | subscript)*
 
-PREFIX_PRED ::= ['A' - 'Z'] (['_' '.'] | ['A' - 'Z'] | ['a' - 'z'] | ['0' - '9'])*
+PREFIX_PRED ::= (['A' - 'Z'] | upper_case_greek) (['_' '.'] | ['A' - 'Z'] | ['a' - 'z'] | ['0' - '9'] | subscript | upper_case_greek | lower_case_greek)*
 
 INFIX_PRED ::=
         | "="
@@ -128,7 +128,7 @@ NEG_INFIX_PRED ::=
         | "∉" | "\not\in" | "\not \in" | "\notin"
 
 PREFIX_FUNC ::=
-        | ['a' - 't'] (['_' '.'] | ['a' - 'z'] | ['0' - '9'])*
+        | (['a' - 't'] | lower_case_greek) (['_' '.'] | ['a' - 'z'] | ['0' - '9'] | subscript | lower_case_greek)*
         | ['0' - '9']+
 
 INFIX_FUNC ::=
@@ -143,8 +143,12 @@ INFIX_FUNC ::=
 
 POSTFIX_FUNC ::=
         | "'"
-        | "²"
-        | "³"
+        | superscript
+
+subscript ::= "₀" | "₁" | "₂" | "₃" | "₄" | "₅" | "₆" | "₇" | "₈" | "₉"
+superscript ::= "⁰" | "¹" | "²" | "³" | "⁴" | "⁵" | "⁶" | "⁷" | "⁸" | "⁹"
+upper_case_greek ::= "Γ" | "Δ" | "Φ" | "Λ" | "Ω" | "Π" | "Σ" | "Θ" | "Ψ"
+lower_case_greek ::= "α" | "β" | "γ" | "δ" | "φ" | "ψ" | "κ" | "λ" | "ω" | "ρ" | "σ" | "τ" | "π" | "χ" | "ι" | "η"
 
 </pre></div>
 </div>
