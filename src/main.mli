@@ -21,7 +21,7 @@
 (*****************************************************************************)
 
 (** For validating natural deduction proofs in first-order \{ classical | intuitionistic | minimal \} logic.
-For a specification of the proof system, see {{:natural_deduction_rules.html}Natural deduction in classical first-order logic}. *)
+For a specification of the proof system, see {{:specs/logic/natural_deduction_rules.html}Natural deduction in classical first-order logic}. *)
 
 type t_logic = Classical | Intuitionistic | Minimal
 
@@ -50,7 +50,7 @@ val conclusion_of_prf : PRF_types.t_prf -> FML_types.t_fml
 
 val premises_of_prf : FML_types.t_fml list -> PRF_types.t_prf -> FML_types.t_fml list
 (**
-[premises_of_prf excluded prf] evaluates to a non-repeating list of all undsicharged assumptions of [prf], except for those in [excluded].
+[premises_of_prf excluded prf] evaluates to a non-repeating list of all undischarged assumptions of [prf], except for those in [excluded].
 *)
 
 val validate_prf : ?options:t_options -> PRF_types.t_prf -> PRF_types.t_prf option

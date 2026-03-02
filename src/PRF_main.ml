@@ -83,6 +83,10 @@ let prf_raw_of_stdin ?(print_trace = false) ?(print_tokens = false) () : t_prf_r
         prf_raw_of_string ~print_trace:print_trace ~print_tokens:print_tokens (IO.string_of_stdin ())
 
 
+let fml_of_fml_raw (fml_raw : t_fml_raw) : t_fml =
+        match fml_raw with
+        |Fml_raw (s : string) -> FML_main.fml_of_string s
+
 let rec prf_of_prf_raw (prf_raw : t_prf_raw) : t_prf =
         match prf_raw with
         | Atomic_prf_raw fml_raw ->
@@ -96,9 +100,6 @@ let rec prf_of_prf_raw (prf_raw : t_prf_raw) : t_prf =
         | Trinary_prf_raw (prf_raw1, prf_raw2, prf_raw3, trinary_rule, fml_raw) ->
                 Trinary_prf (prf_of_prf_raw prf_raw1, prf_of_prf_raw prf_raw2, prf_of_prf_raw prf_raw3, trinary_rule, fml_of_fml_raw fml_raw)
 
-and fml_of_fml_raw (fml_raw : t_fml_raw) : t_fml =
-        match fml_raw with
-        |Fml_raw (s : string) -> FML_main.fml_of_string s
 
 let prf_of_file ?(print_trace = false) ?(print_tokens = false) (path:string) =
         try prf_of_prf_raw (prf_raw_of_file ~print_trace:print_trace ~print_tokens:print_tokens path) with

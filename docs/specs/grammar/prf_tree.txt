@@ -20,3 +20,7 @@ trinary_prf_tree ::= ----------------------------------rule
 sps ::= SPACE SPACE | sps SPACE
 
 rule ::= [! '#' ';' ':' SPACE TAB NL]*
+
+fml_raw ::= word | word SPACE fml_raw
+
+word ::= [! '#' ';' ':' SPACE TAB NL]+

@@ -46,10 +46,10 @@ main:
 ;
 
 fml:
+        |atomic_fml                     { $1 }
         |unop_fml                       { $1 }
         |quant_fml                      { $1 }
         |binop_fml                      { $1 }
-        |atomic_fml                     { $1 }
         |par_fml                        { $1 }
 ;
 

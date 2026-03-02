@@ -87,10 +87,16 @@ Recursively expands each item on a list according to the definitions preceding i
 </div>
 </td></tr>
 <tr><td><a href="PRF_main.html#VALfml_of_fml_raw">fml_of_fml_raw</a> [<a href="PRF_main.html">PRF_main</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">fml_of_fml_raw&nbsp;fml_raw</code> evaluates to
+<pre class="codepre"><code class="code"><span class="keyword">match</span> fml_raw <span class="keyword">with</span>
+<span class="keywordsign">|</span><span class="constructor">Fml_raw</span> (s : string) <span class="keywordsign">-&gt;</span> <span class="constructor">FML_main</span>.fml_of_string s
+</code></pre>
+</div>
+</td></tr>
 <tr><td><a href="FML_main.html#VALfml_of_string">fml_of_string</a> [<a href="FML_main.html">FML_main</a>]</td>
 <td><div class="info">
-<code class="code">fml_of_string&nbsp;fml</code> evaluates to an object of type <code class="code"><span class="constructor">FML_types</span>.t_fml</code> if <code class="code">fml</code> conforms to the grammar specified below, and raises exception <code class="code"><span class="constructor">Parse_error</span>&nbsp;fml</code> otherwise.
+<code class="code">fml_of_string&nbsp;fml</code> evaluates to an object of type <code class="code"><span class="constructor">FML_types</span>.t_fml</code> if <code class="code">fml</code> conforms to the grammar specified in <a href="specs/grammar/fml.txt">fml.txt</a>, and raises exception <code class="code"><span class="constructor">Parse_error</span>&nbsp;fml</code> otherwise.
 </div>
 </td></tr>
 <tr><td><a href="FML_main.html#VALfree_vars_of_fml">free_vars_of_fml</a> [<a href="FML_main.html">FML_main</a>]</td>
@@ -100,16 +106,25 @@ Recursively expands each item on a list according to the definitions preceding i
 <td></td></tr>
 <tr><td><a href="ITM_main.html#VALitems_of_file">items_of_file</a> [<a href="ITM_main.html">ITM_main</a>]</td>
 <td><div class="info">
-If <code class="code">path</code> is the path of a file containing items conforming to the grammar specified below,
+If <code class="code">path</code> is the path of a file whose content conforms to the grammar specified in <a href="specs/grammar/items.txt">items.txt</a>, then <code class="code">items_of_file&nbsp;path</code> evaluates to a list of type <a href="ITM_types.html#TYPEt_itm"><code class="code"><span class="constructor">ITM_types</span>.t_itm</code></a>, and otherwise raises an exception.
 </div>
 </td></tr>
 <tr><td align="left"><div>L</div></td></tr>
 <tr><td><a href="PRF_sequencer.html#VALlexer_of_file">lexer_of_file</a> [<a href="PRF_sequencer.html">PRF_sequencer</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">lexer_of_file&nbsp;path</code> evaluates to <code class="code">lexer_of_matrix&nbsp;(matrix_of_file&nbsp;path)</code>.
+</div>
+</td></tr>
 <tr><td><a href="PRF_sequencer.html#VALlexer_of_matrix">lexer_of_matrix</a> [<a href="PRF_sequencer.html">PRF_sequencer</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">lexer_of_matrix&nbsp;m</code> evaluates to <code class="code">lexer_of_matrix&nbsp;~print_trace:<span class="keyword">false</span>&nbsp;~automaton:default_automaton&nbsp;m</code>.
+</div>
+</td></tr>
 <tr><td><a href="PRF_sequencer.html#VALlexer_of_string">lexer_of_string</a> [<a href="PRF_sequencer.html">PRF_sequencer</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">lexer_of_string&nbsp;s</code> evaluates to <code class="code">lexer_of_matrix&nbsp;(matrix_of_string&nbsp;s)</code>.
+</div>
+</td></tr>
 <tr><td><a href="ITM_lexer.html#VALline_of_lexbuf">line_of_lexbuf</a> [<a href="ITM_lexer.html">ITM_lexer</a>]</td>
 <td></td></tr>
 <tr><td align="left"><div>M</div></td></tr>
@@ -135,33 +150,57 @@ Same as <code class="code">matrix_of_string</code>, but reads string from file l
 <tr><td align="left"><div>P</div></td></tr>
 <tr><td><a href="Main.html#VALpremises_of_prf">premises_of_prf</a> [<a href="Main.html">Main</a>]</td>
 <td><div class="info">
-<code class="code">premises_of_prf&nbsp;excluded&nbsp;prf</code> evaluates to a non-repeating list of all undsicharged assumptions of <code class="code">prf</code>, except for those in <code class="code">excluded</code>.
+<code class="code">premises_of_prf&nbsp;excluded&nbsp;prf</code> evaluates to a non-repeating list of all undischarged assumptions of <code class="code">prf</code>, except for those in <code class="code">excluded</code>.
 </div>
 </td></tr>
 <tr><td><a href="PRF_main.html#VALprf_of_file">prf_of_file</a> [<a href="PRF_main.html">PRF_main</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">prf_of_file&nbsp;path</code> evaluates to <code class="code">prf_of_prf_raw&nbsp;(prf_raw_of_file&nbsp;path)</code>.
+</div>
+</td></tr>
 <tr><td><a href="PRF_main.html#VALprf_of_prf_raw">prf_of_prf_raw</a> [<a href="PRF_main.html">PRF_main</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">prf_of_prf_raw&nbsp;prf_raw</code> evaluates to the result of applying <code class="code">fml_of_fml_raw</code> to each formula in <code class="code">prf_raw</code>.
+</div>
+</td></tr>
 <tr><td><a href="PRF_main.html#VALprf_of_stdin">prf_of_stdin</a> [<a href="PRF_main.html">PRF_main</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">prf_of_stdin&nbsp;()</code> evaluates to <code class="code">prf_of_prf_raw&nbsp;(prf_raw_of_stdin&nbsp;())</code>.
+</div>
+</td></tr>
 <tr><td><a href="PRF_main.html#VALprf_of_string">prf_of_string</a> [<a href="PRF_main.html">PRF_main</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">prf_of_string&nbsp;s</code> evaluates to <code class="code">prf_of_prf_raw&nbsp;(prf_raw_of_string&nbsp;s)</code>.
+</div>
+</td></tr>
 <tr><td><a href="PRF_main.html#VALprf_raw_of_file">prf_raw_of_file</a> [<a href="PRF_main.html">PRF_main</a>]</td>
-<td></td></tr>
+<td><div class="info">
+Same as <code class="code">prf_raw_of_string</code>, but reads from the file located at the given path.
+</div>
+</td></tr>
 <tr><td><a href="PRF_main.html#VALprf_raw_of_prf_seq">prf_raw_of_prf_seq</a> [<a href="PRF_main.html">PRF_main</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">prf_raw_of_prf_seq&nbsp;(<span class="constructor">Prf_seq</span>&nbsp;s)</code> evaluates (essentially) to <a href="PRF_parser.html#VALmain"><code class="code"><span class="constructor">PRF_parser</span>.main</code></a> <a href="PRF_lexer.html#VALtoken"><code class="code"><span class="constructor">PRF_lexer</span>.token</code></a> <code class="code">(<span class="constructor">Lexing</span>.from_string&nbsp;s)</code>.
+</div>
+</td></tr>
 <tr><td><a href="PRF_main.html#VALprf_raw_of_stdin">prf_raw_of_stdin</a> [<a href="PRF_main.html">PRF_main</a>]</td>
-<td></td></tr>
+<td><div class="info">
+Same as <code class="code">prf_raw_of_string</code>, but reads from <code class="code">stdin</code>.
+</div>
+</td></tr>
 <tr><td><a href="PRF_main.html#VALprf_raw_of_string">prf_raw_of_string</a> [<a href="PRF_main.html">PRF_main</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">prf_raw_of_string&nbsp;s</code> evaluates (essentially) to <code class="code">prf_raw_of_prf_seq&nbsp;(<span class="constructor">PRF_sequencer</span>.prf_seq_of_string&nbsp;s)</code>.
+</div>
+</td></tr>
 <tr><td><a href="PRF_sequencer.html#VALprf_seq_of_file">prf_seq_of_file</a> [<a href="PRF_sequencer.html">PRF_sequencer</a>]</td>
 <td><div class="info">
-Like <a href="PRF_sequencer.html#VALprf_seq_of_string"><code class="code"><span class="constructor">PRF_sequencer</span>.prf_seq_of_string</code></a>, but reads from the file located at the provided path.
+Same as <a href="PRF_sequencer.html#VALprf_seq_of_string"><code class="code"><span class="constructor">PRF_sequencer</span>.prf_seq_of_string</code></a>, but reads from the file located at the provided path.
 </div>
 </td></tr>
 <tr><td><a href="PRF_sequencer.html#VALprf_seq_of_string">prf_seq_of_string</a> [<a href="PRF_sequencer.html">PRF_sequencer</a>]</td>
 <td><div class="info">
-If <code class="code">prf_tree</code> is a string conforming to the grammar specified below,
+<code class="code">prf_seq_of_string&nbsp;prf_tree</code> evaluates to <code class="code"><span class="constructor">Prf_seq</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;(<span class="constructor">List</span>.map&nbsp;string_of_token&nbsp;(lexer_of_string&nbsp;s)))</code>.
 </div>
 </td></tr>
 <tr><td><a href="IO.html#VALprint_to_file">print_to_file</a> [<a href="IO.html">IO</a>]</td>
@@ -199,6 +238,18 @@ If <code class="code">prf_tree</code> is a string conforming to the grammar spec
 <td></td></tr>
 <tr><td><a href="FML_main.html#VALstring_of_term">string_of_term</a> [<a href="FML_main.html">FML_main</a>]</td>
 <td></td></tr>
+<tr><td><a href="PRF_sequencer.html#VALstring_of_token">string_of_token</a> [<a href="PRF_sequencer.html">PRF_sequencer</a>]</td>
+<td><div class="info">
+<code class="code">string_of_token&nbsp;token</code> evaluates to
+<pre class="codepre"><code class="code">        <span class="keyword">match</span> token <span class="keyword">with</span>
+        <span class="keywordsign">|</span><span class="constructor">FML_LETTER</span> s <span class="keywordsign">-&gt;</span> s
+        <span class="keywordsign">|</span><span class="constructor">RULE_LETTER</span> s <span class="keywordsign">-&gt;</span> s
+        <span class="keywordsign">|</span><span class="constructor">HSEP</span> <span class="keywordsign">-&gt;</span> <span class="string">";"</span>
+        <span class="keywordsign">|</span><span class="constructor">RSEP</span> n <span class="keywordsign">-&gt;</span> <span class="string">"#"</span> ^ (string_of_int n)
+        <span class="keywordsign">|</span><span class="constructor">VSEP</span> <span class="keywordsign">-&gt;</span> <span class="string">":"</span>
+</code></pre>
+</div>
+</td></tr>
 <tr><td><a href="FML_main.html#VALstring_of_unop">string_of_unop</a> [<a href="FML_main.html">FML_main</a>]</td>
 <td></td></tr>
 <tr><td><a href="FML_main.html#VALstring_of_var">string_of_var</a> [<a href="FML_main.html">FML_main</a>]</td>
@@ -227,7 +278,10 @@ regardless of whether <code class="code">term</code> contains variables that bec
 <tr><td><a href="FML_lexer.html#VALtoken">token</a> [<a href="FML_lexer.html">FML_lexer</a>]</td>
 <td></td></tr>
 <tr><td><a href="PRF_main.html#VALtransform_prf">transform_prf</a> [<a href="PRF_main.html">PRF_main</a>]</td>
-<td></td></tr>
+<td><div class="info">
+<code class="code">transform_prf&nbsp;subst&nbsp;prf</code> evaluates to the result of applying the function <code class="code">subst&nbsp;:&nbsp;t_fml&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t_fml</code> to each formula in <code class="code">prf</code>.
+</div>
+</td></tr>
 <tr><td align="left"><div>U</div></td></tr>
 <tr><td><a href="FML_lexer.html#VALunnegate">unnegate</a> [<a href="FML_lexer.html">FML_lexer</a>]</td>
 <td><div class="info">

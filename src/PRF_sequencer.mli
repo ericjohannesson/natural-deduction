@@ -24,7 +24,6 @@
 For mapping two-dimensional natural deduction proof trees onto one-dimensional proof sequences of type {!type:PRF_sequencer.t_prf_seq}.
 *)
 
-type t_prf_seq = Prf_seq of string
 
 (** {2 Utf8-segmentation } *)
 
@@ -64,92 +63,50 @@ val default_automaton : t_automaton
 
 
 val lexer_of_matrix : ?print_trace : bool -> ?automaton:t_automaton -> string array array -> t_token list
+(**
+[lexer_of_matrix m] evaluates to [lexer_of_matrix ~print_trace:false ~automaton:default_automaton m].
+*)
 
 val lexer_of_string : ?print_trace : bool -> string -> t_token list
+(**
+[lexer_of_string s] evaluates to [lexer_of_matrix (matrix_of_string s)].
+*)
 
 val lexer_of_file : ?print_trace : bool -> string -> t_token list
+(**
+[lexer_of_file path] evaluates to [lexer_of_matrix (matrix_of_file path)].
+*)
+
+(** {2 Parser } *)
+
+type t_prf_seq = Prf_seq of string
+
+val string_of_token : t_token -> string
+(**
+[string_of_token token] evaluates to
+{[
+        match token with
+        |FML_LETTER s -> s
+        |RULE_LETTER s -> s
+        |HSEP -> ";"
+        |RSEP n -> "#" ^ (string_of_int n)
+        |VSEP -> ":"
+]}
+*)
 
 val prf_seq_of_string : ?print_trace : bool -> string -> t_prf_seq
 (**
+[prf_seq_of_string prf_tree] evaluates to [Prf_seq (String.concat "" (List.map string_of_token (lexer_of_string s)))].
 
-If [prf_tree] is a string conforming to the grammar specified below,
-
-then [prf_seq_of_string prf_tree] evaluates to [Prf_seq prf_seq],
-
-where [prf_seq] is a string conforming to the grammar also specified below.
-
-Otherwise evaluates to [prf_seq_of_string ~print_trace:true prf_tree].
+If [prf_tree] is a string conforming to the grammar roughly specified in {{:specs/grammar/prf_tree.txt}prf_tree.txt}, then [prf_seq_of_string prf_tree] evaluates to [Prf_seq prf_seq], where [prf_seq] is a string conforming to the grammar specified in {{:specs/grammar/prf_seq.txt}prf_seq.txt}, and otherwise to [prf_seq_of_string ~print_trace:true prf_tree].
 
 [prf_seq_of_string ~print_trace:true prf_tree] evaluates to the same thing, but prints the trace of {!val:default_automaton} to stderr, and raises exception [Automaton_error state] if [prf_tree] does not conform to the grammar.
-
-Roughly, [prf_tree] must conform to the following grammar:
-
-{v
-	prf_tree	 ::= atomic_prf_tree | nullary_prf_tree | unary_prf_tree | binary_prf_tree | trinary_prf_tree
-
-	atomic_prf_tree  ::= fml_raw
-
-	nullary_prf_tree ::= -------rule
-	                     fml_raw
-
-	                     prf_tree
-	unary_prf_tree   ::= --------rule
-	                     fml_raw
-
-	                     prf_tree sps prf_tree
-	binary_prf_tree  ::= ---------------------rule
-	                            fml_raw
-
-	                     prf_tree sps prf_tree sps prf_tree
-	trinary_prf_tree ::= ----------------------------------rule
-	                                  fml_raw
-
-	rule		 ::= [! '#' ';' ':' SPACE TAB NL]*
-
-        fml_raw          ::= word | word SPACE fml_raw
-
-        sps              ::= SPACE SPACE | sps SPACE
-
-        word             ::= [! '#' ';' ':' SPACE TAB NL]+
-v}
-
-The corresponding proof sequence [prf_seq] then conforms to the following grammar:
-
-{v
-
-        prf_seq          ::= atomic_prf_seq | nullary_prf_seq | unary_prf_seq | binary_prf_seq | trinary_prf_seq
-
-        atomic_prf_seq   ::= fml_raw
-
-        nullary_prf_seq  ::= rsep nullary_rule vsep fml_raw
-
-        unary_prf_seq    ::= prf_seq rsep unary_rule vsep fml_raw
-
-        binary_prf_seq   ::= prf_seq hsep prf_seq rsep binary_rule vsep fml_raw
-
-        trinary_prf_seq  ::= prf_seq hsep prf_seq hsep prf_seq rsep trinary_rule vsep fml_raw
-
-        rsep             ::= '#'
-
-        hsep             ::= ';'
-
-        vsep             ::= ':'
-
-        nullary_rule     ::= '0' rule
-
-        unary_rule       ::= '1' rule
-
-        binary_rule      ::= '2' rule
-
-        trinary_rule     ::= '3' rule
-v}
-
 *)
 
 val prf_seq_of_file : ?print_trace:bool -> string -> t_prf_seq
 (**
 
-Like {!val:prf_seq_of_string}, but reads from the file located at the provided path.
+Same as {!val:prf_seq_of_string}, but reads from the file located at the provided path.
 
 *)
 
