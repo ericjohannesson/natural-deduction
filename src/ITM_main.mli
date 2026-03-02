@@ -30,36 +30,7 @@ exception Parse_error of string
 
 val items_of_file : string -> ITM_types.t_itm list
 (**
-
-If [path] is the path of a file containing items conforming to the grammar specified below,
-
-then [items_of_file path] evaluates to a list of type {!type:ITM_types.t_itm}.
-
-Otherwise raises an exception.
-
-The content of the file must conform to the following grammar:
-
-{v
-        content := elements EOF | EOF
-
-        elements ::= element | element nls elements
-
-        element ::= itm | nls | comment
-
-        comment ::= '#' [! NL]* NL
-
-        nls ::= NL+
-
-	itm ::= prf_tree | def_prf | def_fml
-
-        def_prf ::= atomic_prf_tree def nls prf_tree
-
-        def_fml ::= fml def fml
-
-        def ::= ':='
-
-v}
-
+If [path] is the path of a file whose content conforms to the grammar specified in {{:specs/grammar/items.txt}items.txt}, then [items_of_file path] evaluates to a list of type {!type:ITM_types.t_itm}, and otherwise raises an exception.
 *)
 
 

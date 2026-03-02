@@ -40,7 +40,7 @@
 <pre><span id="MODULEMain"><span class="keyword">module</span> Main</span>: <code class="code"><span class="keyword">sig</span></code> <a href="Main.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
 <p>For validating natural deduction proofs in first-order { classical | intuitionistic | minimal } logic.
-For a specification of the proof system, see <a href="natural_deduction_rules.html">Natural deduction in classical first-order logic</a>.</p>
+For a specification of the proof system, see <a href="specs/logic/natural_deduction_rules.html">Natural deduction in classical first-order logic</a>.</p>
 </div>
 </div>
 <hr width="100%">
@@ -125,7 +125,7 @@ For a specification of the proof system, see <a href="natural_deduction_rules.ht
 <pre><span id="VALconclusion_of_prf"><span class="keyword">val</span> conclusion_of_prf</span> : <code class="type"><a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a></code></pre>
 <pre><span id="VALpremises_of_prf"><span class="keyword">val</span> premises_of_prf</span> : <code class="type"><a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> list -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> list</code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">premises_of_prf&nbsp;excluded&nbsp;prf</code> evaluates to a non-repeating list of all undsicharged assumptions of <code class="code">prf</code>, except for those in <code class="code">excluded</code>.</p>
+<p><code class="code">premises_of_prf&nbsp;excluded&nbsp;prf</code> evaluates to a non-repeating list of all undischarged assumptions of <code class="code">prf</code>, except for those in <code class="code">excluded</code>.</p>
 </div>
 </div>
 

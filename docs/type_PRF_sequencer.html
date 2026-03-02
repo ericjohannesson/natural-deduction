@@ -27,7 +27,6 @@
 </head>
 <body>
 <code class="code"><span class="keyword">sig</span><br>
-&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_prf_seq&nbsp;=&nbsp;<span class="constructor">Prf_seq</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_of_string&nbsp;:&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;array&nbsp;array<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;matrix_of_file&nbsp;:&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;array&nbsp;array<br>
 &nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_state&nbsp;=&nbsp;<span class="constructor">State</span>&nbsp;<span class="keyword">of</span>&nbsp;int<br>
@@ -60,6 +59,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;?print_trace:bool&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">PRF_sequencer</span>.t_token&nbsp;list<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;lexer_of_file&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;?print_trace:bool&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">PRF_sequencer</span>.t_token&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t_prf_seq&nbsp;=&nbsp;<span class="constructor">Prf_seq</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;string_of_token&nbsp;:&nbsp;<span class="constructor">PRF_sequencer</span>.t_token&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;prf_seq_of_string&nbsp;:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;?print_trace:bool&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">PRF_sequencer</span>.t_prf_seq<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;prf_seq_of_file&nbsp;:<br>
