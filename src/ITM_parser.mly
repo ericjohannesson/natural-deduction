@@ -35,7 +35,7 @@ let fml_of_string (s : string) =
 
 
 %token                                  EOF
-%token <string>                         FML PRF DEF
+%token <string>                         FML PRF DEF COMMENT
 
 %type <ITM_types.t_itm list> main
 %start main
@@ -56,6 +56,7 @@ item:
         |prf                                    { Prf $1 : t_itm }
         |def_fml                                { Def_fml $1 : t_itm }
         |def_prf                                { Def_prf $1 : t_itm }
+	|comment				{ Comment $1 : t_itm }
 ;
 
 def_fml:
@@ -77,3 +78,8 @@ fml:
 prf:
         |PRF                                    { prf_of_string $1 : t_prf }
 ;
+
+comment:
+	|COMMENT				{ $1 : string }
+;
+
