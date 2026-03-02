@@ -465,7 +465,7 @@ For installing the opam package manager, see https://opam.ocaml.org/
 
 Install required packages:
 ```bash
-opam install ocaml ocamlfind uuseg menhir
+opam install ocaml ocamlfind uuseg
 ```
 
 Build executable:
@@ -484,7 +484,7 @@ For installing the nix package manager, see https://nixos.org/
 
 Open a nix-shell with the required packages:
 ```bash
-nix-shell -p ocaml ocamlPackages.findlib ocamlPackages.uuseg ocamlPackages.menhir
+nix-shell -p ocaml ocamlPackages.findlib ocamlPackages.uuseg
 ```
 
 In that shell, build executable:
