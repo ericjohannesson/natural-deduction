@@ -745,7 +745,7 @@ let expand_and_validate_file ?(options = default_options) (path : string) : unit
                                 in
                                 String.concat "\n" [ITM_main.string_of_item (Def_prf (p, prf));report_string]
                 )
-                |Def_fml _ -> ITM_main.string_of_item item
+                |Def_fml _ | Comment _ -> ITM_main.string_of_item item
         in IO.print_to_stdout (String.concat "\n\n" (List.map map exp_items))
 
 

@@ -1,4 +1,4 @@
-version = "1.4"
+version = "1.5"
 description = "A basic proof assistant for natural deduction in first-order logic"
 requires = "uuseg"
 archive(byte) = "natural_deduction.cma"

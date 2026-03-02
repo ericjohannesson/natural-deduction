@@ -24,7 +24,7 @@
 Generated from ITM_parser.mly with ocamlyacc. *)
 
 
-type token = EOF | FML of string | PRF of string | DEF of string
+type token = EOF | FML of string | PRF of string | DEF of string | COMMENT of string
 
 val main :
       (Lexing.lexbuf -> token) ->

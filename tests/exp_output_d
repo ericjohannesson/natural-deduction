@@ -424,6 +424,8 @@ Proof :=
 # PROVES  ⊢ ∀x (∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(x,z)) → ∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(x',z))).
 
 examples/itm8
+# comment
+
 I(z) := T(0,z) ∧ ∀y (T(y,z) → T(y',z))
 
 P(x) := ∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(x,z))
@@ -450,6 +452,8 @@ Prf :=
 # Prf is VALID.
 # PROVES  ⊢ ∀x (∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(x,z)) → ∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(x',z))).
 
+
+# more comments
 examples/itm9
 Prf_1 :=
 

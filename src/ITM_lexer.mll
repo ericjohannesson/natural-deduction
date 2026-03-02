@@ -40,8 +40,7 @@ let prf_line = [^ '=' '\n' ':' '#']+ [^ '\n' ':' '#']* "\n"?
 let prf = prf_line+
 let nls = "\n"+
 let fml = [^ '=' '\n' ':' '#']+ [^ ':' '\n' '#']*
-(*let prf = [^ '=' '\n' ':' '#']+ [^ ':' '#']* *)
-let comment = "#" [^ '\n']* "\n"
+let comment = "#" [^ '\n']*
 let colon = ":"
 let eq = "="
 
@@ -50,6 +49,6 @@ rule token = parse
         |eq nls (prf as s) nls  { let _ : unit = new_lines s lexbuf in PRF s }
         |(fml as s) colon       { DEF s }
         |eq (fml as s)          { FML s }
-        |comment as s           { let _ : unit = new_lines s lexbuf in token lexbuf }
+        |comment as s           { let _ : unit = new_lines s lexbuf in COMMENT s }
         |nls as s               { let _ : unit = new_lines s lexbuf in token lexbuf }
         |eof                    { EOF }
