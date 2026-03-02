@@ -40,8 +40,7 @@ let prf_line = [^ '=' '\n' ':' '#']+ [^ '\n' ':' '#']* "\n"?
 let prf = prf_line+
 let nls = "\n"+
 let fml = [^ '=' '\n' ':' '#']+ [^ ':' '\n' '#']*
-(*let prf = [^ '=' '\n' ':' '#']+ [^ ':' '#']* *)
-let comment = "#" [^ '\n']* "\n"
+let comment = "#" [^ '\n']*
 let colon = ":"
 let eq = "="
 

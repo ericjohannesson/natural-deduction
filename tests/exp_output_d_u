@@ -425,7 +425,6 @@ Proof :=
 examples/itm8
 # comment
 
-
 I(z) := T(0,z) ∧ ∀y (T(y,z) → T(y',z))
 
 P(x) := ∀z ((T(0,z) ∧ ∀y (T(y,z) → T(y',z))) → T(x,z))
@@ -454,7 +453,6 @@ Prf :=
 
 
 # more comments
-
 examples/itm9
 Prf_1 :=
 
