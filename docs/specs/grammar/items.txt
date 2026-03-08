@@ -12,6 +12,6 @@ def_fml ::= fml def fml
 
 def ::= ':='
 
-comment ::= '#' [! NL]* NL
+comment ::= '#' [! NL]*
 
 nls ::= NL+
