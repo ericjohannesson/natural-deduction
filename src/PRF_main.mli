@@ -30,7 +30,7 @@ exception Parse_error of string
 
 val prf_raw_of_prf_seq : ?print_tokens:bool -> PRF_sequencer.t_prf_seq -> PRF_types.t_prf_raw
 (**
-[prf_raw_of_prf_seq (Prf_seq s)] evaluates (essentially) to {!val:PRF_parser.main} {!val:PRF_lexer.token} [(Lexing.from_string s)].
+[prf_raw_of_prf_seq (Prf_seq s)] evaluates (essentially) to {!val:PRF_parser.main}[ ]{!val:PRF_lexer.token}[ (Lexing.from_string s)].
 *)
 
 val prf_raw_of_string : ?print_trace:bool -> ?print_tokens:bool -> string -> PRF_types.t_prf_raw

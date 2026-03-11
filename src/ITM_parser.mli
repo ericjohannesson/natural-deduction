@@ -20,7 +20,7 @@
 (*                                                                           *)
 (*****************************************************************************)
 
-(** Parser for mapping files containing definitions and proofs to objects of type {!type:ITM_types.t_itm} [list].
+(** Parser for mapping files containing definitions and proofs to objects of type {!type:ITM_types.t_itm}[ list].
 Generated from ITM_parser.mly with ocamlyacc. *)
 
 
