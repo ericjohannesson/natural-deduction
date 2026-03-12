@@ -32,14 +32,14 @@
 <link title="Automaton " rel="Section" href="#2_Automaton">
 <link title="Lexer " rel="Section" href="#2_Lexer">
 <link title="Parser " rel="Section" href="#2_Parser">
-<title>PRF_sequencer</title>
+<title>Natural_deduction : PRF_sequencer</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="UTF8_segmenter.html" title="UTF8_segmenter">Previous</a>
 &nbsp;<a class="up" href="index.html" title="Index">Up</a>
 &nbsp;<a class="post" href="PRF_types.html" title="PRF_types">Next</a>
 </div>
-<h1>Module <a href="type_PRF_sequencer.html">PRF_sequencer</a></h1>
+<h1>Module <a href="type_PRF_sequencer.html">PRF_sequencer</a> (<a href="code_PRF_sequencer.html">.ml</a>)</h1>
 
 <pre><span id="MODULEPRF_sequencer"><span class="keyword">module</span> PRF_sequencer</span>: <code class="code"><span class="keyword">sig</span></code> <a href="PRF_sequencer.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
@@ -48,13 +48,13 @@
 </div>
 <hr width="100%">
 <h3 id="2_Utf8segmentation">Utf8-segmentation </h3>
-<pre><span id="VALmatrix_of_string"><span class="keyword">val</span> matrix_of_string</span> : <code class="type">string -&gt; string array array</code></pre><div class="info ">
+<pre><span id="VALmatrix_of_string"><span class="keyword">val</span> <a href="code_VALPRF_sequencer.matrix_of_string.html">matrix_of_string</a></span> : <code class="type">string -&gt; string array array</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">matrix_of_string&nbsp;s</code> forms rows by splitting <code class="code">s</code> on character <code class="code"><span class="string">'\n'</span></code>, forms columns by applying <a href="UTF8_segmenter.html#VALutf_8_grapheme_clusters"><code class="code"><span class="constructor">UTF8_segmenter</span>.utf_8_grapheme_clusters</code></a> to each row, and converts the result to arrays.</p>
 </div>
 </div>
 
-<pre><span id="VALmatrix_of_file"><span class="keyword">val</span> matrix_of_file</span> : <code class="type">string -&gt; string array array</code></pre><div class="info ">
+<pre><span id="VALmatrix_of_file"><span class="keyword">val</span> <a href="code_VALPRF_sequencer.matrix_of_file.html">matrix_of_file</a></span> : <code class="type">string -&gt; string array array</code></pre><div class="info ">
 <div class="info-desc">
 <p>Same as <code class="code">matrix_of_string</code>, but reads string from file located at the provided path.</p>
 </div>
@@ -215,20 +215,20 @@
 
 <pre><span id="EXCEPTIONAutomaton_error"><span class="keyword">exception</span> Automaton_error</span> <span class="keyword">of</span> <code class="type"><a href="PRF_sequencer.html#TYPEt_state">t_state</a></code></pre>
 
-<pre><span id="VALdefault_automaton"><span class="keyword">val</span> default_automaton</span> : <code class="type"><a href="PRF_sequencer.html#TYPEt_automaton">t_automaton</a></code></pre><h3 id="2_Lexer">Lexer </h3>
-<pre><span id="VALlexer_of_matrix"><span class="keyword">val</span> lexer_of_matrix</span> : <code class="type">?print_trace:bool -&gt;<br>       ?automaton:<a href="PRF_sequencer.html#TYPEt_automaton">t_automaton</a> -&gt;<br>       string array array -&gt; <a href="PRF_sequencer.html#TYPEt_token">t_token</a> list</code></pre><div class="info ">
+<pre><span id="VALdefault_automaton"><span class="keyword">val</span> <a href="code_VALPRF_sequencer.default_automaton.html">default_automaton</a></span> : <code class="type"><a href="PRF_sequencer.html#TYPEt_automaton">t_automaton</a></code></pre><h3 id="2_Lexer">Lexer </h3>
+<pre><span id="VALlexer_of_matrix"><span class="keyword">val</span> <a href="code_VALPRF_sequencer.lexer_of_matrix.html">lexer_of_matrix</a></span> : <code class="type">?print_trace:bool -&gt;<br>       ?automaton:<a href="PRF_sequencer.html#TYPEt_automaton">t_automaton</a> -&gt;<br>       string array array -&gt; <a href="PRF_sequencer.html#TYPEt_token">t_token</a> list</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">lexer_of_matrix&nbsp;m</code> evaluates to <code class="code">lexer_of_matrix&nbsp;~print_trace:<span class="keyword">false</span>&nbsp;~automaton:default_automaton&nbsp;m</code>.</p>
 </div>
 </div>
 
-<pre><span id="VALlexer_of_string"><span class="keyword">val</span> lexer_of_string</span> : <code class="type">?print_trace:bool -&gt; string -&gt; <a href="PRF_sequencer.html#TYPEt_token">t_token</a> list</code></pre><div class="info ">
+<pre><span id="VALlexer_of_string"><span class="keyword">val</span> <a href="code_VALPRF_sequencer.lexer_of_string.html">lexer_of_string</a></span> : <code class="type">?print_trace:bool -&gt; string -&gt; <a href="PRF_sequencer.html#TYPEt_token">t_token</a> list</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">lexer_of_string&nbsp;s</code> evaluates to <code class="code">lexer_of_matrix&nbsp;(matrix_of_string&nbsp;s)</code>.</p>
 </div>
 </div>
 
-<pre><span id="VALlexer_of_file"><span class="keyword">val</span> lexer_of_file</span> : <code class="type">?print_trace:bool -&gt; string -&gt; <a href="PRF_sequencer.html#TYPEt_token">t_token</a> list</code></pre><div class="info ">
+<pre><span id="VALlexer_of_file"><span class="keyword">val</span> <a href="code_VALPRF_sequencer.lexer_of_file.html">lexer_of_file</a></span> : <code class="type">?print_trace:bool -&gt; string -&gt; <a href="PRF_sequencer.html#TYPEt_token">t_token</a> list</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">lexer_of_file&nbsp;path</code> evaluates to <code class="code">lexer_of_matrix&nbsp;(matrix_of_file&nbsp;path)</code>.</p>
 </div>
@@ -245,7 +245,7 @@
 
 
 
-<pre><span id="VALstring_of_token"><span class="keyword">val</span> string_of_token</span> : <code class="type"><a href="PRF_sequencer.html#TYPEt_token">t_token</a> -&gt; string</code></pre><div class="info ">
+<pre><span id="VALstring_of_token"><span class="keyword">val</span> <a href="code_VALPRF_sequencer.string_of_token.html">string_of_token</a></span> : <code class="type"><a href="PRF_sequencer.html#TYPEt_token">t_token</a> -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">string_of_token&nbsp;token</code> evaluates to</p>
 <pre class="codepre"><code class="code">        <span class="keyword">match</span> token <span class="keyword">with</span>
@@ -257,7 +257,7 @@
 </code></pre></div>
 </div>
 
-<pre><span id="VALprf_seq_of_string"><span class="keyword">val</span> prf_seq_of_string</span> : <code class="type">?print_trace:bool -&gt; string -&gt; <a href="PRF_sequencer.html#TYPEt_prf_seq">t_prf_seq</a></code></pre><div class="info ">
+<pre><span id="VALprf_seq_of_string"><span class="keyword">val</span> <a href="code_VALPRF_sequencer.prf_seq_of_string.html">prf_seq_of_string</a></span> : <code class="type">?print_trace:bool -&gt; string -&gt; <a href="PRF_sequencer.html#TYPEt_prf_seq">t_prf_seq</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">prf_seq_of_string&nbsp;prf_tree</code> evaluates to <code class="code"><span class="constructor">Prf_seq</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;(<span class="constructor">List</span>.map&nbsp;string_of_token&nbsp;(lexer_of_string&nbsp;s)))</code>.</p>
 
@@ -267,7 +267,7 @@
 </div>
 </div>
 
-<pre><span id="VALprf_seq_of_file"><span class="keyword">val</span> prf_seq_of_file</span> : <code class="type">?print_trace:bool -&gt; string -&gt; <a href="PRF_sequencer.html#TYPEt_prf_seq">t_prf_seq</a></code></pre><div class="info ">
+<pre><span id="VALprf_seq_of_file"><span class="keyword">val</span> <a href="code_VALPRF_sequencer.prf_seq_of_file.html">prf_seq_of_file</a></span> : <code class="type">?print_trace:bool -&gt; string -&gt; <a href="PRF_sequencer.html#TYPEt_prf_seq">t_prf_seq</a></code></pre><div class="info ">
 <div class="info-desc">
 <p>Same as <a href="PRF_sequencer.html#VALprf_seq_of_string"><code class="code"><span class="constructor">PRF_sequencer</span>.prf_seq_of_string</code></a>, but reads from the file located at the provided path.</p>
 </div>

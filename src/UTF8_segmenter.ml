@@ -1,4 +1,4 @@
-(*****************************************************************************)
+(* ************************************************************************* *)
 (*                                                                           *)
 (*    natural-deduction: a basic proof assistant for natural deduction in    *)
 (*    first-order logic.                                                     *)
@@ -18,7 +18,7 @@
 (*    You should have received a copy of the GNU General Public License      *)
 (*    along with this program.  If not, see <https://www.gnu.org/licenses/>. *)
 (*                                                                           *)
-(*****************************************************************************)
+(* ************************************************************************* *)
 
 let utf_8_segments (boundary : Uuseg.boundary) (s : string) : string list =
         let flush_segment (buf : Buffer.t) (acc : string list) : string list =

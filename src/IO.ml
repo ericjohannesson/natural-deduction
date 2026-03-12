@@ -1,4 +1,4 @@
-(*****************************************************************************)
+(* ************************************************************************* *)
 (*                                                                           *)
 (*    natural-deduction: a basic proof assistant for natural deduction in    *)
 (*    first-order logic.                                                     *)
@@ -18,12 +18,12 @@
 (*    You should have received a copy of the GNU General Public License      *)
 (*    along with this program.  If not, see <https://www.gnu.org/licenses/>. *)
 (*                                                                           *)
-(*****************************************************************************)
+(* ************************************************************************* *)
 
-(** For handling input and output *)
+(* For handling input and output *)
 
 
-(** Input *)
+(* Input *)
 
 let string_of_file (path:string):string =
         let ic = open_in path in
@@ -34,7 +34,8 @@ let string_of_stdin () : string =
         In_channel.input_all stdin
 
 
-(** Output *)
+(* Output *)
+
 let print_to_file (s : string) (path : string) : unit =
         let oc = open_out path in
         let _ = output_string oc (s ^ "\n") in

@@ -1,4 +1,4 @@
-(*****************************************************************************)
+(* ************************************************************************* *)
 (*                                                                           *)
 (*    natural-deduction: a basic proof assistant for natural deduction in    *)
 (*    first-order logic.                                                     *)
@@ -18,9 +18,10 @@
 (*    You should have received a copy of the GNU General Public License      *)
 (*    along with this program.  If not, see <https://www.gnu.org/licenses/>. *)
 (*                                                                           *)
-(*****************************************************************************)
+(* ************************************************************************* *)
 
-(** Parser for mapping formula strings to objects of type {!type:FML_types.t_fml}. Generated from FML_parser.mly with ocamlyacc. *)
+(** Parser for mapping formula strings to objects of type {!type:FML_types.t_fml}.
+Generated from {{:specs/FML_parser.mly.txt}FML_parser.mly} with ocamlyacc. *)
 
 
 type token =

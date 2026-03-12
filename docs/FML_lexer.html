@@ -28,7 +28,7 @@
 <link title="ITM_lexer" rel="Chapter" href="ITM_lexer.html">
 <link title="ITM_main" rel="Chapter" href="ITM_main.html">
 <link title="Main" rel="Chapter" href="Main.html">
-<link title="Cli" rel="Chapter" href="Cli.html"><title>FML_lexer</title>
+<link title="Cli" rel="Chapter" href="Cli.html"><title>Natural_deduction : FML_lexer</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="FML_parser.html" title="FML_parser">Previous</a>
@@ -40,7 +40,7 @@
 <pre><span id="MODULEFML_lexer"><span class="keyword">module</span> FML_lexer</span>: <code class="code"><span class="keyword">sig</span></code> <a href="FML_lexer.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
 <p>Lexer for parsing formula strings.
-Generated from FML_lexer.mll with ocamllex.</p>
+Generated from <a href="specs/FML_lexer.mll.txt">FML_lexer.mll</a> with ocamllex.</p>
 </div>
 </div>
 <hr width="100%">
@@ -50,7 +50,7 @@ Generated from FML_lexer.mll with ocamllex.</p>
 <pre><span id="VALcanonical"><span class="keyword">val</span> canonical</span> : <code class="type">string -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
 <p>Maps common notational variants of logical and mathematical terms to
-their canonical counterparts, e.g. '&amp;' ↦ '∧' and '\forall' ↦ '∀', if they have one. Otherwise returns the same string.</p>
+their canonical counterparts, e.g. <code class="code"><span class="string">"&amp;"</span></code> to <code class="code"><span class="string">"∧"</span></code> and <code class="code"><span class="string">"\forall"</span></code> to <code class="code"><span class="string">"∀"</span></code>, if they have one. Otherwise returns the same string.</p>
 </div>
 </div>
 

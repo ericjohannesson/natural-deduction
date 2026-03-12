@@ -1,4 +1,4 @@
-(*****************************************************************************)
+(* ************************************************************************* *)
 (*                                                                           *)
 (*    natural-deduction: a basic proof assistant for natural deduction in    *)
 (*    first-order logic.                                                     *)
@@ -18,10 +18,10 @@
 (*    You should have received a copy of the GNU General Public License      *)
 (*    along with this program.  If not, see <https://www.gnu.org/licenses/>. *)
 (*                                                                           *)
-(*****************************************************************************)
+(* ************************************************************************* *)
 
 (** Lexer for parsing deinitions and proofs (items).
-Generated from ITM_lexer.mll with ocamllex. *)
+Generated from {{:specs/ITM_lexer.mll.txt}ITM_lexer.mll} with ocamllex. *)
 
 val line_of_lexbuf : Stdlib.Lexing.lexbuf -> int
 

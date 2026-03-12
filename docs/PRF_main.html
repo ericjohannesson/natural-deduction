@@ -31,14 +31,14 @@
 <link title="Cli" rel="Chapter" href="Cli.html"><link title="Parse " rel="Section" href="#2_Parse">
 <link title="Print " rel="Section" href="#2_Print">
 <link title="Manipulate " rel="Section" href="#2_Manipulate">
-<title>PRF_main</title>
+<title>Natural_deduction : PRF_main</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="PRF_lexer.html" title="PRF_lexer">Previous</a>
 &nbsp;<a class="up" href="index.html" title="Index">Up</a>
 &nbsp;<a class="post" href="ITM_types.html" title="ITM_types">Next</a>
 </div>
-<h1>Module <a href="type_PRF_main.html">PRF_main</a></h1>
+<h1>Module <a href="type_PRF_main.html">PRF_main</a> (<a href="code_PRF_main.html">.ml</a>)</h1>
 
 <pre><span id="MODULEPRF_main"><span class="keyword">module</span> PRF_main</span>: <code class="code"><span class="keyword">sig</span></code> <a href="PRF_main.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
@@ -51,31 +51,31 @@
 
 <pre><span id="EXCEPTIONParse_error"><span class="keyword">exception</span> Parse_error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
 <h3 id="2_Parse">Parse </h3>
-<pre><span id="VALprf_raw_of_prf_seq"><span class="keyword">val</span> prf_raw_of_prf_seq</span> : <code class="type">?print_tokens:bool -&gt; <a href="PRF_sequencer.html#TYPEt_prf_seq">PRF_sequencer.t_prf_seq</a> -&gt; <a href="PRF_types.html#TYPEt_prf_raw">PRF_types.t_prf_raw</a></code></pre><div class="info ">
+<pre><span id="VALprf_raw_of_prf_seq"><span class="keyword">val</span> <a href="code_VALPRF_main.prf_raw_of_prf_seq.html">prf_raw_of_prf_seq</a></span> : <code class="type">?print_tokens:bool -&gt; <a href="PRF_sequencer.html#TYPEt_prf_seq">PRF_sequencer.t_prf_seq</a> -&gt; <a href="PRF_types.html#TYPEt_prf_raw">PRF_types.t_prf_raw</a></code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">prf_raw_of_prf_seq&nbsp;(<span class="constructor">Prf_seq</span>&nbsp;s)</code> evaluates (essentially) to <a href="PRF_parser.html#VALmain"><code class="code"><span class="constructor">PRF_parser</span>.main</code></a> <a href="PRF_lexer.html#VALtoken"><code class="code"><span class="constructor">PRF_lexer</span>.token</code></a> <code class="code">(<span class="constructor">Lexing</span>.from_string&nbsp;s)</code>.</p>
+<p><code class="code">prf_raw_of_prf_seq&nbsp;(<span class="constructor">Prf_seq</span>&nbsp;s)</code> evaluates (essentially) to <a href="PRF_parser.html#VALmain"><code class="code"><span class="constructor">PRF_parser</span>.main</code></a><code class="code">&nbsp;</code><a href="PRF_lexer.html#VALtoken"><code class="code"><span class="constructor">PRF_lexer</span>.token</code></a><code class="code">&nbsp;(<span class="constructor">Lexing</span>.from_string&nbsp;s)</code>.</p>
 </div>
 </div>
 
-<pre><span id="VALprf_raw_of_string"><span class="keyword">val</span> prf_raw_of_string</span> : <code class="type">?print_trace:bool -&gt; ?print_tokens:bool -&gt; string -&gt; <a href="PRF_types.html#TYPEt_prf_raw">PRF_types.t_prf_raw</a></code></pre><div class="info ">
+<pre><span id="VALprf_raw_of_string"><span class="keyword">val</span> <a href="code_VALPRF_main.prf_raw_of_string.html">prf_raw_of_string</a></span> : <code class="type">?print_trace:bool -&gt; ?print_tokens:bool -&gt; string -&gt; <a href="PRF_types.html#TYPEt_prf_raw">PRF_types.t_prf_raw</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">prf_raw_of_string&nbsp;s</code> evaluates (essentially) to <code class="code">prf_raw_of_prf_seq&nbsp;(<span class="constructor">PRF_sequencer</span>.prf_seq_of_string&nbsp;s)</code>.</p>
 </div>
 </div>
 
-<pre><span id="VALprf_raw_of_file"><span class="keyword">val</span> prf_raw_of_file</span> : <code class="type">?print_trace:bool -&gt; ?print_tokens:bool -&gt; string -&gt; <a href="PRF_types.html#TYPEt_prf_raw">PRF_types.t_prf_raw</a></code></pre><div class="info ">
+<pre><span id="VALprf_raw_of_file"><span class="keyword">val</span> <a href="code_VALPRF_main.prf_raw_of_file.html">prf_raw_of_file</a></span> : <code class="type">?print_trace:bool -&gt; ?print_tokens:bool -&gt; string -&gt; <a href="PRF_types.html#TYPEt_prf_raw">PRF_types.t_prf_raw</a></code></pre><div class="info ">
 <div class="info-desc">
 <p>Same as <code class="code">prf_raw_of_string</code>, but reads from the file located at the given path.</p>
 </div>
 </div>
 
-<pre><span id="VALprf_raw_of_stdin"><span class="keyword">val</span> prf_raw_of_stdin</span> : <code class="type">?print_trace:bool -&gt; ?print_tokens:bool -&gt; unit -&gt; <a href="PRF_types.html#TYPEt_prf_raw">PRF_types.t_prf_raw</a></code></pre><div class="info ">
+<pre><span id="VALprf_raw_of_stdin"><span class="keyword">val</span> <a href="code_VALPRF_main.prf_raw_of_stdin.html">prf_raw_of_stdin</a></span> : <code class="type">?print_trace:bool -&gt; ?print_tokens:bool -&gt; unit -&gt; <a href="PRF_types.html#TYPEt_prf_raw">PRF_types.t_prf_raw</a></code></pre><div class="info ">
 <div class="info-desc">
 <p>Same as <code class="code">prf_raw_of_string</code>, but reads from <code class="code">stdin</code>.</p>
 </div>
 </div>
 
-<pre><span id="VALfml_of_fml_raw"><span class="keyword">val</span> fml_of_fml_raw</span> : <code class="type"><a href="PRF_types.html#TYPEt_fml_raw">PRF_types.t_fml_raw</a> -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a></code></pre><div class="info ">
+<pre><span id="VALfml_of_fml_raw"><span class="keyword">val</span> <a href="code_VALPRF_main.fml_of_fml_raw.html">fml_of_fml_raw</a></span> : <code class="type"><a href="PRF_types.html#TYPEt_fml_raw">PRF_types.t_fml_raw</a> -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">fml_of_fml_raw&nbsp;fml_raw</code> evaluates to</p>
 <pre class="codepre"><code class="code"><span class="keyword">match</span> fml_raw <span class="keyword">with</span>
@@ -83,39 +83,39 @@
 </code></pre></div>
 </div>
 
-<pre><span id="VALprf_of_prf_raw"><span class="keyword">val</span> prf_of_prf_raw</span> : <code class="type"><a href="PRF_types.html#TYPEt_prf_raw">PRF_types.t_prf_raw</a> -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a></code></pre><div class="info ">
+<pre><span id="VALprf_of_prf_raw"><span class="keyword">val</span> <a href="code_VALPRF_main.prf_of_prf_raw.html">prf_of_prf_raw</a></span> : <code class="type"><a href="PRF_types.html#TYPEt_prf_raw">PRF_types.t_prf_raw</a> -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">prf_of_prf_raw&nbsp;prf_raw</code> evaluates to the result of applying <code class="code">fml_of_fml_raw</code> to each formula in <code class="code">prf_raw</code>.</p>
 </div>
 </div>
 
-<pre><span id="VALprf_of_file"><span class="keyword">val</span> prf_of_file</span> : <code class="type">?print_trace:bool -&gt; ?print_tokens:bool -&gt; string -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a></code></pre><div class="info ">
+<pre><span id="VALprf_of_file"><span class="keyword">val</span> <a href="code_VALPRF_main.prf_of_file.html">prf_of_file</a></span> : <code class="type">?print_trace:bool -&gt; ?print_tokens:bool -&gt; string -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">prf_of_file&nbsp;path</code> evaluates to <code class="code">prf_of_prf_raw&nbsp;(prf_raw_of_file&nbsp;path)</code>.</p>
 </div>
 </div>
 
-<pre><span id="VALprf_of_string"><span class="keyword">val</span> prf_of_string</span> : <code class="type">?print_trace:bool -&gt; ?print_tokens:bool -&gt; string -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a></code></pre><div class="info ">
+<pre><span id="VALprf_of_string"><span class="keyword">val</span> <a href="code_VALPRF_main.prf_of_string.html">prf_of_string</a></span> : <code class="type">?print_trace:bool -&gt; ?print_tokens:bool -&gt; string -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">prf_of_string&nbsp;s</code> evaluates to <code class="code">prf_of_prf_raw&nbsp;(prf_raw_of_string&nbsp;s)</code>.</p>
 </div>
 </div>
 
-<pre><span id="VALprf_of_stdin"><span class="keyword">val</span> prf_of_stdin</span> : <code class="type">?print_trace:bool -&gt; ?print_tokens:bool -&gt; unit -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a></code></pre><div class="info ">
+<pre><span id="VALprf_of_stdin"><span class="keyword">val</span> <a href="code_VALPRF_main.prf_of_stdin.html">prf_of_stdin</a></span> : <code class="type">?print_trace:bool -&gt; ?print_tokens:bool -&gt; unit -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">prf_of_stdin&nbsp;()</code> evaluates to <code class="code">prf_of_prf_raw&nbsp;(prf_raw_of_stdin&nbsp;())</code>.</p>
 </div>
 </div>
 <h3 id="2_Print">Print </h3>
-<pre><span id="VALstring_of_prf_raw"><span class="keyword">val</span> string_of_prf_raw</span> : <code class="type"><a href="PRF_types.html#TYPEt_prf_raw">PRF_types.t_prf_raw</a> -&gt; string</code></pre>
-<pre><span id="VALstring_of_prf"><span class="keyword">val</span> string_of_prf</span> : <code class="type"><a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> -&gt; string</code></pre><h3 id="2_Manipulate">Manipulate </h3>
-<pre><span id="VALtransform_prf"><span class="keyword">val</span> transform_prf</span> : <code class="type">(<a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a>) -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a></code></pre><div class="info ">
+<pre><span id="VALstring_of_prf_raw"><span class="keyword">val</span> <a href="code_VALPRF_main.string_of_prf_raw.html">string_of_prf_raw</a></span> : <code class="type"><a href="PRF_types.html#TYPEt_prf_raw">PRF_types.t_prf_raw</a> -&gt; string</code></pre>
+<pre><span id="VALstring_of_prf"><span class="keyword">val</span> <a href="code_VALPRF_main.string_of_prf.html">string_of_prf</a></span> : <code class="type"><a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> -&gt; string</code></pre><h3 id="2_Manipulate">Manipulate </h3>
+<pre><span id="VALtransform_prf"><span class="keyword">val</span> <a href="code_VALPRF_main.transform_prf.html">transform_prf</a></span> : <code class="type">(<a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a>) -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">transform_prf&nbsp;subst&nbsp;prf</code> evaluates to the result of applying the function <code class="code">subst&nbsp;:&nbsp;t_fml&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t_fml</code> to each formula in <code class="code">prf</code>.</p>
 </div>
 </div>
 
-<pre><span id="VALsubst_in_prf"><span class="keyword">val</span> subst_in_prf</span> : <code class="type">(<a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a>) -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a></code></pre><div class="info ">
+<pre><span id="VALsubst_in_prf"><span class="keyword">val</span> <a href="code_VALPRF_main.subst_in_prf.html">subst_in_prf</a></span> : <code class="type">(<a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a>) -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a> -&gt; <a href="PRF_types.html#TYPEt_prf">PRF_types.t_prf</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">subst_in_prf&nbsp;subst&nbsp;prf</code> evaluates to the result of simultaneously replacing every atomic proof (undischarged assumption) in <code class="code">prf</code> with another proof according to the function <code class="code">subst&nbsp;:&nbsp;t_prf&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t_prf</code>.</p>
 </div>

@@ -1,4 +1,4 @@
-(*****************************************************************************)
+(* ************************************************************************* *)
 (*                                                                           *)
 (*    natural-deduction: a basic proof assistant for natural deduction in    *)
 (*    first-order logic.                                                     *)
@@ -18,10 +18,10 @@
 (*    You should have received a copy of the GNU General Public License      *)
 (*    along with this program.  If not, see <https://www.gnu.org/licenses/>. *)
 (*                                                                           *)
-(*****************************************************************************)
+(* ************************************************************************* *)
 
 (** Lexer for parsing objects of type {!type:PRF_sequencer.t_prf_seq}.
-Generated from PRF_lexer.mll with ocamllex. *)
+Generated from {{:specs/PRF_lexer.mll.txt}PRF_lexer.mll} with ocamllex. *)
 
 
 val token : Stdlib.Lexing.lexbuf -> PRF_parser.token

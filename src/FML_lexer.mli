@@ -1,4 +1,4 @@
-(*****************************************************************************)
+(* ************************************************************************* *)
 (*                                                                           *)
 (*    natural-deduction: a basic proof assistant for natural deduction in    *)
 (*    first-order logic.                                                     *)
@@ -18,17 +18,17 @@
 (*    You should have received a copy of the GNU General Public License      *)
 (*    along with this program.  If not, see <https://www.gnu.org/licenses/>. *)
 (*                                                                           *)
-(*****************************************************************************)
+(* ************************************************************************* *)
 
 (** Lexer for parsing formula strings.
-Generated from FML_lexer.mll with ocamllex. *)
+Generated from {{:specs/FML_lexer.mll.txt}FML_lexer.mll} with ocamllex. *)
 
 exception Cannot_unnegate of string
 
 val canonical : string -> string
 (**
 Maps common notational variants of logical and mathematical terms to
-their canonical counterparts, e.g. '&' ↦ '∧' and '\forall' ↦ '∀', if they have one. Otherwise returns the same string.
+their canonical counterparts, e.g. ["&"] to ["∧"] and ["\forall"] to ["∀"], if they have one. Otherwise returns the same string.
 *)
 
 val unnegate : string -> string

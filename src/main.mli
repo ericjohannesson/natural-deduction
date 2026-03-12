@@ -1,4 +1,4 @@
-(*****************************************************************************)
+(* ************************************************************************* *)
 (*                                                                           *)
 (*    natural-deduction: a basic proof assistant for natural deduction in    *)
 (*    first-order logic.                                                     *)
@@ -18,7 +18,7 @@
 (*    You should have received a copy of the GNU General Public License      *)
 (*    along with this program.  If not, see <https://www.gnu.org/licenses/>. *)
 (*                                                                           *)
-(*****************************************************************************)
+(* ************************************************************************* *)
 
 (** For validating natural deduction proofs in first-order \{ classical | intuitionistic | minimal \} logic.
 For a specification of the proof system, see {{:specs/logic/natural_deduction_rules.html}Natural deduction in classical first-order logic}. *)
@@ -68,11 +68,11 @@ If [options.quiet] evaluates to [true], then no proof is printed to [stdout] or 
 
 val validate_file : ?options:t_options -> string -> PRF_types.t_prf option
 (**
-[validate_file options path] evaluates to [validate_prf options (] {!val:PRF_main.prf_of_file} [path)].
+[validate_file options path] evaluates to [validate_prf options (]{!val:PRF_main.prf_of_file}[ path)].
 *)
 val validate_stdin : ?options:t_options -> unit -> PRF_types.t_prf option
 (**
-[validate_stdin options ()] evaluates to [validate_prf options (] {!val:PRF_main.prf_of_stdin} [())].
+[validate_stdin options ()] evaluates to [validate_prf options (]{!val:PRF_main.prf_of_stdin}[())].
 *)
 
 val expand_and_validate_file : ?options:t_options -> string -> unit

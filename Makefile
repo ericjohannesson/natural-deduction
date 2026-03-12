@@ -34,8 +34,14 @@ test: tests/test.bc tests/test.sh nd
 
 docs: src build_byte
 	cd build_byte
-	ocamlfind ocamldoc -colorize-code -d ../docs -package uuseg -html IO.mli FML_types.ml ../src/FML_parser.mli FML_lexer.mli FML_main.mli UTF8_segmenter.mli PRF_sequencer.mli PRF_types.ml ../src/PRF_parser.mli PRF_lexer.mli PRF_main.mli ITM_types.ml ../src/ITM_parser.mli ITM_lexer.mli ITM_main.mli main.mli cli.mli cli.ml
+	ocamlfind ocamldoc -t 'Natural_deduction' -keep-code -colorize-code -d ../docs -package uuseg -html IO.mli IO.ml FML_types.ml ../src/FML_parser.mli  FML_lexer.mli FML_main.mli FML_main.ml UTF8_segmenter.mli UTF8_segmenter.ml PRF_sequencer.mli PRF_sequencer.ml PRF_types.ml ../src/PRF_parser.mli PRF_lexer.mli PRF_main.mli PRF_main.ml ITM_types.ml ../src/ITM_parser.mli ITM_lexer.mli ITM_main.mli ITM_main.ml main.mli main.ml cli.mli cli.ml
 	cd -
+	cp src/FML_lexer.mll docs/specs/FML_lexer.mll.txt
+	cp src/FML_parser.mly docs/specs/FML_parser.mly.txt
+	cp src/PRF_lexer.mll docs/specs/PRF_lexer.mll.txt
+	cp src/PRF_parser.mly docs/specs/PRF_parser.mly.txt
+	cp src/ITM_lexer.mll docs/specs/ITM_lexer.mll.txt
+	cp src/ITM_parser.mly docs/specs/ITM_parser.mly.txt
 
 
 build_native: build_byte

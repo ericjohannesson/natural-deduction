@@ -1,4 +1,4 @@
-(*****************************************************************************)
+(* ************************************************************************* *)
 (*                                                                           *)
 (*    natural-deduction: a basic proof assistant for natural deduction in    *)
 (*    first-order logic.                                                     *)
@@ -18,7 +18,7 @@
 (*    You should have received a copy of the GNU General Public License      *)
 (*    along with this program.  If not, see <https://www.gnu.org/licenses/>. *)
 (*                                                                           *)
-(*****************************************************************************)
+(* ************************************************************************* *)
 
 (**
 The abstract type of definitions and proofs (items).
@@ -28,6 +28,6 @@ type t_itm =
         |Def_fml of (FML_types.t_fml * FML_types.t_fml)
         |Def_prf of (PRF_types.t_prf * PRF_types.t_prf)
         |Prf of PRF_types.t_prf
-	|Comment of string
+        |Comment of string
 
 

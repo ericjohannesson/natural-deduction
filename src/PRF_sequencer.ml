@@ -1,4 +1,4 @@
-(*****************************************************************************)
+(* ************************************************************************* *)
 (*                                                                           *)
 (*    natural-deduction: a basic proof assistant for natural deduction in    *)
 (*    first-order logic.                                                     *)
@@ -18,11 +18,11 @@
 (*    You should have received a copy of the GNU General Public License      *)
 (*    along with this program.  If not, see <https://www.gnu.org/licenses/>. *)
 (*                                                                           *)
-(*****************************************************************************)
+(* ************************************************************************* *)
 
 type t_prf_seq = Prf_seq of string
 
-(** Utf8-segmentation *)
+(* Utf8-segmentation *)
 
 let matrix_of_string (s : string) : string array array =
         let rows : string list = String.split_on_char '\n' s in
@@ -33,7 +33,7 @@ let matrix_of_string (s : string) : string array array =
 let matrix_of_file (path : string) : string array array =
         matrix_of_string (IO.string_of_file path)
 
-(** Automaton *)
+(* Automaton *)
 
 type t_state = State of int
 type t_symbol = Space | Dash | Letter of string | Out
@@ -339,7 +339,7 @@ let last_non_empty_row_of_matrix (matrix : string array array) : int option =
                 with _ -> None
         in aux ((Array.length matrix) - 1)
 
-(** Lexer *)
+(* Lexer *)
 
 let rec lexer_of_matrix ?(print_trace = false) ?(automaton = default_automaton) (matrix : string array array) : t_token list =
         let rec aux (acc : t_token list) (state : t_state) (row : int) (col : int) (stack : t_stack) =

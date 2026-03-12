@@ -1,4 +1,4 @@
-(*****************************************************************************)
+(* ************************************************************************* *)
 (*                                                                           *)
 (*    natural-deduction: a basic proof assistant for natural deduction in    *)
 (*    first-order logic.                                                     *)
@@ -18,13 +18,13 @@
 (*    You should have received a copy of the GNU General Public License      *)
 (*    along with this program.  If not, see <https://www.gnu.org/licenses/>. *)
 (*                                                                           *)
-(*****************************************************************************)
+(* ************************************************************************* *)
 
 open FML_types
 
 exception Parse_error of string
 
-(** Parse *)
+(* Parse *)
 
 let string_of_token (t:FML_parser.token) : string =
         match t with
@@ -79,7 +79,7 @@ let fml_list_of_file (path : string) : t_fml list =
                 |Parse_error e -> let _ : unit = IO.print_to_stderr e in acc
         in List.rev (aux [])
 
-(** Print *)
+(* Print *)
 
 let rec string_of_fml_rec (embedded: bool) (fml : t_fml) : string =
         match fml with
@@ -160,7 +160,7 @@ and string_of_fml (fml : t_fml) : string =
 and string_of_term (term : t_term) : string =
         string_of_term_rec false term
 
-(** Manipulate *)
+(* Manipulate *)
 
 let rec is_closed_term (term : t_term) : bool =
         match term with

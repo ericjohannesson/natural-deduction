@@ -31,14 +31,14 @@
 <link title="Cli" rel="Chapter" href="Cli.html"><link title="Parse " rel="Section" href="#2_Parse">
 <link title="Print " rel="Section" href="#2_Print">
 <link title="Expand " rel="Section" href="#2_Expand">
-<title>ITM_main</title>
+<title>Natural_deduction : ITM_main</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="ITM_lexer.html" title="ITM_lexer">Previous</a>
 &nbsp;<a class="up" href="index.html" title="Index">Up</a>
 &nbsp;<a class="post" href="Main.html" title="Main">Next</a>
 </div>
-<h1>Module <a href="type_ITM_main.html">ITM_main</a></h1>
+<h1>Module <a href="type_ITM_main.html">ITM_main</a> (<a href="code_ITM_main.html">.ml</a>)</h1>
 
 <pre><span id="MODULEITM_main"><span class="keyword">module</span> ITM_main</span>: <code class="code"><span class="keyword">sig</span></code> <a href="ITM_main.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
@@ -49,37 +49,38 @@
 <h3 id="2_Parse">Parse </h3>
 <pre><span id="EXCEPTIONParse_error"><span class="keyword">exception</span> Parse_error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
 
-<pre><span id="VALitems_of_file"><span class="keyword">val</span> items_of_file</span> : <code class="type">string -&gt; <a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> list</code></pre><div class="info ">
+<pre><span id="VALitems_of_file"><span class="keyword">val</span> <a href="code_VALITM_main.items_of_file.html">items_of_file</a></span> : <code class="type">string -&gt; <a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> list</code></pre><div class="info ">
 <div class="info-desc">
 <p>If <code class="code">path</code> is the path of a file whose content conforms to the grammar specified in <a href="specs/grammar/items.txt">items.txt</a>, then <code class="code">items_of_file&nbsp;path</code> evaluates to a list of type <a href="ITM_types.html#TYPEt_itm"><code class="code"><span class="constructor">ITM_types</span>.t_itm</code></a>, and otherwise raises an exception.</p>
 </div>
 </div>
 <h3 id="2_Print">Print </h3>
-<pre><span id="VALstring_of_item"><span class="keyword">val</span> string_of_item</span> : <code class="type"><a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> -&gt; string</code></pre>
-<pre><span id="VALstring_of_items"><span class="keyword">val</span> string_of_items</span> : <code class="type"><a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> list -&gt; string</code></pre><h3 id="2_Expand">Expand </h3>
+<pre><span id="VALstring_of_item"><span class="keyword">val</span> <a href="code_VALITM_main.string_of_item.html">string_of_item</a></span> : <code class="type"><a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> -&gt; string</code></pre>
+<pre><span id="VALstring_of_items"><span class="keyword">val</span> <a href="code_VALITM_main.string_of_items.html">string_of_items</a></span> : <code class="type"><a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> list -&gt; string</code></pre><h3 id="2_Expand">Expand </h3>
 <pre><span id="EXCEPTIONInvalid_definition"><span class="keyword">exception</span> Invalid_definition</span> <span class="keyword">of</span> <code class="type"><a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a></code></pre>
 
 <pre><span id="EXCEPTIONCannot_replace_var_with_term_containing_var_in_fml"><span class="keyword">exception</span> Cannot_replace_var_with_term_containing_var_in_fml</span> <span class="keyword">of</span> <code class="type"><a href="FML_types.html#TYPEt_var">FML_types.t_var</a> * <a href="FML_types.html#TYPEt_term">FML_types.t_term</a> * <a href="FML_types.html#TYPEt_var">FML_types.t_var</a> * <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a></code></pre>
 
-<pre><span id="VALsubst_free_vars_in_fml_with_terms"><span class="keyword">val</span> subst_free_vars_in_fml_with_terms</span> : <code class="type">(<a href="FML_types.html#TYPEt_var">FML_types.t_var</a> -&gt; <a href="FML_types.html#TYPEt_term">FML_types.t_term</a>) -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a></code></pre><div class="info ">
+<pre><span id="VALsubst_free_vars_in_fml_with_terms"><span class="keyword">val</span> <a href="code_VALITM_main.subst_free_vars_in_fml_with_terms.html">subst_free_vars_in_fml_with_terms</a></span> : <code class="type">(<a href="FML_types.html#TYPEt_var">FML_types.t_var</a> -&gt; <a href="FML_types.html#TYPEt_term">FML_types.t_term</a>) -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">subst_free_vars_in_fml_with_terms&nbsp;subst&nbsp;fml</code> evaluates to the result of simultaneously replacing every free variable in <code class="code">fml</code> with a term according to the function <code class="code">subst:&nbsp;t_var&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t_term</code>.</p>
 
-<p>Raises exception <code class="code"><span class="constructor">Cannot_replace_var_with_term_containing_var_in_fml</span>&nbsp;(var1,&nbsp;term,&nbsp;var2,&nbsp;fml)</code> if <code class="code">term</code> contains a variable <code class="code">var2</code> that will be bound if <code class="code">term</code> replaces <code class="code">var1</code>.</p>
+<p>Raises exception <code class="code"><span class="constructor">Cannot_replace_var_with_term_containing_var_in_fml</span>&nbsp;(var1,&nbsp;term,&nbsp;var2,&nbsp;fml)</code> if <code class="code">term</code> contains a variable <code class="code">var2</code> that will be bound if <code class="code">term</code> replaces <code class="code">var1</code> in <code class="code">fml</code>.</p>
 </div>
 </div>
 
-<pre><span id="VALexpand_items"><span class="keyword">val</span> expand_items</span> : <code class="type"><a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> list -&gt; <a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> list</code></pre><div class="info ">
+<pre><span id="VALexpand_items"><span class="keyword">val</span> <a href="code_VALITM_main.expand_items.html">expand_items</a></span> : <code class="type"><a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> list -&gt; <a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> list</code></pre><div class="info ">
 <div class="info-desc">
 <p>Recursively expands each item on a list according to the definitions preceding it (with the most immediate predecessors being applied first).</p>
 
 <p>For instance, if the head of the list is a definition, the last operation is to expand every element in the tail according to that definition.</p>
 
-<p>Raises <code class="code"><span class="constructor">Invalid_definition</span>&nbsp;item</code> if <code class="code">item</code> represents an invalid definition, e.g. 'P(x) := ∃yQ(y,z)'.</p>
-</div>
+<p>Raises <code class="code"><span class="constructor">Invalid_definition</span>&nbsp;item</code> if <code class="code">item</code> represents an invalid definition, e.g.</p>
+
+<pre class="verbatim">P(x) := ∃yQ(y,z)</pre></div>
 </div>
 
-<pre><span id="VALexpand_file"><span class="keyword">val</span> expand_file</span> : <code class="type">string -&gt; <a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> list</code></pre><div class="info ">
+<pre><span id="VALexpand_file"><span class="keyword">val</span> <a href="code_VALITM_main.expand_file.html">expand_file</a></span> : <code class="type">string -&gt; <a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> list</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">expand_file&nbsp;path</code> evaluates to <code class="code">expand_items&nbsp;(items_of_file&nbsp;path)</code>.</p>
 </div>
