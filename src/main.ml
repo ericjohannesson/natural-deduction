@@ -1,4 +1,4 @@
-(*****************************************************************************)
+(* ************************************************************************* *)
 (*                                                                           *)
 (*    natural-deduction: a basic proof assistant for natural deduction in    *)
 (*    first-order logic.                                                     *)
@@ -18,7 +18,7 @@
 (*    You should have received a copy of the GNU General Public License      *)
 (*    along with this program.  If not, see <https://www.gnu.org/licenses/>. *)
 (*                                                                           *)
-(*****************************************************************************)
+(* ************************************************************************* *)
 
 
 open FML_types
@@ -30,7 +30,7 @@ open PRF_main
 open ITM_types
 open ITM_main
 
-(** Validate *)
+(* Validate *)
 
 
 type t_logic = Classical | Intuitionistic | Minimal
@@ -626,7 +626,7 @@ let rec validate (options: t_options) (rule_count : int) (attempt : int) (discha
                 |_, _, _, _, _ -> validate options rule_count (attempt+1) dischargeable acc prf
 
 let string_of_premises (premises : t_fml list) : string =
-	String.concat ", " (List.map string_of_fml premises)
+        String.concat ", " (List.map string_of_fml premises)
 
 let turnstile_of_options (options : t_options) : string =
         match options.logic with
@@ -684,7 +684,7 @@ let validate_stdin ?(options = default_options) () : t_prf option =
         validate_prf ~options:options prf
 
 
-(** Expand and validate *)
+(* Expand and validate *)
 
 
 let expand_and_validate_file ?(options = default_options) (path : string) : unit =

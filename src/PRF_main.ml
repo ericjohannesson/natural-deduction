@@ -1,4 +1,4 @@
-(*****************************************************************************)
+(* ************************************************************************* *)
 (*                                                                           *)
 (*    natural-deduction: a basic proof assistant for natural deduction in    *)
 (*    first-order logic.                                                     *)
@@ -18,7 +18,7 @@
 (*    You should have received a copy of the GNU General Public License      *)
 (*    along with this program.  If not, see <https://www.gnu.org/licenses/>. *)
 (*                                                                           *)
-(*****************************************************************************)
+(* ************************************************************************* *)
 
 open FML_types
 open PRF_types
@@ -26,7 +26,7 @@ open PRF_types
 exception Error of string
 exception Parse_error of string
 
-(** Parse *)
+(* Parse *)
 
 let string_of_token (t : PRF_parser.token):string =
         match t with
@@ -113,7 +113,7 @@ let prf_of_stdin ?(print_trace = false) ?(print_tokens = false) () =
         prf_of_prf_raw (prf_raw_of_stdin ~print_trace:print_trace ~print_tokens:print_tokens ())
 
 
-(** Print *)
+(* Print *)
 
 
 let string_of_fml_raw (fml_raw : t_fml_raw) : string =
@@ -324,7 +324,7 @@ let string_of_prf (prf : t_prf) : string =
         string_of_prf_raw (prf_raw_of_prf prf)
 
 
-(** Manipulate *)
+(* Manipulate *)
 
 let rec transform_prf (f : t_fml -> t_fml) (prf : t_prf) : t_prf =
         match prf with

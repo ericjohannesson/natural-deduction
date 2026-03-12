@@ -1,6 +1,6 @@
 .keyword { font-weight : bold ; color : Red }
 .keywordsign { color : #C04600 }
-.comment { color : Green }
+.comment { color : Green; }
 .constructor { color : Blue }
 .type { color : #5C6585 }
 .string { color : Maroon }

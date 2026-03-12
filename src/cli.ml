@@ -1,4 +1,4 @@
-(*****************************************************************************)
+(* ************************************************************************* *)
 (*                                                                           *)
 (*    natural-deduction: a basic proof assistant for natural deduction in    *)
 (*    first-order logic.                                                     *)
@@ -18,7 +18,7 @@
 (*    You should have received a copy of the GNU General Public License      *)
 (*    along with this program.  If not, see <https://www.gnu.org/licenses/>. *)
 (*                                                                           *)
-(*****************************************************************************)
+(* ************************************************************************* *)
 
 let name () : string =
 "NAME:
@@ -72,7 +72,7 @@ let copyright () : string =
 
 let manual () : string =
         String.concat "\n\n" [
-		name ();
+                name ();
                 help_nd ();
                 help_options ();
                 copyright ();

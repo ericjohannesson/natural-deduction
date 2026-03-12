@@ -1,4 +1,4 @@
-(*****************************************************************************)
+(* ************************************************************************* *)
 (*                                                                           *)
 (*    natural-deduction: a basic proof assistant for natural deduction in    *)
 (*    first-order logic.                                                     *)
@@ -18,10 +18,10 @@
 (*    You should have received a copy of the GNU General Public License      *)
 (*    along with this program.  If not, see <https://www.gnu.org/licenses/>. *)
 (*                                                                           *)
-(*****************************************************************************)
+(* ************************************************************************* *)
 
 (** Parser for mapping files containing definitions and proofs to objects of type {!type:ITM_types.t_itm}[ list].
-Generated from ITM_parser.mly with ocamlyacc. *)
+Generated from {{:specs/ITM_parser.mly}ITM_parser.mly} with ocamlyacc. *)
 
 
 type token = EOF | FML of string | PRF of string | DEF of string | COMMENT of string

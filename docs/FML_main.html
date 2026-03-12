@@ -31,14 +31,14 @@
 <link title="Cli" rel="Chapter" href="Cli.html"><link title="Parse " rel="Section" href="#2_Parse">
 <link title="Print " rel="Section" href="#2_Print">
 <link title="Manipulate " rel="Section" href="#2_Manipulate">
-<title>FML_main</title>
+<title>Natural_deduction : FML_main</title>
 </head>
 <body>
 <div class="navbar"><a class="pre" href="FML_lexer.html" title="FML_lexer">Previous</a>
 &nbsp;<a class="up" href="index.html" title="Index">Up</a>
 &nbsp;<a class="post" href="UTF8_segmenter.html" title="UTF8_segmenter">Next</a>
 </div>
-<h1>Module <a href="type_FML_main.html">FML_main</a></h1>
+<h1>Module <a href="type_FML_main.html">FML_main</a> (<a href="code_FML_main.html">.ml</a>)</h1>
 
 <pre><span id="MODULEFML_main"><span class="keyword">module</span> FML_main</span>: <code class="code"><span class="keyword">sig</span></code> <a href="FML_main.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
@@ -49,44 +49,44 @@
 <h3 id="2_Parse">Parse </h3>
 <pre><span id="EXCEPTIONParse_error"><span class="keyword">exception</span> Parse_error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
 
-<pre><span id="VALfml_of_string"><span class="keyword">val</span> fml_of_string</span> : <code class="type">?print_tokens:bool -&gt; string -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a></code></pre><div class="info ">
+<pre><span id="VALfml_of_string"><span class="keyword">val</span> <a href="code_VALFML_main.fml_of_string.html">fml_of_string</a></span> : <code class="type">?print_tokens:bool -&gt; string -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">fml_of_string&nbsp;fml</code> evaluates to an object of type <code class="code"><span class="constructor">FML_types</span>.t_fml</code> if <code class="code">fml</code> conforms to the grammar specified in <a href="specs/grammar/fml.txt">fml.txt</a>, and raises exception <code class="code"><span class="constructor">Parse_error</span>&nbsp;fml</code> otherwise.</p>
 </div>
 </div>
 
-<pre><span id="VALfml_list_of_file"><span class="keyword">val</span> fml_list_of_file</span> : <code class="type">string -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> list</code></pre><div class="info ">
+<pre><span id="VALfml_list_of_file"><span class="keyword">val</span> <a href="code_VALFML_main.fml_list_of_file.html">fml_list_of_file</a></span> : <code class="type">string -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> list</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">fml_list_of_file&nbsp;path</code> applies <code class="code">fml_of_string</code> to each line of the file located at <code class="code">path</code>.</p>
 </div>
 </div>
 <h3 id="2_Print">Print </h3>
-<pre><span id="VALstring_of_binop"><span class="keyword">val</span> string_of_binop</span> : <code class="type"><a href="FML_types.html#TYPEt_binop">FML_types.t_binop</a> -&gt; string</code></pre>
-<pre><span id="VALstring_of_unop"><span class="keyword">val</span> string_of_unop</span> : <code class="type"><a href="FML_types.html#TYPEt_unop">FML_types.t_unop</a> -&gt; string</code></pre>
-<pre><span id="VALstring_of_quant"><span class="keyword">val</span> string_of_quant</span> : <code class="type"><a href="FML_types.html#TYPEt_quant">FML_types.t_quant</a> -&gt; string</code></pre>
-<pre><span id="VALstring_of_pred"><span class="keyword">val</span> string_of_pred</span> : <code class="type"><a href="FML_types.html#TYPEt_pred">FML_types.t_pred</a> -&gt; string</code></pre>
-<pre><span id="VALstring_of_var"><span class="keyword">val</span> string_of_var</span> : <code class="type"><a href="FML_types.html#TYPEt_var">FML_types.t_var</a> -&gt; string</code></pre>
-<pre><span id="VALstring_of_term"><span class="keyword">val</span> string_of_term</span> : <code class="type"><a href="FML_types.html#TYPEt_term">FML_types.t_term</a> -&gt; string</code></pre>
-<pre><span id="VALstring_of_fml"><span class="keyword">val</span> string_of_fml</span> : <code class="type"><a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; string</code></pre><h3 id="2_Manipulate">Manipulate </h3>
-<pre><span id="VALclosed_terms_of_fml"><span class="keyword">val</span> closed_terms_of_fml</span> : <code class="type"><a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; <a href="FML_types.html#TYPEt_term">FML_types.t_term</a> list</code></pre>
-<pre><span id="VALis_closed_term"><span class="keyword">val</span> is_closed_term</span> : <code class="type"><a href="FML_types.html#TYPEt_term">FML_types.t_term</a> -&gt; bool</code></pre>
-<pre><span id="VALfml_is_fml_with_var_replaced_by_term"><span class="keyword">val</span> fml_is_fml_with_var_replaced_by_term</span> : <code class="type"><a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt;<br>       <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; <a href="FML_types.html#TYPEt_var">FML_types.t_var</a> -&gt; <a href="FML_types.html#TYPEt_term">FML_types.t_term</a> option</code></pre><div class="info ">
+<pre><span id="VALstring_of_binop"><span class="keyword">val</span> <a href="code_VALFML_main.string_of_binop.html">string_of_binop</a></span> : <code class="type"><a href="FML_types.html#TYPEt_binop">FML_types.t_binop</a> -&gt; string</code></pre>
+<pre><span id="VALstring_of_unop"><span class="keyword">val</span> <a href="code_VALFML_main.string_of_unop.html">string_of_unop</a></span> : <code class="type"><a href="FML_types.html#TYPEt_unop">FML_types.t_unop</a> -&gt; string</code></pre>
+<pre><span id="VALstring_of_quant"><span class="keyword">val</span> <a href="code_VALFML_main.string_of_quant.html">string_of_quant</a></span> : <code class="type"><a href="FML_types.html#TYPEt_quant">FML_types.t_quant</a> -&gt; string</code></pre>
+<pre><span id="VALstring_of_pred"><span class="keyword">val</span> <a href="code_VALFML_main.string_of_pred.html">string_of_pred</a></span> : <code class="type"><a href="FML_types.html#TYPEt_pred">FML_types.t_pred</a> -&gt; string</code></pre>
+<pre><span id="VALstring_of_var"><span class="keyword">val</span> <a href="code_VALFML_main.string_of_var.html">string_of_var</a></span> : <code class="type"><a href="FML_types.html#TYPEt_var">FML_types.t_var</a> -&gt; string</code></pre>
+<pre><span id="VALstring_of_term"><span class="keyword">val</span> <a href="code_VALFML_main.string_of_term.html">string_of_term</a></span> : <code class="type"><a href="FML_types.html#TYPEt_term">FML_types.t_term</a> -&gt; string</code></pre>
+<pre><span id="VALstring_of_fml"><span class="keyword">val</span> <a href="code_VALFML_main.string_of_fml.html">string_of_fml</a></span> : <code class="type"><a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; string</code></pre><h3 id="2_Manipulate">Manipulate </h3>
+<pre><span id="VALclosed_terms_of_fml"><span class="keyword">val</span> <a href="code_VALFML_main.closed_terms_of_fml.html">closed_terms_of_fml</a></span> : <code class="type"><a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; <a href="FML_types.html#TYPEt_term">FML_types.t_term</a> list</code></pre>
+<pre><span id="VALis_closed_term"><span class="keyword">val</span> <a href="code_VALFML_main.is_closed_term.html">is_closed_term</a></span> : <code class="type"><a href="FML_types.html#TYPEt_term">FML_types.t_term</a> -&gt; bool</code></pre>
+<pre><span id="VALfml_is_fml_with_var_replaced_by_term"><span class="keyword">val</span> <a href="code_VALFML_main.fml_is_fml_with_var_replaced_by_term.html">fml_is_fml_with_var_replaced_by_term</a></span> : <code class="type"><a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt;<br>       <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; <a href="FML_types.html#TYPEt_var">FML_types.t_var</a> -&gt; <a href="FML_types.html#TYPEt_term">FML_types.t_term</a> option</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">fml_is_fml_with_var_replaced_by_term&nbsp;fml1&nbsp;fml2&nbsp;var</code> evaluates to <code class="code"><span class="constructor">Some</span>&nbsp;term</code>, if <code class="code">term</code> is the first element of <code class="code">closed_terms_of_fml&nbsp;fml1</code> such that <code class="code">fml1&nbsp;=&nbsp;subst_in_fml&nbsp;var&nbsp;term&nbsp;fml2</code> evaluates to <code class="code"><span class="keyword">true</span></code>, and to <code class="code"><span class="constructor">None</span></code> if no such element exists.</p>
 </div>
 </div>
 
-<pre><span id="VALsubst_in_fml"><span class="keyword">val</span> subst_in_fml</span> : <code class="type"><a href="FML_types.html#TYPEt_var">FML_types.t_var</a> -&gt; <a href="FML_types.html#TYPEt_term">FML_types.t_term</a> -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a></code></pre><div class="info ">
+<pre><span id="VALsubst_in_fml"><span class="keyword">val</span> <a href="code_VALFML_main.subst_in_fml.html">subst_in_fml</a></span> : <code class="type"><a href="FML_types.html#TYPEt_var">FML_types.t_var</a> -&gt; <a href="FML_types.html#TYPEt_term">FML_types.t_term</a> -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; <a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a></code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">subst_in_fml&nbsp;var&nbsp;term&nbsp;fml</code> evaluates to the result of replacing every free occurrence of <code class="code">var</code> in <code class="code">fml</code> with <code class="code">term</code>,
 regardless of whether <code class="code">term</code> contains variables that become bound.</p>
 </div>
 </div>
 
-<pre><span id="VALvars_of_terms"><span class="keyword">val</span> vars_of_terms</span> : <code class="type"><a href="FML_types.html#TYPEt_term">FML_types.t_term</a> list -&gt; <a href="FML_types.html#TYPEt_var">FML_types.t_var</a> list</code></pre><div class="info ">
+<pre><span id="VALvars_of_terms"><span class="keyword">val</span> <a href="code_VALFML_main.vars_of_terms.html">vars_of_terms</a></span> : <code class="type"><a href="FML_types.html#TYPEt_term">FML_types.t_term</a> list -&gt; <a href="FML_types.html#TYPEt_var">FML_types.t_var</a> list</code></pre><div class="info ">
 <div class="info-desc">
 <p>Recursively lists all variables occurring in a list of terms.</p>
 </div>
 </div>
 
-<pre><span id="VALfree_vars_of_fml"><span class="keyword">val</span> free_vars_of_fml</span> : <code class="type"><a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; <a href="FML_types.html#TYPEt_var">FML_types.t_var</a> list</code></pre></body></html>
+<pre><span id="VALfree_vars_of_fml"><span class="keyword">val</span> <a href="code_VALFML_main.free_vars_of_fml.html">free_vars_of_fml</a></span> : <code class="type"><a href="FML_types.html#TYPEt_fml">FML_types.t_fml</a> -&gt; <a href="FML_types.html#TYPEt_var">FML_types.t_var</a> list</code></pre></body></html>

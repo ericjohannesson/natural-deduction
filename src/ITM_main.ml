@@ -1,4 +1,4 @@
-(*****************************************************************************)
+(* ************************************************************************* *)
 (*                                                                           *)
 (*    natural-deduction: a basic proof assistant for natural deduction in    *)
 (*    first-order logic.                                                     *)
@@ -18,7 +18,7 @@
 (*    You should have received a copy of the GNU General Public License      *)
 (*    along with this program.  If not, see <https://www.gnu.org/licenses/>. *)
 (*                                                                           *)
-(*****************************************************************************)
+(* ************************************************************************* *)
 
 open FML_types
 open PRF_types
@@ -29,7 +29,7 @@ exception Invalid_definition of t_itm
 exception Cannot_replace_var_with_term_containing_var_in_fml of t_var * t_term * t_var * t_fml 
 
 
-(** Parse *)
+(* Parse *)
 
 
 let items_of_file (path : string) : t_itm list =
@@ -52,20 +52,20 @@ let items_of_file (path : string) : t_itm list =
 
         |_ -> raise (Parse_error (String.concat " " ["Parsing failed on line";string_of_int (ITM_lexer.line_of_lexbuf lexbuf);"of"; path]))
 
-(** Print *)
+(* Print *)
 
 let string_of_item (item : t_itm) : string =
         match item with
         |Prf prf -> PRF_main.string_of_prf prf
         |Def_fml (left, right) -> String.concat "" [FML_main.string_of_fml left;" := ";FML_main.string_of_fml right]
         |Def_prf (left, right) -> String.concat "" [PRF_main.string_of_prf left;" :=\n\n";PRF_main.string_of_prf right]
-	|Comment s -> s
+        |Comment s -> s
 
 let string_of_items (items : t_itm list) : string =
         String.concat "\n\n" (List.map string_of_item items)
 
 
-(** Validate *)
+(* Validate *)
 
 
 let rec has_duplicates (lst : 'a list) : bool =
@@ -98,13 +98,13 @@ let valid_def_fml (item : t_itm) : (t_pred * (t_var list) * t_fml) option =
                 |_ -> None
         )
         |Def_prf _ -> None
-	|Comment _ -> None
+        |Comment _ -> None
 
 let valid_def_prf (item : t_itm) : (t_prf * t_prf) option =
         match item with
         |Prf _ -> None
         |Def_fml _ -> None
-	|Comment _ -> None
+        |Comment _ -> None
         |Def_prf (prf1, prf2) ->
                 match prf1 with
                 |Atomic_prf _ -> Some (prf1, prf2)
@@ -125,10 +125,10 @@ let is_valid_item (item : t_itm) : bool =
                 |Some _ -> true
                 |None -> false
         )
-	|Comment _ -> true
+        |Comment _ -> true
 
 
-(** Expand *)
+(* Expand *)
 
 
 let rec subst_free_vars_in_fml_with_terms (subst : t_var -> t_term) (fml : t_fml) : t_fml =
@@ -193,7 +193,7 @@ let apply_item_to_item (item1 : t_itm) (item2 : t_itm) : t_itm =
                         |Prf prf -> Prf (PRF_main.transform_prf map prf)
                         |Def_fml (left2, right2) -> Def_fml (left2, map right2)
                         |Def_prf (left2, right2) -> Def_prf (left2, PRF_main.transform_prf map right2)
-			|Comment _ -> item2
+                        |Comment _ -> item2
                 )       
                 |None -> raise (Invalid_definition item1)
         )
@@ -211,7 +211,7 @@ let apply_item_to_item (item1 : t_itm) (item2 : t_itm) : t_itm =
                 )
                 |None -> raise (Invalid_definition item1)
         )
-	|Comment _ -> item2
+        |Comment _ -> item2
 
 
 let rec expand_items_rec (rev_items : t_itm list) (acc : t_itm list): t_itm list =
