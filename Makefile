@@ -7,17 +7,6 @@ clean:
 	# remove anything in .gitignore, including directories
 	git clean -fdX
 
-install: build src/nd.ml
-	ocamlfind install natural-deduction build/*
-	ocamlfind ocamlopt -o ~/.opam/default/bin/nd -linkpkg -package uuseg -package natural-deduction src/nd.ml
-
-build: build_native build_byte opam
-	mkdir -p build
-	cp build_native/natural_deduction.* build/
-	cp build_byte/natural_deduction.cma build/
-	cp opam/natural-deduction.opam build/opam
-	cp opam/META build/
-
 nd: build_native
 	mkdir -p build_nd
 	cp -f build_native/* build_nd/
@@ -86,6 +75,3 @@ tests/test.bc: build_byte
 	mv build_test/test.bc tests/
 
 
-
-utop: build_byte
-	utop -I $(realpath build_byte) $(realpath build_byte/natural_deduction.cmo)
