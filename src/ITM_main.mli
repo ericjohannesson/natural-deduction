@@ -51,7 +51,7 @@ val subst_free_vars_in_fml_with_terms : (FML_types.t_var -> FML_types.t_term) ->
 (**
 [subst_free_vars_in_fml_with_terms subst fml] evaluates to the result of simultaneously replacing every free variable in [fml] with a term according to the function [subst: t_var -> t_term].
 
-Raises exception [Cannot_replace_var_with_term_containing_var_in_fml (var1, term, var2, fml)] if [term] contains a variable [var2] that will be bound if [term] replaces [var1]. 
+Raises exception [Cannot_replace_var_with_term_containing_var_in_fml (var1, term, var2, fml)] if [term] contains a variable [var2] that will be bound if [term] replaces [var1] in [fml].
 *)
 
 val expand_items : ITM_types.t_itm list -> ITM_types.t_itm list
@@ -60,7 +60,9 @@ Recursively expands each item on a list according to the definitions preceding i
 
 For instance, if the head of the list is a definition, the last operation is to expand every element in the tail according to that definition.
 
-Raises [Invalid_definition item] if [item] represents an invalid definition, e.g. 'P(x) := ∃yQ(y,z)'.
+Raises [Invalid_definition item] if [item] represents an invalid definition, e.g. 
+
+{v P(x) := ∃yQ(y,z) v}
 *)
 
 val expand_file : string -> ITM_types.t_itm list

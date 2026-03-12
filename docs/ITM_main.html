@@ -65,7 +65,7 @@
 <div class="info-desc">
 <p><code class="code">subst_free_vars_in_fml_with_terms&nbsp;subst&nbsp;fml</code> evaluates to the result of simultaneously replacing every free variable in <code class="code">fml</code> with a term according to the function <code class="code">subst:&nbsp;t_var&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t_term</code>.</p>
 
-<p>Raises exception <code class="code"><span class="constructor">Cannot_replace_var_with_term_containing_var_in_fml</span>&nbsp;(var1,&nbsp;term,&nbsp;var2,&nbsp;fml)</code> if <code class="code">term</code> contains a variable <code class="code">var2</code> that will be bound if <code class="code">term</code> replaces <code class="code">var1</code>.</p>
+<p>Raises exception <code class="code"><span class="constructor">Cannot_replace_var_with_term_containing_var_in_fml</span>&nbsp;(var1,&nbsp;term,&nbsp;var2,&nbsp;fml)</code> if <code class="code">term</code> contains a variable <code class="code">var2</code> that will be bound if <code class="code">term</code> replaces <code class="code">var1</code> in <code class="code">fml</code>.</p>
 </div>
 </div>
 
@@ -75,8 +75,9 @@
 
 <p>For instance, if the head of the list is a definition, the last operation is to expand every element in the tail according to that definition.</p>
 
-<p>Raises <code class="code"><span class="constructor">Invalid_definition</span>&nbsp;item</code> if <code class="code">item</code> represents an invalid definition, e.g. 'P(x) := ∃yQ(y,z)'.</p>
-</div>
+<p>Raises <code class="code"><span class="constructor">Invalid_definition</span>&nbsp;item</code> if <code class="code">item</code> represents an invalid definition, e.g.</p>
+
+<pre class="verbatim">P(x) := ∃yQ(y,z)</pre></div>
 </div>
 
 <pre><span id="VALexpand_file"><span class="keyword">val</span> expand_file</span> : <code class="type">string -&gt; <a href="ITM_types.html#TYPEt_itm">ITM_types.t_itm</a> list</code></pre><div class="info ">

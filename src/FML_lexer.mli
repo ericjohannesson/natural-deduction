@@ -28,7 +28,7 @@ exception Cannot_unnegate of string
 val canonical : string -> string
 (**
 Maps common notational variants of logical and mathematical terms to
-their canonical counterparts, e.g. '&' ↦ '∧' and '\forall' ↦ '∀', if they have one. Otherwise returns the same string.
+their canonical counterparts, e.g. ["&"] to ["∧"] and ["\forall"] to ["∀"], if they have one. Otherwise returns the same string.
 *)
 
 val unnegate : string -> string
