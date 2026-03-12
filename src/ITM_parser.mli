@@ -21,7 +21,7 @@
 (* ************************************************************************* *)
 
 (** Parser for mapping files containing definitions and proofs to objects of type {!type:ITM_types.t_itm}[ list].
-Generated from {{:specs/ITM_parser.mly}ITM_parser.mly} with ocamlyacc. *)
+Generated from {{:specs/ITM_parser.mly.txt}ITM_parser.mly} with ocamlyacc. *)
 
 
 type token = EOF | FML of string | PRF of string | DEF of string | COMMENT of string

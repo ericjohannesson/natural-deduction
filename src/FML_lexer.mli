@@ -21,7 +21,7 @@
 (* ************************************************************************* *)
 
 (** Lexer for parsing formula strings.
-Generated from {{:specs/FML_lexer.mll}FML_lexer.mll} with ocamllex. *)
+Generated from {{:specs/FML_lexer.mll.txt}FML_lexer.mll} with ocamllex. *)
 
 exception Cannot_unnegate of string
 
