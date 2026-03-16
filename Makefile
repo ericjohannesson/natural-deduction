@@ -34,7 +34,7 @@ test: tests/test.bc tests/test.sh nd
 
 docs: src build_byte
 	cd build_byte
-	ocamlfind ocamldoc -t 'Natural_deduction' -keep-code -colorize-code -d ../docs -package uuseg -html IO.mli IO.ml FML_types.ml ../src/FML_parser.mli  FML_lexer.mli FML_main.mli FML_main.ml UTF8_segmenter.mli UTF8_segmenter.ml PRF_sequencer.mli PRF_sequencer.ml PRF_types.ml ../src/PRF_parser.mli PRF_lexer.mli PRF_main.mli PRF_main.ml ITM_types.ml ../src/ITM_parser.mli ITM_lexer.mli ITM_main.mli ITM_main.ml main.mli main.ml cli.mli cli.ml
+	ocamlfind ocamldoc -t 'Natural_deduction' -keep-code -colorize-code -d ../docs -package uuseg -html IO.mli IO.ml FML_types.ml FML_parser.mli  FML_lexer.mli FML_main.mli FML_main.ml UTF8_segmenter.mli UTF8_segmenter.ml PRF_sequencer.mli PRF_sequencer.ml PRF_types.ml PRF_parser.mli PRF_lexer.mli PRF_main.mli PRF_main.ml ITM_types.ml ITM_parser.mli ITM_lexer.mli ITM_main.mli ITM_main.ml main.mli main.ml cli.mli cli.ml
 	cd -
 	cp src/FML_lexer.mll docs/specs/FML_lexer.mll.txt
 	cp src/FML_parser.mly docs/specs/FML_parser.mly.txt
@@ -61,15 +61,21 @@ build_byte: src
 	cd build_byte
 	ocamlc -c FML_types.ml
 	ocamllex FML_lexer.mll
+	cp ../src/FML_lexer.mli .
 	ocamlyacc --strict FML_parser.mly
+	cp ../src/FML_parser.mli .
 	ocamlc -c FML_parser.mli
 	ocamlc -c PRF_types.ml
 	ocamllex PRF_lexer.mll
+	cp ../src/PRF_lexer.mli .
 	ocamlyacc --strict PRF_parser.mly
+	cp ../src/PRF_parser.mli .
 	ocamlc -c PRF_parser.mli
 	ocamlc -c ITM_types.ml
 	ocamllex ITM_lexer.mll
+	cp ../src/ITM_lexer.mli .
 	ocamlyacc --strict ITM_parser.mly
+	cp ../src/ITM_parser.mli .
 	ocamlc -c ITM_parser.mli
 	ocamlfind ocamlc -c -for-pack Natural_deduction -linkpkg -package uuseg IO.mli IO.ml FML_types.ml FML_parser.ml FML_lexer.mli FML_lexer.ml FML_main.mli FML_main.ml UTF8_segmenter.mli UTF8_segmenter.ml PRF_sequencer.mli PRF_sequencer.ml PRF_parser.ml PRF_lexer.mli PRF_lexer.ml PRF_main.mli PRF_main.ml ITM_types.ml ITM_parser.ml ITM_lexer.mli ITM_lexer.ml ITM_main.mli ITM_main.ml main.mli main.ml cli.mli cli.ml
 	ocamlfind ocamlc -pack -o natural_deduction.cmo -package uuseg IO.cmo FML_types.cmo FML_parser.cmo FML_lexer.cmo FML_main.cmo UTF8_segmenter.cmo PRF_sequencer.cmo PRF_types.cmo PRF_parser.cmo PRF_lexer.cmo PRF_main.cmo ITM_types.cmo ITM_parser.cmo ITM_lexer.cmo ITM_main.cmo main.cmo cli.cmo

@@ -27,6 +27,5 @@ Generated from {{:specs/ITM_parser.mly.txt}ITM_parser.mly} with ocamlyacc. *)
 type token = EOF | FML of string | PRF of string | DEF of string | COMMENT of string
 
 val main :
-      (Lexing.lexbuf -> token) ->
-      Lexing.lexbuf -> Natural_deduction.ITM_types.t_itm list
+      (Lexing.lexbuf -> token) -> Lexing.lexbuf -> ITM_types.t_itm list
 

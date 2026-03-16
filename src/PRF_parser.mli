@@ -25,7 +25,7 @@ Generated from {{:specs/PRF_parser.mly.txt}PRF_parser.mly} with ocamlyacc. *)
 
 
 type token =
-        SEP
+      | SEP
       | EOF
       | NULLARY_RULE of string
       | UNARY_RULE of string
@@ -34,6 +34,5 @@ type token =
       | FML of string
 
 val main :
-      (Lexing.lexbuf -> token) ->
-      Lexing.lexbuf -> Natural_deduction.PRF_types.t_prf_raw
+      (Lexing.lexbuf -> token) -> Lexing.lexbuf -> PRF_types.t_prf_raw
 
