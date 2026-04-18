@@ -13,6 +13,6 @@ depends : [
 	"uuseg"
 	"ocamlfind" { build }
 ]
-build: [ make "build" ]
-install: [ make "install" ]
+build: [ make "opam_package" ]
+install: [ make "install-opam_package" ]
 
