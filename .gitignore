@@ -1,4 +1,5 @@
-build*/
+native/
+byte/
 nd
 .direnv/
 result

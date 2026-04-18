@@ -25,7 +25,7 @@ Generated from {{:specs/FML_parser.mly.txt}FML_parser.mly} with ocamlyacc. *)
 
 
 type token =
-        VAR of string
+      | VAR of string
       | PREFIX_PRED of string
       | INFIX_PRED of string
       | NEG_INFIX_PRED of string
@@ -44,6 +44,5 @@ type token =
       | EOF
 
 val main :
-      (Lexing.lexbuf -> token) ->
-      Lexing.lexbuf -> Natural_deduction.FML_types.t_fml
+      (Lexing.lexbuf -> token) -> Lexing.lexbuf -> FML_types.t_fml
 
