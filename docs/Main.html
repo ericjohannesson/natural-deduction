@@ -157,7 +157,7 @@ For a specification of the proof system, see <a href="specs/logic/natural_deduct
 
 <pre><span id="VALexpand_and_validate_file"><span class="keyword">val</span> <a href="code_VALMain.expand_and_validate_file.html">expand_and_validate_file</a></span> : <code class="type">?options:<a href="Main.html#TYPEt_options">t_options</a> -&gt; string -&gt; unit</code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">expand_and_validate_file&nbsp;options&nbsp;path</code> applies <a href="ITM_main.html#VALexpand_file"><code class="code"><span class="constructor">ITM_main</span>.expand_file</code></a> to <code class="code">path</code> and checks validity of each expanded proof according to <code class="code">options</code>. Prints a report to <code class="code">stdout</code>.</p>
+<p><code class="code">expand_and_validate_file&nbsp;options&nbsp;path</code> applies <a href="ITM_main.html#VALexpand_file"><code class="code"><span class="constructor">ITM_main</span>.expand_file</code></a> to <code class="code">path</code> and applies <code class="code">validate_prf&nbsp;options</code> to each expanded proof. Prints a report to <code class="code">stdout</code>.</p>
 </div>
 </div>
 </body></html>
