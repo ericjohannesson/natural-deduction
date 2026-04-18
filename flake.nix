@@ -23,7 +23,7 @@
       ##   # TODO "x86_64-windows"
       ## ];
       systems = linux-systems ++ darwin-systems; ## TODO ++ windows-systems;
-      version = "0";
+      version = "1.5";
     in
       flake-utils.lib.eachSystem systems (system:
         let
@@ -44,6 +44,7 @@
             pkgs.ocaml
             pkgs.ocamlPackages.findlib
             pkgs.ocamlPackages.uuseg
+            pkgs.ocamlPackages.utop
           ];
         in {
           devShells.default = pkgs.mkShell {
@@ -59,8 +60,6 @@
           packages.default = pkgs.stdenv.mkDerivation {
             name        = "natural-deduction-${version}";
             buildInputs = (
-              [pkgs.makeWrapper]
-              ++
               pkgs_common
               ++
               pkgs_ocaml
@@ -68,10 +67,13 @@
             src          = ./.;
             buildPhase   = ''
               make nd
+              make opam_package
             '';
             installPhase = ''
               mkdir -p $out/bin
               cp nd $out/bin/
+              mkdir -p $OCAMLFIND_DESTDIR
+              make install-opam_package
             '';
           };
           apps.default = {

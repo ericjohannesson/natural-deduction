@@ -7,6 +7,17 @@ clean:
 	# remove anything in .gitignore, including directories
 	git clean -fdX
 
+install-opam_package: opam_package src/nd.ml
+	ocamlfind install natural-deduction opam_package/*
+#	ocamlfind ocamlopt -o ~/.opam/default/bin/nd -linkpkg -package uuseg -package natural-deduction src/nd.ml
+
+opam_package: native byte opam
+	mkdir -p opam_package
+	cp native/natural_deduction.* opam_package/
+	cp byte/natural_deduction.cma opam_package/
+	cp opam/natural-deduction.opam opam_package/opam
+	cp opam/META opam_package/
+
 install-nd: nd
 	cp nd ~/bin/
 
@@ -95,3 +106,5 @@ tests/test.bc: byte
 	cd -
 	mv byte/test.bc tests/
 
+utop: opam_package
+	utop -I $(realpath opam_package) $(realpath opam_package/natural_deduction.cma)
