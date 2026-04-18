@@ -18,6 +18,9 @@ opam_package: native byte opam
 	cp opam/natural-deduction.opam opam_package/opam
 	cp opam/META opam_package/
 
+install-nd: nd
+	cp nd ~/bin/
+
 nd: native
 	cd native
 	ocamlfind ocamlopt -o nd -linkpkg -package uuseg natural_deduction.cmx nd.ml
@@ -40,7 +43,6 @@ docs: src byte
 	cp src/PRF_parser.mly docs/specs/PRF_parser.mly.txt
 	cp src/ITM_lexer.mll docs/specs/ITM_lexer.mll.txt
 	cp src/ITM_parser.mly docs/specs/ITM_parser.mly.txt
-
 
 native: src
 	mkdir -p native
@@ -103,8 +105,6 @@ tests/test.bc: byte
 	ocamlfind ocamlc -o test.bc -linkpkg -package uuseg natural_deduction.cmo test.ml
 	cd -
 	mv byte/test.bc tests/
-
-
 
 utop: opam_package
 	utop -I $(realpath opam_package) $(realpath opam_package/natural_deduction.cma)
