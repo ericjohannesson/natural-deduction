@@ -19,6 +19,7 @@ opam_package: native byte opam
 	cp opam/META opam_package/
 
 install-nd: nd
+	mkdir -p ~/bin
 	cp nd ~/bin/
 
 nd: native
