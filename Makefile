@@ -1,4 +1,9 @@
+SHELL := bash
 .ONESHELL:
+.SHELLFLAGS := -eu -o pipefail -O globstar -c
+.DELETE_ON_ERROR:
+MAKEFLAGS += --warn-undefined-variables
+MAKEFLAGS += --no-builtin-rules
 
 default:
 	@echo 'no default target'
@@ -18,17 +23,14 @@ opam_package: native byte opam
 	cp opam/natural-deduction.opam opam_package/opam
 	cp opam/META opam_package/
 
-install-nd: nd
-	mkdir -p ~/bin
-	cp nd ~/bin/
 
-nd: native
+natural-deduction: native
 	cd native
-	ocamlfind ocamlopt -o nd -linkpkg -package uuseg natural_deduction.cmx nd.ml
+	ocamlfind ocamlopt -o natural-deduction -linkpkg -package uuseg natural_deduction.cmx nd.ml
 	cd -
-	mv native/nd .
+	mv native/natural-deduction .
 
-test: tests/test.bc tests/test.sh nd
+test: tests/test.bc tests/test.sh natural-deduction
 	cd tests
 	ocamlrun test.bc
 	bash test.sh
@@ -52,7 +54,7 @@ native: src
 	ocamlopt -c FML_types.ml
 	ocamllex FML_lexer.mll
 	cp ../src/FML_lexer.mli .
-	ocamlyacc --strict FML_parser.mly
+	ocamlyacc -v --strict FML_parser.mly
 	cp ../src/FML_parser.mli .
 	ocamlopt -c FML_parser.mli
 	ocamlopt -c PRF_types.ml
@@ -109,3 +111,8 @@ tests/test.bc: byte
 
 utop: opam_package
 	utop -I $(realpath opam_package) $(realpath opam_package/natural_deduction.cma)
+
+debian/packages: test
+	cd debian
+	make
+	cd -

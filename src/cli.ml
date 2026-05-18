@@ -20,20 +20,15 @@
 (*                                                                           *)
 (* ************************************************************************* *)
 
-let name () : string =
-"NAME:
-
-  nd - A basic proof assistant for natural deduction in first-order logic."
-
 let synopsis () : string=
-"SYNOPSIS:
-  nd [ <options> ] <path-to-file>
-  nd help"
+"USAGE:
+  natural-deduction [ <options> ] <path-to-file>
+  natural-deduction help"
 
 let help_nd () : string =
 "USAGE:
 
-  nd [ <options> ] <path-to-file>
+  natural-deduction [ <options> ] <path-to-file>
 
         Expands proofs in file according to definitions in file and checks
         validity of each expanded proof according to options.
@@ -72,7 +67,6 @@ let copyright () : string =
 
 let manual () : string =
         String.concat "\n\n" [
-                name ();
                 help_nd ();
                 help_options ();
                 copyright ();

@@ -20,21 +20,21 @@
 #                                                                           #
 #***************************************************************************#
 
-for file in $(ls examples/*); do echo $file; ../nd $file; done 1> output 2> /dev/null
+for file in $(ls examples/*); do echo $file; ../natural-deduction $file; done 1> output 2> /dev/null
 
 diff --color exp_output output
 
-for file in $(ls examples/*); do echo $file; ../nd -d $file; done 1> output_d 2> /dev/null
+for file in $(ls examples/*); do echo $file; ../natural-deduction -d $file; done 1> output_d 2> /dev/null
 
 diff --color exp_output_d output_d
 
 
-for file in $(ls examples/*); do echo $file; ../nd -u $file; done 1> output_u 2> /dev/null
+for file in $(ls examples/*); do echo $file; ../natural-deduction -u $file; done 1> output_u 2> /dev/null
 
 diff --color exp_output_u output_u
 
 
-for file in $(ls examples/*); do echo $file; ../nd -d -u $file; done 1> output_d_u 2> /dev/null
+for file in $(ls examples/*); do echo $file; ../natural-deduction -d -u $file; done 1> output_d_u 2> /dev/null
 
 diff --color exp_output_d_u output_d_u
 

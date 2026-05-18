@@ -7,7 +7,7 @@ A basic proof assistant for natural deduction in first-order logic.
 ```
 USAGE:
 
-  nd [ <options> ] <path-to-file>
+  natural-deduction [ <options> ] <path-to-file>
 
         Expands proofs in file according to definitions in file and checks
         validity of each expanded proof according to options.
@@ -69,7 +69,7 @@ P \lor \neg P      \neg (P \lor \neg P)
 <summary>output</summary>
 
 ```
-$ nd examples/prop.txt
+$ natural-deduction examples/prop.txt
 
 -----1                                      
   P                                         
@@ -112,7 +112,7 @@ $ cat examples/pred.txt
 <summary>output</summary>
 
 ```
-$ nd examples/pred.txt
+$ natural-deduction examples/pred.txt
 
 ∀x (P(x) → Q(x))                             
 ----------------∀E    ----0                  
@@ -152,7 +152,7 @@ $ cat examples/peano.txt
 <summary>output</summary>
 
 ```
-$ nd examples/peano.txt
+$ natural-deduction examples/peano.txt
 
                   ∀x ∀y x + y' = (x + y)'      
                   -----------------------∀E    
@@ -205,7 +205,7 @@ P(a) → P(a')
 <summary>output</summary>
 
 ```
-$ nd examples/ind.txt
+$ natural-deduction examples/ind.txt
 
 I(z) := T(0,z) ∧ ∀y (T(y,z) → T(y',z))
 
@@ -265,7 +265,7 @@ Sub   \exists x P(x)
 <summary>output</summary>
 
 ```
-$ nd examples/discharge.txt
+$ natural-deduction examples/discharge.txt
 
 Sub :=
 
@@ -326,7 +326,7 @@ Sub   \exists x P(x)
 <summary>output with option -d</summary>
 
 ```
-$ nd -d examples/discharge.txt
+$ natural-deduction -d examples/discharge.txt
 
 Sub :=
 
@@ -387,7 +387,7 @@ Sub    \exists x P(x)
 <summary>output</summary>
 
 ```
-$ nd examples/undischarge.txt
+$ natural-deduction examples/undischarge.txt
 
 Sub :=
 
@@ -422,7 +422,7 @@ Sub :=
 <summary>output with option -u</summary>
 
 ```
-$ nd -u examples/undischarge.txt
+$ natural-deduction -u examples/undischarge.txt
 
 Sub :=
 
@@ -470,7 +470,7 @@ opam install ocaml ocamlfind uuseg
 
 Build executable:
 ```bash
-make nd
+make natural-deduction
 ```
 
 Install natural-deduction as a local opam package:
