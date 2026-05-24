@@ -5,6 +5,8 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
+.PHONY: default clean test utop install-opam_package
+
 default:
 	@echo 'no default target'
 
