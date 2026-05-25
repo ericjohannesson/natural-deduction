@@ -259,7 +259,7 @@ Identity rules
 For every formula φ, closed term s and t, set of formulas Γ and Δ, and for every
 proof A and B:
 
-[=I]	ITM:=I
+[=I]	ITM:idI
 	By the rule of identity introduction,
 
 		⌜        ⌝
@@ -269,7 +269,7 @@ proof A and B:
 
 	proves Γ ⊢ t = t.
 
-[=E]	ITM:=E
+[=E]	ITM:idE
 	If A proves Γ ⊢ s = t, B proves Δ ⊢ φ,
 	and φ(s/t) is the result of replacing zero or some
 	occurrences of t in φ with s, then
