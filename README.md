@@ -489,7 +489,7 @@ nix-shell -p ocaml ocamlPackages.findlib ocamlPackages.uuseg
 
 In that shell, build executable:
 ```bash
-make nd
+make natural-deduction
 ```
 
 ## Documentation
