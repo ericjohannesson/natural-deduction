@@ -15,7 +15,7 @@ clean:
 package = natural-deduction
 version = 1.6
 release = 1
-architecture = amd64
+architecture = $(shell bash get-architecture.sh)
 maintainer = Eric Johannesson <eric@ericjohannesson.com>
 homepage = https://github.com/ericjohannesson/natural-deduction
 description = A basic proof assistant for natural deduction in first-order logic
