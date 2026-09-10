@@ -14,11 +14,9 @@ clean:
 	# remove anything in .gitignore, including directories
 	git clean -fdX
 
-opam_switch = $(shell opam switch show)
-
 install-opam_package: opam_package
 	ocamlfind install natural-deduction opam_package/*
-	ocamlfind ocamlopt -o ~/.opam/${opam_switch}/bin/natural-deduction -linkpkg -package uuseg -package natural-deduction src/nd.ml
+	ocamlfind ocamlopt -o $(shell opam var bin)/natural-deduction -linkpkg -package uuseg -package natural-deduction src/nd.ml
 
 opam_package: native byte opam
 	mkdir -p opam_package
