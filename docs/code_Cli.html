@@ -48,20 +48,15 @@
 <span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
 <span class="comment">(*&nbsp;*************************************************************************&nbsp;*)</span><br>
 <br>
-<span class="keyword">let</span>&nbsp;name&nbsp;()&nbsp;:&nbsp;string&nbsp;=<br>
-<span class="string">"NAME:<br>
-<br>
-&nbsp;&nbsp;nd&nbsp;-&nbsp;A&nbsp;basic&nbsp;proof&nbsp;assistant&nbsp;for&nbsp;natural&nbsp;deduction&nbsp;in&nbsp;first-order&nbsp;logic."</span><br>
-<br>
 <span class="keyword">let</span>&nbsp;synopsis&nbsp;()&nbsp;:&nbsp;string=<br>
-<span class="string">"SYNOPSIS:<br>
-&nbsp;&nbsp;nd&nbsp;[&nbsp;&lt;options&gt;&nbsp;]&nbsp;&lt;path-to-file&gt;<br>
-&nbsp;&nbsp;nd&nbsp;help"</span><br>
+<span class="string">"USAGE:<br>
+&nbsp;&nbsp;natural-deduction&nbsp;[&nbsp;&lt;options&gt;&nbsp;]&nbsp;&lt;path-to-file&gt;<br>
+&nbsp;&nbsp;natural-deduction&nbsp;help"</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;help_nd&nbsp;()&nbsp;:&nbsp;string&nbsp;=<br>
 <span class="string">"USAGE:<br>
 <br>
-&nbsp;&nbsp;nd&nbsp;[&nbsp;&lt;options&gt;&nbsp;]&nbsp;&lt;path-to-file&gt;<br>
+&nbsp;&nbsp;natural-deduction&nbsp;[&nbsp;&lt;options&gt;&nbsp;]&nbsp;&lt;path-to-file&gt;<br>
 <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Expands&nbsp;proofs&nbsp;in&nbsp;file&nbsp;according&nbsp;to&nbsp;definitions&nbsp;in&nbsp;file&nbsp;and&nbsp;checks<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;validity&nbsp;of&nbsp;each&nbsp;expanded&nbsp;proof&nbsp;according&nbsp;to&nbsp;options.<br>
@@ -100,7 +95,6 @@
 <br>
 <span class="keyword">let</span>&nbsp;manual&nbsp;()&nbsp;:&nbsp;string&nbsp;=<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">String</span>.concat&nbsp;<span class="string">"\n\n"</span>&nbsp;[<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;();<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;help_nd&nbsp;();<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;help_options&nbsp;();<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copyright&nbsp;();<br>

@@ -5,7 +5,7 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
-.PHONY: default clean test utop install-opam_package
+.PHONY: default clean test utop install-opam_package clean-docs
 
 default:
 	@echo 'no default target'
@@ -118,3 +118,6 @@ debian/packages: test
 	cd debian
 	make
 	cd -
+
+clean-docs:
+	rm docs/*.html
