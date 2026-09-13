@@ -3,3 +3,4 @@ byte/
 opam_package/
 natural-deduction
 .direnv/
+result
