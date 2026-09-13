@@ -114,7 +114,7 @@ tests/test.bc: byte
 utop: opam_package
 	utop -I $(realpath opam_package) $(realpath opam_package/natural_deduction.cma)
 
-debian/packages: test
+debian/packages: natural-deduction
 	cd debian
 	make
 	cd -
