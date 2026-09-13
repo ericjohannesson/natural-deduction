@@ -13,8 +13,8 @@ clean:
 	git clean -fdX
 
 package = natural-deduction
-version = 1.6
-release = 1
+version = 0
+release = 0
 architecture = $(shell bash get-architecture.sh)
 maintainer = Eric Johannesson <eric@ericjohannesson.com>
 homepage = https://github.com/ericjohannesson/natural-deduction
