@@ -4,9 +4,9 @@ pkgs.stdenv.mkDerivation {
   version = "0";
   src = ./.;
   buildInputs = with pkgs; [
-      ocaml
-      ocamlPackages.findlib
-      ocamlPackages.uuseg
+    ocaml
+    ocamlPackages.findlib
+    ocamlPackages.uuseg
   ];
   buildPhase = ''
     make natural-deduction
