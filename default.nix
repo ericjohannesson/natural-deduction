@@ -1,6 +1,6 @@
 { pkgs ? import <nixpkgs> {} }:
 pkgs.stdenv.mkDerivation {
-  name = "natural-deduction";
+  pname = "natural-deduction";
   version = "0";
   src = ./.;
   buildInputs = with pkgs; [
