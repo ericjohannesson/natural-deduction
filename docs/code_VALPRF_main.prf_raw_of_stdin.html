@@ -26,5 +26,6 @@
 <link title="Cli" rel="Chapter" href="Cli.html"><title>Natural_deduction : PRF_main.prf_raw_of_stdin</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> prf_raw_of_stdin ?(print_trace = <span class="keyword">false</span>) ?(print_tokens = <span class="keyword">false</span>) () : t_prf_raw =
-        prf_raw_of_string ~print_trace:print_trace ~print_tokens:print_tokens (<span class="constructor">IO</span>.string_of_stdin ())</code></body></html>
+<code class="code"><span class="keyword">let</span> prf_raw_of_stdin ?(print_trace = <span class="keyword">false</span>) ?(print_tokens = <span class="keyword">false</span>) () :
+    t_prf_raw =
+  prf_raw_of_string ~print_trace ~print_tokens (<span class="constructor">IO</span>.string_of_stdin ())</code></body></html>

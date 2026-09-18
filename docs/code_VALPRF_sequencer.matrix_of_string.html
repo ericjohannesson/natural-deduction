@@ -27,7 +27,9 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> matrix_of_string (s : string) : string array array =
-        <span class="keyword">let</span> rows : string list = <span class="constructor">String</span>.split_on_char <span class="string">'\n'</span> s <span class="keyword">in</span>
-        <span class="keyword">let</span> utf8_rows : string list list = <span class="constructor">List</span>.map <span class="constructor">UTF8_segmenter</span>.utf_8_grapheme_clusters rows <span class="keyword">in</span>
-        <span class="keyword">let</span> utf8_arrays : string array list = <span class="constructor">List</span>.map <span class="constructor">Array</span>.of_list utf8_rows <span class="keyword">in</span>
-        <span class="constructor">Array</span>.init (<span class="constructor">List</span>.length utf8_arrays) (<span class="constructor">List</span>.nth utf8_arrays)</code></body></html>
+  <span class="keyword">let</span> rows : string list = <span class="constructor">String</span>.split_on_char <span class="string">'\n'</span> s <span class="keyword">in</span>
+  <span class="keyword">let</span> utf8_rows : string list list =
+    <span class="constructor">List</span>.map <span class="constructor">UTF8_segmenter</span>.utf_8_grapheme_clusters rows
+  <span class="keyword">in</span>
+  <span class="keyword">let</span> utf8_arrays : string array list = <span class="constructor">List</span>.map <span class="constructor">Array</span>.of_list utf8_rows <span class="keyword">in</span>
+  <span class="constructor">Array</span>.init (<span class="constructor">List</span>.length utf8_arrays) (<span class="constructor">List</span>.nth utf8_arrays)</code></body></html>

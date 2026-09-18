@@ -26,28 +26,28 @@ open FML_parser
 exception Cannot_unnegate of string
 
 let canonical (s : string) : string =
-        match s with
-        |"\\forall" | "\\A" | "∀" -> "∀"
-        |"\\exists" | "\\E" | "∃" -> "∃"
-        |"\\neg" | "~" | "¬" -> "¬"
-        |"\\land" | "\\wedge" | "&" | "∧" -> "∧"
-        |"\\lor" | "\\vee" | "∨" -> "∨"
-        |"\\to" | "\\rightarrow" | "->" | "→" -> "→"
-        |"\\leftrightarrow" | "<->" | "↔" -> "↔"
-        |"\\in" | "∈" -> "∈"
-        |"\\subset" | "⊂" -> "⊂"
-        |"\\subseteq" | "⊆" -> "⊆"
-        |"\\times" | "×" -> "×"
-        |"\\cdot" | "·" -> "·"
-        |"\\cap" | "∩" -> "∩"
-        |"\\cup" | "∪" -> "∪"
-        |_ -> s
+  match s with
+  |"\\forall" | "\\A" | "∀" -> "∀"
+  |"\\exists" | "\\E" | "∃" -> "∃"
+  |"\\neg" | "~" | "¬" -> "¬"
+  |"\\land" | "\\wedge" | "&" | "∧" -> "∧"
+  |"\\lor" | "\\vee" | "∨" -> "∨"
+  |"\\to" | "\\rightarrow" | "->" | "→" -> "→"
+  |"\\leftrightarrow" | "<->" | "↔" -> "↔"
+  |"\\in" | "∈" -> "∈"
+  |"\\subset" | "⊂" -> "⊂"
+  |"\\subseteq" | "⊆" -> "⊆"
+  |"\\times" | "×" -> "×"
+  |"\\cdot" | "·" -> "·"
+  |"\\cap" | "∩" -> "∩"
+  |"\\cup" | "∪" -> "∪"
+  |_ -> s
 
 let unnegate (s : string) : string =
-        match s with
-        |"≠" | "\\neq" -> "="
-        |"∉" | "\\not\\in" | "\\not \\in" |"\\notin" -> "∈"
-        |_ -> raise (Cannot_unnegate s)
+  match s with
+  |"≠" | "\\neq" -> "="
+  |"∉" | "\\not\\in" | "\\not \\in" |"\\notin" -> "∈"
+  |_ -> raise (Cannot_unnegate s)
 }
 
 
@@ -83,11 +83,24 @@ let cup = "\\cup" | "∪"
 let subscript = "₀" | "₁" | "₂" | "₃" | "₄" | "₅" | "₆" | "₇" | "₈" | "₉"
 let superscript = "⁰" | "¹" | "²" | "³" | "⁴" | "⁵" | "⁶" | "⁷" | "⁸" | "⁹"
 let upper_case_greek = "Γ" | "Δ" | "Φ" | "Λ" | "Ω" | "Π" | "Σ" | "Θ" | "Ψ"
-let lower_case_greek = "α" | "β" | "γ" | "δ" | "φ" | "ψ" | "κ" | "λ" | "ω" | "ρ" | "σ" | "τ" | "π" | "χ" | "ι" | "η"
 
-let prefix_func = (['a' - 't'] | lower_case_greek) (['_' '.'] | ['a' - 'z'] | ['0' - '9'] | subscript | lower_case_greek)* | ['0' - '9']+
+let lower_case_greek = "α" | "β" | "γ" | "δ" | "φ" | "ψ" | "κ" | "λ"
+  | "ω" | "ρ" | "σ" | "τ" | "π" | "χ" | "ι" | "η"
+
+let prefix_func = 
+  (['a' - 't'] | lower_case_greek)
+  (['_' '.'] | ['a' - 'z'] | ['0' - '9'] | subscript | lower_case_greek)*
+  | ['0' - '9']+
+
 let var = ['u' - 'z'] (['_' '.'] | ['a' - 'z'] | ['0' - '9'] | subscript)*
-let prefix_pred = (['A' - 'Z'] | upper_case_greek) (['_' '.'] | ['A' - 'Z'] | ['a' - 'z'] | ['0' - '9'] | subscript | upper_case_greek | lower_case_greek)*
+
+let prefix_pred =
+  (['A' - 'Z'] | upper_case_greek)
+  (
+    ['_' '.'] | ['A' - 'Z'] | ['a' - 'z'] | ['0' - '9']
+    | subscript| upper_case_greek | lower_case_greek
+  )*
+
 let comma = ","
 let lpar = "("
 let rpar = ")"
@@ -103,21 +116,21 @@ let neg_infix_pred = neq | nel
 let postfix_func = prime | superscript
 
 rule token = parse
-        | comma                 { COMMA }
-        | lpar                  { LPAR }
-        | rpar                  { RPAR }
-        | lbr                   { LBR }
-        | rbr                   { RBR }
-        | var as e              { VAR e }
-        | prefix_func as e      { PREFIX_FUNC e }
-        | infix_func as e       { INFIX_FUNC (canonical e) }
-        | postfix_func as e     { POSTFIX_FUNC e }
-        | prefix_pred as e      { PREFIX_PRED e }
-        | infix_pred as e       { INFIX_PRED (canonical e) }
-        | neg_infix_pred as e   { NEG_INFIX_PRED (unnegate e) }
-        | quant as e            { QUANT (canonical e) }
-        | unop as e             { UNOP (canonical e) }
-        | binop1 as e           { BINOP1 (canonical e) }
-        | binop2 as e           { BINOP2 (canonical e) }
-        | eof                   { EOF }
-        | _                     { token lexbuf }
+  | comma                 { COMMA }
+  | lpar                  { LPAR }
+  | rpar                  { RPAR }
+  | lbr                   { LBR }
+  | rbr                   { RBR }
+  | var as e              { VAR e }
+  | prefix_func as e      { PREFIX_FUNC e }
+  | infix_func as e       { INFIX_FUNC (canonical e) }
+  | postfix_func as e     { POSTFIX_FUNC e }
+  | prefix_pred as e      { PREFIX_PRED e }
+  | infix_pred as e       { INFIX_PRED (canonical e) }
+  | neg_infix_pred as e   { NEG_INFIX_PRED (unnegate e) }
+  | quant as e            { QUANT (canonical e) }
+  | unop as e             { UNOP (canonical e) }
+  | binop1 as e           { BINOP1 (canonical e) }
+  | binop2 as e           { BINOP2 (canonical e) }
+  | eof                   { EOF }
+  | _                     { token lexbuf }

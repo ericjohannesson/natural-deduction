@@ -27,9 +27,9 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> conclusion_of_prf (prf : t_prf) : t_fml =
-        <span class="keyword">match</span> prf <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Atomic_prf</span> fml <span class="keywordsign">-&gt;</span> fml
-        <span class="keywordsign">|</span><span class="constructor">Nullary_prf</span> (_, fml) <span class="keywordsign">-&gt;</span> fml
-        <span class="keywordsign">|</span><span class="constructor">Unary_prf</span> (_,_,fml) <span class="keywordsign">-&gt;</span> fml
-        <span class="keywordsign">|</span><span class="constructor">Binary_prf</span> (_,_,_,fml) <span class="keywordsign">-&gt;</span> fml
-        <span class="keywordsign">|</span><span class="constructor">Trinary_prf</span> (_,_,_,_,fml) <span class="keywordsign">-&gt;</span> fml</code></body></html>
+  <span class="keyword">match</span> prf <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">Atomic_prf</span> fml <span class="keywordsign">-&gt;</span> fml
+  <span class="keywordsign">|</span> <span class="constructor">Nullary_prf</span> (_, fml) <span class="keywordsign">-&gt;</span> fml
+  <span class="keywordsign">|</span> <span class="constructor">Unary_prf</span> (_, _, fml) <span class="keywordsign">-&gt;</span> fml
+  <span class="keywordsign">|</span> <span class="constructor">Binary_prf</span> (_, _, _, fml) <span class="keywordsign">-&gt;</span> fml
+  <span class="keywordsign">|</span> <span class="constructor">Trinary_prf</span> (_, _, _, _, fml) <span class="keywordsign">-&gt;</span> fml</code></body></html>

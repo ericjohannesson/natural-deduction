@@ -27,6 +27,6 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> lexer_of_string ?(print_trace = <span class="keyword">false</span>) (s : string) : t_token list =
-        <span class="keyword">let</span> matrix : string array array = matrix_of_string s <span class="keyword">in</span>
-        <span class="keyword">try</span> lexer_of_matrix ~print_trace:print_trace matrix <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Error</span> <span class="string">"empty matrix"</span> <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"empty string"</span>)</code></body></html>
+  <span class="keyword">let</span> matrix : string array array = matrix_of_string s <span class="keyword">in</span>
+  <span class="keyword">try</span> lexer_of_matrix ~print_trace matrix
+  <span class="keyword">with</span> <span class="constructor">Error</span> <span class="string">"empty matrix"</span> <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"empty string"</span>)</code></body></html>

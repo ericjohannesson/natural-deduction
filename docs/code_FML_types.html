@@ -48,30 +48,19 @@
 <span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
 <span class="comment">(*&nbsp;*************************************************************************&nbsp;*)</span><br>
 <br>
-</code><table><tr><td></td><td><span class="comment">(**
-The abstract formula type (and its sub-types).
-*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** The abstract formula type (and its sub-types). *)</span></td></tr></table><code class="code"><br>
 <br>
-<span class="keyword">type</span>&nbsp;t_fml&nbsp;=&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PredApp</span>&nbsp;<span class="keyword">of</span>&nbsp;t_pred&nbsp;*&nbsp;(t_term&nbsp;list)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">BinopApp</span>&nbsp;<span class="keyword">of</span>&nbsp;t_binop&nbsp;*&nbsp;t_fml&nbsp;*&nbsp;t_fml<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">UnopApp</span>&nbsp;<span class="keyword">of</span>&nbsp;t_unop&nbsp;*&nbsp;t_fml<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">QuantApp</span>&nbsp;<span class="keyword">of</span>&nbsp;t_quant&nbsp;*&nbsp;t_var&nbsp;*&nbsp;t_fml<br>
+<span class="keyword">type</span>&nbsp;t_fml&nbsp;=<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">PredApp</span>&nbsp;<span class="keyword">of</span>&nbsp;t_pred&nbsp;*&nbsp;t_term&nbsp;list<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">BinopApp</span>&nbsp;<span class="keyword">of</span>&nbsp;t_binop&nbsp;*&nbsp;t_fml&nbsp;*&nbsp;t_fml<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">UnopApp</span>&nbsp;<span class="keyword">of</span>&nbsp;t_unop&nbsp;*&nbsp;t_fml<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">QuantApp</span>&nbsp;<span class="keyword">of</span>&nbsp;t_quant&nbsp;*&nbsp;t_var&nbsp;*&nbsp;t_fml<br>
 <br>
 <span class="keyword">and</span>&nbsp;t_binop&nbsp;=&nbsp;<span class="constructor">Binop</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
-<br>
 <span class="keyword">and</span>&nbsp;t_unop&nbsp;=&nbsp;<span class="constructor">Unop</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
-<br>
 <span class="keyword">and</span>&nbsp;t_quant&nbsp;=&nbsp;<span class="constructor">Quant</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
-<br>
-<span class="keyword">and</span>&nbsp;t_term&nbsp;=&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Atom</span>&nbsp;<span class="keyword">of</span>&nbsp;t_var<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">FuncApp</span>&nbsp;<span class="keyword">of</span>&nbsp;t_func&nbsp;*&nbsp;(t_term&nbsp;list)<br>
-<br>
+<span class="keyword">and</span>&nbsp;t_term&nbsp;=&nbsp;<span class="constructor">Atom</span>&nbsp;<span class="keyword">of</span>&nbsp;t_var&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">FuncApp</span>&nbsp;<span class="keyword">of</span>&nbsp;t_func&nbsp;*&nbsp;t_term&nbsp;list<br>
 <span class="keyword">and</span>&nbsp;t_pred&nbsp;=&nbsp;<span class="constructor">Pred</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
-<br>
 <span class="keyword">and</span>&nbsp;t_func&nbsp;=&nbsp;<span class="constructor">Func</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
-<br>
 <span class="keyword">and</span>&nbsp;t_var&nbsp;=&nbsp;<span class="constructor">Var</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
-<br>
 </code></body></html>

@@ -22,13 +22,12 @@
 
 (** For handling input from files and stdin, and output to stdout and stderr. *)
 
-
-(** {2 Input } *)
+(** {2 Input} *)
 
 val string_of_file : string -> string
 val string_of_stdin : unit -> string
 
-(** {2 Output } *)
+(** {2 Output} *)
 
 val print_to_file : string -> string -> unit
 val print_to_stdout : string -> unit

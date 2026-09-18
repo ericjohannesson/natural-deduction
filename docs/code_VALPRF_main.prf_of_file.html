@@ -26,6 +26,7 @@
 <link title="Cli" rel="Chapter" href="Cli.html"><title>Natural_deduction : PRF_main.prf_of_file</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> prf_of_file ?(print_trace = <span class="keyword">false</span>) ?(print_tokens = <span class="keyword">false</span>) (path:string) =
-        <span class="keyword">try</span> prf_of_prf_raw (prf_raw_of_file ~print_trace:print_trace ~print_tokens:print_tokens path) <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">FML_main</span>.<span class="constructor">Parse_error</span> _ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="string">"Cannot parse formulas in file "</span> ^ path))</code></body></html>
+<code class="code"><span class="keyword">let</span> prf_of_file ?(print_trace = <span class="keyword">false</span>) ?(print_tokens = <span class="keyword">false</span>) (path : string) =
+  <span class="keyword">try</span> prf_of_prf_raw (prf_raw_of_file ~print_trace ~print_tokens path)
+  <span class="keyword">with</span> <span class="constructor">FML_main</span>.<span class="constructor">Parse_error</span> _ <span class="keywordsign">-&gt;</span>
+    raise (<span class="constructor">Error</span> (<span class="string">"Cannot parse formulas in file "</span> ^ path))</code></body></html>

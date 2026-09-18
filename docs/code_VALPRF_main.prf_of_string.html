@@ -27,5 +27,6 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> prf_of_string ?(print_trace = <span class="keyword">false</span>) ?(print_tokens = <span class="keyword">false</span>) (s : string) =
-        <span class="keyword">try</span> prf_of_prf_raw (prf_raw_of_string ~print_trace:print_trace ~print_tokens:print_tokens s) <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">FML_main</span>.<span class="constructor">Parse_error</span> _ <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="string">"Cannot parse formulas in string \'"</span> ^ s ^ <span class="string">"\'"</span>))</code></body></html>
+  <span class="keyword">try</span> prf_of_prf_raw (prf_raw_of_string ~print_trace ~print_tokens s)
+  <span class="keyword">with</span> <span class="constructor">FML_main</span>.<span class="constructor">Parse_error</span> _ <span class="keywordsign">-&gt;</span>
+    raise (<span class="constructor">Error</span> (<span class="string">"Cannot parse formulas in string \'"</span> ^ s ^ <span class="string">"\'"</span>))</code></body></html>

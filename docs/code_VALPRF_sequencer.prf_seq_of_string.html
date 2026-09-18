@@ -27,4 +27,6 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> prf_seq_of_string ?(print_trace = <span class="keyword">false</span>) (s : string) : t_prf_seq =
-        <span class="constructor">Prf_seq</span> (<span class="constructor">String</span>.concat <span class="string">""</span> (<span class="constructor">List</span>.map string_of_token (lexer_of_string ~print_trace:print_trace s)))</code></body></html>
+  <span class="constructor">Prf_seq</span>
+    (<span class="constructor">String</span>.concat <span class="string">""</span>
+       (<span class="constructor">List</span>.map string_of_token (lexer_of_string ~print_trace s)))</code></body></html>

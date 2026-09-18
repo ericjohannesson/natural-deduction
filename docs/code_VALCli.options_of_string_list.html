@@ -26,7 +26,8 @@
 <link title="Cli" rel="Chapter" href="Cli.html"><title>Natural_deduction : Cli.options_of_string_list</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> <span class="keyword">rec</span> options_of_string_list (options : <span class="constructor">Main</span>.t_options) (string_list : string list) : <span class="constructor">Main</span>.t_options =
-        <span class="keyword">match</span> string_list <span class="keyword">with</span>
-        <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> options
-        <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> options_of_string_list (options_of_string options hd) tl</code></body></html>
+<code class="code"><span class="keyword">let</span> <span class="keyword">rec</span> options_of_string_list (options : <span class="constructor">Main</span>.t_options)
+    (string_list : string list) : <span class="constructor">Main</span>.t_options =
+  <span class="keyword">match</span> string_list <span class="keyword">with</span>
+  <span class="keywordsign">|</span> [] <span class="keywordsign">-&gt;</span> options
+  <span class="keywordsign">|</span> hd :: tl <span class="keywordsign">-&gt;</span> options_of_string_list (options_of_string options hd) tl</code></body></html>

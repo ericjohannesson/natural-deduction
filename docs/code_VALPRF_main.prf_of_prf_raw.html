@@ -27,14 +27,22 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> <span class="keyword">rec</span> prf_of_prf_raw (prf_raw : t_prf_raw) : t_prf =
-        <span class="keyword">match</span> prf_raw <span class="keyword">with</span>
-        <span class="keywordsign">|</span> <span class="constructor">Atomic_prf_raw</span> fml_raw <span class="keywordsign">-&gt;</span>
-                <span class="constructor">Atomic_prf</span> (fml_of_fml_raw fml_raw) 
-        <span class="keywordsign">|</span> <span class="constructor">Nullary_prf_raw</span> (nullary_rule, fml_raw) <span class="keywordsign">-&gt;</span>
-                <span class="constructor">Nullary_prf</span> (nullary_rule, fml_of_fml_raw fml_raw)
-        <span class="keywordsign">|</span> <span class="constructor">Unary_prf_raw</span> (prf_raw1, unary_rule, fml_raw) <span class="keywordsign">-&gt;</span>
-                <span class="constructor">Unary_prf</span> (prf_of_prf_raw prf_raw1, unary_rule, fml_of_fml_raw fml_raw)
-        <span class="keywordsign">|</span> <span class="constructor">Binary_prf_raw</span> (prf_raw1, prf_raw2, binary_rule, fml_raw) <span class="keywordsign">-&gt;</span>
-                <span class="constructor">Binary_prf</span> (prf_of_prf_raw prf_raw1, prf_of_prf_raw prf_raw2, binary_rule, fml_of_fml_raw fml_raw)
-        <span class="keywordsign">|</span> <span class="constructor">Trinary_prf_raw</span> (prf_raw1, prf_raw2, prf_raw3, trinary_rule, fml_raw) <span class="keywordsign">-&gt;</span>
-                <span class="constructor">Trinary_prf</span> (prf_of_prf_raw prf_raw1, prf_of_prf_raw prf_raw2, prf_of_prf_raw prf_raw3, trinary_rule, fml_of_fml_raw fml_raw)</code></body></html>
+  <span class="keyword">match</span> prf_raw <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">Atomic_prf_raw</span> fml_raw <span class="keywordsign">-&gt;</span> <span class="constructor">Atomic_prf</span> (fml_of_fml_raw fml_raw)
+  <span class="keywordsign">|</span> <span class="constructor">Nullary_prf_raw</span> (nullary_rule, fml_raw) <span class="keywordsign">-&gt;</span>
+      <span class="constructor">Nullary_prf</span> (nullary_rule, fml_of_fml_raw fml_raw)
+  <span class="keywordsign">|</span> <span class="constructor">Unary_prf_raw</span> (prf_raw1, unary_rule, fml_raw) <span class="keywordsign">-&gt;</span>
+      <span class="constructor">Unary_prf</span> (prf_of_prf_raw prf_raw1, unary_rule, fml_of_fml_raw fml_raw)
+  <span class="keywordsign">|</span> <span class="constructor">Binary_prf_raw</span> (prf_raw1, prf_raw2, binary_rule, fml_raw) <span class="keywordsign">-&gt;</span>
+      <span class="constructor">Binary_prf</span>
+        ( prf_of_prf_raw prf_raw1,
+          prf_of_prf_raw prf_raw2,
+          binary_rule,
+          fml_of_fml_raw fml_raw )
+  <span class="keywordsign">|</span> <span class="constructor">Trinary_prf_raw</span> (prf_raw1, prf_raw2, prf_raw3, trinary_rule, fml_raw) <span class="keywordsign">-&gt;</span>
+      <span class="constructor">Trinary_prf</span>
+        ( prf_of_prf_raw prf_raw1,
+          prf_of_prf_raw prf_raw2,
+          prf_of_prf_raw prf_raw3,
+          trinary_rule,
+          fml_of_fml_raw fml_raw )</code></body></html>

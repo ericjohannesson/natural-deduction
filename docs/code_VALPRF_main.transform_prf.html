@@ -27,9 +27,16 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> <span class="keyword">rec</span> transform_prf (f : t_fml <span class="keywordsign">-&gt;</span> t_fml) (prf : t_prf) : t_prf =
-        <span class="keyword">match</span> prf <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Atomic_prf</span> fml <span class="keywordsign">-&gt;</span> <span class="constructor">Atomic_prf</span> (f fml)
-        <span class="keywordsign">|</span><span class="constructor">Nullary_prf</span> (rule, fml) <span class="keywordsign">-&gt;</span> <span class="constructor">Nullary_prf</span> (rule, f fml)
-        <span class="keywordsign">|</span><span class="constructor">Unary_prf</span> (prf1, rule, fml) <span class="keywordsign">-&gt;</span> <span class="constructor">Unary_prf</span> (transform_prf f prf1, rule, f fml)
-        <span class="keywordsign">|</span><span class="constructor">Binary_prf</span> (prf1, prf2, rule, fml) <span class="keywordsign">-&gt;</span> <span class="constructor">Binary_prf</span> (transform_prf f prf1, transform_prf f prf2, rule, f fml)
-        <span class="keywordsign">|</span><span class="constructor">Trinary_prf</span> (prf1, prf2, prf3, rule, fml) <span class="keywordsign">-&gt;</span> <span class="constructor">Trinary_prf</span> (transform_prf f prf1, transform_prf f prf2, transform_prf f prf3, rule, f fml)</code></body></html>
+  <span class="keyword">match</span> prf <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">Atomic_prf</span> fml <span class="keywordsign">-&gt;</span> <span class="constructor">Atomic_prf</span> (f fml)
+  <span class="keywordsign">|</span> <span class="constructor">Nullary_prf</span> (rule, fml) <span class="keywordsign">-&gt;</span> <span class="constructor">Nullary_prf</span> (rule, f fml)
+  <span class="keywordsign">|</span> <span class="constructor">Unary_prf</span> (prf1, rule, fml) <span class="keywordsign">-&gt;</span> <span class="constructor">Unary_prf</span> (transform_prf f prf1, rule, f fml)
+  <span class="keywordsign">|</span> <span class="constructor">Binary_prf</span> (prf1, prf2, rule, fml) <span class="keywordsign">-&gt;</span>
+      <span class="constructor">Binary_prf</span> (transform_prf f prf1, transform_prf f prf2, rule, f fml)
+  <span class="keywordsign">|</span> <span class="constructor">Trinary_prf</span> (prf1, prf2, prf3, rule, fml) <span class="keywordsign">-&gt;</span>
+      <span class="constructor">Trinary_prf</span>
+        ( transform_prf f prf1,
+          transform_prf f prf2,
+          transform_prf f prf3,
+          rule,
+          f fml )</code></body></html>

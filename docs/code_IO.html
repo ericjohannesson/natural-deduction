@@ -50,39 +50,34 @@
 <br>
 <span class="comment">(*&nbsp;For&nbsp;handling&nbsp;input&nbsp;and&nbsp;output&nbsp;*)</span><br>
 <br>
-<br>
 <span class="comment">(*&nbsp;Input&nbsp;*)</span><br>
 <br>
-<span class="keyword">let</span>&nbsp;string_of_file&nbsp;(path:string):string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ic&nbsp;=&nbsp;open_in&nbsp;path&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s&nbsp;=&nbsp;<span class="constructor">In_channel</span>.input_all&nbsp;ic&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;=&nbsp;close_in&nbsp;ic&nbsp;<span class="keyword">in</span>&nbsp;s<br>
+<span class="keyword">let</span>&nbsp;string_of_file&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;string&nbsp;=<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;ic&nbsp;=&nbsp;open_in&nbsp;path&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;s&nbsp;=&nbsp;<span class="constructor">In_channel</span>.input_all&nbsp;ic&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;=&nbsp;close_in&nbsp;ic&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;s<br>
 <br>
-<span class="keyword">let</span>&nbsp;string_of_stdin&nbsp;()&nbsp;:&nbsp;string&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">In_channel</span>.input_all&nbsp;stdin<br>
-<br>
+<span class="keyword">let</span>&nbsp;string_of_stdin&nbsp;()&nbsp;:&nbsp;string&nbsp;=&nbsp;<span class="constructor">In_channel</span>.input_all&nbsp;stdin<br>
 <br>
 <span class="comment">(*&nbsp;Output&nbsp;*)</span><br>
 <br>
 <span class="keyword">let</span>&nbsp;print_to_file&nbsp;(s&nbsp;:&nbsp;string)&nbsp;(path&nbsp;:&nbsp;string)&nbsp;:&nbsp;unit&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;oc&nbsp;=&nbsp;open_out&nbsp;path&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;=&nbsp;output_string&nbsp;oc&nbsp;(s&nbsp;^&nbsp;<span class="string">"\n"</span>)&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;=&nbsp;flush&nbsp;oc&nbsp;<span class="keyword">in</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;=&nbsp;close_out&nbsp;oc&nbsp;<span class="keyword">in</span>&nbsp;()<br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;oc&nbsp;=&nbsp;open_out&nbsp;path&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;=&nbsp;output_string&nbsp;oc&nbsp;(s&nbsp;^&nbsp;<span class="string">"\n"</span>)&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;=&nbsp;flush&nbsp;oc&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;<span class="keyword">let</span>&nbsp;_&nbsp;=&nbsp;close_out&nbsp;oc&nbsp;<span class="keyword">in</span><br>
+&nbsp;&nbsp;()<br>
 <br>
-<span class="keyword">let</span>&nbsp;print_to_stdout&nbsp;(s&nbsp;:&nbsp;string)&nbsp;:&nbsp;unit&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print_endline&nbsp;s<br>
+<span class="keyword">let</span>&nbsp;print_to_stdout&nbsp;(s&nbsp;:&nbsp;string)&nbsp;:&nbsp;unit&nbsp;=&nbsp;print_endline&nbsp;s<br>
+<span class="keyword">let</span>&nbsp;print_to_stderr&nbsp;(s&nbsp;:&nbsp;string)&nbsp;:&nbsp;unit&nbsp;=&nbsp;<span class="constructor">Printf</span>.eprintf&nbsp;<span class="string">"%s\n"</span>&nbsp;s<br>
 <br>
-<span class="keyword">let</span>&nbsp;print_to_stderr&nbsp;(s:string):unit&nbsp;=&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Printf</span>.eprintf&nbsp;<span class="string">"%s\n"</span>&nbsp;s<br>
+<span class="keyword">let</span>&nbsp;print_to_stderr_red&nbsp;(s&nbsp;:&nbsp;string)&nbsp;:&nbsp;unit&nbsp;=<br>
+&nbsp;&nbsp;<span class="constructor">Printf</span>.eprintf&nbsp;<span class="string">"\027[31m%s\027[m\n"</span>&nbsp;s<br>
 <br>
-<span class="keyword">let</span>&nbsp;print_to_stderr_red&nbsp;(s:string):unit&nbsp;=&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Printf</span>.eprintf&nbsp;<span class="string">"\027[31m%s\027[m\n"</span>&nbsp;s<br>
+<span class="keyword">let</span>&nbsp;print_to_stderr_green&nbsp;(s&nbsp;:&nbsp;string)&nbsp;:&nbsp;unit&nbsp;=<br>
+&nbsp;&nbsp;<span class="constructor">Printf</span>.eprintf&nbsp;<span class="string">"\027[32m%s\027[m\n"</span>&nbsp;s<br>
 <br>
-<span class="keyword">let</span>&nbsp;print_to_stderr_green&nbsp;(s:string):unit&nbsp;=&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Printf</span>.eprintf&nbsp;<span class="string">"\027[32m%s\027[m\n"</span>&nbsp;s<br>
-<br>
-<span class="keyword">let</span>&nbsp;print_to_stderr_yellow&nbsp;(s:string):unit&nbsp;=&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Printf</span>.eprintf&nbsp;<span class="string">"\027[33m%s\027[m\n"</span>&nbsp;s<br>
-<br>
+<span class="keyword">let</span>&nbsp;print_to_stderr_yellow&nbsp;(s&nbsp;:&nbsp;string)&nbsp;:&nbsp;unit&nbsp;=<br>
+&nbsp;&nbsp;<span class="constructor">Printf</span>.eprintf&nbsp;<span class="string">"\027[33m%s\027[m\n"</span>&nbsp;s<br>
 </code></body></html>

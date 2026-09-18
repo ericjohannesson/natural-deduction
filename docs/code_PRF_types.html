@@ -48,30 +48,26 @@
 <span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
 <span class="comment">(*&nbsp;*************************************************************************&nbsp;*)</span><br>
 <br>
-</code><table><tr><td></td><td><span class="comment">(**
-The abstract proof types (and their sub-types).
-*)</span></td></tr></table><code class="code"><br>
-<br>
+</code><table><tr><td></td><td><span class="comment">(** The abstract proof types (and their sub-types). *)</span></td></tr></table><code class="code"><br>
 <br>
 <span class="keyword">type</span>&nbsp;t_fml_raw&nbsp;=&nbsp;<span class="constructor">Fml_raw</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
-<br>
 <span class="keyword">type</span>&nbsp;t_nullary_rule&nbsp;=&nbsp;<span class="constructor">Nullary_rule</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 <span class="keyword">type</span>&nbsp;t_unary_rule&nbsp;=&nbsp;<span class="constructor">Unary_rule</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 <span class="keyword">type</span>&nbsp;t_binary_rule&nbsp;=&nbsp;<span class="constructor">Binary_rule</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 <span class="keyword">type</span>&nbsp;t_trinary_rule&nbsp;=&nbsp;<span class="constructor">Trinary_rule</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 <br>
-<span class="keyword">type</span>&nbsp;t_prf_raw&nbsp;=&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Atomic_prf_raw</span>&nbsp;<span class="keyword">of</span>&nbsp;t_fml_raw<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Nullary_prf_raw</span>&nbsp;<span class="keyword">of</span>&nbsp;(t_nullary_rule&nbsp;*&nbsp;t_fml_raw)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Unary_prf_raw</span>&nbsp;<span class="keyword">of</span>&nbsp;(t_prf_raw&nbsp;*&nbsp;t_unary_rule&nbsp;*&nbsp;t_fml_raw)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Binary_prf_raw</span>&nbsp;<span class="keyword">of</span>&nbsp;(t_prf_raw&nbsp;*&nbsp;t_prf_raw&nbsp;*&nbsp;t_binary_rule&nbsp;*&nbsp;t_fml_raw)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Trinary_prf_raw</span>&nbsp;<span class="keyword">of</span>&nbsp;(t_prf_raw&nbsp;*&nbsp;t_prf_raw&nbsp;*&nbsp;t_prf_raw&nbsp;*&nbsp;t_trinary_rule&nbsp;*&nbsp;t_fml_raw)<br>
+<span class="keyword">type</span>&nbsp;t_prf_raw&nbsp;=<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Atomic_prf_raw</span>&nbsp;<span class="keyword">of</span>&nbsp;t_fml_raw<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Nullary_prf_raw</span>&nbsp;<span class="keyword">of</span>&nbsp;(t_nullary_rule&nbsp;*&nbsp;t_fml_raw)<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Unary_prf_raw</span>&nbsp;<span class="keyword">of</span>&nbsp;(t_prf_raw&nbsp;*&nbsp;t_unary_rule&nbsp;*&nbsp;t_fml_raw)<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Binary_prf_raw</span>&nbsp;<span class="keyword">of</span>&nbsp;(t_prf_raw&nbsp;*&nbsp;t_prf_raw&nbsp;*&nbsp;t_binary_rule&nbsp;*&nbsp;t_fml_raw)<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Trinary_prf_raw</span>&nbsp;<span class="keyword">of</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(t_prf_raw&nbsp;*&nbsp;t_prf_raw&nbsp;*&nbsp;t_prf_raw&nbsp;*&nbsp;t_trinary_rule&nbsp;*&nbsp;t_fml_raw)<br>
 <br>
 <span class="keyword">type</span>&nbsp;t_prf&nbsp;=<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Atomic_prf</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">FML_types</span>.t_fml<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Nullary_prf</span>&nbsp;<span class="keyword">of</span>&nbsp;(t_nullary_rule&nbsp;*&nbsp;<span class="constructor">FML_types</span>.t_fml)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Unary_prf</span>&nbsp;<span class="keyword">of</span>&nbsp;(t_prf&nbsp;*&nbsp;t_unary_rule&nbsp;*&nbsp;<span class="constructor">FML_types</span>.t_fml)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Binary_prf</span>&nbsp;<span class="keyword">of</span>&nbsp;(t_prf&nbsp;*&nbsp;t_prf&nbsp;*&nbsp;t_binary_rule&nbsp;*&nbsp;<span class="constructor">FML_types</span>.t_fml)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Trinary_prf</span>&nbsp;<span class="keyword">of</span>&nbsp;(t_prf&nbsp;*&nbsp;t_prf&nbsp;*&nbsp;t_prf&nbsp;*&nbsp;t_trinary_rule&nbsp;*&nbsp;<span class="constructor">FML_types</span>.t_fml)<br>
-<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Atomic_prf</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">FML_types</span>.t_fml<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Nullary_prf</span>&nbsp;<span class="keyword">of</span>&nbsp;(t_nullary_rule&nbsp;*&nbsp;<span class="constructor">FML_types</span>.t_fml)<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Unary_prf</span>&nbsp;<span class="keyword">of</span>&nbsp;(t_prf&nbsp;*&nbsp;t_unary_rule&nbsp;*&nbsp;<span class="constructor">FML_types</span>.t_fml)<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Binary_prf</span>&nbsp;<span class="keyword">of</span>&nbsp;(t_prf&nbsp;*&nbsp;t_prf&nbsp;*&nbsp;t_binary_rule&nbsp;*&nbsp;<span class="constructor">FML_types</span>.t_fml)<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Trinary_prf</span>&nbsp;<span class="keyword">of</span>&nbsp;(t_prf&nbsp;*&nbsp;t_prf&nbsp;*&nbsp;t_prf&nbsp;*&nbsp;t_trinary_rule&nbsp;*&nbsp;<span class="constructor">FML_types</span>.t_fml)<br>
 </code></body></html>

@@ -23,6 +23,4 @@
 (** Comand-line interface for module {!module:Main}. *)
 
 val options_of_string_list : Main.t_options -> string list -> Main.t_options
-
 val execute_arg_list : string list -> unit
-

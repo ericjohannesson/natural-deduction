@@ -27,35 +27,64 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> validate_prf ?(options = default_options) (prf : t_prf) : t_prf option =
-        <span class="keyword">let</span> dischargeable (fml : t_fml) : int option = <span class="constructor">None</span> <span class="keyword">in</span>
-        <span class="keyword">match</span> validate options 0 0 dischargeable [] prf <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Some</span> valid_prf <span class="keywordsign">-&gt;</span>
-                <span class="keyword">let</span> premises : t_fml list = premises_of_prf [] valid_prf <span class="keyword">in</span>
-                <span class="keyword">let</span> conclusion : t_fml = conclusion_of_prf valid_prf <span class="keyword">in</span>
-                <span class="keyword">let</span> premises_string : string = string_of_premises premises <span class="keyword">in</span>
-                <span class="keyword">let</span> conclusion_string : string = string_of_fml conclusion <span class="keyword">in</span>
-                <span class="keyword">let</span> proof_string : string = string_of_prf valid_prf <span class="keyword">in</span>
-                <span class="keyword">let</span> proves_string : string = <span class="constructor">String</span>.concat <span class="string">" "</span> [premises_string; turnstile_of_options options; conclusion_string] <span class="keyword">in</span>
-                <span class="keyword">let</span> report_string : string = <span class="constructor">String</span>.concat <span class="string">""</span> [
-                        <span class="string">"\n"</span>; <span class="string">"Proof is VALID"</span>;qualification_of_options options;<span class="string">"."</span>; <span class="string">"\n"</span>;
-                        <span class="string">"PROVES "</span>; proves_string; <span class="string">".\n"</span>;
-                ] 
-                <span class="keyword">in</span>
-                <span class="keyword">let</span> _ : unit = <span class="keyword">if</span> not options.quiet <span class="keyword">then</span> <span class="constructor">IO</span>.print_to_stderr report_string <span class="keyword">else</span> () <span class="keyword">in</span>
-                <span class="keyword">let</span> _ : unit = <span class="keyword">if</span> not options.quiet <span class="keyword">then</span> <span class="constructor">IO</span>.print_to_stdout proof_string <span class="keyword">else</span> () <span class="keyword">in</span>
-                <span class="constructor">Some</span> valid_prf
-        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span>
-                <span class="keyword">let</span> premises : t_fml list = premises_of_prf [] prf <span class="keyword">in</span>
-                <span class="keyword">let</span> conclusion : t_fml = conclusion_of_prf prf <span class="keyword">in</span>
-                <span class="keyword">let</span> premises_string : string = string_of_premises premises <span class="keyword">in</span>
-                <span class="keyword">let</span> conclusion_string : string = string_of_fml conclusion <span class="keyword">in</span>
-                <span class="keyword">let</span> proof_string : string = string_of_prf prf <span class="keyword">in</span>
-                <span class="keyword">let</span> proves_string : string = <span class="constructor">String</span>.concat <span class="string">" "</span> [premises_string; turnstile_of_options options; conclusion_string] <span class="keyword">in</span>
-                <span class="keyword">let</span> report_string : string = <span class="constructor">String</span>.concat <span class="string">""</span> [
-                        proof_string;<span class="string">"\n"</span>;
-                        <span class="string">"\n"</span>; <span class="string">"Proof is NOT valid"</span>;qualification_of_options options;<span class="string">"."</span>;<span class="string">"\n"</span>;
-                        <span class="string">"Does NOT prove "</span>; proves_string; <span class="string">".\n"</span>;
-                ]
-                <span class="keyword">in</span>
-                <span class="keyword">let</span> _ : unit = <span class="keyword">if</span> not options.quiet <span class="keyword">then</span> <span class="constructor">IO</span>.print_to_stderr report_string <span class="keyword">else</span> () <span class="keyword">in</span>
-                <span class="constructor">None</span></code></body></html>
+  <span class="keyword">let</span> dischargeable (fml : t_fml) : int option = <span class="constructor">None</span> <span class="keyword">in</span>
+  <span class="keyword">match</span> validate options 0 0 dischargeable [] prf <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">Some</span> valid_prf <span class="keywordsign">-&gt;</span>
+      <span class="keyword">let</span> premises : t_fml list = premises_of_prf [] valid_prf <span class="keyword">in</span>
+      <span class="keyword">let</span> conclusion : t_fml = conclusion_of_prf valid_prf <span class="keyword">in</span>
+      <span class="keyword">let</span> premises_string : string = string_of_premises premises <span class="keyword">in</span>
+      <span class="keyword">let</span> conclusion_string : string = string_of_fml conclusion <span class="keyword">in</span>
+      <span class="keyword">let</span> proof_string : string = string_of_prf valid_prf <span class="keyword">in</span>
+      <span class="keyword">let</span> proves_string : string =
+        <span class="constructor">String</span>.concat <span class="string">" "</span>
+          [ premises_string; turnstile_of_options options; conclusion_string ]
+      <span class="keyword">in</span>
+      <span class="keyword">let</span> report_string : string =
+        <span class="constructor">String</span>.concat <span class="string">""</span>
+          [
+            <span class="string">"\n"</span>;
+            <span class="string">"Proof is VALID"</span>;
+            qualification_of_options options;
+            <span class="string">"."</span>;
+            <span class="string">"\n"</span>;
+            <span class="string">"PROVES "</span>;
+            proves_string;
+            <span class="string">".\n"</span>;
+          ]
+      <span class="keyword">in</span>
+      <span class="keyword">let</span> _ : unit =
+        <span class="keyword">if</span> not options.quiet <span class="keyword">then</span> <span class="constructor">IO</span>.print_to_stderr report_string <span class="keyword">else</span> ()
+      <span class="keyword">in</span>
+      <span class="keyword">let</span> _ : unit =
+        <span class="keyword">if</span> not options.quiet <span class="keyword">then</span> <span class="constructor">IO</span>.print_to_stdout proof_string <span class="keyword">else</span> ()
+      <span class="keyword">in</span>
+      <span class="constructor">Some</span> valid_prf
+  <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span>
+      <span class="keyword">let</span> premises : t_fml list = premises_of_prf [] prf <span class="keyword">in</span>
+      <span class="keyword">let</span> conclusion : t_fml = conclusion_of_prf prf <span class="keyword">in</span>
+      <span class="keyword">let</span> premises_string : string = string_of_premises premises <span class="keyword">in</span>
+      <span class="keyword">let</span> conclusion_string : string = string_of_fml conclusion <span class="keyword">in</span>
+      <span class="keyword">let</span> proof_string : string = string_of_prf prf <span class="keyword">in</span>
+      <span class="keyword">let</span> proves_string : string =
+        <span class="constructor">String</span>.concat <span class="string">" "</span>
+          [ premises_string; turnstile_of_options options; conclusion_string ]
+      <span class="keyword">in</span>
+      <span class="keyword">let</span> report_string : string =
+        <span class="constructor">String</span>.concat <span class="string">""</span>
+          [
+            proof_string;
+            <span class="string">"\n"</span>;
+            <span class="string">"\n"</span>;
+            <span class="string">"Proof is NOT valid"</span>;
+            qualification_of_options options;
+            <span class="string">"."</span>;
+            <span class="string">"\n"</span>;
+            <span class="string">"Does NOT prove "</span>;
+            proves_string;
+            <span class="string">".\n"</span>;
+          ]
+      <span class="keyword">in</span>
+      <span class="keyword">let</span> _ : unit =
+        <span class="keyword">if</span> not options.quiet <span class="keyword">then</span> <span class="constructor">IO</span>.print_to_stderr report_string <span class="keyword">else</span> ()
+      <span class="keyword">in</span>
+      <span class="constructor">None</span></code></body></html>

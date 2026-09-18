@@ -20,21 +20,18 @@
 (*                                                                           *)
 (* ************************************************************************* *)
 
-(** Lexer for parsing formula strings.
-Generated from {{:specs/FML_lexer.mll.txt}FML_lexer.mll} with ocamllex. *)
+(** Lexer for parsing formula strings. Generated from
+    {{:specs/FML_lexer.mll.txt}FML_lexer.mll} with ocamllex. *)
 
 exception Cannot_unnegate of string
 
 val canonical : string -> string
-(**
-Maps common notational variants of logical and mathematical terms to
-their canonical counterparts, e.g. ["&"] to ["∧"] and ["\forall"] to ["∀"], if they have one. Otherwise returns the same string.
-*)
+(** Maps common notational variants of logical and mathematical terms to their
+    canonical counterparts, e.g. ["&"] to ["∧"] and ["\forall"] to ["∀"], if
+    they have one. Otherwise returns the same string. *)
 
 val unnegate : string -> string
-(**
-Maps ["≠"] to ["="], for instance. Raises exception [Cannot_unnegate s] if [s] cannot be unnegated.
-*)
+(** Maps ["≠"] to ["="], for instance. Raises exception [Cannot_unnegate s] if
+    [s] cannot be unnegated. *)
 
 val token : Stdlib.Lexing.lexbuf -> FML_parser.token
-

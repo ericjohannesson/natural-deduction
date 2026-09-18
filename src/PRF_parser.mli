@@ -20,19 +20,17 @@
 (*                                                                           *)
 (* ************************************************************************* *)
 
-(** Parser for mapping objects of type {!type:PRF_sequencer.t_prf_seq} to objects of type {!type:PRF_types.t_prf_raw}.
-Generated from {{:specs/PRF_parser.mly.txt}PRF_parser.mly} with ocamlyacc. *)
-
+(** Parser for mapping objects of type {!type:PRF_sequencer.t_prf_seq} to
+    objects of type {!type:PRF_types.t_prf_raw}. Generated from
+    {{:specs/PRF_parser.mly.txt}PRF_parser.mly} with ocamlyacc. *)
 
 type token =
-      | SEP
-      | EOF
-      | NULLARY_RULE of string
-      | UNARY_RULE of string
-      | BINARY_RULE of string
-      | TRINARY_RULE of string
-      | FML of string
+  | SEP
+  | EOF
+  | NULLARY_RULE of string
+  | UNARY_RULE of string
+  | BINARY_RULE of string
+  | TRINARY_RULE of string
+  | FML of string
 
-val main :
-      (Lexing.lexbuf -> token) -> Lexing.lexbuf -> PRF_types.t_prf_raw
-
+val main : (Lexing.lexbuf -> token) -> Lexing.lexbuf -> PRF_types.t_prf_raw

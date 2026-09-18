@@ -20,8 +20,7 @@
 (*                                                                           *)
 (* ************************************************************************* *)
 
-(** Lexer for parsing objects of type {!type:PRF_sequencer.t_prf_seq}.
-Generated from {{:specs/PRF_lexer.mll.txt}PRF_lexer.mll} with ocamllex. *)
-
+(** Lexer for parsing objects of type {!type:PRF_sequencer.t_prf_seq}. Generated
+    from {{:specs/PRF_lexer.mll.txt}PRF_lexer.mll} with ocamllex. *)
 
 val token : Stdlib.Lexing.lexbuf -> PRF_parser.token

@@ -20,29 +20,27 @@
 (*                                                                           *)
 (* ************************************************************************* *)
 
-(** Parser for mapping formula strings to objects of type {!type:FML_types.t_fml}.
-Generated from {{:specs/FML_parser.mly.txt}FML_parser.mly} with ocamlyacc. *)
-
+(** Parser for mapping formula strings to objects of type
+    {!type:FML_types.t_fml}. Generated from
+    {{:specs/FML_parser.mly.txt}FML_parser.mly} with ocamlyacc. *)
 
 type token =
-      | VAR of string
-      | PREFIX_PRED of string
-      | INFIX_PRED of string
-      | NEG_INFIX_PRED of string
-      | PREFIX_FUNC of string
-      | INFIX_FUNC of string
-      | POSTFIX_FUNC of string
-      | UNOP of string
-      | BINOP1 of string
-      | BINOP2 of string
-      | QUANT of string
-      | LPAR
-      | RPAR
-      | LBR
-      | RBR
-      | COMMA
-      | EOF
+  | VAR of string
+  | PREFIX_PRED of string
+  | INFIX_PRED of string
+  | NEG_INFIX_PRED of string
+  | PREFIX_FUNC of string
+  | INFIX_FUNC of string
+  | POSTFIX_FUNC of string
+  | UNOP of string
+  | BINOP1 of string
+  | BINOP2 of string
+  | QUANT of string
+  | LPAR
+  | RPAR
+  | LBR
+  | RBR
+  | COMMA
+  | EOF
 
-val main :
-      (Lexing.lexbuf -> token) -> Lexing.lexbuf -> FML_types.t_fml
-
+val main : (Lexing.lexbuf -> token) -> Lexing.lexbuf -> FML_types.t_fml

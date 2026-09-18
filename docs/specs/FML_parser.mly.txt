@@ -38,137 +38,137 @@ open FML_types
 
 %%
 main:
-        |fml EOF                        { $1 }
+  |fml EOF                        { $1 }
 ;
 
 fml:
-        |atomic_fml                     { $1 }
-        |unop_fml                       { $1 }
-        |quant_fml                      { $1 }
-        |binop_fml                      { $1 }
-        |par_fml                        { $1 }
+  |atomic_fml                     { $1 }
+  |unop_fml                       { $1 }
+  |quant_fml                      { $1 }
+  |binop_fml                      { $1 }
+  |par_fml                        { $1 }
 ;
 
 par_fml:
-        |lpar fml rpar                  { $2 }
-        |lbr fml rbr                    { $2 }
+  |lpar fml rpar                  { $2 }
+  |lbr fml rbr                    { $2 }
 ;
 
 
 atomic_fml:
-        |nullary_pred                   { PredApp ($1,[]) }
-        |prefix_pred par_terms          { PredApp ($1,$2) }
-        |term infix_pred term           { PredApp ($2,[$1;$3]) }
-        |term neg_infix_pred term       { UnopApp (Unop "¬", PredApp ($2,[$1;$3])) }
+  |nullary_pred                   { PredApp ($1,[]) }
+  |prefix_pred par_terms          { PredApp ($1,$2) }
+  |term infix_pred term           { PredApp ($2,[$1;$3]) }
+  |term neg_infix_pred term       { UnopApp (Unop "¬", PredApp ($2,[$1;$3])) }
 ;
 
 par_terms:
-        |lpar terms rpar                { $2 }
-        |lbr terms rbr                  { $2 }
+  |lpar terms rpar                { $2 }
+  |lbr terms rbr                  { $2 }
 ;
 
 unop_fml:
-        |unop fml %prec UNOP            { UnopApp ($1,$2) }
+  |unop fml %prec UNOP            { UnopApp ($1,$2) }
 ;
 
 quant_fml:
-        |quant var fml %prec QUANT      { QuantApp ($1,$2,$3) }
+  |quant var fml %prec QUANT      { QuantApp ($1,$2,$3) }
 ;
 
 binop_fml:
-        |fml binop1 fml %prec BINOP1    { BinopApp ($2,$1,$3) }
-        |fml binop2 fml %prec BINOP2    { BinopApp ($2,$1,$3) }
+  |fml binop1 fml %prec BINOP1    { BinopApp ($2,$1,$3) }
+  |fml binop2 fml %prec BINOP2    { BinopApp ($2,$1,$3) }
 ;
 
 terms:
-        |term                           { $1::[] }
-        |term comma terms               { $1::$3 }
+  |term                           { $1::[] }
+  |term comma terms               { $1::$3 }
 ;
 
 term:
-        |var                                    { Atom $1 }
-        |nullary_func                           { FuncApp ($1,[]) }
-        |prefix_func par_terms                  { FuncApp ($1,$2) }
-        |term infix_func term %prec INFIX_FUNC  { FuncApp ($2,[$1;$3]) }
-        |term postfix_func                      { FuncApp ($2,[$1]) }
-        |par_term                               { $1 }
+  |var                                    { Atom $1 }
+  |nullary_func                           { FuncApp ($1,[]) }
+  |prefix_func par_terms                  { FuncApp ($1,$2) }
+  |term infix_func term %prec INFIX_FUNC  { FuncApp ($2,[$1;$3]) }
+  |term postfix_func                      { FuncApp ($2,[$1]) }
+  |par_term                               { $1 }
 ;
 
 par_term:
-        |lpar term rpar                         { $2 }
-        |lbr term rbr                           { $2 }
+  |lpar term rpar                         { $2 }
+  |lbr term rbr                           { $2 }
 ;
 
 var:
-        |VAR                            { Var $1 }
+  |VAR                            { Var $1 }
 ;
 
 nullary_pred:
-        |PREFIX_PRED                    { Pred $1 }
+  |PREFIX_PRED                    { Pred $1 }
 ;
 
 prefix_pred:
-        |PREFIX_PRED                    { Pred $1 }
+  |PREFIX_PRED                    { Pred $1 }
 ;
 
 infix_pred:
-        |INFIX_PRED                     { Pred $1 }
+  |INFIX_PRED                     { Pred $1 }
 ;
 
 neg_infix_pred:
-        |NEG_INFIX_PRED                 { Pred $1 }
+  |NEG_INFIX_PRED                 { Pred $1 }
 ;
 
 
 nullary_func:
-        |PREFIX_FUNC                    { Func $1 }
+  |PREFIX_FUNC                    { Func $1 }
 ;
 
 prefix_func:
-        |PREFIX_FUNC                    { Func $1 }
+  |PREFIX_FUNC                    { Func $1 }
 ;
 
 infix_func:
-        |INFIX_FUNC                     { Func $1 }
+  |INFIX_FUNC                     { Func $1 }
 ;
 
 postfix_func:
-        |POSTFIX_FUNC                   { Func $1 }
+  |POSTFIX_FUNC                   { Func $1 }
 ;
 
 binop1:
-        |BINOP1                         { Binop $1 }
+  |BINOP1                         { Binop $1 }
 ;
 
 binop2:
-        |BINOP2                         { Binop $1 }
+  |BINOP2                         { Binop $1 }
 ;
 
 unop:
-        |UNOP                           { Unop $1 }
+  |UNOP                           { Unop $1 }
 ;
 
 quant:
-        |QUANT                          { Quant $1 }
+  |QUANT                          { Quant $1 }
 ;
 
 lpar:
-        |LPAR                           { }
+  |LPAR                           { }
 ;
 
 rpar:
-        |RPAR                           { }
+  |RPAR                           { }
 ;
 
 lbr:
-        |LBR                            { }
+  |LBR                            { }
 ;
 
 rbr:
-        |RBR                            { }
+  |RBR                            { }
 ;
 
 comma:
-        |COMMA                          { }
+  |COMMA                          { }
 ;
 

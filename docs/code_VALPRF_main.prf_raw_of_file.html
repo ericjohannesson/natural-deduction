@@ -26,9 +26,10 @@
 <link title="Cli" rel="Chapter" href="Cli.html"><title>Natural_deduction : PRF_main.prf_raw_of_file</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> prf_raw_of_file ?(print_trace = <span class="keyword">false</span>) ?(print_tokens = <span class="keyword">false</span>) (path : string): t_prf_raw =
-        <span class="keyword">match</span> <span class="constructor">Sys</span>.file_exists path <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="keyword">false</span> <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="string">"Cannot read from "</span> ^ path ^ <span class="string">": No such file"</span>))
-        <span class="keywordsign">|</span><span class="keyword">true</span> <span class="keywordsign">-&gt;</span> 
-                <span class="keyword">try</span> prf_raw_of_string ~print_trace:print_trace ~print_tokens:print_tokens (<span class="constructor">IO</span>.string_of_file path) <span class="keyword">with</span>
-                <span class="keywordsign">|</span><span class="constructor">Parse_error</span> s <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="string">"Cannot parse file "</span> ^ path))</code></body></html>
+<code class="code"><span class="keyword">let</span> prf_raw_of_file ?(print_trace = <span class="keyword">false</span>) ?(print_tokens = <span class="keyword">false</span>)
+    (path : string) : t_prf_raw =
+  <span class="keyword">match</span> <span class="constructor">Sys</span>.file_exists path <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="keyword">false</span> <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="string">"Cannot read from "</span> ^ path ^ <span class="string">": No such file"</span>))
+  <span class="keywordsign">|</span> <span class="keyword">true</span> <span class="keywordsign">-&gt;</span> (
+      <span class="keyword">try</span> prf_raw_of_string ~print_trace ~print_tokens (<span class="constructor">IO</span>.string_of_file path)
+      <span class="keyword">with</span> <span class="constructor">Parse_error</span> s <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> (<span class="string">"Cannot parse file "</span> ^ path)))</code></body></html>

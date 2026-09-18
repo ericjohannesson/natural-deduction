@@ -27,13 +27,16 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> fml_list_of_file (path : string) : t_fml list =
-        <span class="keyword">let</span> ic = open_in path <span class="keyword">in</span>
-        <span class="keyword">let</span> <span class="keyword">rec</span> aux (acc : <span class="constructor">FML_types</span>.t_fml list) : t_fml list =
-                <span class="keyword">try</span>
-                        <span class="keyword">let</span> s : string = input_line ic <span class="keyword">in</span>
-                        <span class="keyword">let</span> fml : t_fml = fml_of_string s <span class="keyword">in</span>
-                        aux (fml::acc)
-                <span class="keyword">with</span>
-                <span class="keywordsign">|</span><span class="constructor">End_of_file</span> <span class="keywordsign">-&gt;</span> acc
-                <span class="keywordsign">|</span><span class="constructor">Parse_error</span> e <span class="keywordsign">-&gt;</span> <span class="keyword">let</span> _ : unit = <span class="constructor">IO</span>.print_to_stderr e <span class="keyword">in</span> acc
-        <span class="keyword">in</span> <span class="constructor">List</span>.rev (aux [])</code></body></html>
+  <span class="keyword">let</span> ic = open_in path <span class="keyword">in</span>
+  <span class="keyword">let</span> <span class="keyword">rec</span> aux (acc : <span class="constructor">FML_types</span>.t_fml list) : t_fml list =
+    <span class="keyword">try</span>
+      <span class="keyword">let</span> s : string = input_line ic <span class="keyword">in</span>
+      <span class="keyword">let</span> fml : t_fml = fml_of_string s <span class="keyword">in</span>
+      aux (fml :: acc)
+    <span class="keyword">with</span>
+    <span class="keywordsign">|</span> <span class="constructor">End_of_file</span> <span class="keywordsign">-&gt;</span> acc
+    <span class="keywordsign">|</span> <span class="constructor">Parse_error</span> e <span class="keywordsign">-&gt;</span>
+        <span class="keyword">let</span> _ : unit = <span class="constructor">IO</span>.print_to_stderr e <span class="keyword">in</span>
+        acc
+  <span class="keyword">in</span>
+  <span class="constructor">List</span>.rev (aux [])</code></body></html>

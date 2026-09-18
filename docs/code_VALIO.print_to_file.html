@@ -27,7 +27,8 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> print_to_file (s : string) (path : string) : unit =
-        <span class="keyword">let</span> oc = open_out path <span class="keyword">in</span>
-        <span class="keyword">let</span> _ = output_string oc (s ^ <span class="string">"\n"</span>) <span class="keyword">in</span>
-        <span class="keyword">let</span> _ = flush oc <span class="keyword">in</span>
-        <span class="keyword">let</span> _ = close_out oc <span class="keyword">in</span> ()</code></body></html>
+  <span class="keyword">let</span> oc = open_out path <span class="keyword">in</span>
+  <span class="keyword">let</span> _ = output_string oc (s ^ <span class="string">"\n"</span>) <span class="keyword">in</span>
+  <span class="keyword">let</span> _ = flush oc <span class="keyword">in</span>
+  <span class="keyword">let</span> _ = close_out oc <span class="keyword">in</span>
+  ()</code></body></html>

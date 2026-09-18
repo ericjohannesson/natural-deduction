@@ -27,5 +27,5 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> lexer_of_file ?(print_trace = <span class="keyword">false</span>) (path : string) : t_token list =
-        <span class="keyword">try</span> lexer_of_string ~print_trace:print_trace (<span class="constructor">IO</span>.string_of_file path) <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">Error</span> <span class="string">"empty string"</span> <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"empty file"</span>)</code></body></html>
+  <span class="keyword">try</span> lexer_of_string ~print_trace (<span class="constructor">IO</span>.string_of_file path)
+  <span class="keyword">with</span> <span class="constructor">Error</span> <span class="string">"empty string"</span> <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Error</span> <span class="string">"empty file"</span>)</code></body></html>

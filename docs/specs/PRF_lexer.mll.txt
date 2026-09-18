@@ -36,14 +36,14 @@ let rsep3 = "#3"
 
 
 rule token = parse
-        |hsep                                   { SEP }
-        |fml as s                               { FML s }
-        |rsep0 (rule_name as s)                 { NULLARY_RULE s }
-        |rsep1 (rule_name as s)                 { UNARY_RULE s }
-        |rsep2 (rule_name as s)                 { BINARY_RULE s }
-        |rsep3 (rule_name as s)                 { TRINARY_RULE s }
-        |vsep                                   { token lexbuf }
-        |eof                                    { EOF }
-        |_                                      { token lexbuf }
+  |hsep                                   { SEP }
+  |fml as s                               { FML s }
+  |rsep0 (rule_name as s)                 { NULLARY_RULE s }
+  |rsep1 (rule_name as s)                 { UNARY_RULE s }
+  |rsep2 (rule_name as s)                 { BINARY_RULE s }
+  |rsep3 (rule_name as s)                 { TRINARY_RULE s }
+  |vsep                                   { token lexbuf }
+  |eof                                    { EOF }
+  |_                                      { token lexbuf }
 
 

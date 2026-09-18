@@ -26,7 +26,8 @@
 <link title="Cli" rel="Chapter" href="Cli.html"><title>Natural_deduction : IO.string_of_file</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> string_of_file (path:string):string =
-        <span class="keyword">let</span> ic = open_in path <span class="keyword">in</span>
-        <span class="keyword">let</span> s = <span class="constructor">In_channel</span>.input_all ic <span class="keyword">in</span>
-        <span class="keyword">let</span> _ = close_in ic <span class="keyword">in</span> s</code></body></html>
+<code class="code"><span class="keyword">let</span> string_of_file (path : string) : string =
+  <span class="keyword">let</span> ic = open_in path <span class="keyword">in</span>
+  <span class="keyword">let</span> s = <span class="constructor">In_channel</span>.input_all ic <span class="keyword">in</span>
+  <span class="keyword">let</span> _ = close_in ic <span class="keyword">in</span>
+  s</code></body></html>

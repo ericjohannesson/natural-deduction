@@ -26,13 +26,14 @@
 <link title="Cli" rel="Chapter" href="Cli.html"><title>Natural_deduction : FML_main.fml_is_fml_with_var_replaced_by_term</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> fml_is_fml_with_var_replaced_by_term (inst : t_fml) (fml : t_fml) (var : t_var) : t_term option =
-        <span class="keyword">let</span> <span class="keyword">rec</span> aux (term_list : t_term list) : t_term option =
-                <span class="keyword">match</span> term_list <span class="keyword">with</span>
-                <span class="keywordsign">|</span>[] <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
-                <span class="keywordsign">|</span>hd::tl <span class="keywordsign">-&gt;</span> 
-                        <span class="keyword">match</span> inst = subst_in_fml var hd fml <span class="keyword">with</span>
-                        <span class="keywordsign">|</span><span class="keyword">true</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> hd
-                        <span class="keywordsign">|</span><span class="keyword">false</span> <span class="keywordsign">-&gt;</span> aux tl
-        <span class="keyword">in</span>
-        aux (closed_terms_of_fml inst)</code></body></html>
+<code class="code"><span class="keyword">let</span> fml_is_fml_with_var_replaced_by_term (inst : t_fml) (fml : t_fml)
+    (var : t_var) : t_term option =
+  <span class="keyword">let</span> <span class="keyword">rec</span> aux (term_list : t_term list) : t_term option =
+    <span class="keyword">match</span> term_list <span class="keyword">with</span>
+    <span class="keywordsign">|</span> [] <span class="keywordsign">-&gt;</span> <span class="constructor">None</span>
+    <span class="keywordsign">|</span> hd :: tl <span class="keywordsign">-&gt;</span> (
+        <span class="keyword">match</span> inst = subst_in_fml var hd fml <span class="keyword">with</span>
+        <span class="keywordsign">|</span> <span class="keyword">true</span> <span class="keywordsign">-&gt;</span> <span class="constructor">Some</span> hd
+        <span class="keywordsign">|</span> <span class="keyword">false</span> <span class="keywordsign">-&gt;</span> aux tl)
+  <span class="keyword">in</span>
+  aux (closed_terms_of_fml inst)</code></body></html>

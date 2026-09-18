@@ -48,15 +48,11 @@
 <span class="comment">(*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*)</span><br>
 <span class="comment">(*&nbsp;*************************************************************************&nbsp;*)</span><br>
 <br>
-</code><table><tr><td></td><td><span class="comment">(**
-The abstract type of definitions and proofs (items).
-*)</span></td></tr></table><code class="code"><br>
+</code><table><tr><td></td><td><span class="comment">(** The abstract type of definitions and proofs (items). *)</span></td></tr></table><code class="code"><br>
 <br>
-<span class="keyword">type</span>&nbsp;t_itm&nbsp;=&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Def_fml</span>&nbsp;<span class="keyword">of</span>&nbsp;(<span class="constructor">FML_types</span>.t_fml&nbsp;*&nbsp;<span class="constructor">FML_types</span>.t_fml)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Def_prf</span>&nbsp;<span class="keyword">of</span>&nbsp;(<span class="constructor">PRF_types</span>.t_prf&nbsp;*&nbsp;<span class="constructor">PRF_types</span>.t_prf)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Prf</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">PRF_types</span>.t_prf<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span><span class="constructor">Comment</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
-<br>
-<br>
+<span class="keyword">type</span>&nbsp;t_itm&nbsp;=<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Def_fml</span>&nbsp;<span class="keyword">of</span>&nbsp;(<span class="constructor">FML_types</span>.t_fml&nbsp;*&nbsp;<span class="constructor">FML_types</span>.t_fml)<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Def_prf</span>&nbsp;<span class="keyword">of</span>&nbsp;(<span class="constructor">PRF_types</span>.t_prf&nbsp;*&nbsp;<span class="constructor">PRF_types</span>.t_prf)<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Prf</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">PRF_types</span>.t_prf<br>
+&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Comment</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
 </code></body></html>

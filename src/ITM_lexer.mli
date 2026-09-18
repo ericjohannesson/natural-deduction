@@ -20,9 +20,8 @@
 (*                                                                           *)
 (* ************************************************************************* *)
 
-(** Lexer for parsing deinitions and proofs (items).
-Generated from {{:specs/ITM_lexer.mll.txt}ITM_lexer.mll} with ocamllex. *)
+(** Lexer for parsing deinitions and proofs (items). Generated from
+    {{:specs/ITM_lexer.mll.txt}ITM_lexer.mll} with ocamllex. *)
 
 val line_of_lexbuf : Stdlib.Lexing.lexbuf -> int
-
 val token : Stdlib.Lexing.lexbuf -> ITM_parser.token

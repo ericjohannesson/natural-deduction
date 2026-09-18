@@ -28,10 +28,10 @@
 <link title="ITM_lexer" rel="Chapter" href="ITM_lexer.html">
 <link title="ITM_main" rel="Chapter" href="ITM_main.html">
 <link title="Main" rel="Chapter" href="Main.html">
-<link title="Cli" rel="Chapter" href="Cli.html"><link title="Utf8-segmentation " rel="Section" href="#2_Utf8segmentation">
-<link title="Automaton " rel="Section" href="#2_Automaton">
-<link title="Lexer " rel="Section" href="#2_Lexer">
-<link title="Parser " rel="Section" href="#2_Parser">
+<link title="Cli" rel="Chapter" href="Cli.html"><link title="Utf8-segmentation" rel="Section" href="#2_Utf8segmentation">
+<link title="Automaton" rel="Section" href="#2_Automaton">
+<link title="Lexer" rel="Section" href="#2_Lexer">
+<link title="Parser" rel="Section" href="#2_Parser">
 <title>Natural_deduction : PRF_sequencer</title>
 </head>
 <body>
@@ -43,23 +43,27 @@
 
 <pre><span id="MODULEPRF_sequencer"><span class="keyword">module</span> PRF_sequencer</span>: <code class="code"><span class="keyword">sig</span></code> <a href="PRF_sequencer.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
 <div class="info-desc">
-<p>For mapping two-dimensional natural deduction proof trees onto one-dimensional proof sequences of type <a href="PRF_sequencer.html#TYPEt_prf_seq"><code class="code"><span class="constructor">PRF_sequencer</span>.t_prf_seq</code></a>.</p>
+<p>For mapping two-dimensional natural deduction proof trees onto
+    one-dimensional proof sequences of type <a href="PRF_sequencer.html#TYPEt_prf_seq"><code class="code"><span class="constructor">PRF_sequencer</span>.t_prf_seq</code></a>.</p>
 </div>
 </div>
 <hr width="100%">
-<h3 id="2_Utf8segmentation">Utf8-segmentation </h3>
+<h3 id="2_Utf8segmentation">Utf8-segmentation</h3>
 <pre><span id="VALmatrix_of_string"><span class="keyword">val</span> <a href="code_VALPRF_sequencer.matrix_of_string.html">matrix_of_string</a></span> : <code class="type">string -&gt; string array array</code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">matrix_of_string&nbsp;s</code> forms rows by splitting <code class="code">s</code> on character <code class="code"><span class="string">'\n'</span></code>, forms columns by applying <a href="UTF8_segmenter.html#VALutf_8_grapheme_clusters"><code class="code"><span class="constructor">UTF8_segmenter</span>.utf_8_grapheme_clusters</code></a> to each row, and converts the result to arrays.</p>
+<p><code class="code">matrix_of_string&nbsp;s</code> forms rows by splitting <code class="code">s</code> on character <code class="code"><span class="string">'\n'</span></code>, forms
+    columns by applying <a href="UTF8_segmenter.html#VALutf_8_grapheme_clusters"><code class="code"><span class="constructor">UTF8_segmenter</span>.utf_8_grapheme_clusters</code></a> to each
+    row, and converts the result to arrays.</p>
 </div>
 </div>
 
 <pre><span id="VALmatrix_of_file"><span class="keyword">val</span> <a href="code_VALPRF_sequencer.matrix_of_file.html">matrix_of_file</a></span> : <code class="type">string -&gt; string array array</code></pre><div class="info ">
 <div class="info-desc">
-<p>Same as <code class="code">matrix_of_string</code>, but reads string from file located at the provided path.</p>
+<p>Same as <code class="code">matrix_of_string</code>, but reads string from file located at the
+    provided path.</p>
 </div>
 </div>
-<h3 id="2_Automaton">Automaton </h3>
+<h3 id="2_Automaton">Automaton</h3>
 <pre><code><span id="TYPEt_state"><span class="keyword">type</span> <code class="type"></code>t_state</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
@@ -215,10 +219,11 @@
 
 <pre><span id="EXCEPTIONAutomaton_error"><span class="keyword">exception</span> Automaton_error</span> <span class="keyword">of</span> <code class="type"><a href="PRF_sequencer.html#TYPEt_state">t_state</a></code></pre>
 
-<pre><span id="VALdefault_automaton"><span class="keyword">val</span> <a href="code_VALPRF_sequencer.default_automaton.html">default_automaton</a></span> : <code class="type"><a href="PRF_sequencer.html#TYPEt_automaton">t_automaton</a></code></pre><h3 id="2_Lexer">Lexer </h3>
+<pre><span id="VALdefault_automaton"><span class="keyword">val</span> <a href="code_VALPRF_sequencer.default_automaton.html">default_automaton</a></span> : <code class="type"><a href="PRF_sequencer.html#TYPEt_automaton">t_automaton</a></code></pre><h3 id="2_Lexer">Lexer</h3>
 <pre><span id="VALlexer_of_matrix"><span class="keyword">val</span> <a href="code_VALPRF_sequencer.lexer_of_matrix.html">lexer_of_matrix</a></span> : <code class="type">?print_trace:bool -&gt;<br>       ?automaton:<a href="PRF_sequencer.html#TYPEt_automaton">t_automaton</a> -&gt;<br>       string array array -&gt; <a href="PRF_sequencer.html#TYPEt_token">t_token</a> list</code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">lexer_of_matrix&nbsp;m</code> evaluates to <code class="code">lexer_of_matrix&nbsp;~print_trace:<span class="keyword">false</span>&nbsp;~automaton:default_automaton&nbsp;m</code>.</p>
+<p><code class="code">lexer_of_matrix&nbsp;m</code> evaluates to
+    <code class="code">lexer_of_matrix&nbsp;~print_trace:<span class="keyword">false</span>&nbsp;~automaton:default_automaton&nbsp;m</code>.</p>
 </div>
 </div>
 
@@ -233,7 +238,7 @@
 <p><code class="code">lexer_of_file&nbsp;path</code> evaluates to <code class="code">lexer_of_matrix&nbsp;(matrix_of_file&nbsp;path)</code>.</p>
 </div>
 </div>
-<h3 id="2_Parser">Parser </h3>
+<h3 id="2_Parser">Parser</h3>
 <pre><code><span id="TYPEt_prf_seq"><span class="keyword">type</span> <code class="type"></code>t_prf_seq</span> = </code></pre><table class="typetable">
 <tr>
 <td align="left" valign="top" >
@@ -248,28 +253,38 @@
 <pre><span id="VALstring_of_token"><span class="keyword">val</span> <a href="code_VALPRF_sequencer.string_of_token.html">string_of_token</a></span> : <code class="type"><a href="PRF_sequencer.html#TYPEt_token">t_token</a> -&gt; string</code></pre><div class="info ">
 <div class="info-desc">
 <p><code class="code">string_of_token&nbsp;token</code> evaluates to</p>
-<pre class="codepre"><code class="code">        <span class="keyword">match</span> token <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">FML_LETTER</span> s <span class="keywordsign">-&gt;</span> s
-        <span class="keywordsign">|</span><span class="constructor">RULE_LETTER</span> s <span class="keywordsign">-&gt;</span> s
-        <span class="keywordsign">|</span><span class="constructor">HSEP</span> <span class="keywordsign">-&gt;</span> <span class="string">";"</span>
-        <span class="keywordsign">|</span><span class="constructor">RSEP</span> n <span class="keywordsign">-&gt;</span> <span class="string">"#"</span> ^ (string_of_int n)
-        <span class="keywordsign">|</span><span class="constructor">VSEP</span> <span class="keywordsign">-&gt;</span> <span class="string">":"</span>
-</code></pre></div>
+<pre class="codepre"><code class="code">    <span class="keyword">match</span> token <span class="keyword">with</span>
+    <span class="keywordsign">|</span> <span class="constructor">FML_LETTER</span> s <span class="keywordsign">-&gt;</span> s
+    <span class="keywordsign">|</span> <span class="constructor">RULE_LETTER</span> s <span class="keywordsign">-&gt;</span> s
+    <span class="keywordsign">|</span> <span class="constructor">HSEP</span> <span class="keywordsign">-&gt;</span> <span class="string">";"</span>
+    <span class="keywordsign">|</span> <span class="constructor">RSEP</span> n <span class="keywordsign">-&gt;</span> <span class="string">"#"</span> ^ string_of_int n
+    <span class="keywordsign">|</span> <span class="constructor">VSEP</span> <span class="keywordsign">-&gt;</span> <span class="string">":"</span>
+    </code></pre></div>
 </div>
 
 <pre><span id="VALprf_seq_of_string"><span class="keyword">val</span> <a href="code_VALPRF_sequencer.prf_seq_of_string.html">prf_seq_of_string</a></span> : <code class="type">?print_trace:bool -&gt; string -&gt; <a href="PRF_sequencer.html#TYPEt_prf_seq">t_prf_seq</a></code></pre><div class="info ">
 <div class="info-desc">
-<p><code class="code">prf_seq_of_string&nbsp;prf_tree</code> evaluates to <code class="code"><span class="constructor">Prf_seq</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;(<span class="constructor">List</span>.map&nbsp;string_of_token&nbsp;(lexer_of_string&nbsp;s)))</code>.</p>
+<p><code class="code">prf_seq_of_string&nbsp;prf_tree</code> evaluates to
+    <code class="code"><span class="constructor">Prf_seq</span>&nbsp;(<span class="constructor">String</span>.concat&nbsp;<span class="string">""</span>&nbsp;(<span class="constructor">List</span>.map&nbsp;string_of_token&nbsp;(lexer_of_string&nbsp;s)))</code>.</p>
 
-<p>If <code class="code">prf_tree</code> is a string conforming to the grammar roughly specified in <a href="specs/grammar/prf_tree.txt">prf_tree.txt</a>, then <code class="code">prf_seq_of_string&nbsp;prf_tree</code> evaluates to <code class="code"><span class="constructor">Prf_seq</span>&nbsp;prf_seq</code>, where <code class="code">prf_seq</code> is a string conforming to the grammar specified in <a href="specs/grammar/prf_seq.txt">prf_seq.txt</a>, and otherwise to <code class="code">prf_seq_of_string&nbsp;~print_trace:<span class="keyword">true</span>&nbsp;prf_tree</code>.</p>
+<p>If <code class="code">prf_tree</code> is a string conforming to the grammar roughly specified in
+    <a href="specs/grammar/prf_tree.txt">prf_tree.txt</a>, then
+    <code class="code">prf_seq_of_string&nbsp;prf_tree</code> evaluates to <code class="code"><span class="constructor">Prf_seq</span>&nbsp;prf_seq</code>, where <code class="code">prf_seq</code>
+    is a string conforming to the grammar specified in
+    <a href="specs/grammar/prf_seq.txt">prf_seq.txt</a>, and otherwise to
+    <code class="code">prf_seq_of_string&nbsp;~print_trace:<span class="keyword">true</span>&nbsp;prf_tree</code>.</p>
 
-<p><code class="code">prf_seq_of_string&nbsp;~print_trace:<span class="keyword">true</span>&nbsp;prf_tree</code> evaluates to the same thing, but prints the trace of <a href="PRF_sequencer.html#VALdefault_automaton"><code class="code"><span class="constructor">PRF_sequencer</span>.default_automaton</code></a> to stderr, and raises exception <code class="code"><span class="constructor">Automaton_error</span>&nbsp;state</code> if <code class="code">prf_tree</code> does not conform to the grammar.</p>
+<p><code class="code">prf_seq_of_string&nbsp;~print_trace:<span class="keyword">true</span>&nbsp;prf_tree</code> evaluates to the same thing,
+    but prints the trace of <a href="PRF_sequencer.html#VALdefault_automaton"><code class="code"><span class="constructor">PRF_sequencer</span>.default_automaton</code></a> to stderr, and raises
+    exception <code class="code"><span class="constructor">Automaton_error</span>&nbsp;state</code> if <code class="code">prf_tree</code> does not conform to the
+    grammar.</p>
 </div>
 </div>
 
 <pre><span id="VALprf_seq_of_file"><span class="keyword">val</span> <a href="code_VALPRF_sequencer.prf_seq_of_file.html">prf_seq_of_file</a></span> : <code class="type">?print_trace:bool -&gt; string -&gt; <a href="PRF_sequencer.html#TYPEt_prf_seq">t_prf_seq</a></code></pre><div class="info ">
 <div class="info-desc">
-<p>Same as <a href="PRF_sequencer.html#VALprf_seq_of_string"><code class="code"><span class="constructor">PRF_sequencer</span>.prf_seq_of_string</code></a>, but reads from the file located at the provided path.</p>
+<p>Same as <a href="PRF_sequencer.html#VALprf_seq_of_string"><code class="code"><span class="constructor">PRF_sequencer</span>.prf_seq_of_string</code></a>, but reads from the file located at the
+    provided path.</p>
 </div>
 </div>
 </body></html>

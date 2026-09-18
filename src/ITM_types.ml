@@ -20,14 +20,10 @@
 (*                                                                           *)
 (* ************************************************************************* *)
 
-(**
-The abstract type of definitions and proofs (items).
-*)
+(** The abstract type of definitions and proofs (items). *)
 
-type t_itm = 
-        |Def_fml of (FML_types.t_fml * FML_types.t_fml)
-        |Def_prf of (PRF_types.t_prf * PRF_types.t_prf)
-        |Prf of PRF_types.t_prf
-        |Comment of string
-
-
+type t_itm =
+  | Def_fml of (FML_types.t_fml * FML_types.t_fml)
+  | Def_prf of (PRF_types.t_prf * PRF_types.t_prf)
+  | Prf of PRF_types.t_prf
+  | Comment of string

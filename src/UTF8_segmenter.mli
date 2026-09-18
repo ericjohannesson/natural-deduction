@@ -20,14 +20,13 @@
 (*                                                                           *)
 (* ************************************************************************* *)
 
-(** For splitting strings into utf-8 grapheme clusters. Uses {{:https://erratique.ch/software/uuseg}Uuseg}. *)
+(** For splitting strings into utf-8 grapheme clusters. Uses
+    {{:https://erratique.ch/software/uuseg}Uuseg}. *)
 
 val utf_8_segments : Uuseg.boundary -> string -> string list
-(**
-Splits a string by {{:https://erratique.ch/software/uuseg/doc/Uuseg/index.html#type-boundary}[Uuseg.boundary]}.
+(** Splits a string by
+    {{:https://erratique.ch/software/uuseg/doc/Uuseg/index.html#type-boundary}[Uuseg.boundary]}.
 *)
 
 val utf_8_grapheme_clusters : string -> string list
-(**
-evaluates to [utf_8_segments `Grapheme_cluster].
-*)
+(** evaluates to [utf_8_segments `Grapheme_cluster]. *)

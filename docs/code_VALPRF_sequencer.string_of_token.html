@@ -27,9 +27,9 @@
 </head>
 <body>
 <code class="code"><span class="keyword">let</span> string_of_token (token : t_token) : string =
-        <span class="keyword">match</span> token <span class="keyword">with</span>
-        <span class="keywordsign">|</span><span class="constructor">FML_LETTER</span> s <span class="keywordsign">-&gt;</span> s
-        <span class="keywordsign">|</span><span class="constructor">RULE_LETTER</span> s <span class="keywordsign">-&gt;</span> s
-        <span class="keywordsign">|</span><span class="constructor">HSEP</span> <span class="keywordsign">-&gt;</span> <span class="string">";"</span>
-        <span class="keywordsign">|</span><span class="constructor">RSEP</span> n <span class="keywordsign">-&gt;</span> <span class="string">"#"</span> ^ (string_of_int n)
-        <span class="keywordsign">|</span><span class="constructor">VSEP</span> <span class="keywordsign">-&gt;</span> <span class="string">":"</span></code></body></html>
+  <span class="keyword">match</span> token <span class="keyword">with</span>
+  <span class="keywordsign">|</span> <span class="constructor">FML_LETTER</span> s <span class="keywordsign">-&gt;</span> s
+  <span class="keywordsign">|</span> <span class="constructor">RULE_LETTER</span> s <span class="keywordsign">-&gt;</span> s
+  <span class="keywordsign">|</span> <span class="constructor">HSEP</span> <span class="keywordsign">-&gt;</span> <span class="string">";"</span>
+  <span class="keywordsign">|</span> <span class="constructor">RSEP</span> n <span class="keywordsign">-&gt;</span> <span class="string">"#"</span> ^ string_of_int n
+  <span class="keywordsign">|</span> <span class="constructor">VSEP</span> <span class="keywordsign">-&gt;</span> <span class="string">":"</span></code></body></html>

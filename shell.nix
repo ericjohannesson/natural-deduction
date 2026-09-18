@@ -7,6 +7,7 @@ let
   ];
   dev_packages = with pkgs; [
     ocamlPackages.utop
+    ocamlformat
     gh
     gh-markdown-preview
   ];

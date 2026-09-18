@@ -20,7 +20,7 @@
 (*                                                                           *)
 (* ************************************************************************* *)
 
-let _ : unit = 
-        let arg_array : string array = Sys.argv in
-        let arg_list : string list = Array.to_list arg_array in
-        Natural_deduction.Cli.execute_arg_list arg_list
+let _ : unit =
+  let arg_array : string array = Sys.argv in
+  let arg_list : string list = Array.to_list arg_array in
+  Natural_deduction.Cli.execute_arg_list arg_list

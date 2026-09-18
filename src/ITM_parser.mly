@@ -22,16 +22,16 @@ open PRF_types
 open ITM_types
 
 let prf_of_string (s : string) =
-        PRF_main.prf_of_string s
+  PRF_main.prf_of_string s
 
 let fml_of_string (s : string) =
-        FML_main.fml_of_string s
+  FML_main.fml_of_string s
 
 %}
 
 
-%token                                  EOF
-%token <string>                         FML PRF DEF COMMENT
+%token EOF
+%token <string> FML PRF DEF COMMENT
 
 %type <ITM_types.t_itm list> main
 %start main
@@ -39,43 +39,43 @@ let fml_of_string (s : string) =
 
 %%
 main:
-        |items EOF                              { $1 : t_itm list }
-        |EOF                                    { [] : t_itm list }
+  |items EOF                      { $1 : t_itm list }
+  |EOF                            { [] : t_itm list }
 ;
 
 items:
-        |item                                   { ($1::[]) : t_itm list } 
-        |item items                             { ($1 :: $2) : t_itm list }
+  |item                           { ($1::[]) : t_itm list } 
+  |item items                     { ($1 :: $2) : t_itm list }
 ;
 
 item:
-        |prf                                    { Prf $1 : t_itm }
-        |def_fml                                { Def_fml $1 : t_itm }
-        |def_prf                                { Def_prf $1 : t_itm }
-        |comment                                { Comment $1 : t_itm }
+  |prf                            { Prf $1 : t_itm }
+  |def_fml                        { Def_fml $1 : t_itm }
+  |def_prf                        { Def_prf $1 : t_itm }
+  |comment                        { Comment $1 : t_itm }
 ;
 
 def_fml:
-        |def fml                                { (fml_of_string $1, $2) : t_fml * t_fml }
+  |def fml                        { (fml_of_string $1, $2) : t_fml * t_fml }
 ;
 
 def_prf:
-        |def prf                                { (prf_of_string $1, $2) : t_prf * t_prf }
+  |def prf                        { (prf_of_string $1, $2) : t_prf * t_prf }
 ;
 
 def:
-        |DEF                                    { $1 : string }
+  |DEF                            { $1 : string }
 ;
 
 fml:
-        |FML                                    { fml_of_string $1 : t_fml }
+  |FML                            { fml_of_string $1 : t_fml }
 ;
 
 prf:
-        |PRF                                    { prf_of_string $1 : t_prf }
+  |PRF                            { prf_of_string $1 : t_prf }
 ;
 
 comment:
-        |COMMENT                                { $1 : string }
+  |COMMENT                        { $1 : string }
 ;
 

@@ -26,63 +26,133 @@
 <link title="Cli" rel="Chapter" href="Cli.html"><title>Natural_deduction : Main.expand_and_validate_file</title>
 </head>
 <body>
-<code class="code"><span class="keyword">let</span> expand_and_validate_file ?(options = default_options) (path : string) : unit =
-        <span class="keyword">let</span> exp_items : t_itm list = <span class="constructor">ITM_main</span>.expand_file path <span class="keyword">in</span>
-        <span class="keyword">let</span> map (item : t_itm) : string =
-                <span class="keyword">match</span> item <span class="keyword">with</span>
-                <span class="keywordsign">|</span><span class="constructor">Prf</span> prf <span class="keywordsign">-&gt;</span> (
-                        <span class="keyword">match</span> validate_prf ~options:options prf <span class="keyword">with</span>
-                        <span class="keywordsign">|</span><span class="constructor">Some</span> valid_prf <span class="keywordsign">-&gt;</span> 
-                                <span class="keyword">let</span> premises : t_fml list = premises_of_prf [] valid_prf <span class="keyword">in</span>
-                                <span class="keyword">let</span> conclusion : t_fml = conclusion_of_prf valid_prf <span class="keyword">in</span>
-                                <span class="keyword">let</span> premises_string : string = string_of_premises premises <span class="keyword">in</span>
-                                <span class="keyword">let</span> conclusion_string : string = string_of_fml conclusion <span class="keyword">in</span>
-                                <span class="keyword">let</span> proves_string : string = <span class="constructor">String</span>.concat <span class="string">" "</span> [premises_string; turnstile_of_options options; conclusion_string] <span class="keyword">in</span>
-                                <span class="keyword">let</span> report_string : string = <span class="constructor">String</span>.concat <span class="string">""</span> [
-                                        <span class="string">"\n"</span>; <span class="string">"# Proof is VALID"</span>;qualification_of_options options;<span class="string">"."</span>; <span class="string">"\n"</span>;
-                                        <span class="string">"# PROVES "</span>; proves_string; <span class="string">".\n"</span>;
-                                ] 
-                                <span class="keyword">in</span>
-                                <span class="constructor">String</span>.concat <span class="string">"\n"</span> [<span class="constructor">ITM_main</span>.string_of_item (<span class="constructor">Prf</span> valid_prf);report_string]
-                        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> 
-                                <span class="keyword">let</span> premises : t_fml list = premises_of_prf [] prf <span class="keyword">in</span>
-                                <span class="keyword">let</span> conclusion : t_fml = conclusion_of_prf prf <span class="keyword">in</span>
-                                <span class="keyword">let</span> premises_string : string = string_of_premises premises <span class="keyword">in</span>
-                                <span class="keyword">let</span> conclusion_string : string = string_of_fml conclusion <span class="keyword">in</span>
-                                <span class="keyword">let</span> proves_string : string = <span class="constructor">String</span>.concat <span class="string">" "</span> [premises_string; turnstile_of_options options; conclusion_string] <span class="keyword">in</span>
-                                <span class="keyword">let</span> report_string : string = <span class="constructor">String</span>.concat <span class="string">""</span> [
-                                        <span class="string">"\n"</span>; <span class="string">"# Proof is NOT valid"</span>;qualification_of_options options;<span class="string">"."</span>;<span class="string">"\n"</span>;
-                                        <span class="string">"# Does NOT prove "</span>; proves_string; <span class="string">".\n"</span>;
-                                ]
-                                <span class="keyword">in</span>
-                                <span class="constructor">String</span>.concat <span class="string">"\n"</span> [<span class="constructor">ITM_main</span>.string_of_item (<span class="constructor">Prf</span> prf);report_string]
-                )       
-                <span class="keywordsign">|</span><span class="constructor">Def_prf</span> (p, prf) <span class="keywordsign">-&gt;</span> (
-                        <span class="keyword">match</span> validate_prf ~options:options prf <span class="keyword">with</span>
-                        <span class="keywordsign">|</span><span class="constructor">Some</span> valid_prf <span class="keywordsign">-&gt;</span> 
-                                <span class="keyword">let</span> premises : t_fml list = premises_of_prf [] valid_prf <span class="keyword">in</span>
-                                <span class="keyword">let</span> conclusion : t_fml = conclusion_of_prf valid_prf <span class="keyword">in</span>
-                                <span class="keyword">let</span> premises_string : string = string_of_premises premises <span class="keyword">in</span>
-                                <span class="keyword">let</span> conclusion_string : string = string_of_fml conclusion <span class="keyword">in</span>
-                                <span class="keyword">let</span> proves_string : string = <span class="constructor">String</span>.concat <span class="string">" "</span> [premises_string; turnstile_of_options options; conclusion_string] <span class="keyword">in</span>
-                                <span class="keyword">let</span> report_string : string = <span class="constructor">String</span>.concat <span class="string">""</span> [
-                                        <span class="string">"\n"</span>; <span class="string">"# "</span>;string_of_prf p;<span class="string">" is VALID"</span>;qualification_of_options options;<span class="string">"."</span>; <span class="string">"\n"</span>;
-                                        <span class="string">"# PROVES "</span>; proves_string; <span class="string">".\n"</span>;
-                                ] 
-                                <span class="keyword">in</span>
-                                <span class="constructor">String</span>.concat <span class="string">"\n"</span> [<span class="constructor">ITM_main</span>.string_of_item (<span class="constructor">Def_prf</span> (p,valid_prf));report_string]
-                        <span class="keywordsign">|</span><span class="constructor">None</span> <span class="keywordsign">-&gt;</span> 
-                                <span class="keyword">let</span> premises : t_fml list = premises_of_prf [] prf <span class="keyword">in</span>
-                                <span class="keyword">let</span> conclusion : t_fml = conclusion_of_prf prf <span class="keyword">in</span>
-                                <span class="keyword">let</span> premises_string : string = string_of_premises premises <span class="keyword">in</span>
-                                <span class="keyword">let</span> conclusion_string : string = string_of_fml conclusion <span class="keyword">in</span>
-                                <span class="keyword">let</span> proves_string : string = <span class="constructor">String</span>.concat <span class="string">" "</span> [premises_string; turnstile_of_options options; conclusion_string] <span class="keyword">in</span>
-                                <span class="keyword">let</span> report_string : string = <span class="constructor">String</span>.concat <span class="string">""</span> [
-                                        <span class="string">"\n"</span>; <span class="string">"# "</span>;string_of_prf p;<span class="string">" is NOT valid"</span>;qualification_of_options options;<span class="string">"."</span>;<span class="string">"\n"</span>;
-                                        <span class="string">"# Does NOT prove "</span>; proves_string; <span class="string">".\n"</span>;
-                                ]
-                                <span class="keyword">in</span>
-                                <span class="constructor">String</span>.concat <span class="string">"\n"</span> [<span class="constructor">ITM_main</span>.string_of_item (<span class="constructor">Def_prf</span> (p, prf));report_string]
-                )
-                <span class="keywordsign">|</span><span class="constructor">Def_fml</span> _ <span class="keywordsign">|</span> <span class="constructor">Comment</span> _ <span class="keywordsign">-&gt;</span> <span class="constructor">ITM_main</span>.string_of_item item
-        <span class="keyword">in</span> <span class="constructor">IO</span>.print_to_stdout (<span class="constructor">String</span>.concat <span class="string">"\n\n"</span> (<span class="constructor">List</span>.map map exp_items))</code></body></html>
+<code class="code"><span class="keyword">let</span> expand_and_validate_file ?(options = default_options) (path : string) : unit
+    =
+  <span class="keyword">let</span> exp_items : t_itm list = <span class="constructor">ITM_main</span>.expand_file path <span class="keyword">in</span>
+  <span class="keyword">let</span> map (item : t_itm) : string =
+    <span class="keyword">match</span> item <span class="keyword">with</span>
+    <span class="keywordsign">|</span> <span class="constructor">Prf</span> prf <span class="keywordsign">-&gt;</span> (
+        <span class="keyword">match</span> validate_prf ~options prf <span class="keyword">with</span>
+        <span class="keywordsign">|</span> <span class="constructor">Some</span> valid_prf <span class="keywordsign">-&gt;</span>
+            <span class="keyword">let</span> premises : t_fml list = premises_of_prf [] valid_prf <span class="keyword">in</span>
+            <span class="keyword">let</span> conclusion : t_fml = conclusion_of_prf valid_prf <span class="keyword">in</span>
+            <span class="keyword">let</span> premises_string : string = string_of_premises premises <span class="keyword">in</span>
+            <span class="keyword">let</span> conclusion_string : string = string_of_fml conclusion <span class="keyword">in</span>
+            <span class="keyword">let</span> proves_string : string =
+              <span class="constructor">String</span>.concat <span class="string">" "</span>
+                [
+                  premises_string;
+                  turnstile_of_options options;
+                  conclusion_string;
+                ]
+            <span class="keyword">in</span>
+            <span class="keyword">let</span> report_string : string =
+              <span class="constructor">String</span>.concat <span class="string">""</span>
+                [
+                  <span class="string">"\n"</span>;
+                  <span class="string">"# Proof is VALID"</span>;
+                  qualification_of_options options;
+                  <span class="string">"."</span>;
+                  <span class="string">"\n"</span>;
+                  <span class="string">"# PROVES "</span>;
+                  proves_string;
+                  <span class="string">".\n"</span>;
+                ]
+            <span class="keyword">in</span>
+            <span class="constructor">String</span>.concat <span class="string">"\n"</span>
+              [ <span class="constructor">ITM_main</span>.string_of_item (<span class="constructor">Prf</span> valid_prf); report_string ]
+        <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span>
+            <span class="keyword">let</span> premises : t_fml list = premises_of_prf [] prf <span class="keyword">in</span>
+            <span class="keyword">let</span> conclusion : t_fml = conclusion_of_prf prf <span class="keyword">in</span>
+            <span class="keyword">let</span> premises_string : string = string_of_premises premises <span class="keyword">in</span>
+            <span class="keyword">let</span> conclusion_string : string = string_of_fml conclusion <span class="keyword">in</span>
+            <span class="keyword">let</span> proves_string : string =
+              <span class="constructor">String</span>.concat <span class="string">" "</span>
+                [
+                  premises_string;
+                  turnstile_of_options options;
+                  conclusion_string;
+                ]
+            <span class="keyword">in</span>
+            <span class="keyword">let</span> report_string : string =
+              <span class="constructor">String</span>.concat <span class="string">""</span>
+                [
+                  <span class="string">"\n"</span>;
+                  <span class="string">"# Proof is NOT valid"</span>;
+                  qualification_of_options options;
+                  <span class="string">"."</span>;
+                  <span class="string">"\n"</span>;
+                  <span class="string">"# Does NOT prove "</span>;
+                  proves_string;
+                  <span class="string">".\n"</span>;
+                ]
+            <span class="keyword">in</span>
+            <span class="constructor">String</span>.concat <span class="string">"\n"</span>
+              [ <span class="constructor">ITM_main</span>.string_of_item (<span class="constructor">Prf</span> prf); report_string ])
+    <span class="keywordsign">|</span> <span class="constructor">Def_prf</span> (p, prf) <span class="keywordsign">-&gt;</span> (
+        <span class="keyword">match</span> validate_prf ~options prf <span class="keyword">with</span>
+        <span class="keywordsign">|</span> <span class="constructor">Some</span> valid_prf <span class="keywordsign">-&gt;</span>
+            <span class="keyword">let</span> premises : t_fml list = premises_of_prf [] valid_prf <span class="keyword">in</span>
+            <span class="keyword">let</span> conclusion : t_fml = conclusion_of_prf valid_prf <span class="keyword">in</span>
+            <span class="keyword">let</span> premises_string : string = string_of_premises premises <span class="keyword">in</span>
+            <span class="keyword">let</span> conclusion_string : string = string_of_fml conclusion <span class="keyword">in</span>
+            <span class="keyword">let</span> proves_string : string =
+              <span class="constructor">String</span>.concat <span class="string">" "</span>
+                [
+                  premises_string;
+                  turnstile_of_options options;
+                  conclusion_string;
+                ]
+            <span class="keyword">in</span>
+            <span class="keyword">let</span> report_string : string =
+              <span class="constructor">String</span>.concat <span class="string">""</span>
+                [
+                  <span class="string">"\n"</span>;
+                  <span class="string">"# "</span>;
+                  string_of_prf p;
+                  <span class="string">" is VALID"</span>;
+                  qualification_of_options options;
+                  <span class="string">"."</span>;
+                  <span class="string">"\n"</span>;
+                  <span class="string">"# PROVES "</span>;
+                  proves_string;
+                  <span class="string">".\n"</span>;
+                ]
+            <span class="keyword">in</span>
+            <span class="constructor">String</span>.concat <span class="string">"\n"</span>
+              [
+                <span class="constructor">ITM_main</span>.string_of_item (<span class="constructor">Def_prf</span> (p, valid_prf)); report_string;
+              ]
+        <span class="keywordsign">|</span> <span class="constructor">None</span> <span class="keywordsign">-&gt;</span>
+            <span class="keyword">let</span> premises : t_fml list = premises_of_prf [] prf <span class="keyword">in</span>
+            <span class="keyword">let</span> conclusion : t_fml = conclusion_of_prf prf <span class="keyword">in</span>
+            <span class="keyword">let</span> premises_string : string = string_of_premises premises <span class="keyword">in</span>
+            <span class="keyword">let</span> conclusion_string : string = string_of_fml conclusion <span class="keyword">in</span>
+            <span class="keyword">let</span> proves_string : string =
+              <span class="constructor">String</span>.concat <span class="string">" "</span>
+                [
+                  premises_string;
+                  turnstile_of_options options;
+                  conclusion_string;
+                ]
+            <span class="keyword">in</span>
+            <span class="keyword">let</span> report_string : string =
+              <span class="constructor">String</span>.concat <span class="string">""</span>
+                [
+                  <span class="string">"\n"</span>;
+                  <span class="string">"# "</span>;
+                  string_of_prf p;
+                  <span class="string">" is NOT valid"</span>;
+                  qualification_of_options options;
+                  <span class="string">"."</span>;
+                  <span class="string">"\n"</span>;
+                  <span class="string">"# Does NOT prove "</span>;
+                  proves_string;
+                  <span class="string">".\n"</span>;
+                ]
+            <span class="keyword">in</span>
+            <span class="constructor">String</span>.concat <span class="string">"\n"</span>
+              [ <span class="constructor">ITM_main</span>.string_of_item (<span class="constructor">Def_prf</span> (p, prf)); report_string ])
+    <span class="keywordsign">|</span> <span class="constructor">Def_fml</span> _ <span class="keywordsign">|</span> <span class="constructor">Comment</span> _ <span class="keywordsign">-&gt;</span> <span class="constructor">ITM_main</span>.string_of_item item
+  <span class="keyword">in</span>
+  <span class="constructor">IO</span>.print_to_stdout (<span class="constructor">String</span>.concat <span class="string">"\n\n"</span> (<span class="constructor">List</span>.map map exp_items))</code></body></html>
