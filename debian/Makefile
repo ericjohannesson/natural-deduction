@@ -13,7 +13,7 @@ clean:
 	git clean -fdX
 
 package = natural-deduction
-version = 0
+version = 1
 release = 0
 architecture = $(shell bash get-architecture.sh)
 maintainer = Eric Johannesson <eric@ericjohannesson.com>

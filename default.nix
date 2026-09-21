@@ -5,7 +5,7 @@
 }:
 pkgs.stdenv.mkDerivation {
   pname = "natural-deduction";
-  version = "0";
+  version = "1";
   src = ./.;
   buildInputs = with pkgs; [
     ocaml
