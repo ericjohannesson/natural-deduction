@@ -31,8 +31,8 @@
     <span class="keyword">match</span> arg_list <span class="keyword">with</span>
     <span class="keywordsign">|</span> _ :: tl <span class="keywordsign">-&gt;</span> (
         <span class="keyword">match</span> tl <span class="keyword">with</span>
-        <span class="keywordsign">|</span> <span class="string">"help"</span> :: [] <span class="keywordsign">-&gt;</span> <span class="constructor">IO</span>.print_to_stdout (manual ())
-        <span class="keywordsign">|</span> <span class="string">"help"</span> :: tl <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Invalid_argument</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> tl))
+        <span class="keywordsign">|</span> <span class="string">"--help"</span> :: [] <span class="keywordsign">-&gt;</span> <span class="constructor">IO</span>.print_to_stdout (manual ())
+        <span class="keywordsign">|</span> <span class="string">"--help"</span> :: tl <span class="keywordsign">-&gt;</span> raise (<span class="constructor">Invalid_argument</span> (<span class="constructor">String</span>.concat <span class="string">" "</span> tl))
         <span class="keywordsign">|</span> option_list_path <span class="keywordsign">-&gt;</span> (
             <span class="keyword">let</span> default_options : <span class="constructor">Main</span>.t_options =
               {

@@ -22,93 +22,63 @@
 
 let synopsis () : string =
   "USAGE:
-  natural-deduction [ <options> ] <path-to-file>
-  natural-deduction help"
+  natural-deduction [OPTIONS] FILE
+  natural-deduction --help"
 
 let help_nd () : string =
   "USAGE:
+  natural-deduction [OPTIONS] FILE
 
-  natural-deduction [ <options> ] <path-to-file>
+      Expands proofs in FILE according to definitions in FILE and checks
+      validity of each expanded proof according to OPTIONS.
 
-        Expands proofs in file according to definitions in file and checks
-        validity of each expanded proof according to options.
-
-        Prints a report to stdout."
+      Prints a report to stdout."
 
 let help_options () : string =
   "  OPTIONS:
-
     --discharge, -d
-
-        Checks a version of the proof where all dischargeable assumptions are
-        discharged.
+      Checks a version of the proof where all dischargeable assumptions are
+      discharged.
 
     --undischarge, -u
-
-        Checks a version of the proof where all non-dischargeable assumptions
-        are undischarged.
+      Checks a version of the proof where all non-dischargeable assumptions
+      are undischarged.
 
     --intuitionistic, -i
-
-        Uses EFQ (ex falso quodlibet) instead of negation elimination.
+      Uses EFQ (ex falso quodlibet) instead of negation elimination.
 
     --minimal, -m
-
-        Uses neither EFQ nor negation elimination.
+      Uses neither EFQ nor negation elimination.
 
     --verbose, -v
-
-        Prints information to stderr about discharged assumptions that may not
-        be discharged, undischarged assumptions that may be discharged, and
-        sub-proofs not satisfying the conditions of any inferential rule."
-
-let copyright () : string =
-  "Copyright (C) 2026  Eric Johannesson, eric@ericjohannesson.com"
+      Prints information to stderr about discharged assumptions that may not
+      be discharged, undischarged assumptions that may be discharged, and
+      sub-proofs not satisfying the conditions of any inferential rule."
 
 let manual () : string =
-  String.concat "\n\n" [ help_nd (); help_options (); copyright () ]
+  String.concat "\n\n" [ help_nd (); help_options () ]
 
 let options_of_string (options : Main.t_options) (s : string) : Main.t_options =
   match s with
   | "--verbose" | "-v" ->
-      {
+      { options with
         verbose = true;
-        discharge = options.discharge;
-        undischarge = options.undischarge;
-        logic = options.logic;
-        quiet = options.quiet;
       }
   | "--discharge" | "-d" ->
-      {
-        verbose = options.verbose;
+      { options with
         discharge = true;
-        undischarge = options.undischarge;
-        logic = options.logic;
-        quiet = options.quiet;
       }
   | "--undischarge" | "-u" ->
-      {
-        verbose = options.verbose;
-        discharge = options.discharge;
+      { options with
         undischarge = true;
-        logic = options.logic;
-        quiet = options.quiet;
       }
   | "--intuitionistic" | "-i" ->
-      {
-        verbose = options.verbose;
-        discharge = options.discharge;
-        undischarge = options.undischarge;
+      { options with
         logic = Main.Intuitionistic;
-        quiet = options.quiet;
       }
   | "--minimal" | "-m" ->
-      {
-        verbose = options.verbose;
-        discharge = options.discharge;
-        undischarge = options.undischarge;
+      { options with
         logic = Main.Minimal;
-        quiet = options.quiet;
       }
   | _ -> raise (Invalid_argument s)
 
@@ -123,8 +93,8 @@ let execute_arg_list (arg_list : string list) : unit =
     match arg_list with
     | _ :: tl -> (
         match tl with
-        | "help" :: [] -> IO.print_to_stdout (manual ())
-        | "help" :: tl -> raise (Invalid_argument (String.concat " " tl))
+        | "--help" :: [] -> IO.print_to_stdout (manual ())
+        | "--help" :: tl -> raise (Invalid_argument (String.concat " " tl))
         | option_list_path -> (
             let default_options : Main.t_options =
               {

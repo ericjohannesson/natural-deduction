@@ -6,39 +6,32 @@ A basic proof assistant for natural deduction in first-order logic.
 
 ```
 USAGE:
+  natural-deduction [OPTIONS] FILE
 
-  natural-deduction [ <options> ] <path-to-file>
+      Expands proofs in FILE according to definitions in FILE and checks
+      validity of each expanded proof according to OPTIONS.
 
-        Expands proofs in file according to definitions in file and checks
-        validity of each expanded proof according to options.
-
-        Prints a report to stdout.
+      Prints a report to stdout.
 
   OPTIONS:
-
     --discharge, -d
-
-        Checks a version of the proof where all dischargeable assumptions are
-        discharged.
+      Checks a version of the proof where all dischargeable assumptions are
+      discharged.
 
     --undischarge, -u
-
-        Checks a version of the proof where all non-dischargeable assumptions
-        are undischarged.
+      Checks a version of the proof where all non-dischargeable assumptions
+      are undischarged.
 
     --intuitionistic, -i
-
-        Uses EFQ (ex falso quodlibet) instead of negation elimination.
+      Uses EFQ (ex falso quodlibet) instead of negation elimination.
 
     --minimal, -m
-
-        Uses neither EFQ nor negation elimination.
+      Uses neither EFQ nor negation elimination.
 
     --verbose, -v
-
-        Prints information to stderr about discharged assumptions that may not
-        be discharged, undischarged assumptions that may be discharged, and
-        sub-proofs not satisfying the conditions of any inferential rule.
+      Prints information to stderr about discharged assumptions that may not
+      be discharged, undischarged assumptions that may be discharged, and
+      sub-proofs not satisfying the conditions of any inferential rule.
 ```
 
 ### Examples
